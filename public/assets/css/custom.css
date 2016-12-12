@@ -1,0 +1,109 @@
+.image_remove_btn {
+    width: 350px;
+    height: 40px;
+    font-weight: bold;
+    color: #fff !important; text-decoration:none;
+    background: rgba(168, 67, 67, 1);
+}
+
+
+.add_image_div {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 350px;
+    height: 150px;
+}
+
+.add_image_div_red{
+
+    background: skyblue;
+    padding: 10px 2px 4px 2px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    color: #fff; ;
+    display: inline-block;
+    -webkit-box-shadow: 0px 3px 0px 0px #862f30;
+    -moz-box-shadow: 0px 3px 0px 0px #862f30;
+    box-shadow: 0px 3px 0px 0px #862f30;
+    font-weight: 700;
+    font-size:16px;
+    overflow:auto;
+    text-overflow: ellipsis; text-align:center;
+    line-height:15px;cursor:pointer;
+    background-repeat: no-repeat;
+}
+
+.add_image_div_red:hover{
+    background: rgba(168, 67, 67,0.6);
+    color: #fff !important; text-decoration:none;
+    background-repeat: no-repeat;
+}
+
+
+.ui-multiselect{
+    height: 35px;
+}
+
+.ui-multiselect{
+    width: 343px
+}
+
+.error{
+    color: #ff0000;
+    /*font-weight: bold;*/
+    text-align: left !important;
+}
+
+.detail_visit_vital{
+    background-color: #418DD8 !important;
+    color: #ffffff;
+}
+
+.detail_visit_vital_row{
+    background-color: #f0f3f5;
+}
+
+.circle{
+    color: #5bc0de;
+    font-size: 10px;
+}
+.detailvisit_line_height{
+    line-height: 30px;
+}
+
+.text_box{
+    width: 60px;
+    height: 30px;
+}
+
+
+.text_big_blue {
+    color: blue;
+    font-weight: bold;
+}
+
+.pain_grade{
+    width: 30px;
+}
+
+.text_bold_black{
+    color: black;
+    font-weight: bold;
+}
+
+.page-header{
+    color: black;
+    font-weight: bold;
+}
+
+.api-active-tab{
+    color:white !important;
+    font-weight: bold;
+}
+
+.api-tab{
+    font-weight: bold;
+}
