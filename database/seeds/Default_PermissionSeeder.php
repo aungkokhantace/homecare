@@ -313,15 +313,19 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>306,'module'=>'Import','name'=>'New','description'=>'CSV Import New','url'=>'import'],
             ['id'=>307,'module'=>'Import','name'=>'Store','description'=>'CSV Import Store','url'=>'import/store'],
 
-
+            //Price History
             ['id'=>311,'module'=>'Price History','name'=>'List','description'=>'Price History List Page','url'=>'pricehistory/{type?}/{id?}'],
 
+            //Api List
             ['id'=>321,'module'=>'Api List','name'=>'Sync Down Api Detail','description'=>'Sync Down Api Detail','url'=>'apilist/syncdownapi'],
             ['id'=>322,'module'=>'Api List','name'=>'Invoice Api Detail','description'=>'Invoice Api Detail','url'=>'apilist/invoiceapi'],
             ['id'=>323,'module'=>'Api List','name'=>'Enquiry Api Detail','description'=>'Enquiry Api Detail','url'=>'apilist/enquiryapi'],
             ['id'=>324,'module'=>'Api List','name'=>'Schedule Api Detail','description'=>'Schedule Api Detail','url'=>'apilist/scheduleapi'],
             ['id'=>325,'module'=>'Api List','name'=>'Patientpackage Api Detail','description'=>'Patientpackage Api Detail','url'=>'apilist/patientpackageapi'],
             ['id'=>326,'module'=>'Api List','name'=>'Waytracking Api Detail','description'=>'Waytracking Api Detail','url'=>'apilist/waytrackingapi'],
+
+            //Tablet Issues
+            ['id'=>330,'module'=>'Tablet Issues','name'=>'Tablet Issues','description'=>'Tablet Issues','url'=>'tabletissues/{type?}'],
 
         );
 

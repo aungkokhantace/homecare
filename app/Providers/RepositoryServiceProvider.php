@@ -76,5 +76,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind('App\Api\Waytracking\WaytrackingApiRepositoryInterface','App\Api\Waytracking\WaytrackingApiRepository');
 
         $this->app->bind('App\Api\Schedule\ScheduleApiV2RepositoryInterface','App\Api\Schedule\ScheduleApiV2Repository');
+
+        $this->app->bind('App\Log\TabletIssues\TabletIssuesRepositoryInterface','App\Log\TabletIssues\TabletIssuesRepository');
+        $this->app->bind('App\Api\TabletIssues\TabletIssuesApiRepositoryInterface','App\Api\TabletIssues\TabletIssuesApiRepository');
     }
 }

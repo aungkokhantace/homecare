@@ -339,7 +339,11 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('apilist/patientpackageapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@patientpackageapi'));
         Route::get('apilist/waytrackingapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@waytrackingapi'));
 
+        //Price history
         Route::get('pricehistory/{type?}/{id?}', array('as'=>'pricehistory/{type?}/{id?}','uses'=>'Log\PriceHistoryController@search'));
+
+        //Tablet Issues
+        Route::get('tabletissues/{type?}', array('as'=>'tabletissues/{type?}','uses'=>'Log\TabletIssuesController@search'));
     });
 
     Route::get('enquiry/autocompletepatient', array('as'=>'enquiry/autocompletepatient','uses'=>'Backend\SearchController@autoCompletePatient'));
@@ -438,6 +442,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('invoice/upload/v3', array('as'=>'invoice/upload/v3','uses'=>'Api\InvoiceApiV3Controller@upload'));
     //patient_package upload api
     Route::post('patient_package/upload', array('as'=>'patient_package/upload','uses'=>'Api\PatientPackageApiController@upload'));
+
+    //tablet_issues upload api
+    Route::post('tablet_issues/upload', array('as'=>'tablet_issues/upload','uses'=>'Api\TabletIssuesApiController@upload'));
 });
 
 

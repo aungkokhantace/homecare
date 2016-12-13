@@ -395,6 +395,13 @@
                             <span>Price History</span>
                         </a>
                     </li>
+
+                    <li nav-id="tablet-issues-manage" class="has-sub">
+                        <a href="/tabletissues/all">
+                            <b class="caret pull-right"></b>
+                            <span>Tablet Issues</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             @endif
