@@ -84,9 +84,15 @@ class InvoiceController extends Controller
                 $grandTotalAmount = $invoice->total_nett_amt_wo_disc - $invoice->total_disc_amt;
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoiceDetails = $this->repo->getDetails($id);
-
+                if(isset($invoice->zone_id) && $invoice->zone_id !== 0){
+                    $zoneValue = $invoice->patient->zone->name;
+                }
+                else{
+                    $zoneValue = "";
+                }
                 return view('patient.invoice.invoicedetail')
                     ->with('invoice',$invoice)
+                    ->with('zoneValue',$zoneValue)
                     ->with('invoiceDetails',$invoiceDetails)
                     ->with('grandTotalAmount',$grandTotalAmount);
             }
@@ -107,6 +113,13 @@ class InvoiceController extends Controller
                 $grandTotalAmount = $invoice->total_nett_amt_wo_disc - $invoice->total_disc_amt;
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoiceDetails = $this->repo->getDetails($id);
+
+                if(isset($invoice->zone_id) && $invoice->zone_id !== 0){
+                    $zoneValue = $invoice->patient->zone->name;;
+                }
+                else{
+                    $zoneValue = "";
+                }
 
                 if(isset($invoiceDetails) && count($invoiceDetails)>0){
                     $html = '<h1>Invoice Detail</h1>
@@ -159,7 +172,7 @@ class InvoiceController extends Controller
                              <tr>
                                 <td height="30" width="25%">Zone</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->patient->zone->name.'</td>
+                                <td height="30">'.$zoneValue.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Total Amount</td>
@@ -254,7 +267,7 @@ class InvoiceController extends Controller
                              <tr>
                                 <td height="30" width="25%">Zone</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->patient->zone->name.'</td>
+                                <td height="30">'.$zoneValue.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Total Amount</td>

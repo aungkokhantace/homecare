@@ -129,7 +129,7 @@
             <label>:</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <label>{{$invoice->patient->zone->name}}</label>
+            <label>{{$zoneValue}}</label>
         </div>
     </div>
     <br>
