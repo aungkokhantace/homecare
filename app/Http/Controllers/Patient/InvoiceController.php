@@ -121,8 +121,10 @@ class InvoiceController extends Controller
                     $zoneValue = "";
                 }
 
+                $pdfHeader = Utility::getPDFHeader().'<br>'.'<br>';
+                $html = $pdfHeader;
                 if(isset($invoiceDetails) && count($invoiceDetails)>0){
-                    $html = '<h1>Invoice Detail</h1>
+                    $html .= '<h1>Invoice Detail</h1>
                         <table>
                             <tr>
                                 <td height="30" width="25%">Invoice ID</td>
@@ -216,8 +218,7 @@ class InvoiceController extends Controller
                                 </table>';
                 }
                 else{
-//                    dd($invoice);
-                    $html='<h1>Invoice Detail</h1>
+                    $html.='<h1>Invoice Detail</h1>
                         <table>
                             <tr>
                                 <td height="30" width="25%">Invoice ID</td>
@@ -286,6 +287,7 @@ class InvoiceController extends Controller
                             </tr>
                         </table>';
                 }
+
                 Utility::exportPDF($html);
 
             }
