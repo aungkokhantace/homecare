@@ -132,7 +132,38 @@ class Utility
 
             $syncTable->version = $version++;
             $syncTable->save();
+        }
 
+        // Function call (tableName);
+        Utility::updateSyncsTable_detail($table_name);
+    }
+
+    public static function updateSyncsTable_detail($table_name)
+    {
+        $table_array = array("enquiries"=>"enquiry_detail", "schedules"=>"schedule_detail", "invoices"=>"invoice_detail", "packages"=>"package_detail", "patient_package"=>"patient_package_detail", "zones"=>"zone_detail");
+        if(array_key_exists($table_name,$table_array)){
+            $detail_table_name = $table_array[$table_name];
+            $tempSyncTable = new SyncsTable();
+            $syncTableName = $tempSyncTable->getTable();
+
+            $syncTableObj = DB::table($syncTableName)
+                ->select('*')
+                ->where('table_name', '=', $detail_table_name)
+                ->first();
+
+            if (isset($syncTableObj) && count($syncTableObj) > 0) {
+                $id = $syncTableObj->id;
+                $version = $syncTableObj->version + 1;
+                $syncTable = SyncsTable::find($id);
+                $sessionObj = session('user');
+                if (isset($sessionObj)) {
+                    $userSession = session('user');
+                    $loginUserId = $userSession['id'];
+                    $syncTable->updated_by = $loginUserId;
+                }
+                $syncTable->version = $version++;
+                $syncTable->save();
+            }
         }
     }
 

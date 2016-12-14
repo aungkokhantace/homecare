@@ -27,6 +27,7 @@ interface ScheduleRepositoryInterface
     public function servicesForEachSchedule($scheduleID);
     public function getServiceHistory($id);
     public function getPackageHistory($id);
+    public function getPackageHistoryV2($id);
     public function getScheduleCount($id);
     public function getScheduleStatus();
     public function getScheduleStatusByDate();

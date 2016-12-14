@@ -23,7 +23,7 @@
                     <tr>
                         <td height="20" width="20%">Age/Gender</td>
                         <td height="20" width="5%">-</td>
-                        <td height="20" width="25%">{{isset($age)?$age:''}}/{{isset($patient_gender)? $patient_gender:''}}</td>
+                        <td height="20" width="25%">{{isset($age)?$age['value'].' '.$age['unit']:''}}/{{isset($patient_gender)? $patient_gender:''}}</td>
                         <td height="20" width="20%">Patient Type</td>
                         <td height="20" width="5%">-</td>
                         <td height="20" width="25%">{{$patient_type}}</td>
@@ -65,7 +65,7 @@
                                     @endif
                                 </div>
                             @else
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 allergy_div">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 allergy_div">
                                     <label for="allergy" class='text_big_blue'>No</label>
                                     <br/>
                                 </div>

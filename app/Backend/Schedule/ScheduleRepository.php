@@ -11,6 +11,7 @@ namespace App\Backend\Schedule;
 use App\Backend\Enquiry\EnquiryRepository;
 use App\Backend\Investigation\Investigation;
 use App\Backend\Invoice\Invoice;
+use App\Backend\Packagesale\Packagesale;
 use App\Backend\Provisionaldiagnosis\Provisionaldiagnosis;
 use App\Backend\Scheduledetail\Scheduledetail;
 use App\Log\LogCustom;
@@ -570,6 +571,15 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             ->select('patient_package.package_id as package_id','packages.package_name as package_name','patient_package.sold_date as date')
             ->where('schedules.patient_id','=',$id)
             ->where('schedules.patient_package_id','<>',0)
+            ->get();
+        return $result;
+    }
+
+    public function getPackageHistoryV2($id){
+        $result = Packagesale::
+            leftjoin('packages', 'packages.id', '=', 'patient_package.package_id')
+            ->select('patient_package.package_id as package_id','packages.package_name as package_name','patient_package.sold_date as date')
+            ->where('patient_package.patient_id','=',$id)
             ->get();
         return $result;
     }

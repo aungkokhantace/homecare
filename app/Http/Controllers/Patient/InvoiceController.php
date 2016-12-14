@@ -84,7 +84,11 @@ class InvoiceController extends Controller
                 $grandTotalAmount = $invoice->total_nett_amt_wo_disc - $invoice->total_disc_amt;
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoiceDetails = $this->repo->getDetails($id);
-                return view('patient.invoice.invoicedetail')->with('invoice',$invoice)->with('invoiceDetails',$invoiceDetails)->with('grandTotalAmount',$grandTotalAmount);
+
+                return view('patient.invoice.invoicedetail')
+                    ->with('invoice',$invoice)
+                    ->with('invoiceDetails',$invoiceDetails)
+                    ->with('grandTotalAmount',$grandTotalAmount);
             }
             else{
                 return redirect()->action('Patient\InvoiceController@index')
@@ -100,7 +104,7 @@ class InvoiceController extends Controller
             $result = $this->repo->getObjByID($id);
             if ($result['aceplusStatusCode'] == ReturnMessage::OK){
                 $invoice = $result['result'];
-                $grandTotalAmount = $invoice->total_amount_wo_discount - $invoice->total_consultant_discount_amount;
+                $grandTotalAmount = $invoice->total_nett_amt_wo_disc - $invoice->total_disc_amt;
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoiceDetails = $this->repo->getDetails($id);
 
@@ -135,7 +139,7 @@ class InvoiceController extends Controller
                              <tr>
                                 <td height="30" width="25%">Patient ID</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->patient->user_id.'</td>
+                                <td height="30">'.$invoice->patient_id.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Patient Name</td>
@@ -199,6 +203,7 @@ class InvoiceController extends Controller
                                 </table>';
                 }
                 else{
+//                    dd($invoice);
                     $html='<h1>Invoice Detail</h1>
                         <table>
                             <tr>
@@ -229,7 +234,7 @@ class InvoiceController extends Controller
                              <tr>
                                 <td height="30" width="25%">Patient ID</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->patient->staff_id.'</td>
+                                <td height="30">'.$invoice->patient_id.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Patient Name</td>
@@ -254,12 +259,12 @@ class InvoiceController extends Controller
                              <tr>
                                 <td height="30" width="25%">Total Amount</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->total_amount_wo_discount.'</td>
+                                <td height="30">'.$invoice->total_nett_amt_wo_disc.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Discount Amount</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->total_consultant_discount_amount.'</td>
+                                <td height="30">'.$invoice->total_disc_amt.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Grand Total Amount</td>

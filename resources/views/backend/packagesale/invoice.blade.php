@@ -29,8 +29,7 @@
                     <tr>
                         <td height="20" width="20%">Age/Sex</td>
                         <td height="20" width="5%">-</td>
-                        {{--<td height="20" width="25%">{{$invoice->patient->age}}/{{$invoice->patient->gender}}</td>--}}
-                        <td height="20" width="25%">{{$age}}/{{$patient_gender}}</td>
+                        <td height="20" width="25%">{{$age['value']." ".$age['unit']}}/{{$patient_gender}}</td>
                         <td height="20" width="20%">Date</td>
                         <td height="20" width="5%">-</td>
                         <td height="20" width="25%">{{$invoice->created_at->format('d-m-Y')}}</td>

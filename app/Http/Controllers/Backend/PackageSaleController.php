@@ -126,10 +126,8 @@ class PackageSaleController extends Controller
 
             //save package sale object
             $result = $this->repo->create($packageSaleObj, $invoiceObj);
-
             if ($result['aceplusStatusCode'] == ReturnMessage::OK) {
                 $invoiceId = $result['invoice_id'];
-
                 return redirect('/packagesale/invoice/' . $invoiceId)
                     ->withMessage(FormatGenerator::message('Success', 'Package sale success  !'));
             } else {
@@ -211,7 +209,7 @@ class PackageSaleController extends Controller
                                     <tr>
                                         <td height="20" width="20%">Age/Sex</td>
                                         <td height="20" width="5%">-</td>
-                                        <td height="20" width="25%">'.$age.'/'.$patient_gender.'</td>
+                                        <td height="20" width="25%">'.$age['value'].' '.$age['unit'].'/'.$patient_gender.'</td>
                                         <td height="20" width="20%">Date</td>
                                         <td height="20" width="5%">-</td>
                                         <td height="20" width="25%">'.$invoice->created_at->format('d-m-Y').'</td>

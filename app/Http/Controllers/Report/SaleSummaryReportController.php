@@ -69,7 +69,6 @@ class SaleSummaryReportController extends Controller
                     }
                 }
             }
-
             $grandTotal = 0;
             foreach($saleSummary as $sale){
                 $grandTotal += $sale->amount;   //calculating Grand Total
@@ -133,9 +132,10 @@ class SaleSummaryReportController extends Controller
             $saleSummary = array();
             if(isset($invoiceHeader) && count($invoiceHeader)>0){
                 foreach($invoiceHeader as $header){
+                    $saleSummary[$header->id] = $header;
+                    $saleSummary[$header->id]->car_type = null;
                     if(isset($invoiceDetail) && count($invoiceDetail)>0){
                         foreach($invoiceDetail as $detail){
-                            $saleSummary[$header->id] = $header;
                             if($header->id == $detail->invoice_id){
                                 $saleSummary[$header->id]->car_type = $detail->car_type;
                             }
@@ -212,9 +212,10 @@ class SaleSummaryReportController extends Controller
             $saleSummary = array();
             if(isset($invoiceHeader) && count($invoiceHeader)>0){
                 foreach($invoiceHeader as $header){
+                    $saleSummary[$header->id] = $header;
+                    $saleSummary[$header->id]->car_type = null;
                     if(isset($invoiceDetail) && count($invoiceDetail)>0){
                         foreach($invoiceDetail as $detail){
-                            $saleSummary[$header->id] = $header;
                             if($header->id == $detail->invoice_id){
                                 $saleSummary[$header->id]->car_type = $detail->car_type;
                             }
@@ -462,6 +463,7 @@ class SaleSummaryReportController extends Controller
                     $expiryDate = strtotime(date("Y-m-d", strtotime($createdDate)) . " +" . $monthToAdd . "month");
                     $expiryDate = date("Y-m-d", $expiryDate);
                     //invoice type is "package", with expiry date
+
                     return view('report.invoicedetail')
                         ->with('invoice',$invoice)
                         ->with('invoiceDetails',$invoiceDetails)
@@ -536,7 +538,7 @@ class SaleSummaryReportController extends Controller
                             <tr>
                                 <td height="20" width="20%">Age/Sex</td>
                                 <td height="20" width="5%">-</td>
-                                <td height="20" width="25%">'.$age.'/'.$patient_gender.'</td>
+                                <td height="20" width="25%">'.$age['value'].' '.$age['unit'].'/'.$patient_gender.'</td>
                                 <td height="20" width="20%">Date</td>
                                 <td height="20" width="5%">-</td>
                                 <td height="20" width="25%">'.$invoice->created_at->format("d-m-Y").'</td>
@@ -886,7 +888,7 @@ class SaleSummaryReportController extends Controller
                             <tr>
                                 <td height="20" width="20%">Age/Sex</td>
                                 <td height="20" width="5%">-</td>
-                                <td height="20" width="25%">'.$age.'/'.$patient_gender.'</td>
+                                <td height="20" width="25%">'.$age['value'].' '.$age['unit'].'/'.$patient_gender.'</td>
                                 <td height="20" width="20%">Date</td>
                                 <td height="20" width="5%">-</td>
                                 <td height="20" width="25%">'.$invoice->created_at->format("d-m-Y").'</td>
