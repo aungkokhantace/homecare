@@ -41,7 +41,7 @@ class PatientDashboardController extends Controller
 
             $serviceCount = $scheduleRepo->getServiceHistory($id)->count();
 
-            $packageCount = $scheduleRepo->getPackageHistory($id)->count();
+            $packageCount = $scheduleRepo->getPackageHistoryV2($id)->count();
 
             return view('patient.dashboard.dashboard')->with('patient',$patient)->with('patientDob',$patientDob)->with('serviceCount',$serviceCount)->with('packageCount',$packageCount)->with('scheduleCount',$scheduleCount);
         }
