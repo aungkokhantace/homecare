@@ -36,8 +36,8 @@ class ScheduleApiV3Repository implements ScheduleApiV3RepositoryInterface
                               WHERE schedules.deleted_at is null
                               AND date >= CURDATE()
                               AND schedules.leader_id = '$user_id'
-                              AND schedules.status >= 'new'
-                              OR schedules.status >= 'processing'");
+                              AND (schedules.status >= 'new'
+                              OR schedules.status >= 'processing')");
         return $tempObj;
     }
 

@@ -126,7 +126,7 @@ class SyncsController extends Controller{
 
                         if ($kparam == "schedules") {
                             if($user_id != ""){
-                                $tempObj = DB::select("SELECT * FROM $kparam WHERE `deleted_at` is null AND `status` NOT IN ('complete','cancel') AND schedules.leader_id = '$user_id'");
+                                $tempObj = DB::select("SELECT * FROM $kparam WHERE `deleted_at` is null AND `status` NOT IN ('complete','cancel') AND `date` >= CURDATE() AND schedules.leader_id = '$user_id'");
                             }
                             else{
                                 $tempObj = [];
@@ -135,7 +135,7 @@ class SyncsController extends Controller{
                         }
                         else if ($kparam == "schedule_detail") {
                             if($user_id != ""){
-                                $tempSchedules = DB::select("SELECT `id` FROM schedules WHERE `deleted_at` is null AND `status` NOT IN ('complete','cancel') AND schedules.leader_id = '$user_id'");
+                                $tempSchedules = DB::select("SELECT `id` FROM schedules WHERE `deleted_at` is null AND `status` NOT IN ('complete','cancel') AND `date` >= CURDATE() AND schedules.leader_id = '$user_id'");
                             }
                             else{
                                 $tempSchedules = [];
