@@ -25,7 +25,7 @@ use App\Core\Utility;
 use App\Backend\Township\TownshipRepository;
 use App\Backend\Service\ServiceRepository;
 use App\Backend\Allergy\AllergyRepository;
-use App\Backend\CarType\CartypeRepository;
+use App\Backend\Cartype\CartypeRepository;
 use App\Core\User;
 use Mockery\CountValidator\Exception;
 
