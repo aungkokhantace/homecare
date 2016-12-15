@@ -9,7 +9,7 @@
 ?>
 
 @extends('layouts.master')
-@section('title','History')
+@section('title','Tablet Error Log')
 @section('content')
 
         <!-- begin #content -->
@@ -32,7 +32,7 @@
             filter: alpha(opacity=0);
         }
     </style>
-    <h1 class="page-header">{{ 'Price History' }}</h1>
+    <h1 class="page-header">{{ 'Tablet Error Log' }}</h1>
     @if(count(Session::get('message')) != 0)
         <div>
         </div>
@@ -45,7 +45,7 @@
 
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <label for="table_name" class="text_bold_black">Table Name<span class="require">*</span></label>
+            <label for="table_name" class="text_bold_black">Tablet ID</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             <select class="form-control" id="tablet_id" name="tablet_id">
