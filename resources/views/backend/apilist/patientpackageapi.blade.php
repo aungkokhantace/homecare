@@ -8,7 +8,7 @@
 ?>
 
 @extends('layouts.master')
-@section('title','Sync Down API Detail')
+@section('title','Patient Package API Detail')
 @section('content')
 
         <!-- begin #content -->
@@ -22,12 +22,13 @@
             <li><a href="/apilist/scheduleapi" class="api-tab">Schedule API</a></li>
             <li class="active"><a href="#" class="api-active-tab">Patient Package API</a></li>
             <li><a href="/apilist/waytrackingapi" class="api-tab">Way Tracking API</a></li>
+            <li><a href="/apilist/patientapi" class="api-tab">Patient API</a></li>
         </ul>
     </div>
 
     <div class="row">
         <h4>URL</h4>
-        <p>http://localhost:8000/api/patient_package/upload</p>
+        <p><b>http://localhost:8000/api/patient_package/upload</b></p>
     </div>
     <hr>
     <div class="row">

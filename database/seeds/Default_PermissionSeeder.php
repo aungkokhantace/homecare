@@ -323,6 +323,7 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>324,'module'=>'Api List','name'=>'Schedule Api Detail','description'=>'Schedule Api Detail','url'=>'apilist/scheduleapi'],
             ['id'=>325,'module'=>'Api List','name'=>'Patientpackage Api Detail','description'=>'Patientpackage Api Detail','url'=>'apilist/patientpackageapi'],
             ['id'=>326,'module'=>'Api List','name'=>'Waytracking Api Detail','description'=>'Waytracking Api Detail','url'=>'apilist/waytrackingapi'],
+            ['id'=>327,'module'=>'Api List','name'=>'Patient Api Detail','description'=>'Patient Api Detail','url'=>'apilist/patientapi'],
 
             //Tablet Issues
             ['id'=>330,'module'=>'Tablet Issues','name'=>'Tablet Issues','description'=>'Tablet Issues','url'=>'tabletissues/{type?}'],

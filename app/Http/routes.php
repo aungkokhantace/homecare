@@ -335,9 +335,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('apilist/syncdownapi', array('as'=>'apilist/syncdownapi','uses'=>'Backend\ApiListController@syncdownapi'));
         Route::get('apilist/invoiceapi', array('as'=>'apilist/invoiceapi','uses'=>'Backend\ApiListController@invoiceapi'));
         Route::get('apilist/enquiryapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@enquiryapi'));
-        Route::get('apilist/scheduleapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@scheduleapi'));
-        Route::get('apilist/patientpackageapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@patientpackageapi'));
-        Route::get('apilist/waytrackingapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@waytrackingapi'));
+        Route::get('apilist/scheduleapi', array('as'=>'apilist/scheduleapi','uses'=>'Backend\ApiListController@scheduleapi'));
+        Route::get('apilist/patientpackageapi', array('as'=>'apilist/patientpackageapi','uses'=>'Backend\ApiListController@patientpackageapi'));
+        Route::get('apilist/waytrackingapi', array('as'=>'apilist/waytrackingapi','uses'=>'Backend\ApiListController@waytrackingapi'));
+        Route::get('apilist/patientapi', array('as'=>'apilist/patientapi','uses'=>'Backend\ApiListController@patientapi'));
 
         //Price history
         Route::get('pricehistory/{type?}/{id?}', array('as'=>'pricehistory/{type?}/{id?}','uses'=>'Log\PriceHistoryController@search'));
@@ -423,10 +424,10 @@ Route::group(['prefix' => 'api'], function () {
     //patient_physiotherapy_musculo
     Route::post('patient_physiothreapy_musculo/upload', array('as'=>'patient_physiothreapy_musculo/upload','uses'=>'Api\PatientApiV2Controller@uploadPatientPhysiothreapyMusculo'));
 
-    //patient api(patient and core_user come in the same level)
+    //patient api(patient and core_user come in the same level)//(for whole enquiry api case)
     Route::post('patient/uploadsinglepatient/',array('as'=>'patient/uploadsinglepatient','uses'=>'Api\PatientApiController@uploadSinglePatient'));
 
-    //user api(patient and core_user come in the same level)
+    //user api(patient and core_user come in the same level)//(for whole enquiry api case)
     Route::post('user/uploadsingleuser/',array('as'=>'patient/uploadsingleuser','uses'=>'Api\UserApiController@uploadSingleUser'));
 
     //Upload API for Physiotherapy_Musculo

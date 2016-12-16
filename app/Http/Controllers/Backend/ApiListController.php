@@ -76,4 +76,12 @@ class ApiListController extends Controller
         }
         return redirect('/');
     }
+
+    public function patientapi()
+    {
+        if (Auth::guard('User')->check()) {
+            return view('backend.apilist.patientapi');
+        }
+        return redirect('/');
+    }
 }

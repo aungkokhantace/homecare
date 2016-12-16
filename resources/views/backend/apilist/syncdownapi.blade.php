@@ -22,12 +22,13 @@
             <li><a href="/apilist/scheduleapi" class="api-tab">Schedule API</a></li>
             <li><a href="/apilist/patientpackageapi" class="api-tab">Patient Package API</a></li>
             <li><a href="/apilist/waytrackingapi" class="api-tab">Way Tracking API</a></li>
+            <li><a href="/apilist/patientapi" class="api-tab">Patient API</a></li>
         </ul>
     </div>
 
     <div class="row">
         <h4>URL</h4>
-        <p>http://localhost:8000/api/syncs/down</p>
+        <p><b>http://localhost:8000/api/syncs/down</b></p>
     </div>
     <hr>
     <div class="row">
