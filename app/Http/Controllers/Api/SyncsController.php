@@ -298,7 +298,7 @@ class SyncsController extends Controller{
 
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
             $returnedObj['aceplusStatusMessage'] = "There is no tables to syncs down!";
-            $returnedObj['data'] = "";
+            $returnedObj['data'] = (object) array();
             return \Response::json($returnedObj);
         }
         else{

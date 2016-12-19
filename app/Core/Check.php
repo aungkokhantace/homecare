@@ -194,7 +194,7 @@ class Check
 
         $returnedObj['aceplusStatusCode'] = ReturnMessage::UNAUTHORIZED;
         $returnedObj['aceplusStatusMessage'] = "Unauthorized request !";
-        $returnedObj['data'] = "";
+        $returnedObj['data'] = (object) array();
 
         return $returnedObj;
     }
