@@ -20,7 +20,13 @@ class CreateInvestigationLabsTable extends Migration
             $table->text('description');
             $table->double('routine_price');
             $table->double('urgent_price');
+
+            // Common to all table ----------------------------------------------
+            $table->string('created_by',100)->nullable();
+            $table->string('updated_by',100)->nullable();
+            $table->string('deleted_by',100)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
