@@ -100,7 +100,7 @@ class WaytrackingApiController extends Controller
                         $returnedObj['aceplusStatusCode']       = ReturnMessage::INTERNAL_SERVER_ERROR;
                         $returnedObj['aceplusStatusMessage']    = $result['aceplusStatusMessage'];
                         $returnedObj['tabletId']                = $checkServerStatusArray['tablet_id'];
-
+                        $returnedObj['data'] = (object) array();
                         return \Response::json($returnedObj);
                     }
                 }
@@ -128,6 +128,7 @@ class WaytrackingApiController extends Controller
                 $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                 $returnedObj['aceplusStatusMessage'] = $e->getMessage() . " ----- line " . $e->getLine() . " ----- " . $e->getFile();
                 $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
                 return \Response::json($returnedObj);
             }
         }

@@ -56,6 +56,7 @@ class PatientPackageApiController extends Controller
                     if($invoiceResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $invoiceResult['tablet_id'] = $tablet_id;
+                        $invoiceResult['data'] = (object) array();
                         return \Response::json($invoiceResult);
                     }
 
@@ -70,6 +71,7 @@ class PatientPackageApiController extends Controller
                     if($patient_packageResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $patient_packageResult['tablet_id'] = $tablet_id;
+                        $patient_packageResult['data'] = (object) array();
                         return \Response::json($patient_packageResult);
                     }
                     if(isset($patient_packageResult['log']) && count($patient_packageResult['log']) > 0){
@@ -114,6 +116,7 @@ class PatientPackageApiController extends Controller
                 $returnedObj['aceplusStatusCode']       = ReturnMessage::INTERNAL_SERVER_ERROR;
                 $returnedObj['aceplusStatusMessage']    = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
                 $returnedObj['tabletId']                = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
                 return \Response::json($returnedObj);
             }
         }

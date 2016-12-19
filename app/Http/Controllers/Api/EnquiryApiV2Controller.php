@@ -108,6 +108,7 @@ class EnquiryApiV2Controller extends Controller
                         if($result['aceplusStatusCode'] != ReturnMessage::OK) {
                             DB::rollback();
                             $result['tablet_id'] = $tablet_id;
+                            $result['data'] = (object) array();
                             return \Response::json($result);
                         }
 
@@ -152,6 +153,7 @@ class EnquiryApiV2Controller extends Controller
                                                 } else {
                                                     DB::rollback();
                                                     $returnedObj['aceplusStatusMessage'] = $patientResult['aceplusStatusMessage'];
+                                                    $returnedObj['data'] = (object) array();
                                                     return \Response::json($returnedObj);
                                                 }
                                             }
@@ -164,6 +166,7 @@ class EnquiryApiV2Controller extends Controller
                                     else{
                                         DB::rollback();
                                         $returnedObj['aceplusStatusMessage'] = $userResult['aceplusStatusMessage'];
+                                        $returnedObj['data'] = (object) array();
                                         return \Response::json($returnedObj);
                                     }
                                 }
@@ -302,6 +305,7 @@ class EnquiryApiV2Controller extends Controller
                 $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                 $returnedObj['aceplusStatusMessage'] = $e->getMessage() . " ----- line " . $e->getLine() . " ----- " . $e->getFile();
                 $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
                 return \Response::json($returnedObj);
             }
         }
