@@ -1044,6 +1044,8 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->investigation_imaging_remark 	= isset($row->investigation_imaging_remark)?$row->investigation_imaging_remark:"";
                 $paramObj->investigation_ecg_remark 		= isset($row->investigation_ecg_remark)?$row->investigation_ecg_remark:"";
                 $paramObj->investigation_other_remark 		= isset($row->investigation_other_remark)?$row->investigation_other_remark:"";
+                $paramObj->investigation_labs_price 		= isset($row->investigation_labs_price)?$row->investigation_labs_price:0.00;
+                $paramObj->investigation_labs_type 		    = isset($row->investigation_labs_type)?$row->investigation_labs_type:"";
                 $paramObj->created_by 						= $row->created_by;
                 $paramObj->updated_by 						= $row->updated_by;
                 $paramObj->deleted_by 						= $row->deleted_by;

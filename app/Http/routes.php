@@ -345,6 +345,14 @@ Route::group(['middleware' => 'web'], function () {
 
         //Tablet Issues
         Route::get('tabletissues/{type?}', array('as'=>'tabletissues/{type?}','uses'=>'Log\TabletIssuesController@search'));
+
+        //Investigation Imaging
+        Route::get('investigationimaging', array('as'=>'investigationimaging','uses'=>'Backend\InvestigationImagingController@index'));
+        Route::get('investigationimaging/create', array('as'=>'investigationimaging/create','uses'=>'Backend\InvestigationImagingController@create'));
+        Route::post('investigationimaging/store', array('as'=>'investigationimaging/store','uses'=>'Backend\InvestigationImagingController@store'));
+        Route::get('investigationimaging/edit/{id}', array('as'=>'investigationimaging/edit','uses'=>'Backend\InvestigationImagingController@edit'));
+        Route::post('investigationimaging/update', array('as'=>'investigationimaging/update','uses'=>'Backend\InvestigationImagingController@update'));
+        Route::post('investigationimaging/destroy', array('as'=>'investigationimaging/destroy','uses'=>'Backend\InvestigationImagingController@destroy'));
     });
 
     Route::get('enquiry/autocompletepatient', array('as'=>'enquiry/autocompletepatient','uses'=>'Backend\SearchController@autoCompletePatient'));

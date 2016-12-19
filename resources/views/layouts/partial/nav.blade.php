@@ -221,6 +221,19 @@
                             <li nav-id="investigation-list"><a href="/investigation">List</a></li>
                         </ul>
                     </li>
+
+                    <li nav-id="investigation-imaging-manage" class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <span>Investigation Imaging</span>
+                        </a>
+
+                        <ul class="sub-menu">
+                            {{--<li nav-id="investigation-entry"><a href="/investigationimaging/create">Entry</a></li>--}}
+                            <li nav-id="investigation-imaging-list"><a href="/investigationimaging">List</a></li>
+                        </ul>
+                    </li>
+
                     {{--<li nav-id="physical-examination" class="has-sub">--}}
                         {{--<a href="javascript:;">--}}
                             {{--<b class="caret pull-right"></b>--}}

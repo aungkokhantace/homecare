@@ -6,18 +6,18 @@
  * Time: 5:28 PM
  */
 
-namespace App\Backend\Investigation;
+namespace App\Backend\InvestigationImaging;
 
 use App\Log\LogCustom;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use App\Core\Utility;
 use App\Core\ReturnMessage;
-class InvestigationRepository implements InvestigationRepositoryInterface
+class InvestigationImagingRepository implements InvestigationImagingRepositoryInterface
 {
     public function getObjs()
     {
-        $objs = Investigation::all();
+        $objs = InvestigationImaging::all();
         return $objs;
     }
 
@@ -54,12 +54,12 @@ class InvestigationRepository implements InvestigationRepositoryInterface
             if($tempObj->price !== $old_price){
                 //save price tracking
                 //parameters ($table_name,$table_id,$table_id_type,$action,$old_price,$new_price,$created_by,$created_at)
-                Utility::savePriceTracking('investigations',$tempObj->id,'integer','update',$old_price,$tempObj->price,$currentUser,$tempObj->updated_at);
+                Utility::savePriceTracking('investigations_imaging',$tempObj->id,'integer','update',$old_price,$tempObj->service_charges,$currentUser,$tempObj->updated_at);
             }
 
             //update info log
             $date = $tempObj->updated_at;
-            $message = '['. $date .'] '. 'info: ' . 'User '.$currentUser.' updated investigation_id = '.$tempObj->id . PHP_EOL;
+            $message = '['. $date .'] '. 'info: ' . 'User '.$currentUser.' updated investigation_imaging_id = '.$tempObj->id . PHP_EOL;
             LogCustom::create($date,$message);
 
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
@@ -68,7 +68,7 @@ class InvestigationRepository implements InvestigationRepositoryInterface
         catch(\Exception $e){
             //update error log
             $date    = date("Y-m-d H:i:s");
-            $message = '['. $date .'] '. 'error: ' . 'User '.$currentUser.' updated investigation_id = ' .$tempObj->id. ' and got error -------'.$e->getMessage(). ' ----- line ' .$e->getLine(). ' ----- ' .$e->getFile(). PHP_EOL;
+            $message = '['. $date .'] '. 'error: ' . 'User '.$currentUser.' updated investigation_imaging_id = ' .$tempObj->id. ' and got error -------'.$e->getMessage(). ' ----- line ' .$e->getLine(). ' ----- ' .$e->getFile(). PHP_EOL;
             LogCustom::create($date,$message);
 
             $returnedObj['aceplusStatusMessage'] = $e->getMessage();
@@ -78,14 +78,14 @@ class InvestigationRepository implements InvestigationRepositoryInterface
 
     public function delete($id)
     {
-        $tempObj = Investigation::find($id);
+        $tempObj = InvestigationImaging::find($id);
         $tempObj = Utility::addDeletedBy($tempObj);
         $tempObj->deleted_at = date('Y-m-d H:m:i');
         $tempObj->save();
     }
 
     public function getObjByID($id){
-        $role = Investigation::find($id);
+        $role = InvestigationImaging::find($id);
         return $role;
     }
 }

@@ -328,6 +328,13 @@ class Default_PermissionSeeder extends Seeder
             //Tablet Issues
             ['id'=>330,'module'=>'Tablet Issues','name'=>'Tablet Issues','description'=>'Tablet Issues','url'=>'tabletissues/{type?}'],
 
+            //Investigation Imaging
+            ['id'=>340,'module'=>'Investigation Imaging','name'=>'List','description'=>'Investigation Imaging List','url'=>'investigationimaging'],
+            ['id'=>341,'module'=>'Investigation Imaging','name'=>'New','description'=>'Investigation Imaging Entry','url'=>'investigationimaging/create'],
+            ['id'=>342,'module'=>'Investigation Imaging','name'=>'Store','description'=>'Investigation Imaging Store','url'=>'investigationimaging/store'],
+            ['id'=>343,'module'=>'Investigation Imaging','name'=>'Edit','description'=>'Investigation Imaging Edit','url'=>'investigationimaging/edit'],
+            ['id'=>344,'module'=>'Investigation Imaging','name'=>'Update','description'=>'Investigation Imaging Update','url'=>'investigationimaging/update'],
+            ['id'=>345,'module'=>'Investigation Imaging','name'=>'Destroy','description'=>'Investigation Imaging Destroy','url'=>'investigationimaging/destroy'],
         );
 
 

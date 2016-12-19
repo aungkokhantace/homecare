@@ -640,7 +640,7 @@
 
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
             @if(isset($schedule))
-                @if($schedule->status != 'cancel')
+                @if($schedule->status != 'cancel' && $schedule->status != 'complete' && $schedule->status != 'processing')
                 <input type="submit" name="submit" value="UPDATE" class="form-control btn-primary">
                 @endif
             @else
