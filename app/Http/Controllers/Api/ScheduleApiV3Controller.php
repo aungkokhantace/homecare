@@ -66,6 +66,7 @@ class ScheduleApiV3Controller extends Controller
                         DB::rollback();
                         $scheduleResult['tablet_id'] = $tablet_id;
 //                        $scheduleResult['aceplusStatusMessage'] = $scheduleResult['aceplusStatusMessage'] ;
+                        $scheduleResult['data'] = (object) array();
                         return \Response::json($scheduleResult);
                     }
 
@@ -82,6 +83,7 @@ class ScheduleApiV3Controller extends Controller
                     if($enquiryResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $enquiryResult['tablet_id'] = $tablet_id;
+                        $enquiryResult['data'] = (object) array();
                         return \Response::json($enquiryResult);
                     }
                     if(isset($enquiryResult['log']) && count($enquiryResult['log']) > 0){
@@ -97,6 +99,7 @@ class ScheduleApiV3Controller extends Controller
                     if($patientResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $patientResult['tablet_id'] = $tablet_id;
+                        $patientResult['data'] = (object) array();
                         return \Response::json($patientResult);
                     }
                     if(isset($patientResult['log']) && count($patientResult['log']) > 0){
@@ -264,6 +267,7 @@ class ScheduleApiV3Controller extends Controller
                 $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                 $returnedObj['aceplusStatusMessage'] = $e->getMessage() . " ----- line " . $e->getLine() . " ----- " . $e->getFile();
                 $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
                 return \Response::json($returnedObj);
             }
         }
