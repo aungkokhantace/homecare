@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
          $this->call(Default_AllergySeeder::class);
          $this->call(Default_InvestigationPriceTrackingSeeder::class);
          $this->call(Default_ServicePriceTrackingSeeder::class);
+         $this->call(Default_InvestigationImagingPriceHistorySeeder::class);
 
     }
 }
