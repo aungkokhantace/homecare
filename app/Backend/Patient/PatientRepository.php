@@ -535,5 +535,16 @@ class PatientRepository implements PatientRepositoryInterface
         return $schedules;
     }
 
+    public function getPatientScheduleWithInvoice($id)
+    {
+        $result = Schedule::
+                leftjoin('invoices','schedules.id', '=', 'invoices.schedule_id')
+                ->select('schedules.*', 'invoices.total_payable_amt')
+                ->where('schedules.patient_id', '=', $id)
+                ->whereNull('schedules.deleted_at')
+                ->get();
+        return $result;
+    }
+
     
 }

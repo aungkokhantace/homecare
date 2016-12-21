@@ -474,7 +474,8 @@ class PatientController extends Controller
                 $patientsurgeryhsitory = $surgeryRepo->getObjByPatientID($id);
 
                 //getting patient's schedules
-                $schedulesRaw = $this->repo->getPatientSchedule($id);
+//                $schedulesRaw = $this->repo->getPatientSchedule($id);
+                $schedulesRaw = $this->repo->getPatientScheduleWithInvoice($id); //to get total_payable_amt from invoices table
 
                 $schedules = array();
 
@@ -656,8 +657,8 @@ class PatientController extends Controller
     }
 
     public function detailvisit($id){
-        $schedule                   = Schedule::whereNull('deleted_at')->where('id','=',$id)->first();
-        $patient                    = Patient::whereNull('deleted_at')->where('user_id','=',$schedule->patient_id)->first();
+        $scheduleRaw                   = Schedule::whereNull('deleted_at')->where('id','=',$id)->first();
+        $patient                    = Patient::whereNull('deleted_at')->where('user_id','=',$scheduleRaw->patient_id)->first();
         $valid                      = 0;
         if(isset($patient) && count($patient) >0){
             $valid = 1;
@@ -665,9 +666,9 @@ class PatientController extends Controller
         if($valid == 1){
             $vitals =$chief_complaints  = $gph = $hl = $aen = $investigations = $provisional_diagnosis = $treatments = null;
             $neurological = $musculo_intercention = $investigation_imaging = $investigation_ecg = $investigation_other= $nutritions =null ;
-            if(isset($schedule) && count($schedule)>0){
-                $latest_schedule_id     = $schedule->id;
-                $patient_id             = $schedule->patient_id;
+            if(isset($scheduleRaw) && count($scheduleRaw)>0){
+                $latest_schedule_id     = $scheduleRaw->id;
+                $patient_id             = $scheduleRaw->patient_id;
                 $schedule_detail        = DB::table('schedule_detail')->where('schedule_id',$latest_schedule_id)->get();
                 foreach($schedule_detail as $detail){
                     if($detail->type == 'service'){
@@ -750,6 +751,9 @@ class PatientController extends Controller
                     }
                 }
 
+                //start blood drawing
+                $blood_drawings             = $schedule->getBloodDrawing($latest_schedule_id,$patient_id);
+                //end blood drawing
             }
 
             return view('backend.patient.detailvisit')->with('patient',$patient)
@@ -765,6 +769,7 @@ class PatientController extends Controller
                 ->with('investigation_imaging',$investigation_imaging)
                 ->with('investigation_ecg',$investigation_ecg)
                 ->with('investigation_other',$investigation_other)
+                ->with('blood_drawings',$blood_drawings)
                 ->with('service_type',$service_type);
         }
         else{

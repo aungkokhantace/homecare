@@ -429,16 +429,18 @@
                                             <th>Time</th>
                                             <th>Car Type</th>
                                             <th>Status</th>
+                                            <th>Amount</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
                                             <th></th>
-                                            <th class="search-col" con-id="name">Schedule ID</th>
-                                            <th class="search-col" con-id="patient_type">Date</th>
-                                            <th class="search-col" con-id="gender">Time</th>
-                                            <th class="search-col" con-id="dob">Township</th>
+                                            <th class="search-col" con-id="schedule_id">Schedule ID</th>
+                                            <th class="search-col" con-id="date">Date</th>
+                                            <th class="search-col" con-id="time">Time</th>
+                                            <th class="search-col" con-id="car_type">Car Type</th>
                                             <th class="search-col" con-id="status">Status</th>
+                                            <th class="search-col" con-id="amount">Amount</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
@@ -459,6 +461,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{$schedule->status}}</td>
+                                                <td>{{$schedule->total_payable_amt}}</td>
                                             </tr>
 
                                         @endforeach

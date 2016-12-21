@@ -210,7 +210,7 @@ class InvoiceApiV3Controller extends Controller
                 if(isset($params->patient_physiotherapy_neuro_functional_performance3) && count($params->patient_physiotherapy_neuro_functional_performance3) > 0){
                     $performance3       = $params->patient_physiotherapy_neuro_functional_performance3;
                     $performance3Result = $patientRepo->createPatientPhysiothreapyNeuroFunctionalPerformance3($performance3);
-                    if($performance2Result['aceplusStatusCode'] != ReturnMessage::OK){
+                    if($performance3Result['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $performance3Result['tablet_id'] = $tablet_id;
                         $performance3Result['data']      = (object) array();

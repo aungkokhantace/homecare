@@ -869,5 +869,21 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $result = DB::table('invoice_detail')->where('car_type','!=',0)->get();
         return $result;
     }
+
+    //for blood drawing
+    public function getBloodDrawing($latest_schedule_id, $patient_id)
+    {
+        $bloodDrawings = DB::table('schedule_investigations')
+            ->leftjoin('investigation_labs', 'schedule_investigations.investigation_id', '=', 'investigation_labs.id')
+            ->select('schedule_investigations.investigation_lab_remark',
+                'schedule_investigations.investigation_labs_price',
+                'schedule_investigations.investigation_labs_type',
+                'investigation_labs.service_name',
+                'investigation_labs.description')
+            ->where('schedule_id',$latest_schedule_id)
+            ->where('patient_id',$patient_id)
+            ->where('investigation_id','!=',0)->get();
+        return $bloodDrawings;
+    }
 }
 

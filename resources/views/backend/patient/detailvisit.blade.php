@@ -1671,6 +1671,275 @@
         </div>
         @endif
         <!-- End Nutrition Assesment Form -->
+
+        <!-- Start Blood Drawing Record -->
+        @if(isset($service_type) && ($service_type == 3 || $service_type == 0))
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-inverse">
+                    <!-- Panel Heading -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#neurological_treatment_record">
+                                <i class="fa fa-plus-circle pull-right"></i>
+                                Neurological Treatment Record
+                            </a>
+                        </h3>
+                    </div>
+                    <!-- End Panel Heading -->
+
+                    <!-- Start Panel Body -->
+                    <div id="neurological_treatment_record" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>Neurological Treatment Record</h3><br/>
+                                    @if(isset($neurological) && count($neurological)>0)
+                                        @foreach($neurological as $neuro)
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Resting <br> BP/HR/SP O2</label>
+                                                </div>
+                                                <div class="col-md-8">
+
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+
+                                                            <?php
+                                                            if (strpos($neuro->resting_bp, ',') !== false){
+                                                                $bp = array();
+                                                                $bp = explode(',',$neuro->resting_bp);
+                                                                echo $bp[0].",<br/>".$bp[1]."<br/>".$bp[2];
+
+                                                            }
+                                                            else{
+                                                                $bp = $neuro->resting_bp;
+                                                                echo $bp.',';
+                                                            }
+
+                                                            ?>
+
+                                                        </div>
+                                                        <div class="col-md-1">{{$neuro->resting_hr}} ,</div>
+                                                        <div class="col-md-1">{{$neuro->resting_spo2}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Passive ROM exercise <br> U/L & L/L</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->passive_rom_exercise == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Visual Exercise</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->visual_exercise == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Oral Motor Exercise</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->oral_motor_exercise == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Active Assisted ROM exercise <br/> U/L & L/L</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->active_assisted_rom_exercise == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Bridging/ Inner range of quadriceps/ dorsiflexion</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->bridging_inner_range == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Transfer bed &#8596; chair</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->transfer_bed == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Sitting balance</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->sitting_balance == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Sit to Stand</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->sit_to_stand == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Standing balance</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->standing_balance == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Stepping (10cm/15cm)</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->stepping == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Single Leg balance</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->single_leg_balance == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>March on spot</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->march_on_spot == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Ambulation<br/>
+                                                        <span style="line-height: 30px;">&#9679;Parallel Bar</span><br/>
+                                                        <span style="line-height: 30px;">&#9679;Walk + ball throw + kick ball</span><br/>
+                                                        <span style="line-height: 30px;">&#9679;Outdoor with walking aids</span><br/>
+                                                        <span style="line-height: 30px;">&#9679;Tandem walk/ cross walk</span></label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <br/>
+<span style="line-height: 30px;">@if($neuro->ambulation_parallel_bar == 1) <input type="checkbox" checked><br/>
+    @else <input type="checkbox"><br/>
+    @endif</span>
+<span style="line-height: 30px;">@if($neuro->ambulation_walk == 1) <input type="checkbox" checked><br/>
+    @else <input type="checkbox"><br/>
+    @endif</span>
+<span style="line-height: 30px;">@if($neuro->ambulation_outdoor == 1) <input type="checkbox" checked><br/>
+    @else <input type="checkbox"><br/>
+    @endif</span>
+<span style="line-height: 30px;">@if($neuro->ambulation_tandem_walk == 1) <input type="checkbox" checked><br/>
+    @else <input type="checkbox"><br/>
+    @endif</span>
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Stair &#8595; &#8593;</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->stair == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Arm pedal/ Leg pedal</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->arm_pedal == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Treadmil (km/h, duration)</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->treadmill == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Hand exercise (opposition/ fisting/ writing/ active assisted exercise)</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @if($neuro->hand_exercise == 1) <input type="checkbox" checked>
+                                                    @else <input type="checkbox">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <hr style="margin: 5px 0 5px 0;"/>
+                                        @endforeach
+                                        <div class="row">
+                                            <div class="col-md-3"><label>Remark</label></div>
+                                            <div class="col-md-8"><textarea class="form-control" id="remark" rows="3" cols="5">@if(isset($neurological) && count($neurological)>0){{$neuro->remark}}@endif</textarea></div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+            End Blood
     </div>
 @stop
 

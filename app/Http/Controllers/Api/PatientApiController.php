@@ -307,6 +307,7 @@ class PatientApiController extends Controller
                                                     continue;       //continue to next loop
                                                 } else {
                                                     DB::rollback();
+                                                    $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                                                     $returnedObj['aceplusStatusMessage'] = $patientResult['aceplusStatusMessage'];
                                                     $returnedObj['data'] = (object) array();
                                                     return \Response::json($returnedObj);
@@ -318,6 +319,7 @@ class PatientApiController extends Controller
                                     }
                                     else{
                                         DB::rollback();
+                                        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                                         $returnedObj['aceplusStatusMessage'] = $userResult['aceplusStatusMessage'];
                                         $returnedObj['data'] = (object) array();
                                         return \Response::json($returnedObj);

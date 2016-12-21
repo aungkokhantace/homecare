@@ -91,7 +91,7 @@
                                 @endif
                             </td>
                             <td>{{$sale->date}}</td>
-                            <td align="right">{{$sale->amount}}</td>
+                            <td align="right">{{number_format($sale->amount,2)}}</td>
                         </tr>
                     @endforeach
                         <tr bgcolor="#1976d3">

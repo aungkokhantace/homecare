@@ -22,7 +22,8 @@ class Default_ServiceSeeder extends Seeder
             ['id'=>'1', 'name'=>'MO', 'price' =>'100000', 'description' =>'MO Service'],
             ['id'=>'2', 'name'=>'Physiotherapy Musculo', 'price' =>'100000', 'description' =>'Physiotherapy Musculo Service'],
             ['id'=>'3', 'name'=>'Physiotherapy Neuro', 'price' =>'100000', 'description' =>'Physiotherapy Neuro Service'],
-            ['id'=>'4', 'name'=>'Nutrition', 'price' =>'100000', 'description' =>'Nutrition Service']
+            ['id'=>'4', 'name'=>'Nutrition', 'price' =>'100000', 'description' =>'Nutrition Service'],
+            ['id'=>'5', 'name'=>'Blood Drawing', 'price' =>'100000', 'description' =>'Blood Drawing Service']
 
         );
 

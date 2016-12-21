@@ -141,19 +141,6 @@
 
                         </ul>
                     </li>
-
-                    <li nav-id="allergy" class="has-sub">
-                        <a href="javascript:;">
-                            <b class="caret pull-right"></b>
-                            <span>Route</span>
-                        </a>
-
-                        <ul class="sub-menu">
-                            <li nav-id="allergy-entry"><a href="/route/create">Entry</a></li>
-                            <li nav-id="allergy-list"><a href="/route">List</a></li>
-
-                        </ul>
-                    </li>
                 </ul>
             </li>
 
@@ -231,6 +218,18 @@
                         <ul class="sub-menu">
                             {{--<li nav-id="investigation-entry"><a href="/investigationimaging/create">Entry</a></li>--}}
                             <li nav-id="investigation-imaging-list"><a href="/investigationimaging">List</a></li>
+                        </ul>
+                    </li>
+
+                    <li nav-id="route" class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <span>Route</span>
+                        </a>
+
+                        <ul class="sub-menu">
+                            <li nav-id="route-entry"><a href="/route/create">Entry</a></li>
+                            <li nav-id="route-list"><a href="/route">List</a></li>
                         </ul>
                     </li>
 

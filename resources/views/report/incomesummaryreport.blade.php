@@ -183,23 +183,23 @@
                         @foreach($invoices as $invoice)
                             <tr>
                                 <td>{{$invoice->date}}</td>
-                                <td>{{$invoice->package_price}}</td>
-                                <td>{{$invoice->total_car_amount}}</td>
-                                <td>{{$invoice->total_service_amount}}</td>
-                                <td>{{$invoice->total_medication_amount}}</td>
-                                <td>{{$invoice->total_investigation_amount}}</td>
-                                <td>{{$invoice->total}}</td>
+                                <td>{{number_format($invoice->package_price,2)}}</td>
+                                <td>{{number_format($invoice->total_car_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_medication_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_investigation_amount,2)}}</td>
+                                <td>{{number_format($invoice->total,2)}}</td>
                             </tr>
                         @endforeach
                     </tbody>
                         <tr bgcolor="#1976d3" style = "color:white">
                             <td></td>
-                            <td>{{$totalArray['package']}}</td>
-                            <td>{{$totalArray['car']}}</td>
-                            <td>{{$totalArray['service']}}</td>
-                            <td>{{$totalArray['medication']}}</td>
-                            <td>{{$totalArray['investigation']}}</td>
-                            <td>{{$totalArray['total']}}</td>
+                            <td>{{number_format($totalArray['package'],2)}}</td>
+                            <td>{{number_format($totalArray['car'],2)}}</td>
+                            <td>{{number_format($totalArray['service'],2)}}</td>
+                            <td>{{number_format($totalArray['medication'],2)}}</td>
+                            <td>{{number_format($totalArray['investigation'],2)}}</td>
+                            <td>{{number_format($totalArray['total'],2)}}</td>
                         </tr>
                 </table>
             </div>
