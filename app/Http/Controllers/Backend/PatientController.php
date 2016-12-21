@@ -753,6 +753,7 @@ class PatientController extends Controller
 
                 //start blood drawing
                 $blood_drawings             = $schedule->getBloodDrawing($latest_schedule_id,$patient_id);
+                $blood_drawings_remark      = $schedule->getBloodDrawingRemark($latest_schedule_id,$patient_id);
                 //end blood drawing
             }
 
@@ -770,6 +771,7 @@ class PatientController extends Controller
                 ->with('investigation_ecg',$investigation_ecg)
                 ->with('investigation_other',$investigation_other)
                 ->with('blood_drawings',$blood_drawings)
+                ->with('blood_drawings_remark',$blood_drawings_remark)
                 ->with('service_type',$service_type);
         }
         else{

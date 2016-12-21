@@ -880,10 +880,20 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                 'schedule_investigations.investigation_labs_type',
                 'investigation_labs.service_name',
                 'investigation_labs.description')
+            ->where('schedule_investigations.schedule_id',$latest_schedule_id)
+            ->where('schedule_investigations.patient_id',$patient_id)
+            ->where('schedule_investigations.investigation_id','!=',0)->get();
+        return $bloodDrawings;
+    }
+
+    public function getBloodDrawingRemark($latest_schedule_id, $patient_id)
+    {
+        $bloodDrawingRemark = DB::table('schedule_investigations')
+            ->select('investigation_lab_remark')
             ->where('schedule_id',$latest_schedule_id)
             ->where('patient_id',$patient_id)
-            ->where('investigation_id','!=',0)->get();
-        return $bloodDrawings;
+            ->where('investigation_lab_remark','!=',"")->first();
+        return $bloodDrawingRemark->investigation_lab_remark;
     }
 }
 

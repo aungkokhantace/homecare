@@ -49,7 +49,6 @@
                         <th>Dob</th>
                         <th>Township</th>
                         <th>Zone</th>
-                        <th>Status</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -64,7 +63,6 @@
                         <th class="search-col" con-id="dob">Dob</th>
                         <th class="search-col" con-id="township">Township</th>
                         <th class="search-col" con-id="zone">Zone</th>
-                        <th class="search-col" con-id="status">Status</th>
                         <th class="search-col" con-id="status"></th>
                         <th class="search-col" con-id="status"></th>
                     </tr>
@@ -85,11 +83,6 @@
                             <td>{{$patient->dob}}</td>
                             <td>{{$patient->township->name}}</td>
                             <td>{{$patient->zone['name']}}</td>
-                            @if($patient->active == 1)
-                                <td>Active</td>
-                             @else
-                                <td>Inactive</td>
-                            @endif
                             <td><a href="/patient/detail/{{$patient->user_id}}">Detail</a></td>
                             {{--<td><a href="/patient/detailvisit/{{$patient->user_id}}">Detail Visit</a></td>--}}
                             <td><a href="/patient/patientSchedule/{{$patient->user_id}}">Detail Visit</a></td>

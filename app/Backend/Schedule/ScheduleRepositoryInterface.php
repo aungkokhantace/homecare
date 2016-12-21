@@ -53,5 +53,7 @@ interface ScheduleRepositoryInterface
     public function getScheduleInvestigation($latest_schedule_id);
     public function getInvoiceHeader($from_date, $to_date);
     public function getInvoiceDetail();
+    public function getBloodDrawing($latest_schedule_id, $patient_id);
+    public function getBloodDrawingRemark($latest_schedule_id, $patient_id);
 }
 
