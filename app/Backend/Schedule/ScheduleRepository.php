@@ -893,7 +893,12 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             ->where('schedule_id',$latest_schedule_id)
             ->where('patient_id',$patient_id)
             ->where('investigation_lab_remark','!=',"")->first();
-        return $bloodDrawingRemark->investigation_lab_remark;
+        if(isset($bloodDrawingRemark) && count($bloodDrawingRemark)>0){
+            return $bloodDrawingRemark->investigation_lab_remark;
+        }
+        else{
+            return null;
+        }
     }
 }
 

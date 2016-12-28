@@ -755,7 +755,7 @@
                                 <h3>Investigation Labs</h3><br/>
                                 @if(isset($investigations) && count($investigations)>0)
                                     @foreach($investigations as $investigationKey => $investigationValue)
-                                        <h4 style="color: #418DD8;">{{$investigationKey}}</h4>
+                                        {{--<h4 style="color: #418DD8;">{{$investigationKey}}</h4>--}}
                                         @foreach($investigationValue as $name)
                                             <i class="fa fa-circle circle" aria-hidden="true"></i> {{$name}}<hr style="margin: 5px 0 5px 0;border-color: #5bc0de;"/>
                                         @endforeach
@@ -811,6 +811,13 @@
                                     <div class="row">
                                         <div class="col-md-1"><label>{{'Others'}}</label></div>
                                         <div class="col-md-10"><b>:</b> {{$investigation_imaging['Others']}}</div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1"><label>Remark</label></div>
+                                        <div class="col-sm-4">
+                                            <textarea class="form-control" id="remark" rows="3" cols="5"> @if(isset($investigation_imaging_remark) && $investigation_imaging_remark != null){{$investigation_imaging_remark}}@endif</textarea>
+                                        </div>
                                     </div>
                                 @endif
                             </div>

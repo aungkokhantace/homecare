@@ -20,6 +20,7 @@ class CreateSetupPriceHistoryTable extends Migration
             $table->string('action')->nullable();
             $table->decimal('old_price',10,2)->nullable();
             $table->decimal('new_price',10,2)->nullable();
+            $table->string('type')->nullable();
 
             //Common to all table ----------------------------------------------
             $table->string('created_by',100)->nullable();

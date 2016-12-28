@@ -449,7 +449,6 @@ class PatientController extends Controller
 
                 $patientmedicalhistoryRepo = new PatientmedicalhistoryRepository();
                 $patientmedicalhistories =   $patientmedicalhistoryRepo->getObjByPatientID($id);
-
                 foreach($patientmedicalhistories as $keyMed => $patientmedicalhistory){
                     $patientmedicalhistories[$keyMed]->medicalHistory = $medicalhistories[$patientmedicalhistory->medical_history_id]->name;
                 }
@@ -713,48 +712,112 @@ class PatientController extends Controller
                 $nutritions             = $schedule->getNutrition($latest_schedule_id,$patient_id);
 
                 $schedule_investigation = $schedule->getScheduleInvestigation($latest_schedule_id);
+
                 $investigation_imaging_id = array();
+
+                $xray_id_count = $usg_id_count = $ct_id_count = $mri_id_count = $other_id_count = 0;
+
                 foreach($schedule_investigation as $investigation){
-                    if($investigation->investigation_id == '' && $investigation->investigation_ecg_remark == '' && $investigation->investigation_other_remark == ''){
-                        $investigation_imaging_id['xray']   = $investigation->investigation_imaging_xray_id;
-                        $investigation_imaging_id['usg']    = $investigation->investigation_imaging_usg_id;
-                        $investigation_imaging_id['ct']     = $investigation->investigation_imaging_ct_id;
-                        $investigation_imaging_id['mri']    = $investigation->investigation_imaging_mri_id;
-                        $investigation_imaging_id['other']  = $investigation->investigation_imaging_other_id;
+//                    if($investigation->investigation_id == '' && $investigation->investigation_ecg_remark == '' && $investigation->investigation_other_remark == ''){
+                    if($investigation->investigation_id == 0 && $investigation->investigation_ecg_remark == '' && $investigation->investigation_other_remark == ''){
+                        if($investigation->investigation_imaging_xray_id != 0){
+                            $investigation_imaging_id['xray'][$xray_id_count]   = $investigation->investigation_imaging_xray_id;
+                            $xray_id_count++;
+                        }
+                        if($investigation->investigation_imaging_usg_id != 0){
+                            $investigation_imaging_id['usg'][$usg_id_count]   = $investigation->investigation_imaging_usg_id;
+                            $usg_id_count++;
+                        }
+                        if($investigation->investigation_imaging_ct_id != 0){
+                            $investigation_imaging_id['ct'][$ct_id_count]   = $investigation->investigation_imaging_ct_id;
+                            $ct_id_count++;
+                        }
+                        if($investigation->investigation_imaging_mri_id != 0){
+                            $investigation_imaging_id['mri'][$mri_id_count]   = $investigation->investigation_imaging_mri_id;
+                            $mri_id_count++;
+                        }
+                        if($investigation->investigation_imaging_other_id != 0){
+                            $investigation_imaging_id['other'][$other_id_count]   = $investigation->investigation_imaging_other_id;
+                            $other_id_count++;
+                        }
                     }
+
                     if($investigation->investigation_ecg_remark != ''){
                         $investigation_ecg  = $investigation->investigation_ecg_remark;
                     }
+
                     if($investigation->investigation_other_remark != ''){
                         $investigation_other = $investigation->investigation_other_remark;
                     }
+
+                    if($investigation->investigation_imaging_remark != ''){
+                        $investigation_imaging_remark = $investigation->investigation_imaging_remark;
+                    }
                 }
 
-                $investigation_imagings     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id)->get();
+//                $investigation_imagings     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id)->get();
+                if(isset($investigation_imaging_id) && count($investigation_imaging_id)>0){
+                    $investigation_imagings['xray']    = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['xray'])->get();
+                    $investigation_imagings['usg']     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['usg'])->get();
+                    $investigation_imagings['ct']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['ct'])->get();
+                    $investigation_imagings['mri']     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['mri'])->get();
+                    $investigation_imagings['other']   = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['other'])->get();
+
                 $investigation_imaging      = array();
 
-                foreach($investigation_imagings as $imaging){
-                    if($imaging->id ==  $investigation_imaging_id['xray']){
-                        $investigation_imaging['X-RAY'] = $imaging->service_name;
-                    }
-                    elseif($imaging->id == $investigation_imaging_id['usg']){
-                        $investigation_imaging['USG'] = $imaging->service_name;
-                    }
-                    elseif($imaging->id == $investigation_imaging_id['ct']){
-                        $investigation_imaging['CT'] = $imaging->service_name;
-                    }
-                    elseif($imaging->id == $investigation_imaging_id['mri']){
-                        $investigation_imaging['MRI'] = $imaging->service_name;
-                    }
-                    else{
-                        $investigation_imaging['Others'] = $imaging->service_name;
-                    }
+                $xray_service_name = $usg_service_name = $ct_service_name = $mri_service_name = $other_service_name = "";
+
+                foreach($investigation_imagings['xray'] as $imaging_xray){
+                    $xray_service_name .= $imaging_xray->service_name .", ";
+                }
+                foreach($investigation_imagings['usg'] as $imaging_usg){
+                    $usg_service_name .= $imaging_usg->service_name .", ";
+                }
+                foreach($investigation_imagings['ct'] as $imaging_ct){
+                    $ct_service_name .= $imaging_ct->service_name .", ";
+                }
+                foreach($investigation_imagings['mri'] as $imaging_mri){
+                    $mri_service_name .= $imaging_mri->service_name .", ";
+                }
+                foreach($investigation_imagings['other'] as $imaging_other){
+                    $other_service_name .= $imaging_other->service_name .", ";
+                }
+
+                $xray_service_name = rtrim($xray_service_name,', ');
+                $usg_service_name = rtrim($usg_service_name,', ');
+                $ct_service_name = rtrim($ct_service_name,', ');
+                $mri_service_name = rtrim($mri_service_name,', ');
+                $other_service_name = rtrim($other_service_name,', ');
+
+                $investigation_imaging['X-RAY'] = $xray_service_name;
+                $investigation_imaging['USG'] = $usg_service_name;
+                $investigation_imaging['CT'] = $ct_service_name;
+                $investigation_imaging['MRI'] = $mri_service_name;
+                $investigation_imaging['Others'] = $other_service_name;
                 }
 
                 //start blood drawing
                 $blood_drawings             = $schedule->getBloodDrawing($latest_schedule_id,$patient_id);
                 $blood_drawings_remark      = $schedule->getBloodDrawingRemark($latest_schedule_id,$patient_id);
                 //end blood drawing
+
+                if(isset($investigation_imaging) && count($investigation_imaging)>0){
+                    if (!array_key_exists("X-RAY",$investigation_imaging)){
+                        $investigation_imaging['X-RAY'] = "";
+                    }
+                    if (!array_key_exists("USG",$investigation_imaging)){
+                        $investigation_imaging['USG'] = "";
+                    }
+                    if (!array_key_exists("CT",$investigation_imaging)){
+                        $investigation_imaging['CT'] = "";
+                    }
+                    if (!array_key_exists("MRI",$investigation_imaging)){
+                        $investigation_imaging['MRI'] = "";
+                    }
+                    if (!array_key_exists("Others",$investigation_imaging)){
+                        $investigation_imaging['Others'] = "";
+                    }
+                }
             }
 
             return view('backend.patient.detailvisit')->with('patient',$patient)
@@ -768,6 +831,7 @@ class PatientController extends Controller
                 ->with('musculo_intercention',$musculo_intercention)
                 ->with('nutritions',$nutritions)
                 ->with('investigation_imaging',$investigation_imaging)
+                ->with('investigation_imaging_remark',$investigation_imaging_remark)
                 ->with('investigation_ecg',$investigation_ecg)
                 ->with('investigation_other',$investigation_other)
                 ->with('blood_drawings',$blood_drawings)

@@ -573,6 +573,7 @@ class Default_RolePermissionSeeder extends Seeder
 
             //Price History
             ['role_id'=>1, 'permission_id'=>311],
+            ['role_id'=>1, 'permission_id'=>312],
 
             //Api List
             ['role_id'=>1, 'permission_id'=>321],

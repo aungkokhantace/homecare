@@ -314,7 +314,8 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>307,'module'=>'Import','name'=>'Store','description'=>'CSV Import Store','url'=>'import/store'],
 
             //Price History
-            ['id'=>311,'module'=>'Price History','name'=>'List','description'=>'Price History List Page','url'=>'pricehistory/{type?}/{id?}'],
+            ['id'=>311,'module'=>'Price History','name'=>'Single Price History','description'=>'Single Price History List Page','url'=>'pricehistory/{type?}/{id?}'],
+            ['id'=>312,'module'=>'Price History','name'=>'Multiple Price History','description'=>'Multiple Price History List Page','url'=>'multiplepricehistory/{type?}/{id?}'],
 
             //Api List
             ['id'=>321,'module'=>'Api List','name'=>'Sync Down Api Detail','description'=>'Sync Down Api Detail','url'=>'apilist/syncdownapi'],

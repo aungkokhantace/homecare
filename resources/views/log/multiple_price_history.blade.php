@@ -32,7 +32,7 @@
             filter: alpha(opacity=0);
         }
     </style>
-    <h1 class="page-header">{{ 'Single Price History' }}</h1>
+    <h1 class="page-header">{{ 'Multiple Price History' }}</h1>
     @if(count(Session::get('message')) != 0)
         <div>
         </div>
@@ -50,12 +50,7 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             <select class="form-control" id="table_name" name="table_name">
                 <option value="all" @if($type == 'all') selected @endif>All setup prices</option>
-                <option value="services" @if($type == 'services') selected @endif>Services</option>
-                <option value="packages" @if($type == 'packages') selected @endif>Packages</option>
-                <option value="products" @if($type == 'products') selected @endif>Products</option>
-                <option value="car_type_setup" @if($type == 'car_type_setup') selected @endif>Car Type Setup</option>
-                {{--<option value="investigations" @if($type == 'investigations') selected @endif>Investigations</option>--}}
-                <option value="investigations_imaging" @if($type == 'investigations_imaging') selected @endif>Investigations Imaging</option>
+                <option value="investigation_labs" @if($type == 'investigation_labs') selected @endif>Investigation Labs</option>
 
             </select>
             <p class="text-danger">{{$errors->first('table_name')}}</p>
@@ -84,6 +79,7 @@
                         <th>Type Name</th>
                         <th>Old Price</th>
                         <th>New Price</th>
+                        <th>Type</th>
                         <th>Action</th>
                         <th>Created By</th>
                         <th>Created at</th>
@@ -97,6 +93,7 @@
                         <th class="search-col" con-id="table_id">Type Name</th>
                         <th class="search-col" con-id="old_price">Old Price</th>
                         <th class="search-col" con-id="new_price">New Price</th>
+                        <th class="search-col" con-id="new_price">Type</th>
                         <th class="search-col" con-id="action">Action</th>
                         <th class="search-col" con-id="created_by">Created by</th>
                         <th class="search-col" con-id="created_at">Created at</th>
@@ -107,11 +104,12 @@
                     @foreach($priceHistories as $key=>$priceHistory)
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><a href="/pricehistory/{{$priceHistory->table_name}}/{{$priceHistory->table_id}}">{{$priceHistory->table_name}}</a></td>
+                            <td><a href="/multiplepricehistory/{{$priceHistory->table_name}}/{{$priceHistory->table_id}}">{{$priceHistory->table_name}}</a></td>
                             <td>{{$priceHistory->table_id}}</td>
                             <td>{{$priceHistory->setup_name}}</td>
                             <td>{{$priceHistory->old_price}}</td>
                             <td>{{$priceHistory->new_price}}</td>
+                            <td>{{$priceHistory->type}}</td>
                             <td>{{$priceHistory->action}}</td>
                             <td>{{strtoupper($priceHistory->created_by)}}</td>
                             <td>{{strtoupper($priceHistory->created_at)}}</td>
@@ -162,7 +160,7 @@
             $( "#btn_preview" ).click(function() {
 
                 var type = $("#table_name").val();
-                var form_action = "/pricehistory/" + type + "/0";
+                var form_action = "/multiplepricehistory/" + type + "/0";
                 window.location = form_action;
             });
         });

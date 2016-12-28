@@ -342,6 +342,7 @@ Route::group(['middleware' => 'web'], function () {
 
         //Price history
         Route::get('pricehistory/{type?}/{id?}', array('as'=>'pricehistory/{type?}/{id?}','uses'=>'Log\PriceHistoryController@search'));
+        Route::get('multiplepricehistory/{type?}/{id?}', array('as'=>'multiplepricehistory/{type?}/{id?}','uses'=>'Log\PriceHistoryController@multiplesearch'));
 
         //Tablet Issues
         Route::get('tabletissues/{type?}', array('as'=>'tabletissues/{type?}','uses'=>'Log\TabletIssuesController@search'));

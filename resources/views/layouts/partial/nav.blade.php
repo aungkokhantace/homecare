@@ -402,10 +402,15 @@
                     </li>
 
                     <li nav-id="pricehistory-manage" class="has-sub">
-                        <a href="/pricehistory/all/0">
+                        <a href="javascript:;">
                             <b class="caret pull-right"></b>
                             <span>Price History</span>
                         </a>
+
+                        <ul class="sub-menu">
+                            <li nav-id="patient-entry"><a href="/pricehistory/all/0">Single Price History</a></li>
+                            <li nav-id="patient-list"><a href="/multiplepricehistory/all/0">Multiple Price History</a></li>
+                        </ul>
                     </li>
 
                     <li nav-id="tablet-issues-manage" class="has-sub">
