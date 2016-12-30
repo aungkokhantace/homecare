@@ -140,4 +140,8 @@ class TownshipRepository implements TownshipRepositoryInterface
         return $result;
     }
 
+    public function checkToDelete($id){
+        $result = DB::select("SELECT * FROM zone_detail WHERE township_id = $id");
+        return $result;
+    }
 }

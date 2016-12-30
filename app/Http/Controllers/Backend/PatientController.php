@@ -717,6 +717,8 @@ class PatientController extends Controller
 
                 $xray_id_count = $usg_id_count = $ct_id_count = $mri_id_count = $other_id_count = 0;
 
+                $investigation_ecg = $investigation_other = $investigation_imaging_remark = '';
+
                 foreach($schedule_investigation as $investigation){
 //                    if($investigation->investigation_id == '' && $investigation->investigation_ecg_remark == '' && $investigation->investigation_other_remark == ''){
                     if($investigation->investigation_id == 0 && $investigation->investigation_ecg_remark == '' && $investigation->investigation_other_remark == ''){

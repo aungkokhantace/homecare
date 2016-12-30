@@ -109,4 +109,9 @@ class ProductcategoryRepository implements ProductcategoryRepositoryInterface
         $role = Productcategory::find($id);
         return $role;
     }
+
+    public function checkToDelete($id){
+        $result = DB::select("SELECT * FROM products WHERE product_category_id = $id AND deleted_at IS NULL");
+        return $result;
+    }
 }

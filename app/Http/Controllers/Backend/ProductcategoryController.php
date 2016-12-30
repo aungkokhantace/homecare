@@ -100,13 +100,25 @@ class ProductcategoryController extends Controller
     public function destroy(){
         $id         = Input::get('selected_checkboxes');
         $new_string = explode(',', $id);
+        $delete_flag = true;
         foreach($new_string as $id){
-            $this->repo->delete($id);
+            $check = $this->repo->checkToDelete($id);
+            if(isset($check) && count($check)>0){
+                alert()->warning('There are products under this category_id = '.$id)->persistent('OK');
+                $delete_flag = false;
+            }
+            else{
+                $this->repo->delete($id);
+            }
         }
 
-        return redirect()->action('Backend\ProductcategoryController@index')
-            ->withMessage(FormatGenerator::message('Success', 'Medication Category deleted ...'));
-
+        if($delete_flag) {
+            return redirect()->action('Backend\ProductcategoryController@index')
+                ->withMessage(FormatGenerator::message('Success', 'Medication Category deleted ...'));
+        }
+        else{
+            return redirect()->action('Backend\ProductcategoryController@index')
+                ->withMessage(FormatGenerator::message('Fail', 'Medication Category did not delete ...'));
+        }
     }
-
 }

@@ -141,4 +141,8 @@ class CartypeRepository implements CartypeRepositoryInterface
         }
     }
 
+    public function checkToDelete($id){
+        $result = DB::select("SELECT * FROM car_type_setup WHERE car_type_id = $id AND deleted_at IS NULL");
+        return $result;
+    }
 }

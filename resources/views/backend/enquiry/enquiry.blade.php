@@ -544,6 +544,8 @@
             @if(isset($enquiry))
                 @if($enquiry->status == 'confirm')
 
+                @elseif($enquiry->status == 'complete')
+
                 @else
                     <input type="submit" name="submit" value="UPDATE" class="form-control btn-primary">
                 @endif

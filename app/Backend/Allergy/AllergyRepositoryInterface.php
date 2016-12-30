@@ -17,4 +17,5 @@ interface AllergyRepositoryInterface
     public function delete($id);
     public function getArrays();
     public function getArraysByType($type);
+    public function checkToDelete($id);
 }

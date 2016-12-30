@@ -15,4 +15,5 @@ interface CityRepositoryInterface
     public function update($paramObj);
     public function getObjByID($id);
     public function delete($id);
+    public function checkToDelete($id);
 }

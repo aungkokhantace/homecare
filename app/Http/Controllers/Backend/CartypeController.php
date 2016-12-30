@@ -107,13 +107,26 @@ class CartypeController extends Controller
 
         $id         = Input::get('selected_checkboxes');
         $new_string = explode(',', $id);
+        $delete_flag = true;
         foreach($new_string as $id){
-            $this->repo->delete($id);
+            $check = $this->repo->checkToDelete($id);
+            if(isset($check) && count($check)>0){
+                alert()->warning('There are car_type_setups with this car_type_id = '.$id)->persistent('OK');
+                $delete_flag = false;
+            }
+            else{
+                $this->repo->delete($id);
+            }
         }
 
-        return redirect()->action('Backend\CartypeController@index')
-            ->withMessage(FormatGenerator::message('Success', 'Car Type deleted ...'));
-
+        if($delete_flag){
+            return redirect()->action('Backend\CartypeController@index')
+                ->withMessage(FormatGenerator::message('Success', 'Car Type deleted ...'));
+        }
+        else{
+            return redirect()->action('Backend\CartypeController@index')
+                ->withMessage(FormatGenerator::message('Fail', 'Car Type did not delete ...'));
+        }
     }
 
 }

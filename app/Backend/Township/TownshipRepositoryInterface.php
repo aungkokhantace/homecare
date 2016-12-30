@@ -18,4 +18,5 @@ interface TownshipRepositoryInterface
     public function delete($id);
     public function getTownshipsForZone($paramArray);
     public function getArraysUnusedTownships($paramArray);
+    public function checkToDelete($id);
 }
