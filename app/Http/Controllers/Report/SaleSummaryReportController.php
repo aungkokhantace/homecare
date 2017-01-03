@@ -608,12 +608,13 @@ class SaleSummaryReportController extends Controller
                                 //for investigation_id
                                 foreach($scheduleInvestigations as $scheduleInvestigation){
                                     if($scheduleInvestigation->investigation_id != 0){
-                                        $investigations = $invoiceRepo->getInvestigations($scheduleInvestigation->investigation_id);
+//                                        $investigations = $invoiceRepo->getInvestigations($scheduleInvestigation->investigation_id);
+                                        $investigationLabs = $invoiceRepo->getInvestigationLabs($scheduleInvestigation->investigation_id);
 
-                                        if(isset($investigations) && count($investigations)>0){
-                                            foreach($investigations as $investigate){
-                                                $investigationArray[$investigationCounter]['name']= $investigate->name;
-                                                $investigationArray[$investigationCounter]['price']= $investigate->price;
+                                        if(isset($investigationLabs) && count($investigationLabs)>0){
+                                            foreach($investigationLabs as $investigate){
+                                                $investigationArray[$investigationCounter]['name']= $investigate->service_name;
+                                                $investigationArray[$investigationCounter]['price']= $scheduleInvestigation->investigation_labs_price;
                                                 $investigationCounter++;
                                             }
                                         }
