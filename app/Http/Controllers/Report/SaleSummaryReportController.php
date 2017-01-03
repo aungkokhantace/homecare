@@ -359,12 +359,13 @@ class SaleSummaryReportController extends Controller
                         //for investigation_id
                         foreach($scheduleInvestigations as $scheduleInvestigation){
                             if($scheduleInvestigation->investigation_id != 0){
-                                $investigations = $invoiceRepo->getInvestigations($scheduleInvestigation->investigation_id);
+//                                $investigations = $invoiceRepo->getInvestigations($scheduleInvestigation->investigation_id);
+                                $investigationLabs = $invoiceRepo->getInvestigationLabs($scheduleInvestigation->investigation_id);
 
-                                if(isset($investigations) && count($investigations)>0){
-                                    foreach($investigations as $investigate){
-                                        $investigationArray[$investigationCounter]['name']= $investigate->name;
-                                        $investigationArray[$investigationCounter]['price']= $investigate->price;
+                                if(isset($investigationLabs) && count($investigationLabs)>0){
+                                    foreach($investigationLabs as $investigate){
+                                        $investigationArray[$investigationCounter]['name']= $investigate->service_name;
+                                        $investigationArray[$investigationCounter]['price']= $scheduleInvestigation->investigation_labs_price;
                                         $investigationCounter++;
                                     }
                                 }
@@ -807,7 +808,7 @@ class SaleSummaryReportController extends Controller
                                     <td height="20">'.$invoice->packagesale->remark.'</td>
                                 </tr>
                             </table>
-                            <hr><br>';
+                            <br>';
                     }
                     //type is invoice
                     else{
@@ -841,37 +842,38 @@ class SaleSummaryReportController extends Controller
                                     <td height="20">'.$invoice->status.'</td>
                                 </tr>
                             </table>
-                            <hr><br>';
+                            <br>';
                     }
 
-                    $detailData = '<hr><br><br><table border="1" style="font-size:9px; word-wrap: break-word; table-layout: fixed;">
-                            <thead>
-                            <tr height="30">
-                                <th>Type</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th>Discount Amount</th>
-                                <th>Total Amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>';
-
-                    foreach($invoiceDetails as $invoiceDetail){
-                        $detailData .= '<tr height="30">';
-                        $detailData .= '<td> '. $invoiceDetail->type .'</td>';
-                        $detailData .= '<td>'. $invoiceDetail->product_qty .'</td>';
-                        $detailData .= '<td>'. $invoiceDetail->product_price .'</td>';
-                        $detailData .= '<td>'. $invoiceDetail->consultant_discount_amount .'</td>';
-                        $detailData .= '<td>'. $invoiceDetail->product_amount .'</td>';
-                        $detailData .= '</tr>';
-                    }
-
-                    $detailData .= '</tbody>
-                                </table>';
+//                    $detailData = '<hr><br><br><table border="1" style="font-size:9px; word-wrap: break-word; table-layout: fixed;">
+//                            <thead>
+//                            <tr height="30">
+//                                <th>Type</th>
+//                                <th>Qty</th>
+//                                <th>Price</th>
+//                                <th>Discount Amount</th>
+//                                <th>Total Amount</th>
+//                            </tr>
+//                            </thead>
+//                            <tbody>';
+//
+//                    foreach($invoiceDetails as $invoiceDetail){
+//                        $detailData .= '<tr height="30">';
+//                        $detailData .= '<td> '. $invoiceDetail->type .'</td>';
+//                        $detailData .= '<td>'. $invoiceDetail->product_qty .'</td>';
+//                        $detailData .= '<td>'. $invoiceDetail->product_price .'</td>';
+//                        $detailData .= '<td>'. $invoiceDetail->consultant_discount_amount .'</td>';
+//                        $detailData .= '<td>'. $invoiceDetail->product_amount .'</td>';
+//                        $detailData .= '</tr>';
+//                    }
+//
+//                    $detailData .= '</tbody>
+//                                </table>';
 
                     $signature = Utility::getSignature();
 
-                    $html = $pdfHeader.$patientData.'<br>'.$saleData.'<br>'.$summaryData.'<hr>'.$detailData.$signature;
+//                    $html = $pdfHeader.$patientData.'<br>'.$saleData.'<br>'.$summaryData.'<hr>'.$detailData.$signature;
+                    $html = $pdfHeader.$patientData.'<br>'.$saleData.'<br>'.$summaryData.$signature;
                 }
                 else{
                     $pdfHeader = Utility::getPDFHeader().'<br>'.'<br>';

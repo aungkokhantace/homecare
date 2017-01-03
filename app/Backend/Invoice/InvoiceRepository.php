@@ -138,6 +138,11 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         return $result;
     }
 
+    public function getInvestigationLabs($id){
+        $result = DB::select("SELECT * FROM investigation_labs WHERE id = $id");
+        return $result;
+    }
+
     public function getInvestigationImagings($id){
         $result = DB::select("SELECT * FROM investigations_imaging WHERE id = $id");
         return $result;
