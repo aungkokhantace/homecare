@@ -30,6 +30,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 18000.00,
+			 		'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #1
 					'id' => 2,
@@ -40,6 +44,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 24000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #2
 					'id' => 3,
@@ -50,6 +58,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 13200.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #3
 					'id' => 4,
@@ -60,6 +72,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 21600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #4
 					'id' => 5,
@@ -70,6 +86,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 21600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #5
 					'id' => 6,
@@ -80,6 +100,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 30000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #6
 					'id' => 7,
@@ -90,6 +114,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 12000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #7
 					'id' => 8,
@@ -100,6 +128,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #8
 					'id' => 9,
@@ -110,6 +142,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 13200.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #9
 					'id' => 10,
@@ -120,6 +156,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 13200.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #10
 					'id' => 11,
@@ -130,6 +170,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 20400.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #11
 					'id' => 12,
@@ -140,6 +184,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 36000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #12
 					'id' => 13,
@@ -150,6 +198,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 11400.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #13
 					'id' => 14,
@@ -160,6 +212,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 21600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #14
 					'id' => 15,
@@ -170,6 +226,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 21600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #15
 					'id' => 16,
@@ -180,6 +240,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 13200.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #16
 					'id' => 17,
@@ -190,6 +254,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 11400.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #17
 					'id' => 18,
@@ -200,6 +268,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 13200.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #18
 					'id' => 19,
@@ -220,6 +292,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 13200.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #20
 					'id' => 21,
@@ -230,6 +306,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 11400.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #21
 					'id' => 22,
@@ -240,6 +320,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 20400.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #22
 					'id' => 23,
@@ -250,6 +334,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 11400.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #23
 					'id' => 24,
@@ -260,6 +348,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 11400.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #24
 					'id' => 25,
@@ -270,6 +362,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 13200.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #25
 					'id' => 26,
@@ -280,6 +376,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 21600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #26
 					'id' => 27,
@@ -290,6 +390,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 21600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #27
 					'id' => 28,
@@ -300,6 +404,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 216000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #28
 					'id' => 29,
@@ -310,6 +418,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 11400.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #29
 					'id' => 30,
@@ -320,6 +432,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 21600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #30
 					'id' => 31,
@@ -330,6 +446,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 21600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #31
 					'id' => 32,
@@ -340,6 +460,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 13200.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #32
 					'id' => 33,
@@ -350,6 +474,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 24000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #33
 					'id' => 34,
@@ -360,6 +488,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 24000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #34
 					'id' => 35,
@@ -370,6 +502,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 20400.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #35
 					'id' => 36,
@@ -380,6 +516,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 30000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #36
 					'id' => 37,
@@ -390,6 +530,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 48000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #37
 					'id' => 38,
@@ -400,6 +544,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #38
 					'id' => 39,
@@ -410,6 +558,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #39
 					'id' => 40,
@@ -420,6 +572,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #40
 					'id' => 41,
@@ -430,6 +586,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #41
 					'id' => 42,
@@ -440,6 +600,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #42
 					'id' => 43,
@@ -450,6 +614,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #43
 					'id' => 44,
@@ -460,6 +628,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #44
 					'id' => 45,
@@ -470,6 +642,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #45
 					'id' => 46,
@@ -480,6 +656,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #46
 					'id' => 47,
@@ -490,6 +670,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #47
 					'id' => 48,
@@ -500,6 +684,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #48
 					'id' => 49,
@@ -510,6 +698,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 15600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #49
 					'id' => 50,
@@ -520,6 +712,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 15600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #50
 					'id' => 51,
@@ -530,6 +726,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #51
 					'id' => 52,
@@ -540,6 +740,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #52
 					'id' => 53,
@@ -550,6 +754,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #53
 					'id' => 54,
@@ -560,6 +768,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #54
 					'id' => 55,
@@ -570,6 +782,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #55
 					'id' => 56,
@@ -580,6 +796,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #56
 					'id' => 57,
@@ -590,6 +810,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #57
 					'id' => 58,
@@ -600,6 +824,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #58
 					'id' => 59,
@@ -610,6 +838,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #59
 					'id' => 60,
@@ -620,6 +852,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 48100.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #60
 					'id' => 61,
@@ -630,6 +866,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 48100.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #61
 					'id' => 62,
@@ -640,6 +880,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 15600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #62
 					'id' => 63,
@@ -650,6 +894,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 15600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #63
 					'id' => 64,
@@ -660,6 +908,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #64
 					'id' => 65,
@@ -670,6 +922,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #65
 					'id' => 66,
@@ -680,6 +936,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #66
 					'id' => 67,
@@ -690,6 +950,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #67
 					'id' => 68,
@@ -700,6 +964,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #68
 					'id' => 69,
@@ -710,6 +978,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #69
 					'id' => 70,
@@ -720,6 +992,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #70
 					'id' => 71,
@@ -730,6 +1006,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #71
 					'id' => 72,
@@ -740,6 +1020,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #72
 					'id' => 73,
@@ -750,6 +1034,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #73
 					'id' => 74,
@@ -760,6 +1048,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #74
 					'id' => 75,
@@ -770,6 +1062,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #75
 					'id' => 76,
@@ -780,6 +1076,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #76
 					'id' => 77,
@@ -790,6 +1090,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #77
 					'id' => 78,
@@ -800,6 +1104,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #78
 					'id' => 79,
@@ -810,6 +1118,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #79
 					'id' => 80,
@@ -820,6 +1132,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #80
 					'id' => 81,
@@ -830,6 +1146,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #81
 					'id' => 82,
@@ -840,6 +1160,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #82
 					'id' => 83,
@@ -850,6 +1174,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #83
 					'id' => 84,
@@ -860,6 +1188,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #84
 					'id' => 85,
@@ -870,6 +1202,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #85
 					'id' => 86,
@@ -880,6 +1216,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #86
 					'id' => 87,
@@ -890,6 +1230,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #87
 					'id' => 88,
@@ -900,6 +1244,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #88
 					'id' => 89,
@@ -910,6 +1258,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #89
 					'id' => 90,
@@ -920,6 +1272,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #90
 					'id' => 91,
@@ -930,6 +1286,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #91
 					'id' => 92,
@@ -940,6 +1300,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #92
 					'id' => 93,
@@ -950,6 +1314,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #93
 					'id' => 94,
@@ -960,6 +1328,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #94
 					'id' => 95,
@@ -970,6 +1342,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #95
 					'id' => 96,
@@ -980,6 +1356,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #96
 					'id' => 97,
@@ -990,6 +1370,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #97
 					'id' => 98,
@@ -1000,6 +1384,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #98
 					'id' => 99,
@@ -1010,6 +1398,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #99
 					'id' => 100,
@@ -1020,6 +1412,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #100
 					'id' => 101,
@@ -1030,6 +1426,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #101
 					'id' => 102,
@@ -1040,6 +1440,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 15600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #102
 					'id' => 103,
@@ -1050,6 +1454,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 15600.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #103
 					'id' => 104,
@@ -1060,6 +1468,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #104
 					'id' => 105,
@@ -1070,6 +1482,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #105
 					'id' => 106,
@@ -1080,6 +1496,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #106
 					'id' => 107,
@@ -1090,6 +1510,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #107
 					'id' => 108,
@@ -1100,6 +1524,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 7500.00,
 					'reading_fees' => 32500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #108
 					'id' => 109,
@@ -1110,6 +1538,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #109
 					'id' => 110,
@@ -1120,6 +1552,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #110
 					'id' => 111,
@@ -1130,6 +1566,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #111
 					'id' => 112,
@@ -1140,6 +1580,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #112
 					'id' => 113,
@@ -1150,6 +1594,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #113
 					'id' => 114,
@@ -1160,6 +1608,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #114
 					'id' => 115,
@@ -1170,6 +1622,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #115
 					'id' => 116,
@@ -1180,6 +1636,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #116
 					'id' => 117,
@@ -1190,6 +1650,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 3000.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #117
 					'id' => 118,
@@ -1200,6 +1664,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 3000.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #118
 					'id' => 119,
@@ -1210,6 +1678,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #119
 					'id' => 120,
@@ -1220,6 +1692,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #120
 					'id' => 121,
@@ -1230,6 +1706,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #121
 					'id' => 122,
@@ -1240,6 +1720,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2100.00,
 					'reading_fees' => 5000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #122
 					'id' => 123,
@@ -1250,6 +1734,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #123
 					'id' => 124,
@@ -1260,6 +1748,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1200.00,
 					'reading_fees' => 10000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #124
 					'id' => 125,
@@ -1270,6 +1762,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #125
 					'id' => 126,
@@ -1280,6 +1776,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 700.00,
 					'reading_fees' => 7500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #126
 					'id' => 127,
@@ -1290,6 +1790,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #127
 					'id' => 128,
@@ -1300,6 +1804,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #128
 					'id' => 129,
@@ -1310,6 +1818,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 6000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #129
 					'id' => 130,
@@ -1320,6 +1832,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #130
 					'id' => 131,
@@ -1330,6 +1846,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 5000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #131
 					'id' => 132,
@@ -1340,6 +1860,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 700.00,
 					'reading_fees' => 7500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #132
 					'id' => 133,
@@ -1350,6 +1874,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #133
 					'id' => 134,
@@ -1360,6 +1888,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 25000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #134
 					'id' => 135,
@@ -1370,6 +1902,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 14000.00,
 					'reading_fees' => 40000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #135
 					'id' => 136,
@@ -1380,6 +1916,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 14000.00,
 					'reading_fees' => 20000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #136
 					'id' => 137,
@@ -1390,6 +1930,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 50000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #137
 					'id' => 138,
@@ -1400,6 +1944,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 25000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #138
 					'id' => 139,
@@ -1410,6 +1958,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #139
 					'id' => 140,
@@ -1420,6 +1972,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #140
 					'id' => 141,
@@ -1430,6 +1986,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 25000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #141
 					'id' => 142,
@@ -1440,6 +2000,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 50000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #142
 					'id' => 143,
@@ -1450,6 +2014,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 50000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #143
 					'id' => 144,
@@ -1460,6 +2028,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #144
 					'id' => 145,
@@ -1470,6 +2042,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #145
 					'id' => 146,
@@ -1480,6 +2056,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 25000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #146
 					'id' => 147,
@@ -1490,6 +2070,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 50000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #147
 					'id' => 148,
@@ -1500,6 +2084,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 16000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #148
 					'id' => 149,
@@ -1510,6 +2098,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 32000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #149
 					'id' => 150,
@@ -1520,6 +2112,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #150
 					'id' => 151,
@@ -1530,6 +2126,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #151
 					'id' => 152,
@@ -1540,6 +2140,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #152
 					'id' => 153,
@@ -1550,6 +2154,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #153
 					'id' => 154,
@@ -1560,6 +2168,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 16000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #154
 					'id' => 155,
@@ -1570,6 +2182,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 32000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #155
 					'id' => 156,
@@ -1580,6 +2196,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 16000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #156
 					'id' => 157,
@@ -1590,6 +2210,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 32000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #157
 					'id' => 158,
@@ -1600,6 +2224,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #158
 					'id' => 159,
@@ -1610,6 +2238,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #159
 					'id' => 160,
@@ -1620,6 +2252,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #160
 					'id' => 161,
@@ -1630,6 +2266,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 25000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #161
 					'id' => 162,
@@ -1640,6 +2280,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 50000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #162
 					'id' => 163,
@@ -1650,6 +2294,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 16000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #163
 					'id' => 164,
@@ -1660,6 +2308,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 32000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #164
 					'id' => 165,
@@ -1670,6 +2322,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #165
 					'id' => 166,
@@ -1680,6 +2336,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #166
 					'id' => 167,
@@ -1690,6 +2350,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #167
 					'id' => 168,
@@ -1700,6 +2364,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #168
 					'id' => 169,
@@ -1710,6 +2378,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #169
 					'id' => 170,
@@ -1720,6 +2392,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #170
 					'id' => 171,
@@ -1730,6 +2406,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #171
 					'id' => 172,
@@ -1740,6 +2420,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #172
 					'id' => 173,
@@ -1750,6 +2434,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #173
 					'id' => 174,
@@ -1760,6 +2448,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #174
 					'id' => 175,
@@ -1770,6 +2462,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #175
 					'id' => 176,
@@ -1780,6 +2476,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #176
 					'id' => 177,
@@ -1790,6 +2490,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 16000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #177
 					'id' => 178,
@@ -1800,6 +2504,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 32000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #178
 					'id' => 179,
@@ -1810,6 +2518,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #179
 					'id' => 180,
@@ -1820,6 +2532,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #180
 					'id' => 181,
@@ -1830,6 +2546,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #181
 					'id' => 182,
@@ -1840,6 +2560,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #182
 					'id' => 183,
@@ -1850,6 +2574,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #183
 					'id' => 184,
@@ -1860,6 +2588,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #184
 					'id' => 185,
@@ -1870,6 +2602,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #185
 					'id' => 186,
@@ -1880,6 +2616,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #186
 					'id' => 187,
@@ -1890,6 +2630,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #187
 					'id' => 188,
@@ -1900,6 +2644,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #188
 					'id' => 189,
@@ -1910,6 +2658,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 16000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #189
 					'id' => 190,
@@ -1920,6 +2672,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 32000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #190
 					'id' => 191,
@@ -1930,6 +2686,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #191
 					'id' => 192,
@@ -1940,6 +2700,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #192
 					'id' => 193,
@@ -1950,6 +2714,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 6300.00,
 					'reading_fees' => 9000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #193
 					'id' => 194,
@@ -1960,6 +2728,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 6300.00,
 					'reading_fees' => 18000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #194
 					'id' => 195,
@@ -1970,6 +2742,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 16000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #195
 					'id' => 196,
@@ -1980,6 +2756,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 32000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #196
 					'id' => 197,
@@ -1990,6 +2770,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #197
 					'id' => 198,
@@ -2000,6 +2784,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #198
 					'id' => 199,
@@ -2010,6 +2798,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 32000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #199
 					'id' => 200,
@@ -2020,6 +2812,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 16000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #200
 					'id' => 201,
@@ -2030,6 +2826,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 16000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #201
 					'id' => 202,
@@ -2040,6 +2840,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #202
 					'id' => 203,
@@ -2050,6 +2854,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #203
 					'id' => 204,
@@ -2060,6 +2868,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #204
 					'id' => 205,
@@ -2070,6 +2882,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 25000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #205
 					'id' => 206,
@@ -2080,6 +2896,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 50000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #206
 					'id' => 207,
@@ -2090,6 +2910,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #207
 					'id' => 208,
@@ -2100,6 +2924,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #208
 					'id' => 209,
@@ -2110,6 +2938,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 36400.00,
 					'reading_fees' => 52000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #209
 					'id' => 210,
@@ -2120,6 +2952,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 36400.00,
 					'reading_fees' => 104000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #210
 					'id' => 211,
@@ -2130,6 +2966,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 19000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #211
 					'id' => 212,
@@ -2140,6 +2980,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 38000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #212
 					'id' => 213,
@@ -2150,6 +2994,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 25000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #213
 					'id' => 214,
@@ -2160,6 +3008,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 91000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #214
 					'id' => 215,
@@ -2170,6 +3022,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #215
 					'id' => 216,
@@ -2180,6 +3036,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #216
 					'id' => 217,
@@ -2190,6 +3050,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #217
 					'id' => 218,
@@ -2200,6 +3064,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 26000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #218
 					'id' => 219,
@@ -2210,6 +3078,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #219
 					'id' => 220,
@@ -2220,6 +3092,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #220
 					'id' => 221,
@@ -2230,6 +3106,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 91000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #221
 					'id' => 222,
@@ -2240,6 +3120,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #222
 					'id' => 223,
@@ -2250,6 +3134,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #223
 					'id' => 224,
@@ -2260,6 +3148,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #224
 					'id' => 225,
@@ -2270,6 +3162,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #225
 					'id' => 226,
@@ -2280,6 +3176,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #226
 					'id' => 227,
@@ -2290,6 +3190,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #227
 					'id' => 228,
@@ -2300,6 +3204,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #228
 					'id' => 229,
@@ -2310,6 +3218,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #229
 					'id' => 230,
@@ -2320,6 +3232,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #230
 					'id' => 231,
@@ -2330,6 +3246,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #231
 					'id' => 232,
@@ -2340,6 +3260,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #232
 					'id' => 233,
@@ -2350,6 +3274,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #233
 					'id' => 234,
@@ -2360,6 +3288,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #234
 					'id' => 235,
@@ -2370,6 +3302,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #235
 					'id' => 236,
@@ -2380,6 +3316,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #236
 					'id' => 237,
@@ -2390,6 +3330,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 6300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #237
 					'id' => 238,
@@ -2400,6 +3344,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #238
 					'id' => 239,
@@ -2410,6 +3358,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #239
 					'id' => 240,
@@ -2420,6 +3372,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 11200.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #240
 					'id' => 241,
@@ -2430,6 +3386,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #241
 					'id' => 242,
@@ -2440,6 +3400,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 17500.00,
 					'reading_fees' => 91000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #242
 					'id' => 243,
@@ -2450,6 +3414,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #243
 					'id' => 244,
@@ -2460,6 +3428,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 13300.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #244
 					'id' => 245,
@@ -2470,6 +3442,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 45500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #245
 					'id' => 246,
@@ -2480,6 +3456,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 91000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #246
 					'id' => 247,
@@ -2490,6 +3470,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 26000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #247
 					'id' => 248,
@@ -2500,6 +3484,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #248
 					'id' => 249,
@@ -2510,6 +3498,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #249
 					'id' => 250,
@@ -2520,6 +3512,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #250
 					'id' => 251,
@@ -2530,6 +3526,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #251
 					'id' => 252,
@@ -2540,6 +3540,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #252
 					'id' => 253,
@@ -2550,6 +3554,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #253
 					'id' => 254,
@@ -2560,6 +3568,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #254
 					'id' => 255,
@@ -2570,6 +3582,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #255
 					'id' => 256,
@@ -2580,6 +3596,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #256
 					'id' => 257,
@@ -2590,6 +3610,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #257
 					'id' => 258,
@@ -2600,6 +3624,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #258
 					'id' => 259,
@@ -2610,6 +3638,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #259
 					'id' => 260,
@@ -2620,6 +3652,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #260
 					'id' => 261,
@@ -2630,6 +3666,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 5000.00,
 					'reading_fees' => 15000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #261
 					'id' => 262,
@@ -2640,6 +3680,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 5000.00,
 					'reading_fees' => 25000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #262
 					'id' => 263,
@@ -2650,6 +3694,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 10000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #263
 					'id' => 264,
@@ -2660,6 +3708,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 15000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #264
 					'id' => 265,
@@ -2670,6 +3722,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 10000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #265
 					'id' => 266,
@@ -2680,6 +3736,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 15000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #266
 					'id' => 267,
@@ -2690,6 +3750,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 20000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #267
 					'id' => 268,
@@ -2700,6 +3764,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 25000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #268
 					'id' => 269,
@@ -2710,6 +3778,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 12000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #269
 					'id' => 270,
@@ -2720,6 +3792,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 17000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #270
 					'id' => 271,
@@ -2730,6 +3806,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 12000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #271
 					'id' => 272,
@@ -2740,6 +3820,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 17000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #272
 					'id' => 273,
@@ -2750,6 +3834,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 5000.00,
 					'reading_fees' => 5000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #273
 					'id' => 274,
@@ -2760,6 +3848,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1500.00,
 					'reading_fees' => 5000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #274
 					'id' => 275,
@@ -2770,6 +3862,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1500.00,
 					'reading_fees' => 10000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #275
 					'id' => 276,
@@ -2780,6 +3876,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1500.00,
 					'reading_fees' => 15000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #276
 					'id' => 277,
@@ -2790,6 +3890,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1000.00,
 					'reading_fees' => 15000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #277
 					'id' => 278,
@@ -2800,6 +3904,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 11000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #278
 					'id' => 279,
@@ -2810,6 +3918,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 800.00,
 					'reading_fees' => 11000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #279
 					'id' => 280,
@@ -2820,6 +3932,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 800.00,
 					'reading_fees' => 6000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #280
 					'id' => 281,
@@ -2830,6 +3946,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 800.00,
 					'reading_fees' => 6000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #281
 					'id' => 282,
@@ -2840,6 +3960,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #282
 					'id' => 283,
@@ -2850,6 +3974,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 800.00,
 					'reading_fees' => 11000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #283
 					'id' => 284,
@@ -2860,6 +3988,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 800.00,
 					'reading_fees' => 5000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #284
 					'id' => 285,
@@ -2870,6 +4002,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 800.00,
 					'reading_fees' => 10000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #285
 					'id' => 286,
@@ -2880,6 +4016,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 800.00,
 					'reading_fees' => 10000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #286
 					'id' => 287,
@@ -2890,6 +4030,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 800.00,
 					'reading_fees' => 15000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #287
 					'id' => 288,
@@ -2900,6 +4044,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 6000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #288
 					'id' => 289,
@@ -2910,6 +4058,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #289
 					'id' => 290,
@@ -2920,6 +4072,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #290
 					'id' => 291,
@@ -2930,6 +4086,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #291
 					'id' => 292,
@@ -2940,6 +4100,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #292
 					'id' => 293,
@@ -2950,6 +4114,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #293
 					'id' => 294,
@@ -2960,6 +4128,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #294
 					'id' => 295,
@@ -2970,6 +4142,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #295
 					'id' => 296,
@@ -2980,6 +4156,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #296
 					'id' => 297,
@@ -2990,6 +4170,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #297
 					'id' => 298,
@@ -3000,6 +4184,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #298
 					'id' => 299,
@@ -3010,6 +4198,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #299
 					'id' => 300,
@@ -3020,6 +4212,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #300
 					'id' => 301,
@@ -3030,6 +4226,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #301
 					'id' => 302,
@@ -3040,6 +4240,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #302
 					'id' => 303,
@@ -3050,6 +4254,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #303
 					'id' => 304,
@@ -3060,6 +4268,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #304
 					'id' => 305,
@@ -3070,6 +4282,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 5200.00,
 					'reading_fees' => 5200.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #305
 					'id' => 306,
@@ -3080,6 +4296,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 4000.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #306
 					'id' => 307,
@@ -3090,6 +4310,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 4500.00,
 					'reading_fees' => 4500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #307
 					'id' => 308,
@@ -3100,6 +4324,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 3500.00,
 					'reading_fees' => 3500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #308
 					'id' => 309,
@@ -3110,6 +4338,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #309
 					'id' => 310,
@@ -3120,6 +4352,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #310
 					'id' => 311,
@@ -3130,6 +4366,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #311
 					'id' => 312,
@@ -3140,6 +4380,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #312
 					'id' => 313,
@@ -3150,6 +4394,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #313
 					'id' => 314,
@@ -3160,6 +4408,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #314
 					'id' => 315,
@@ -3170,6 +4422,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #315
 					'id' => 316,
@@ -3180,6 +4436,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #316
 					'id' => 317,
@@ -3190,6 +4450,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #317
 					'id' => 318,
@@ -3200,6 +4464,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #318
 					'id' => 319,
@@ -3210,6 +4478,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #319
 					'id' => 320,
@@ -3220,6 +4492,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #320
 					'id' => 321,
@@ -3230,6 +4506,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #321
 					'id' => 322,
@@ -3240,6 +4520,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #322
 					'id' => 323,
@@ -3250,6 +4534,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #323
 					'id' => 324,
@@ -3260,6 +4548,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #324
 					'id' => 325,
@@ -3270,6 +4562,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #325
 					'id' => 326,
@@ -3280,6 +4576,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #326
 					'id' => 327,
@@ -3290,6 +4590,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #327
 					'id' => 328,
@@ -3300,6 +4604,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #328
 					'id' => 329,
@@ -3310,6 +4618,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #329
 					'id' => 330,
@@ -3320,6 +4632,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #330
 					'id' => 331,
@@ -3330,6 +4646,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #331
 					'id' => 332,
@@ -3340,6 +4660,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #332
 					'id' => 333,
@@ -3350,6 +4674,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #333
 					'id' => 334,
@@ -3360,6 +4688,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #334
 					'id' => 335,
@@ -3370,6 +4702,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #335
 					'id' => 336,
@@ -3380,6 +4716,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #336
 					'id' => 337,
@@ -3390,6 +4730,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #337
 					'id' => 338,
@@ -3400,6 +4744,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #338
 					'id' => 339,
@@ -3410,6 +4758,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #339
 					'id' => 340,
@@ -3420,6 +4772,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #340
 					'id' => 341,
@@ -3430,6 +4786,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #341
 					'id' => 342,
@@ -3440,6 +4800,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #342
 					'id' => 343,
@@ -3450,6 +4814,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #343
 					'id' => 344,
@@ -3460,6 +4828,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #344
 					'id' => 345,
@@ -3470,6 +4842,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #345
 					'id' => 346,
@@ -3480,6 +4856,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #346
 					'id' => 347,
@@ -3490,6 +4870,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #347
 					'id' => 348,
@@ -3500,6 +4884,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #348
 					'id' => 349,
@@ -3510,6 +4898,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #349
 					'id' => 350,
@@ -3520,6 +4912,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #350
 					'id' => 351,
@@ -3530,6 +4926,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #351
 					'id' => 352,
@@ -3540,6 +4940,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #352
 					'id' => 353,
@@ -3550,6 +4954,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #353
 					'id' => 354,
@@ -3560,6 +4968,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #354
 					'id' => 355,
@@ -3570,6 +4982,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #355
 					'id' => 356,
@@ -3580,6 +4996,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #356
 					'id' => 357,
@@ -3590,6 +5010,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #357
 					'id' => 358,
@@ -3600,6 +5024,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #358
 					'id' => 359,
@@ -3610,6 +5038,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #359
 					'id' => 360,
@@ -3620,6 +5052,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #360
 					'id' => 361,
@@ -3630,6 +5066,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #361
 					'id' => 362,
@@ -3640,6 +5080,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #362
 					'id' => 363,
@@ -3650,6 +5094,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #363
 					'id' => 364,
@@ -3660,6 +5108,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #364
 					'id' => 365,
@@ -3670,6 +5122,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #365
 					'id' => 366,
@@ -3680,6 +5136,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #366
 					'id' => 367,
@@ -3690,6 +5150,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #367
 					'id' => 368,
@@ -3700,6 +5164,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #368
 					'id' => 369,
@@ -3710,6 +5178,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #369
 					'id' => 370,
@@ -3720,6 +5192,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #370
 					'id' => 371,
@@ -3730,6 +5206,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #371
 					'id' => 372,
@@ -3740,6 +5220,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #372
 					'id' => 373,
@@ -3750,6 +5234,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #373
 					'id' => 374,
@@ -3760,6 +5248,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #374
 					'id' => 375,
@@ -3770,6 +5262,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #375
 					'id' => 376,
@@ -3780,6 +5276,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #376
 					'id' => 377,
@@ -3790,6 +5290,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #377
 					'id' => 378,
@@ -3800,6 +5304,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #378
 					'id' => 379,
@@ -3810,6 +5318,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #379
 					'id' => 380,
@@ -3820,6 +5332,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #380
 					'id' => 381,
@@ -3830,6 +5346,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #381
 					'id' => 382,
@@ -3840,6 +5360,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #382
 					'id' => 383,
@@ -3850,6 +5374,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #383
 					'id' => 384,
@@ -3860,6 +5388,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #384
 					'id' => 385,
@@ -3870,6 +5402,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #385
 					'id' => 386,
@@ -3880,6 +5416,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #386
 					'id' => 387,
@@ -3890,6 +5430,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #387
 					'id' => 388,
@@ -3900,6 +5444,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #388
 					'id' => 389,
@@ -3910,6 +5458,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #389
 					'id' => 390,
@@ -3920,6 +5472,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #390
 					'id' => 391,
@@ -3930,6 +5486,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #391
 					'id' => 392,
@@ -3940,6 +5500,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #392
 					'id' => 393,
@@ -3950,6 +5514,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #393
 					'id' => 394,
@@ -3960,6 +5528,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #394
 					'id' => 395,
@@ -3970,6 +5542,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #395
 					'id' => 396,
@@ -3980,6 +5556,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #396
 					'id' => 397,
@@ -3990,6 +5570,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #397
 					'id' => 398,
@@ -4000,6 +5584,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #398
 					'id' => 399,
@@ -4010,6 +5598,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #399
 					'id' => 400,
@@ -4020,6 +5612,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #400
 					'id' => 401,
@@ -4030,6 +5626,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #401
 					'id' => 402,
@@ -4040,6 +5640,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #402
 					'id' => 403,
@@ -4050,6 +5654,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #403
 					'id' => 404,
@@ -4060,6 +5668,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #404
 					'id' => 405,
@@ -4070,6 +5682,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 0.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #405
 					'id' => 406,
@@ -4080,6 +5696,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #406
 					'id' => 407,
@@ -4090,6 +5710,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #407
 					'id' => 408,
@@ -4100,6 +5724,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #408
 					'id' => 409,
@@ -4110,6 +5738,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #409
 					'id' => 410,
@@ -4120,6 +5752,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #410
 					'id' => 411,
@@ -4130,6 +5766,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #411
 					'id' => 412,
@@ -4140,6 +5780,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #412
 					'id' => 413,
@@ -4150,6 +5794,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #413
 					'id' => 414,
@@ -4160,6 +5808,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #414
 					'id' => 415,
@@ -4170,6 +5822,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #415
 					'id' => 416,
@@ -4180,6 +5836,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #416
 					'id' => 417,
@@ -4190,6 +5850,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #417
 					'id' => 418,
@@ -4200,6 +5864,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #418
 					'id' => 419,
@@ -4210,6 +5878,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #419
 					'id' => 420,
@@ -4220,6 +5892,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #420
 					'id' => 421,
@@ -4230,6 +5906,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #421
 					'id' => 422,
@@ -4240,6 +5920,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #422
 					'id' => 423,
@@ -4250,6 +5934,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #423
 					'id' => 424,
@@ -4260,6 +5948,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #424
 					'id' => 425,
@@ -4270,6 +5962,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #425
 					'id' => 426,
@@ -4280,6 +5976,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #426
 					'id' => 427,
@@ -4290,6 +5990,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #427
 					'id' => 428,
@@ -4300,6 +6004,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #428
 					'id' => 429,
@@ -4310,6 +6018,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #429
 					'id' => 430,
@@ -4320,6 +6032,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #430
 					'id' => 431,
@@ -4330,6 +6046,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #431
 					'id' => 432,
@@ -4340,6 +6060,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #432
 					'id' => 433,
@@ -4350,6 +6074,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #433
 					'id' => 434,
@@ -4360,6 +6088,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #434
 					'id' => 435,
@@ -4370,6 +6102,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #435
 					'id' => 436,
@@ -4380,6 +6116,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #436
 					'id' => 437,
@@ -4390,6 +6130,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #437
 					'id' => 438,
@@ -4400,6 +6144,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #438
 					'id' => 439,
@@ -4410,6 +6158,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #439
 					'id' => 440,
@@ -4420,6 +6172,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #440
 					'id' => 441,
@@ -4430,6 +6186,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #441
 					'id' => 442,
@@ -4440,6 +6200,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #442
 					'id' => 443,
@@ -4450,6 +6214,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #443
 					'id' => 444,
@@ -4460,6 +6228,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #444
 					'id' => 445,
@@ -4470,6 +6242,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #445
 					'id' => 446,
@@ -4480,6 +6256,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #446
 					'id' => 447,
@@ -4490,6 +6270,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #447
 					'id' => 448,
@@ -4500,6 +6284,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 5000.00,
 					'reading_fees' => 5000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #448
 					'id' => 449,
@@ -4510,6 +6298,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #449
 					'id' => 450,
@@ -4520,6 +6312,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #450
 					'id' => 451,
@@ -4530,6 +6326,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #451
 					'id' => 452,
@@ -4540,6 +6340,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #452
 					'id' => 453,
@@ -4550,6 +6354,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #453
 					'id' => 454,
@@ -4560,6 +6368,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #454
 					'id' => 455,
@@ -4570,6 +6382,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #455
 					'id' => 456,
@@ -4580,6 +6396,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #456
 					'id' => 457,
@@ -4590,6 +6410,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #457
 					'id' => 458,
@@ -4600,6 +6424,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #458
 					'id' => 459,
@@ -4610,6 +6438,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #459
 					'id' => 460,
@@ -4620,6 +6452,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #460
 					'id' => 461,
@@ -4630,6 +6466,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #461
 					'id' => 462,
@@ -4640,6 +6480,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #462
 					'id' => 463,
@@ -4650,6 +6494,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #463
 					'id' => 464,
@@ -4660,6 +6508,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #464
 					'id' => 465,
@@ -4670,6 +6522,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #465
 					'id' => 466,
@@ -4680,6 +6536,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #466
 					'id' => 467,
@@ -4690,6 +6550,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #467
 					'id' => 468,
@@ -4700,6 +6564,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #468
 					'id' => 469,
@@ -4710,6 +6578,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #469
 					'id' => 470,
@@ -4720,6 +6592,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #470
 					'id' => 471,
@@ -4730,6 +6606,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #471
 					'id' => 472,
@@ -4740,6 +6620,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #472
 					'id' => 473,
@@ -4750,6 +6634,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #473
 					'id' => 474,
@@ -4760,6 +6648,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #474
 					'id' => 475,
@@ -4770,6 +6662,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #475
 					'id' => 476,
@@ -4780,6 +6676,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #476
 					'id' => 477,
@@ -4790,6 +6690,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #477
 					'id' => 478,
@@ -4800,6 +6704,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #478
 					'id' => 479,
@@ -4810,6 +6718,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #479
 					'id' => 480,
@@ -4820,6 +6732,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #480
 					'id' => 481,
@@ -4830,6 +6746,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #481
 					'id' => 482,
@@ -4840,6 +6760,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #482
 					'id' => 483,
@@ -4850,6 +6774,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #483
 					'id' => 484,
@@ -4860,6 +6788,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #484
 					'id' => 485,
@@ -4870,6 +6802,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #485
 					'id' => 486,
@@ -4880,6 +6816,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #486
 					'id' => 487,
@@ -4890,6 +6830,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #487
 					'id' => 488,
@@ -4900,6 +6844,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #488
 					'id' => 489,
@@ -4910,6 +6858,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #489
 					'id' => 490,
@@ -4920,6 +6872,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #490
 					'id' => 491,
@@ -4930,6 +6886,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #491
 					'id' => 492,
@@ -4940,6 +6900,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #492
 					'id' => 493,
@@ -4950,6 +6914,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #493
 					'id' => 494,
@@ -4960,6 +6928,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #494
 					'id' => 495,
@@ -4970,6 +6942,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 6000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #495
 					'id' => 496,
@@ -4980,6 +6956,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #496
 					'id' => 497,
@@ -4990,6 +6970,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #497
 					'id' => 498,
@@ -5000,6 +6984,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #498
 					'id' => 499,
@@ -5010,6 +6998,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #499
 					'id' => 500,
@@ -5020,6 +7012,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #500
 					'id' => 501,
@@ -5030,6 +7026,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #501
 					'id' => 502,
@@ -5040,6 +7040,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #502
 					'id' => 503,
@@ -5050,6 +7054,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #503
 					'id' => 504,
@@ -5060,6 +7068,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #504
 					'id' => 505,
@@ -5070,6 +7082,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #505
 					'id' => 506,
@@ -5080,6 +7096,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #506
 					'id' => 507,
@@ -5090,6 +7110,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #507
 					'id' => 508,
@@ -5100,6 +7124,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #508
 					'id' => 509,
@@ -5110,6 +7138,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #509
 					'id' => 511,
@@ -5120,6 +7152,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #510
 					'id' => 512,
@@ -5130,6 +7166,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #511
 					'id' => 513,
@@ -5140,6 +7180,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #512
 					'id' => 514,
@@ -5150,6 +7194,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #513
 					'id' => 515,
@@ -5160,6 +7208,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1100.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #514
 					'id' => 516,
@@ -5170,6 +7222,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #515
 					'id' => 517,
@@ -5180,6 +7236,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #516
 					'id' => 518,
@@ -5190,6 +7250,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1100.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #517
 					'id' => 519,
@@ -5200,6 +7264,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #518
 					'id' => 520,
@@ -5210,6 +7278,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #519
 					'id' => 521,
@@ -5220,6 +7292,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #520
 					'id' => 522,
@@ -5230,6 +7306,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1100.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #521
 					'id' => 523,
@@ -5240,6 +7320,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #522
 					'id' => 524,
@@ -5250,6 +7334,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #523
 					'id' => 525,
@@ -5260,6 +7348,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #524
 					'id' => 526,
@@ -5270,6 +7362,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #525
 					'id' => 527,
@@ -5280,6 +7376,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1100.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #526
 					'id' => 528,
@@ -5290,6 +7390,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #527
 					'id' => 529,
@@ -5300,6 +7404,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #528
 					'id' => 530,
@@ -5310,6 +7418,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #529
 					'id' => 531,
@@ -5320,6 +7432,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #530
 					'id' => 532,
@@ -5330,6 +7446,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #531
 					'id' => 533,
@@ -5340,6 +7460,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #532
 					'id' => 534,
@@ -5350,6 +7474,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #533
 					'id' => 535,
@@ -5360,6 +7488,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #534
 					'id' => 536,
@@ -5370,6 +7502,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #535
 					'id' => 537,
@@ -5380,6 +7516,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #536
 					'id' => 538,
@@ -5390,6 +7530,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #537
 					'id' => 539,
@@ -5400,6 +7544,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #538
 					'id' => 540,
@@ -5410,6 +7558,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #539
 					'id' => 541,
@@ -5420,6 +7572,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #540
 					'id' => 542,
@@ -5430,6 +7586,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #541
 					'id' => 543,
@@ -5440,6 +7600,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #542
 					'id' => 544,
@@ -5450,6 +7614,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #543
 					'id' => 545,
@@ -5460,6 +7628,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #544
 					'id' => 546,
@@ -5470,6 +7642,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #545
 					'id' => 547,
@@ -5480,6 +7656,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #546
 					'id' => 548,
@@ -5490,6 +7670,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #547
 					'id' => 549,
@@ -5500,6 +7684,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #548
 					'id' => 550,
@@ -5510,6 +7698,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #549
 					'id' => 551,
@@ -5520,6 +7712,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #550
 					'id' => 552,
@@ -5530,6 +7726,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #551
 					'id' => 553,
@@ -5540,6 +7740,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #552
 					'id' => 554,
@@ -5550,6 +7754,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #553
 					'id' => 555,
@@ -5560,6 +7768,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #554
 					'id' => 556,
@@ -5570,6 +7782,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1300.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #555
 					'id' => 557,
@@ -5580,6 +7796,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #556
 					'id' => 558,
@@ -5590,6 +7810,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #557
 					'id' => 559,
@@ -5600,6 +7824,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1300.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #558
 					'id' => 560,
@@ -5610,6 +7838,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1550.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #559
 					'id' => 561,
@@ -5620,6 +7852,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #560
 					'id' => 562,
@@ -5630,6 +7866,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #561
 					'id' => 563,
@@ -5640,6 +7880,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 8000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #562
 					'id' => 564,
@@ -5650,6 +7894,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2700.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #563
 					'id' => 565,
@@ -5660,6 +7908,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #564
 					'id' => 566,
@@ -5670,6 +7922,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 2500.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #565
 					'id' => 567,
@@ -5680,6 +7936,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #566
 					'id' => 568,
@@ -5690,6 +7950,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1750.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #567
 					'id' => 569,
@@ -5700,6 +7964,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #568
 					'id' => 570,
@@ -5710,6 +7978,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #569
 					'id' => 571,
@@ -5720,6 +7992,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 4000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #570
 					'id' => 572,
@@ -5730,6 +8006,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #571
 					'id' => 573,
@@ -5740,6 +8020,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #572
 					'id' => 574,
@@ -5750,6 +8034,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 1350.00,
 					'reading_fees' => 2000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #573
 					'id' => 575,
@@ -5760,6 +8048,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 0.00,
 					'reading_fees' => 6500.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 	);
 

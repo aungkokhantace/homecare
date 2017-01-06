@@ -20,30 +20,30 @@ class Default_AllergySeeder extends Seeder
         DB::table('allergies')->delete();
 
         $objs = array(
-            ['name'=>'Peanuts', 'type' =>'food', 'description' =>'Peanuts Allergy'],
-            ['name'=>'Milk', 'type' =>'food', 'description' =>'Milk Allergy'],
-            ['name'=>'Eggs', 'type' =>'food', 'description' =>'Eggs Allergy'],
-            ['name'=>'Nuts', 'type' =>'food', 'description' =>'Nuts Allergy'],
-            ['name'=>'Fish', 'type' =>'food', 'description' =>'Fish Allergy'],
-            ['name'=>'Shellfish', 'type' =>'food', 'description' =>'Shellfish Allergy'],
-            ['name'=>'Soy', 'type' =>'food', 'description' =>'Soy Allergy'],
-            ['name'=>'Wheat', 'type' =>'food', 'description' =>'Wheat Allergy'],
+            ['name'=>'Peanuts', 'type' =>'food', 'description' =>'Peanuts Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Milk', 'type' =>'food', 'description' =>'Milk Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Eggs', 'type' =>'food', 'description' =>'Eggs Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Nuts', 'type' =>'food', 'description' =>'Nuts Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Fish', 'type' =>'food', 'description' =>'Fish Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Shellfish', 'type' =>'food', 'description' =>'Shellfish Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Soy', 'type' =>'food', 'description' =>'Soy Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Wheat', 'type' =>'food', 'description' =>'Wheat Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
 
-            ['name'=>'Amoxicillin (Anitbiotics)', 'type' =>'drug', 'description' =>'Amoxicillin Allergy'],
-            ['name'=>'Ampicillin (Anitbiotics)', 'type' =>'drug', 'description' =>'Ampicillin Allergy'],
-            ['name'=>'Penicillin (Anitbiotics)', 'type' =>'drug', 'description' =>'Penicillin Allergy'],
-            ['name'=>'Tetracycline (Anitbiotics)', 'type' =>'drug', 'description' =>'Tetracycline Allergy'],
-            ['name'=>'NSAIDs', 'type' =>'drug', 'description' =>'NSAIDs Allergy'],
-            ['name'=>'Septrin (Sulfa Drugs)', 'type' =>'drug', 'description' =>'Septrin Allergy'],
-            ['name'=>'Anti-malarials (Sulfa Drugs)', 'type' =>'drug', 'description' =>'Anti-malarials Allergy'],
-            ['name'=>'Cetuximab (Monoclonal antibody therapy)', 'type' =>'drug', 'description' =>'Cetuximab Allergy'],
-            ['name'=>'Rituximab (Monoclonal antibody therapy)', 'type' =>'drug', 'description' =>'Rituximab Allergy'],
-            ['name'=>'Abacavir (HIV drugs)', 'type' =>'drug', 'description' =>'Abacavir Allergy'],
-            ['name'=>'Nevirapine (HIV drugs)', 'type' =>'drug', 'description' =>'Nevirapine Allergy'],
-            ['name'=>'Insulin', 'type' =>'drug', 'description' =>'Insulin Allergy'],
-            ['name'=>'Carbamazepine (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Carbamazepine Allergy'],
-            ['name'=>'Lamotrigine (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Lamotrigine Allergy'],
-            ['name'=>'Phenytoin (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Phenytoin Allergy']
+            ['name'=>'Amoxicillin (Anitbiotics)', 'type' =>'drug', 'description' =>'Amoxicillin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Ampicillin (Anitbiotics)', 'type' =>'drug', 'description' =>'Ampicillin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Penicillin (Anitbiotics)', 'type' =>'drug', 'description' =>'Penicillin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Tetracycline (Anitbiotics)', 'type' =>'drug', 'description' =>'Tetracycline Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'NSAIDs', 'type' =>'drug', 'description' =>'NSAIDs Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Septrin (Sulfa Drugs)', 'type' =>'drug', 'description' =>'Septrin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Anti-malarials (Sulfa Drugs)', 'type' =>'drug', 'description' =>'Anti-malarials Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Cetuximab (Monoclonal antibody therapy)', 'type' =>'drug', 'description' =>'Cetuximab Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Rituximab (Monoclonal antibody therapy)', 'type' =>'drug', 'description' =>'Rituximab Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Abacavir (HIV drugs)', 'type' =>'drug', 'description' =>'Abacavir Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Nevirapine (HIV drugs)', 'type' =>'drug', 'description' =>'Nevirapine Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Insulin', 'type' =>'drug', 'description' =>'Insulin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Carbamazepine (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Carbamazepine Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Lamotrigine (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Lamotrigine Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Phenytoin (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Phenytoin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35']
 
         );
 
