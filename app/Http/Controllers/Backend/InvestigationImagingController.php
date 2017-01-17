@@ -72,7 +72,7 @@ class InvestigationImagingController extends Controller
     public function edit($id){
         if (Auth::guard('User')->check()) {
             $investigationImaging = $this->repo->getObjByID($id);
-            return view('backend.investigationimaging.investigationimaging')->with('investigationImaging', $investigationImaging);
+            return view('backend.investigationImaging.investigationimaging')->with('investigationImaging', $investigationImaging);
         }
         return redirect('/');
     }
