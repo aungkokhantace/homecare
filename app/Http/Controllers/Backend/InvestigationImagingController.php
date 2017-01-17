@@ -31,7 +31,7 @@ class InvestigationImagingController extends Controller
     {
         if (Auth::guard('User')->check()) {
             $investigationImagings      = $this->repo->getObjs();
-            return view('backend.investigationimaging.index')->with('investigationImagings', $investigationImagings);
+            return view('backend.investigationImaging.index')->with('investigationImagings', $investigationImagings);
         }
         return redirect('/');
     }
