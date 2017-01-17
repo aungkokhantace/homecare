@@ -282,6 +282,10 @@ class Default_InvestigationImagingSeeder extends Seeder
 					'urgent_fees' => 0.00,
 					'refer_fees' => 15000.00,
 					'reading_fees' => 24000.00,
+					'created_by' =>'U0001',
+					'updated_by' =>'U0001',
+					'created_at' =>'2017-01-06 11:30:35',
+					'updated_at' =>'2017-01-06 11:30:35'
 			),
 			array( // row #19
 					'id' => 20,
