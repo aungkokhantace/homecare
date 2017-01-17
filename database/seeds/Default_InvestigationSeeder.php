@@ -195,7 +195,7 @@ class Default_InvestigationSeeder extends Seeder
             ['id'=>'173','name'=>'FNAC','group_name'=>'Histopathology','price'=>'1000','description'=>'', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
             ['id'=>'174','name'=>'G6PD','group_name'=>'Neonatal_Screening_Tests','price'=>'1000','description'=>'', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
             ['id'=>'175','name'=>'TSH','group_name'=>'Neonatal_Screening_Tests','price'=>'1000','description'=>'', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
-            ['id'=>'176','name'=>'Phenylketonuria [PKU]','group_name'=>'Neonatal_Screening_Tests','price'=>'1000','description'=>'']
+            ['id'=>'176','name'=>'Phenylketonuria [PKU]','group_name'=>'Neonatal_Screening_Tests','price'=>'1000','description'=>'', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35']
         );
 
         DB::table('investigations')->insert($tempArrays);
