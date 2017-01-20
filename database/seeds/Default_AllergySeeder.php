@@ -28,6 +28,10 @@ class Default_AllergySeeder extends Seeder
             ['name'=>'Shellfish', 'type' =>'food', 'description' =>'Shellfish Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
             ['name'=>'Soy', 'type' =>'food', 'description' =>'Soy Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
             ['name'=>'Wheat', 'type' =>'food', 'description' =>'Wheat Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Sea food', 'type' =>'food', 'description' =>'Sea food Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Fruits', 'type' =>'food', 'description' =>'Fruits Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Gluten', 'type' =>'food', 'description' =>'Gluten Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Other', 'type' =>'food', 'description' =>'Other Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
 
             ['name'=>'Amoxicillin (Anitbiotics)', 'type' =>'drug', 'description' =>'Amoxicillin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
             ['name'=>'Ampicillin (Anitbiotics)', 'type' =>'drug', 'description' =>'Ampicillin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
@@ -43,7 +47,17 @@ class Default_AllergySeeder extends Seeder
             ['name'=>'Insulin', 'type' =>'drug', 'description' =>'Insulin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
             ['name'=>'Carbamazepine (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Carbamazepine Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
             ['name'=>'Lamotrigine (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Lamotrigine Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
-            ['name'=>'Phenytoin (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Phenytoin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35']
+            ['name'=>'Phenytoin (Antiseizure Drugs)', 'type' =>'drug', 'description' =>'Phenytoin Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Lidocaine', 'type' =>'drug', 'description' =>'Lidocaine Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Sulfur', 'type' =>'drug', 'description' =>'Sulfur Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Paracetamol', 'type' =>'drug', 'description' =>'Paracetamol Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Other', 'type' =>'drug', 'description' =>'Other Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+
+            ['name'=>'Pets', 'type' =>'environment', 'description' =>'Pets Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Perfume', 'type' =>'environment', 'description' =>'Perfume Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Pollen', 'type' =>'environment', 'description' =>'Pollen Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Insect Sting', 'type' =>'environment', 'description' =>'Insect Sting Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
+            ['name'=>'Other', 'type' =>'environment', 'description' =>'Other Allergy', 'created_by' =>'U0001', 'updated_by' =>'U0001', 'created_at' =>'2017-01-06 11:30:35', 'updated_at' =>'2017-01-06 11:30:35'],
 
         );
 
