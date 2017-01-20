@@ -336,6 +336,9 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>343,'module'=>'Investigation Imaging','name'=>'Edit','description'=>'Investigation Imaging Edit','url'=>'investigationimaging/edit'],
             ['id'=>344,'module'=>'Investigation Imaging','name'=>'Update','description'=>'Investigation Imaging Update','url'=>'investigationimaging/update'],
             ['id'=>345,'module'=>'Investigation Imaging','name'=>'Destroy','description'=>'Investigation Imaging Destroy','url'=>'investigationimaging/destroy'],
+
+            //Addendum
+            ['id'=>346,'module'=>'Addendum','name'=>'Store','description'=>'Addendum Store','url'=>'addendum/store'],
         );
 
 

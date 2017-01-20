@@ -1730,7 +1730,63 @@
             </div>
             @endif
         <!-- End Blood Drawing Accordion -->
+
+        {!! Form::open(array('url' => 'addendum/store', 'class'=> 'form-horizontal user-form-border', 'id' => 'addendumForm', 'files' => true)) !!}
+        {{--Start Addendum--}}
+        <h1 class="page-header">Addendum</h1>
+        <input type="hidden" name="patient_id" value="{{isset($patient)? $patient->user_id:''}}"/>
+        <input type="hidden" name="schedule_id" value="{{isset($schedule_id)? $schedule_id:''}}"/>
+        {{--Start Addendum List--}}
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="listing">
+                    <input type="hidden" id="pageSearchedValue" name="pageSearchedValue" value="">
+                    <table class="table table-striped list-table" id="list-table">
+
+                        <thead>
+                        <tr>
+                            <th>Addendum</th>
+                            <th>Added By</th>
+                            <th>Added At</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th class="search-col" con-id="addendum">Addendum</th>
+                            <th class="search-col" con-id="added_by">Added By</th>
+                            <th class="search-col" con-id="added_at">Added At</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        @foreach($addendums as $addendum)
+                            <tr>
+                                <td>{{$addendum->addendum_text}}</td>
+                                <td>{{$addendum->user->name}}</td>
+                                <td>{{$addendum->created_at}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{--End Addendum List--}}
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <label for="addendum" class="text_bold_black">Addendum</label>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <textarea autocomplete="off" class="form-control" id="addendum" name="addendum" placeholder="Enter addendum" rows="15" cols="50">{{Input::old('addendum')}}</textarea>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-1">
+                <input type="submit" name="add_addendum" id="add_addendum" value="ADD" class="form-control btn-primary">
+            </div>
+        </div>
+        {{--End Addendum--}}
     </div>
+    {!! Form::close() !!}
 @stop
 
 @section('page_script')

@@ -36,4 +36,9 @@ class User extends Authenticatable
     public function session(){
         return $this->hasMany('App\Session\Session');
     }
+
+    public function addendum()
+    {
+        return $this->hasMany('App\Backend\Addendum\Addendum');
+    }
 }

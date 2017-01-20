@@ -174,6 +174,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('patient/patientSchedule/{id}', array('as'=>'patient/detail','uses'=>'Backend\PatientController@patientSchedules'));
         Route::get('patient/detailvisit/{id}', array('as'=>'patient/detail','uses'=>'Backend\PatientController@detailvisit'));
 
+        //Addendum
+        Route::post('addendum/store', array('as'=>'addendum/store','uses'=>'Backend\PatientController@addAddendum'));
+
         //Patient Profile
         Route::get('patient/profile', array('as'=>'patient/profile','uses'=>'Patient\PatientProfileController@edit'));
         Route::post('patient/profile', array('as'=>'patient/profile','uses'=>'Patient\PatientProfileController@update'));

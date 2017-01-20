@@ -39,6 +39,4 @@ class Patient extends Model
     {
         return $this->belongsTo('App\Backend\Zone\Zone','zone_id','id');
     }
-
-
 }

@@ -34,19 +34,15 @@
                 </ul>
             </li>
 
-            <li nav-id='report'  class="has-sub" >
+            <li  nav-id='patient'  class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
-                    <i class="fa fa-line-chart"></i>
-                    <span>Report</span>
+                    <i class="fa fa-users"></i>
+                    <span>Patient Setup</span>
                 </a>
-
                 <ul class="sub-menu">
-                    <li nav-id="report-schedule-status"><a href="/schedulestatusreport">Schedule Status Report</a></li>
-                    <li nav-id="report-income-summary"><a href="/incomesummaryreport">Income Summary Report</a></li>
-                    <li nav-id="report-sale-summary"><a href="/salesummaryreport">Sale Summary Report</a></li>
-                    <li nav-id="report-car-usage"><a href="/carusagereport">Car Usage Report</a></li>
-                    <li nav-id="report-visit-record"><a href="/visitreport">Visit Record Report</a></li>
+                    <li nav-id="patient-entry"><a href="/patient/create">Entry</a></li>
+                    <li nav-id="patient-list"><a href="/patient">List</a></li>
                 </ul>
             </li>
 
@@ -63,93 +59,11 @@
                 </ul>
             </li>
 
-            <li  nav-id='patient'  class="has-sub">
-                <a href="javascript:;">
-                    <b class="caret pull-right"></b>
-                    <i class="fa fa-users"></i>
-                    <span>Patient Setup</span>
-                </a>
-                <ul class="sub-menu">
-                    <li nav-id="patient-manage" class="has-sub">
-                        <a href="javascript:;">
-                            <b class="caret pull-right"></b>
-                            <span>Patient</span>
-                        </a>
-
-                        <ul class="sub-menu">
-                            <li nav-id="patient-entry"><a href="/patient/create">Entry</a></li>
-                            <li nav-id="patient-list"><a href="/patient">List</a></li>
-                        </ul>
-                    </li>
-                    <li nav-id="allergy" class="has-sub">
-                        <a href="javascript:;">
-                            <b class="caret pull-right"></b>
-                            <span>Allergy</span>
-                        </a>
-
-                        <ul class="sub-menu">
-                            <li nav-id="allergy-entry"><a href="/allergy/create">Entry</a></li>
-                            <li nav-id="allergy-list"><a href="/allergy">List</a></li>
-
-                        </ul>
-                    </li>
-                    <li nav-id="allergy" class="has-sub">
-                        <a href="javascript:;">
-                            <b class="caret pull-right"></b>
-                            <span>Family Member</span>
-                        </a>
-
-                        <ul class="sub-menu">
-                            <li nav-id="allergy-entry"><a href="/familymember/create">Entry</a></li>
-                            <li nav-id="allergy-list"><a href="/familymember">List</a></li>
-
-                        </ul>
-                    </li>
-                    <li nav-id="allergy" class="has-sub">
-                        <a href="javascript:;">
-                            <b class="caret pull-right"></b>
-                            <span>Family History</span>
-                        </a>
-
-                        <ul class="sub-menu">
-                            <li nav-id="allergy-entry"><a href="/familyhistory/create">Entry</a></li>
-                            <li nav-id="allergy-list"><a href="/familyhistory">List</a></li>
-
-                        </ul>
-                    </li>
-                    <li nav-id="allergy" class="has-sub">
-                        <a href="javascript:;">
-                            <b class="caret pull-right"></b>
-                            <span>Medical History</span>
-                        </a>
-
-                        <ul class="sub-menu">
-                            <li nav-id="allergy-entry"><a href="/medicalhistory/create">Entry</a></li>
-                            <li nav-id="allergy-list"><a href="/medicalhistory">List</a></li>
-
-                        </ul>
-                    </li>
-                    <li nav-id="allergy" class="has-sub">
-                        <a href="javascript:;">
-                            <b class="caret pull-right"></b>
-                            <span>Provisional Diagnosis</span>
-                        </a>
-
-                        <ul class="sub-menu">
-                            <li nav-id="allergy-entry"><a href="/provisionaldiagnosis/create">Entry</a></li>
-                            <li nav-id="allergy-list"><a href="/provisionaldiagnosis">List</a></li>
-
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-
-
             <li  nav-id='product'  class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
                     <i class="fa fa-suitcase"></i>
-                    <span>Product Setup</span>
+                    <span>Initial Setup</span>
                 </a>
                 <ul class="sub-menu">
                     <li nav-id="medication-category-manage" class="has-sub">
@@ -233,28 +147,67 @@
                         </ul>
                     </li>
 
-                    {{--<li nav-id="physical-examination" class="has-sub">--}}
-                        {{--<a href="javascript:;">--}}
-                            {{--<b class="caret pull-right"></b>--}}
-                            {{--<span>Physical Examination</span>--}}
-                        {{--</a>--}}
+                    <li nav-id="allergy" class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <span>Allergy</span>
+                        </a>
 
-                        {{--<ul class="sub-menu">--}}
-                            {{--<li nav-id="physical-examination-entry"><a href="/physicalexam/create">Entry</a></li>--}}
-                            {{--<li nav-id="physical-examination-list"><a href="/physicalexam">List</a></li>--}}
+                        <ul class="sub-menu">
+                            <li nav-id="allergy-entry"><a href="/allergy/create">Entry</a></li>
+                            <li nav-id="allergy-list"><a href="/allergy">List</a></li>
 
-                        {{--</ul>--}}
-                    {{--</li>--}}
-                </ul>
-            </li>
+                        </ul>
+                    </li>
+                    <li nav-id="allergy" class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <span>Family Member</span>
+                        </a>
 
-            <li  nav-id='car-zone'  class="has-sub">
-                <a href="javascript:;">
-                    <b class="caret pull-right"></b>
-                    <i class="fa fa-automobile"></i>
-                    <span>Car & Zone Setup</span>
-                </a>
-                <ul class="sub-menu">
+                        <ul class="sub-menu">
+                            <li nav-id="allergy-entry"><a href="/familymember/create">Entry</a></li>
+                            <li nav-id="allergy-list"><a href="/familymember">List</a></li>
+
+                        </ul>
+                    </li>
+                    <li nav-id="allergy" class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <span>Family History</span>
+                        </a>
+
+                        <ul class="sub-menu">
+                            <li nav-id="allergy-entry"><a href="/familyhistory/create">Entry</a></li>
+                            <li nav-id="allergy-list"><a href="/familyhistory">List</a></li>
+
+                        </ul>
+                    </li>
+                    <li nav-id="allergy" class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <span>Medical History</span>
+                        </a>
+
+                        <ul class="sub-menu">
+                            <li nav-id="allergy-entry"><a href="/medicalhistory/create">Entry</a></li>
+                            <li nav-id="allergy-list"><a href="/medicalhistory">List</a></li>
+
+                        </ul>
+                    </li>
+                    <li nav-id="allergy" class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <span>Provisional Diagnosis</span>
+                        </a>
+
+                        <ul class="sub-menu">
+                            <li nav-id="allergy-entry"><a href="/provisionaldiagnosis/create">Entry</a></li>
+                            <li nav-id="allergy-list"><a href="/provisionaldiagnosis">List</a></li>
+
+                        </ul>
+                    </li>
+
                     <li nav-id="city-manage" class="has-sub">
                         <a href="javascript:;">
                             <b class="caret pull-right"></b>
@@ -312,6 +265,35 @@
                             <li nav-id="car-price-setup-list"><a href="/cartypesetup">List</a></li>
                         </ul>
                     </li>
+
+                    {{--<li nav-id="physical-examination" class="has-sub">--}}
+                    {{--<a href="javascript:;">--}}
+                    {{--<b class="caret pull-right"></b>--}}
+                    {{--<span>Physical Examination</span>--}}
+                    {{--</a>--}}
+
+                    {{--<ul class="sub-menu">--}}
+                    {{--<li nav-id="physical-examination-entry"><a href="/physicalexam/create">Entry</a></li>--}}
+                    {{--<li nav-id="physical-examination-list"><a href="/physicalexam">List</a></li>--}}
+
+                    {{--</ul>--}}
+                    {{--</li>--}}
+                </ul>
+            </li>
+
+            <li nav-id='report'  class="has-sub" >
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-line-chart"></i>
+                    <span>Report</span>
+                </a>
+
+                <ul class="sub-menu">
+                    <li nav-id="report-schedule-status"><a href="/schedulestatusreport">Schedule Status Report</a></li>
+                    <li nav-id="report-income-summary"><a href="/incomesummaryreport">Income Summary Report</a></li>
+                    <li nav-id="report-sale-summary"><a href="/salesummaryreport">Sale Summary Report</a></li>
+                    <li nav-id="report-car-usage"><a href="/carusagereport">Car Usage Report</a></li>
+                    <li nav-id="report-visit-record"><a href="/visitreport">Visit Record Report</a></li>
                 </ul>
             </li>
 

@@ -8,6 +8,8 @@
  */
 namespace App\Http\Controllers\Backend;
 
+use App\Backend\Addendum\Addendum;
+use App\Backend\Addendum\AddendumRepository;
 use App\Backend\Allergy\AllergyRepository;
 use App\Backend\Cartype\Cartype;
 use App\Backend\Investigation\Investigation;
@@ -825,6 +827,11 @@ class PatientController extends Controller
                 }
             }
 
+            //start addendum
+            $addendumRepo = new AddendumRepository();
+            $addendums    = $addendumRepo->getObjs();
+            //end addendum
+
             return view('backend.patient.detailvisit')->with('patient',$patient)
                 ->with('schedules',$schedule)
                 ->with('vitals',$vitals)
@@ -841,11 +848,36 @@ class PatientController extends Controller
                 ->with('investigation_other',$investigation_other)
                 ->with('blood_drawings',$blood_drawings)
                 ->with('blood_drawings_remark',$blood_drawings_remark)
-                ->with('service_type',$service_type);
+                ->with('service_type',$service_type)
+                ->with('schedule_id',$latest_schedule_id)
+                ->with('addendums',$addendums);
         }
         else{
             return view('backend.patient.invalidpatient');
         }
 
+    }
+
+    public function addAddendum(Request $request){
+        $schedule_id            = (Input::has('schedule_id')) ? Input::get('schedule_id') : "";
+        $patient_id             = (Input::has('patient_id')) ? Input::get('patient_id') : "";
+        $addendum_text          = (Input::has('addendum')) ? Input::get('addendum') : "";
+
+        //create patient object
+        $paramObj                       = new Addendum();
+        $paramObj->schedule_id          = $schedule_id;
+        $paramObj->patient_id           = $patient_id;
+        $paramObj->addendum_text        = $addendum_text;
+
+        $addendumRepo = new AddendumRepository();
+        $result = $addendumRepo->create($paramObj);
+        if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
+            return redirect()->action('Backend\PatientController@detailvisit', ['id' => $schedule_id])
+                ->withMessage(FormatGenerator::message('Success', 'Addendum added ...'));
+        }
+        else{
+            return redirect()->action('Backend\PatientController@detailvisit', ['id' => $schedule_id])
+                ->withMessage(FormatGenerator::message('Fail', 'Addendum did not add ...'));
+        }
     }
 }
