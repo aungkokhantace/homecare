@@ -381,6 +381,19 @@
                         @endif
 
                     </optgroup>
+                    <optgroup label="Environment Allergy">
+
+                        @if(isset($patient['allergies']['environment']))
+                            @foreach($patient['allergies']['environment'] as $allergy)
+                                @if($allergy->selected == 1)
+                                    <option value="{{$allergy->id}}" selected>{{$allergy->name}}</option>
+                                @else
+                                    <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                                @endif
+                            @endforeach
+                        @endif
+
+                    </optgroup>
                 </select>
             </div>
         @else
@@ -407,7 +420,14 @@
                             @endforeach
                         @endif
                     </optgroup>
+                    <optgroup label="Environment Allergy">
 
+                        @if(isset($allergies['environment']))
+                            @foreach($allergies['environment'] as $allergy)
+                                <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                            @endforeach
+                        @endif
+                    </optgroup>
                 </select>
             </div>
         @endif

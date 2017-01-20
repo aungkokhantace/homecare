@@ -202,9 +202,11 @@ class ScheduleController extends Controller
             $allergyRepo            = new AllergyRepository();
             $allergyFood            = $allergyRepo->getArraysByType('food');
             $allergyDrug            = $allergyRepo->getArraysByType('drug');
+            $allergyEnvironment     = $allergyRepo->getArraysByType('environment');
             $allergies              = array();
             $allergies['food']      = $allergyFood;
             $allergies['drug']      = $allergyDrug;
+            $allergies['environment']      = $allergyEnvironment;
 
             $carTypes               = array();
             $car_type_setup_arr     = Cartypesetup::select('car_type_id')->distinct()->whereNull('deleted_at')->get();

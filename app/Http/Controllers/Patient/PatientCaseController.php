@@ -118,13 +118,19 @@ class PatientCaseController extends Controller
 
             foreach($patient['allergies']['food'] as $allergy){
                 if($allergy->selected == 1){
-                    $patient_allergies .= "[Food] - ". $allergy->name.'<br/>';
+                    $patient_allergies = "[Food] - ". $allergy->name.'<br/>';
                 }
             }
 
             foreach($patient['allergies']['drug'] as $allergy){
                 if($allergy->selected == 1){
-                    $patient_allergies .= "[Drug] - ". $allergy->name.'<br/>';
+                    $patient_allergies = "[Drug] - ". $allergy->name.'<br/>';
+                }
+            }
+
+            foreach($patient['allergies']['environment'] as $allergy){
+                if($allergy->selected == 1){
+                    $patient_allergies = "[Environment] - ". $allergy->name.'<br/>';
                 }
             }
 

@@ -56,6 +56,7 @@ class PatientProfileController extends Controller
             $allergies              = array();
             $foodArr                = array();
             $drugArr                = array();
+            $environmentArr         = array();
             foreach($allergyObj as $allergy){
                 if($allergy->type == "food"){
                     array_push($foodArr,$allergy);
@@ -63,9 +64,13 @@ class PatientProfileController extends Controller
                 if($allergy->type == "drug"){
                     array_push($drugArr,$allergy);
                 }
+                if($allergy->type == "environment"){
+                    array_push($environmentArr,$allergy);
+                }
             }
             $allergies['food'] = $foodArr;
             $allergies['drug'] = $drugArr;
+            $allergies['environment'] = $environmentArr;
 
             return view('patient.profile.profile')->with('patient',$patient)->with('patientDob',$patientDob)->with('registrationDate',$registrationDate)->with('user',$user)->with('townships',$townships)->with('allergies',$allergies);
         }

@@ -492,6 +492,8 @@
                             <label class="text_big_blue">[Food] - {{$enqAllergy->name}}</label><br/>
                         @elseif($enqAllergy->selected == 1 && $enqAllergy->type == 'drug')
                             <label class="text_big_blue">[Drug] - {{$enqAllergy->name}}</label><br/>
+                        @elseif($enqAllergy->selected == 1 && $enqAllergy->type == 'environment')
+                            <label class="text_big_blue">[Environment] - {{$enqAllergy->name}}</label><br/>
                         @endif
                     @endforeach
                 @endif
@@ -512,6 +514,14 @@
                     @endforeach
                 @endif
 
+                    @if(isset($patient->allergies))
+                        @foreach($patient->allergies['environment'] as $allergyEnvironment)
+                            @if($allergyEnvironment->selected == 1 && $allergyEnvironment->type == 'environment')
+                                <label id="{{$allergyEnvironment->id}}" name="{{$allergyEnvironment->id}}" class="text_big_blue">[Environment] - {{$allergyEnvironment->name}}</label><br/>
+                            @endif
+                        @endforeach
+                    @endif
+
             @elseif($is_schedule_package == 1)
                 @if($patient->having_allergy == 1)
                     @foreach($patient['allergies']['food'] as $allergy)
@@ -523,6 +533,12 @@
                     @foreach($patient['allergies']['drug'] as $allergy)
                         @if($allergy->selected == 1)
                             <label for="allergy" class="text_big_blue">[Drug] - {{$allergy->name}}</label><br/>
+                        @endif
+                    @endforeach
+
+                    @foreach($patient['allergies']['environment'] as $allergy)
+                        @if($allergy->selected == 1)
+                            <label for="allergy" class="text_big_blue">[Environment] - {{$allergy->name}}</label><br/>
                         @endif
                     @endforeach
                 @endif
@@ -828,6 +844,13 @@
                     $.each(allergies['drug'],function(i,item){
                         if(item.selected ==1){
                             var allergyType = "[Drug] - ";
+                            strAllergies += "<label class='text_big_blue'>"  + allergyType + " " + item.name + "</label><br/>";
+                        }
+                    });
+
+                    $.each(allergies['environment'],function(i,item){
+                        if(item.selected ==1){
+                            var allergyType = "[Environment] - ";
                             strAllergies += "<label class='text_big_blue'>"  + allergyType + " " + item.name + "</label><br/>";
                         }
                     });

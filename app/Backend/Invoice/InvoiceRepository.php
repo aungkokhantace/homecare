@@ -62,6 +62,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
     public function getInvoiceHeaderByPatientID($id){
         $result = Invoice::
             where('patient_id',$id)
+//            ->whereNotNull('schedule_id')
             ->get();
         return $result;
     }

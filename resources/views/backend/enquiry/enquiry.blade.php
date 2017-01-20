@@ -180,6 +180,18 @@
                         @endif
                     </optgroup>
 
+                    <optgroup label="Environment Allergy" class="text_bold_black">
+                        @if(isset($enquiry['allergies']['environment']))
+                            @foreach($enquiry['allergies']['environment'] as $allergy)
+                                @if($allergy->selected == 1)
+                                    <option value="{{$allergy->id}}" selected>{{$allergy->name}}</option>
+                                @else
+                                    <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                                @endif
+                            @endforeach
+                        @endif
+                    </optgroup>
+
                 </select>
             @else
                 <select id="allergies" name="allergies[]" multiple="multiple" class="form-control">
@@ -196,6 +208,14 @@
 
                         @if(isset($allergies['drug']))
                             @foreach($allergies['drug'] as $allergy)
+                                <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                            @endforeach
+                        @endif
+                    </optgroup>
+                    <optgroup label="Environment Allergy" class="text_bold_black">
+
+                        @if(isset($allergies['environment']))
+                            @foreach($allergies['environment'] as $allergy)
                                 <option value="{{$allergy->id}}">{{$allergy->name}}</option>
                             @endforeach
                         @endif

@@ -60,7 +60,6 @@ class EnquiryController extends Controller
 
                 //$enquiries      = $this->enquiryRepository->getObjs($enquiry_status, $enquiry_case_type, $from_date, $to_date);
                 $enquiries      = $this->enquiryRepository->getArrays($enquiry_status, $enquiry_case_type, $from_date, $to_date);
-
                 if(isset($enquiries) && count($enquiries)>0) {
                     foreach($enquiries as $key=>$enquiry){
                         $enquiries[$key]->patient_type = $patientTypes[$enquiry->patient_type_id];
@@ -96,9 +95,11 @@ class EnquiryController extends Controller
             $allergyRepo    = new AllergyRepository();
             $allergyFood      = $allergyRepo->getArraysByType('food');
             $allergyDrug      = $allergyRepo->getArraysByType('drug');
+            $allergyEnvironment = $allergyRepo->getArraysByType('environment');
             $allergies      = array();
             $allergies['food']      = $allergyFood;
             $allergies['drug']      = $allergyDrug;
+            $allergies['environment']      = $allergyEnvironment;
 
             $carTypeRepo        = new CartypeRepository();
             $carTypesRaws        = $carTypeRepo->getArrays();

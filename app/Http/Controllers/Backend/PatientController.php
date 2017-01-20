@@ -87,9 +87,11 @@ class PatientController extends Controller
             $allergyRepo    = new AllergyRepository();
             $allergyFood      = $allergyRepo->getArraysByType('food');
             $allergyDrug      = $allergyRepo->getArraysByType('drug');
+            $allergyEnvironment = $allergyRepo->getArraysByType('environment');
             $allergies      = array();
             $allergies['food']      = $allergyFood;
             $allergies['drug']      = $allergyDrug;
+            $allergies['environment'] = $allergyEnvironment;
 
             $zoneRepo = new zoneRepository();
             $zones      = $zoneRepo->getObjs();
@@ -140,7 +142,6 @@ class PatientController extends Controller
             $photo_ext      = Utility::getImageExt($photo);
             $photo_name     = uniqid() . "." . $photo_ext;
             $image          = Utility::resizeImage($photo,$photo_name,$path);
-
         }
         else{
             $photo_name = "";
@@ -232,9 +233,11 @@ class PatientController extends Controller
                 $allergyRepo    = new AllergyRepository();
                 $allergyFood      = $allergyRepo->getArraysByType('food');
                 $allergyDrug      = $allergyRepo->getArraysByType('drug');
+                $allergyEnvironment = $allergyRepo->getArraysByType('environment');
                 $allergies      = array();
                 $allergies['food']      = $allergyFood;
                 $allergies['drug']      = $allergyDrug;
+                $allergies['environment']      = $allergyEnvironment;
 
                 $zoneRepo = new zoneRepository();
                 $zones = $zoneRepo->getObjs();

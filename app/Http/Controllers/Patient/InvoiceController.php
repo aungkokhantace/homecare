@@ -36,6 +36,10 @@ class InvoiceController extends Controller
             $invoices = $this->repo->getInvoiceHeaderByPatientID($id);
 
             foreach($invoices as $invoice){
+                if($invoice->schedule_id == null && $invoice->type == "package"){
+                    $invoice->car_type = 0;
+                    $invoice->car_type_setup_id = 0;
+                }
                 $invoiceDetails = $this->repo->getDetails($invoice->id);
                 foreach($invoiceDetails as $invDetail){
                     $invoice->car_type = $invDetail->car_type;
@@ -43,7 +47,6 @@ class InvoiceController extends Controller
                 }
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
             }
-
             $carTypeRepo = new CartypeRepository();
 
             $carTypeSetupRepo = new CartypesetupRepository();
@@ -54,11 +57,11 @@ class InvoiceController extends Controller
                 if($carType == 1){
                     $carTypeArray[$inv->id] = "Patient Owned Vehicle";
                 }
-                if($carType == 2){
+                elseif($carType == 2){
                     $carTypeArray[$inv->id] = "Rental Vehicle";
                 }
 
-                if($carType == 3){
+                elseif($carType == 3){
                     if($inv->car_type_setup_id != 0){
                         $carTypeID = $carTypeSetupRepo->getCarType($inv->car_type_setup_id);
                         $carTypeArray[$inv->id] = $carTypeRepo->getCarTypeName($carTypeID);
@@ -66,6 +69,10 @@ class InvoiceController extends Controller
                     else{
                         $carTypeArray[$inv->id] = "HHCS Vehicle";
                     }
+                }
+
+                else{
+                    $carTypeArray[$inv->id] = null;
                 }
             }
 

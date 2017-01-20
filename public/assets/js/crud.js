@@ -77,7 +77,7 @@ function cancel_setup(type) {
     window.location.href = '/' + type;
 }
 
-function cancel_profile() {
+function cancel_to_dashboard() {
     window.location.href = '/patient/dashboard';
 }
 

@@ -62,6 +62,12 @@
                                                 <label for="allergy">[Drug] - {{$allergy->name}}</label><br/>
                                             @endif
                                         @endforeach
+
+                                        @foreach($patient['allergies']['environment'] as $allergy)
+                                            @if($allergy->selected == 1)
+                                                <label for="allergy">[Environment] - {{$allergy->name}}</label><br/>
+                                            @endif
+                                        @endforeach
                                     @endif
                                 </div>
                             @else

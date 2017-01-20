@@ -241,6 +241,7 @@ class EnquiryRepository implements  EnquiryRepositoryInterface
         $allergyRepo    = new AllergyRepository();
         $allergyFood      = $allergyRepo->getArraysByType('food');
         $allergyDrug      = $allergyRepo->getArraysByType('drug');
+        $allergyEnvironment = $allergyRepo->getArraysByType('environment');
         $tempAllergies    = array();
 
         $enquiryAllergies = DB::select("SELECT * FROM enquiry_detail WHERE enquiry_id = '$id' AND type = 'allergy'");
@@ -313,6 +314,41 @@ class EnquiryRepository implements  EnquiryRepositoryInterface
             }
             $tempAllergies['drug']=$allergyDrug;
         }
+
+        if(isset($enquiryAllergies) && count($enquiryAllergies)>0){
+
+            $tempEnqArray = array();
+            foreach($enquiryAllergies as $allergy){
+                $algId = $allergy->allergy_id;
+                array_push($tempEnqArray,$algId);
+            }
+
+            if(isset($allergyEnvironment) && count($allergyEnvironment)>0){
+
+                foreach($allergyEnvironment as $keyAlg => $alg){
+
+                    if (in_array($alg->id, $tempEnqArray)) {
+                        $allergyEnvironment[$keyAlg]->selected = 1;
+                    }
+                }
+
+                foreach($allergyEnvironment as $keyAlg2 => $alg2){
+
+                    if (!array_key_exists('selected', $alg2)) {
+                        $allergyEnvironment[$keyAlg2]->selected = 0;
+                    }
+                }
+            }
+            $tempAllergies['environment']=$allergyEnvironment;
+        }
+        else{
+
+            foreach($allergyEnvironment as $keyAlg3 => $alg3){
+                $allergyEnvironment[$keyAlg3]->selected = 0;
+            }
+            $tempAllergies['environment']=$allergyEnvironment;
+        }
+
         $tempObj['allergies'] = $tempAllergies;
 
         if(isset($enquiryServices) && count($enquiryServices)>0){

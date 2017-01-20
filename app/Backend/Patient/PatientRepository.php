@@ -436,6 +436,7 @@ class PatientRepository implements PatientRepositoryInterface
             $allergyRepo = new AllergyRepository();
             $allergyFood      = $allergyRepo->getArraysByType('food');
             $allergyDrug      = $allergyRepo->getArraysByType('drug');
+            $allergyEnvironment      = $allergyRepo->getArraysByType('environment');
             $tempAllergies    = array();
 
             if (isset($childArray) && count($childArray) > 0) {
@@ -496,6 +497,36 @@ class PatientRepository implements PatientRepositoryInterface
                     $allergyDrug[$keySvc3]->selected = 0;
                 }
                 $tempAllergies['drug']=$allergyDrug;
+            }
+
+            if (isset($childArray) && count($childArray) > 0) {
+                $tempSvcArray = array();
+                foreach ($childArray as $allergy) {
+                    $svcId = $allergy->allergy_id;
+                    array_push($tempSvcArray, $svcId);
+                }
+                if (isset($allergyEnvironment) && count($allergyEnvironment) > 0) {
+                    foreach($allergyEnvironment as $keyAlg => $alg){
+
+                        if (in_array($alg->id, $tempSvcArray)) {
+                            $allergyEnvironment[$keyAlg]->selected = 1;
+                        }
+                    }
+
+                    foreach($allergyEnvironment as $keyAlg2 => $alg2){
+
+                        if (!array_key_exists('selected', $alg2)) {
+                            $allergyEnvironment[$keyAlg2]->selected = 0;
+                        }
+                    }
+                }
+                $tempAllergies['environment']=$allergyEnvironment;
+            } else {
+
+                foreach ($allergyEnvironment as $keySvc3 => $svc3) {
+                    $allergyEnvironment[$keySvc3]->selected = 0;
+                }
+                $tempAllergies['environment']=$allergyEnvironment;
             }
 
             $tempObj['allergies'] = $tempAllergies;
