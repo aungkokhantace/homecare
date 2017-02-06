@@ -565,4 +565,15 @@ class Utility
                 'action'=>$action, 'old_price'=> $old_price , 'new_price'=>$new_price, 'created_by'=>$created_by, 'created_at'=>$created_at]
         ]);
     }
+
+
+    public static function getTaxRate()
+    {
+        $tempArrays = DB::select("SELECT * FROM core_settings WHERE type = 'TAX_RATE'");
+        if (isset($tempArrays) && count($tempArrays) > 0) {
+            return $tempArrays[0]->value;
+        }
+
+        return 7;
+    }
 }

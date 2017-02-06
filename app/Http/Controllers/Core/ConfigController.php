@@ -28,6 +28,7 @@ class ConfigController extends Controller
         if (Auth::guard('User')->check()) {
 
             $configs      = $this->ConfigRepository->getSiteConfigs();
+            $taxPercent   = Utility::getTaxRate();
 
             if (is_null($configs) || count($configs) == 0)
             {
@@ -61,6 +62,7 @@ class ConfigController extends Controller
             if(!array_key_exists("SETTING_SITE_ACTIVATION_KEY",$tempConfigs)){
                 $tempConfigs["SETTING_SITE_ACTIVATION_KEY"] = "";
             }
+            $tempConfigs["TAX_RATE"] = $taxPercent;
 
             return view('core.config.config')->with('configs', $tempConfigs);
 
@@ -74,6 +76,7 @@ class ConfigController extends Controller
             $SETTING_COMPANY_NAME = Input::get('SETTING_COMPANY_NAME');
             $SETTING_SITE_ACTIVATION_KEY = Input::get('SETTING_SITE_ACTIVATION_KEY');
             $removeImageFlag = Input::get('removeImageFlag');
+            $TAX_RATE = Input::get('TAX_RATE');
 
             $currentUser = Utility::getCurrentUserID(); //get currently logged in user
 
@@ -94,6 +97,9 @@ class ConfigController extends Controller
 
                 DB::statement("DELETE FROM `$this->tbConfig` WHERE `code` = 'SETTING_SITE_ACTIVATION_KEY'");
                 $result = DB::statement("INSERT INTO `$this->tbConfig` (code,type,value,description,updated_by,updated_at) VALUES ('SETTING_SITE_ACTIVATION_KEY','SETTING','$SETTING_SITE_ACTIVATION_KEY','Site Activation Key','$loginUserId','$updated_at')");
+
+                DB::statement("DELETE FROM `core_settings` WHERE `code` = 'TAX_RATE' AND `type` = 'TAX_RATE'");
+                $result = DB::statement("INSERT INTO `core_settings` (code,type,value,description,updated_by,updated_at) VALUES ('TAX_RATE','TAX_RATE','$TAX_RATE','Tax Rate','$loginUserId','$updated_at')");
 
                 $path = base_path().'/public/images';
                 $path2 = base_path().'/public';

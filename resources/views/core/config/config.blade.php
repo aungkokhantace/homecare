@@ -35,6 +35,16 @@
 
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="TAX_RATE" class="text_bold_black">Tax Percent</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <input type="text" required class="form-control" id="TAX_RATE" name="TAX_RATE" placeholder="Enter Company Name" value="{{ isset($configs)? $configs['TAX_RATE']:Request::old('TAX_RATE') }}"/>
+            <p class="text-danger" id="error_lbl_TAX_RATE">{{$errors->first('TAX_RATE')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="code" class="text_bold_black">Site Logo</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -189,10 +199,19 @@
         //Start Validation for Config Form
         $('#configForm').validate({
             rules: {
-                SETTING_COMPANY_NAME         : 'required'
+                SETTING_COMPANY_NAME         : 'required',
+                TAX_RATE: {
+                    required: false,
+                    digits: true,
+                    max: 100
+                }
             },
             messages: {
-                SETTING_COMPANY_NAME         : 'Company Name is required'
+                SETTING_COMPANY_NAME         : 'Company Name is required',
+                TAX_RATE   : {
+                    digits      : "Tax Rate must be number only !",
+                    max         : "Tax Rate maximum is 100 !"
+                },
             }
         });
         //End Validation for Config Form
@@ -237,11 +256,11 @@
     });
 
     function saveConfig(action) {
-        var rate = $("#SETTING_TAXRATE").val();
-        $("#error_lbl_SETTING_TAXRATE").text("");
+        var rate = $("#TAX_RATE").val();
+        $("#error_lbl_TAX_RATE").text("");
         var errorCount = 0;
         if(isNaN(rate)){
-            $("#error_lbl_SETTING_TAXRATE").text("Invalid Tax Rate !. It allow Number only !");
+            $("#error_lbl_TAX_RATE").text("Invalid Tax Rate !. It allow Number only !");
             errorCount++;
         }
 
@@ -249,7 +268,7 @@
             return;
         }
         else{
-            $("#backend_posconfigs").submit();
+            $("#configForm").submit();
         }
     }
 
