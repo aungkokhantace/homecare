@@ -30,7 +30,7 @@ use App\Backend\Township\TownshipRepository;
 use App\Backend\Service\ServiceRepository;
 use App\Backend\Allergy\AllergyRepository;
 use App\Core\User\UserRepository;
-use App\Backend\CarType\CartypeRepository;
+use App\Backend\Cartype\CartypeRepository;
 use App\Backend\Schedule\ScheduleRepository;
 use App\Backend\Enquiry\EnquiryRepository;
 use App\User;
