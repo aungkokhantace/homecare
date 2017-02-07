@@ -43,7 +43,7 @@ use App\Backend\Patientsurgeryhistory\PatientsurgeryhistoryRepository;
 use App\Backend\Patientfamilyhistory\PatientfamilyhistoryRepository;
 use App\Backend\Familyhistory\FamilyhistoryRepository;
 use App\Backend\Familymember\FamilymemberRepository;
-use App\Backend\Medicalhistory\MedicalHistoryRepository;
+use App\Backend\Medicalhistory\MedicalhistoryRepository;
 use App\Backend\Patientmedicalhistory\PatientmedicalhistoryRepository;
 
 class PatientController extends Controller
