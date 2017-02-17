@@ -82,4 +82,61 @@ class TestRepository implements TestRepositoryInterface
         $result = Service::find($id)->value('name');
         return $result;
     }
+
+    public function makeLog($rawDate, $message){
+        $date = date("Y-m-d",strtotime($rawDate));
+//        $fileName = "custom-laravel-" . $date . '.log';
+        $fileName = "api-log-laravel-" . $date . '.txt';
+        $dir        = storage_path('logs');
+        $fileNameWithPath = $dir . '/' . $fileName;
+        $rawFiles   = scandir($dir);
+        $files = array();
+        foreach($rawFiles as $rawFile){
+            if (0 === strpos($rawFile, 'api-log-laravel')) {
+                array_push($files,$rawFile);
+            }
+        }
+
+        if(count($files)>0){
+
+            if(in_array($fileName, $files)){
+                // Open the file to get existing content
+                $current = file_get_contents($fileNameWithPath);
+                // Append a new person to the file
+                $current .= "\n\n\n=================================================================================\n";
+                $current .= $rawDate."\n";
+                $current .= "---------------------------------------------------------------------------------\n";
+                $current .= $message."\n";
+                $current .= "=================================================================================\n";
+
+                // Write the contents back to the file
+                file_put_contents($fileNameWithPath, $current);
+
+            }
+            else{
+                //$this::writeFile($fileName,$message);
+                $myfile = fopen($fileNameWithPath, "w") or die("Unable to open file!");
+                $current = "\n\n\n=================================================================================\n";
+                $current .= $rawDate."\n";
+                $current .= "---------------------------------------------------------------------------------\n";
+                $current .= $message."\n";
+                $current .= "=================================================================================\n";
+                fwrite($myfile, $current);
+                fclose($myfile);
+
+            }
+        }
+
+        else{
+            // $this::writeFile($fileName,$message);
+            $myfile = fopen($fileNameWithPath, "w") or die("Unable to open file!");
+            $current = "=================================================================================\n";
+            $current .= $rawDate."\n";
+            $current .= "---------------------------------------------------------------------------------\n";
+            $current .= $message."\n";
+            $current .= "=================================================================================\n";
+            fwrite($myfile, $current);
+            fclose($myfile);
+        }
+    }
 }
