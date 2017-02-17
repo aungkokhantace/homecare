@@ -100,28 +100,36 @@ class TestRepository implements TestRepositoryInterface
         if(count($files)>0){
 
             if(in_array($fileName, $files)){
-                // Open the file to get existing content
-                $current = file_get_contents($fileNameWithPath);
-                // Append a new person to the file
-                $current .= "\n\n\n=================================================================================\n";
-                $current .= $rawDate."\n";
-                $current .= "---------------------------------------------------------------------------------\n";
-                $current .= $message."\n";
-                $current .= "=================================================================================\n";
 
-                // Write the contents back to the file
-                file_put_contents($fileNameWithPath, $current);
+                foreach($message as $msg){
+
+                    // Open the file to get existing content
+                    $current = file_get_contents($fileNameWithPath);
+                    // Append a new person to the file
+                    $current .= "\n\n\n=================================================================================\n";
+                    $current .= $rawDate."\n";
+                    $current .= "---------------------------------------------------------------------------------\n";
+                    $current .= $msg->dob."\n";
+                    $current .= "=================================================================================\n";
+
+                    // Write the contents back to the file
+                    file_put_contents($fileNameWithPath, $current);
+                }
+
 
             }
             else{
                 //$this::writeFile($fileName,$message);
                 $myfile = fopen($fileNameWithPath, "w") or die("Unable to open file!");
-                $current = "\n\n\n=================================================================================\n";
-                $current .= $rawDate."\n";
-                $current .= "---------------------------------------------------------------------------------\n";
-                $current .= $message."\n";
-                $current .= "=================================================================================\n";
-                fwrite($myfile, $current);
+                foreach($message as $msg){
+                    $current = "=================================================================================\n";
+                    $current .= $rawDate."\n";
+                    $current .= "---------------------------------------------------------------------------------\n";
+                    $current .= $msg->dob."\n";
+                    $current .= "=================================================================================\n";
+                    fwrite($myfile, $current);
+                }
+
                 fclose($myfile);
 
             }
@@ -130,12 +138,15 @@ class TestRepository implements TestRepositoryInterface
         else{
             // $this::writeFile($fileName,$message);
             $myfile = fopen($fileNameWithPath, "w") or die("Unable to open file!");
-            $current = "=================================================================================\n";
-            $current .= $rawDate."\n";
-            $current .= "---------------------------------------------------------------------------------\n";
-            $current .= $message."\n";
-            $current .= "=================================================================================\n";
-            fwrite($myfile, $current);
+            foreach($message as $msg){
+                $current = "=================================================================================\n";
+                $current .= $rawDate."\n";
+                $current .= "---------------------------------------------------------------------------------\n";
+                $current .= $msg->dob."\n";
+                $current .= "=================================================================================\n";
+                fwrite($myfile, $current);
+            }
+
             fclose($myfile);
         }
     }
