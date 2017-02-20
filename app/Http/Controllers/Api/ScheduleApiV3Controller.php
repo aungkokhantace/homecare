@@ -284,12 +284,6 @@ class ScheduleApiV3Controller extends Controller
         $prefix                 = "";
         $user_id                = $inputAll->user_id;
 
-//        $testRepo = new TestRepository();
-//        $date = date("Y-m-d H:i:s");
-//        $message = $temp;
-//        $params             = $checkServerStatusArray['data'][0];
-//        $testRepo->makeLog($date,$params->schedules);
-
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK) {
             $prefix             = $checkServerStatusArray['tablet_id'];
             $enquiryV2Repo      = new EnquiryApiV2Repository();
@@ -328,137 +322,9 @@ class ScheduleApiV3Controller extends Controller
                     }
                 }
 
-                //start return data section
-//                $data        = array();
-//                $scheduleCount = 0;
-//                $enquiryCount = 0;
-//                $patientCount = 0;
-//
-//                $scheduleApiRepo = new ScheduleApiV3Repository();
-//                $scheduleHeaders = $scheduleApiRepo->getScheduleHeader($user_id);
-//
-//                if(isset($scheduleHeaders) && $scheduleHeaders != null) {
-//                    $data[0]['schedules'][$scheduleCount] = $scheduleHeaders;
-//                    foreach ($scheduleHeaders as $scheduleRow) {
-//                        if($scheduleRow->created_at == null){
-//                            $scheduleRow->created_at = "";
-//                        }
-//                        if($scheduleRow->updated_at == null){
-//                            $scheduleRow->updated_at = "";
-//                        }
-//                        if($scheduleRow->deleted_at == null){
-//                            $scheduleRow->deleted_at = "";
-//                        }
-//                        $data[0]['schedules'][$scheduleCount] = $scheduleRow;
-//
-//                        $data[0]['schedules'][$scheduleCount] = $scheduleRow;
-//                        $scheduleDetailData = $scheduleApiRepo->getScheduleDetailData($scheduleRow->id);
-//                        $data[0]['schedules'][$scheduleCount]->schedule_detail = $scheduleDetailData;
-//
-//                        $scheduleCount++;
-//                    }
-//                }
-//                else{
-//                    $data[0]['schedules'] = [];
-//                }
-//
-//                $enquiryData = $enquiryV2Repo->getEnquiryData();
-//                if(isset($enquiryData) && $enquiryData != null) {
-//                    foreach ($enquiryData as $enquiryRow) {
-//                        if($enquiryRow->created_at == null){
-//                            $enquiryRow->created_at = "";
-//                        }
-//                        if($enquiryRow->updated_at == null){
-//                            $enquiryRow->updated_at = "";
-//                        }
-//                        if($enquiryRow->deleted_at == null){
-//                            $enquiryRow->deleted_at = "";
-//                        }
-//
-//                        $data[0]['enquiries'][$enquiryCount] = $enquiryRow;
-//                        $enquiryDetailData = $enquiryV2Repo->getEnquiryDetail($enquiryRow->id);
-//                        $data[0]['enquiries'][$enquiryCount]->enquiry_detail = $enquiryDetailData;
-//
-//                        $enquiryCount++;
-//                    }
-//                }
-//                else{
-//                    $data[0]['enquiries'] = [];
-//                }
-//
-//                $patientApiRepo = new PatientApiRepository();
-//                $patientData = $patientApiRepo->getPatientData();
-//                if(isset($patientData) && $patientData != null) {
-//                    $data[0]['patients'][$patientCount] = $patientData;
-//                    foreach ($patientData as $patientRow) {
-//                        if($patientRow->created_at == null){
-//                            $patientRow->created_at = "";
-//                        }
-//                        if($patientRow->updated_at == null){
-//                            $patientRow->updated_at = "";
-//                        }
-//                        if($patientRow->deleted_at == null){
-//                            $patientRow->deleted_at = "";
-//                        }
-//
-//                        $data[0]['patients'][$patientCount] = $patientRow;
-//                        $patientAllergyData = $patientApiRepo->getPatientAllergy($patientRow->user_id);
-//                        $data[0]['patients'][$patientCount]->patient_allergy = $patientAllergyData;
-//
-//                        $coreUserData = $patientApiRepo->getCoreUser($patientRow->user_id);
-//                        if($coreUserData->created_at == null){
-//                            $coreUserData->created_at = "";
-//                        }
-//                        if($coreUserData->updated_at == null){
-//                            $coreUserData->updated_at = "";
-//                        }
-//                        if($coreUserData->deleted_at == null){
-//                            $coreUserData->deleted_at = "";
-//                        }
-//                        $data[0]['patients'][$patientCount]->core_users = $coreUserData;
-//
-//                        $logData = $patientApiRepo->getLog($patientRow->user_id);
-//                        foreach($logData as $logRow){
-//                            if($logRow->created_at == null){
-//                                $logRow->created_at = "";
-//                            }
-//                            if($logRow->updated_at == null){
-//                                $logRow->updated_at = "";
-//                            }
-//                            if($logRow->deleted_at == null){
-//                                $logRow->deleted_at = "";
-//                            }
-//                        }
-//                        $data[0]['patients'][$patientCount]->log_patient_case_summary = $logData;
-//
-//                        $patientCount++;
-//                    }
-//                }
-//                else{
-//                    $data[0]['patients'] = [];
-//                }
-//
-//                $maxSchedule = Utility::getMaxKey($prefix,'schedules','id');
-//                $maxEnquery  = Utility::getMaxKey($prefix,'enquiries','id');
-//                $maxPatient  = Utility::getMaxKey($prefix,'patients','user_id');
-//                $maxCoreUser = Utility::getMaxKey($prefix,'core_users','id');
-//
-//                $maxKey = array();
-//
-//                $maxKey[0]['table_name'] = "schedules";
-//                $maxKey[0]['max_key_id'] = $maxSchedule;
-//                $maxKey[1]['table_name'] = "enquiries";
-//                $maxKey[1]['max_key_id'] = $maxEnquery;
-//                $maxKey[2]['table_name'] = "patients";
-//                $maxKey[2]['max_key_id'] = $maxPatient;
-//                $maxKey[3]['table_name'] = "core_users";
-//                $maxKey[3]['max_key_id'] = $maxCoreUser;
-                //end return data section
                 $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
                 $returnedObj['aceplusStatusMessage']    = "Request success !";
                 $returnedObj['tabletId']                = $tablet_id;
-//                $returnedObj['max_key']                 = $maxKey;
-//                $returnedObj['data']                    = $data;
 
                 return \Response::json($returnedObj);
             }
