@@ -433,6 +433,9 @@ Route::group(['prefix' => 'api'], function () {
     //schedule api version 3...//schedule api group
     Route::post('schedule/upload/v3', array('as'=>'schedule/upload/v3','uses'=>'Api\ScheduleApiV3Controller@uploadScheduleGroup'));
 
+    //schedule status update api ...//only for schedule status
+    Route::post('schedule/upload/status', array('as'=>'schedule/upload/status','uses'=>'Api\ScheduleApiV3Controller@uploadScheduleStatus'));
+
     //patient_physiotherapy_musculo
     Route::post('patient_physiothreapy_musculo/upload', array('as'=>'patient_physiothreapy_musculo/upload','uses'=>'Api\PatientApiV2Controller@uploadPatientPhysiothreapyMusculo'));
 

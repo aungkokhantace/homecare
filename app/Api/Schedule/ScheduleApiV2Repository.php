@@ -29,6 +29,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
 {
     public function createSingleRow($paramObj)
     {
+
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
 
@@ -55,8 +56,8 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
             $tempLogArr = array();
             foreach($data as $row) {
                 $id = $row->id;
-                $enquiry_id = $row->enquiry_id;
-                $patient_id = $row->patient_id;
+//                $enquiry_id = $row->enquiry_id;
+//                $patient_id = $row->patient_id;
 
                 //Check update or create for log date
                 $findObj    = Schedule::find($id);
@@ -1137,5 +1138,55 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         }
 
         return $schedule_treatmentArr;
+    }
+
+    public function uploadScheduleStatus($data){
+        $returnedObj = array();
+        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+
+        try{
+            $tempLogArr = array();
+            foreach($data as $row) {
+                $id = $row->id;
+
+                //Check update or create for log date
+                $findObj    = Schedule::find($id);
+                if(isset($findObj) && count($findObj) > 0){
+                    $tempArr['date'] = $row->updated_at;
+                }
+                else{
+                    $tempArr['date'] = date("Y-m-d H:i:s");
+                }
+                $create = "updated";
+
+                $findObj->status        = $row->status;
+                $findObj->updated_at    = (isset($row->updated_at) && $row->updated_at != "") ? $row->updated_at:null;
+
+                //saving schedule obj
+                $result = $this->createSingleRow($findObj);
+
+                //check whether schedule insertion was successful or not
+                if ($result['aceplusStatusCode'] == ReturnMessage::OK) {
+                    //if insertion was successful, then create date and message for log
+                    $tempArr['message'] = $create.' schedule_id = '.$findObj->id;
+                    array_push($tempLogArr,$tempArr);
+                    continue;       //continue to next loop(i.e. next row of schedule data)
+
+                } else {
+                    //if schedule insertion was not successful
+                    $returnedObj['aceplusStatusMessage'] = $result['aceplusStatusMessage'];
+                    return $returnedObj;
+                }
+            }
+
+            $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
+            $returnedObj['aceplusStatusMessage'] = "Schedule status successfully updated";
+            $returnedObj['log']                  = $tempLogArr;
+            return $returnedObj;
+        }
+        catch(\Exception $e){
+            $returnedObj['aceplusStatusMessage'] = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
+            return $returnedObj;
+        }
     }
 }
