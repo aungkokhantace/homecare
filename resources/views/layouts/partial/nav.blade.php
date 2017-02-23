@@ -376,12 +376,14 @@
                         </a>
                     </li>
 
+                    @if(Auth::guard('User')->user()->role_id == '1')
                     <li nav-id="api-manage" class="has-sub">
                         <a href="/apilist/syncdownapi">
                             <b class="caret pull-right"></b>
                             <span>API List</span>
                         </a>
                     </li>
+                    @endif
 
                     <li nav-id="pricehistory-manage" class="has-sub">
                         <a href="javascript:;">
@@ -395,17 +397,19 @@
                         </ul>
                     </li>
 
+                    @if(Auth::guard('User')->user()->role_id == '1')
                     <li nav-id="tablet-issues-manage" class="has-sub">
                         <a href="/tabletissues/all">
                             <b class="caret pull-right"></b>
                             <span>Tablet Issues</span>
                         </a>
                     </li>
+                    @endif
                 </ul>
             </li>
             @endif
 
-            @if(Auth::guard('User')->user()->role_id == '1' || Auth::guard('User')->user()->role_id == '2')
+            @if(Auth::guard('User')->user()->role_id == '1')
                 <li nav-id='enquiry'  class="has-sub">
                     <a href="javascript:;">
                         <b class="caret pull-right"></b>
