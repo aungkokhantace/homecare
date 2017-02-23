@@ -32,5 +32,10 @@ class DatabaseSeeder extends Seeder
          $this->call(Default_InvestigationImagingPriceHistorySeeder::class);
          $this->call(Default_InvestigationLabsSeeder::class);
          $this->call(Default_InvestigationLabsPriceTrackingSeeder::class);
+         $this->call(Default_ProductCategorySeeder::class);
+         $this->call(Default_ProductSeeder::class);
+         $this->call(Default_FamilyHistorySeeder::class);
+         $this->call(Default_MedicalHistorySeeder::class);
+         $this->call(Default_ProvisionalDiagnosisSeeder::class);
     }
 }

@@ -7,7 +7,7 @@
  */
 
 use Illuminate\Database\Seeder;
-class Default_FamilyHistorySeeder extends Seeder
+class Default_MedicalHistorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class Default_FamilyHistorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('family_histories')->delete();
+        DB::table('medical_history')->delete();
 
         $objs = array(
             ['id'=>'U0001', 'name'=>'History One', 'description' =>'History One Description', 'created_by'=> 'U0001', 'updated_by'=>'U0001', 'created_at'=> '2016-11-09 11:29:45', 'updated_at'=>'2016-11-09 11:29:45'],
@@ -31,6 +31,6 @@ class Default_FamilyHistorySeeder extends Seeder
             ['id'=>'U00010', 'name'=>'Bleeding disorder', 'description' =>'Bleeding disorder', 'created_by'=> 'U0001', 'updated_by'=>'U0001', 'created_at'=> '2016-11-09 11:29:45', 'updated_at'=>'2016-11-09 11:29:45']
         );
 
-        DB::table('family_histories')->insert($objs);
+        DB::table('medical_history')->insert($objs);
     }
 }
