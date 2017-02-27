@@ -73,19 +73,25 @@
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Total</td>
-                            <td height="20" align="right">{{$invoice->total_nett_amt_wo_disc}}</td>
+                            <td height="20" align="right">{{floor($invoice->total_nett_amt_wo_disc)}}</td>
+                        </tr>
+                        <tr>
+                            <td height="20"></td>
+                            <td height="20"></td>
+                            <td height="20">Total Tax Amount</td>
+                            <td height="20" align="right">{{floor($invoice->total_tax_amt)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Discount</td>
-                            <td height="20" align="right">{{$invoice->total_disc_amt}}</td>
+                            <td height="20" align="right">{{floor($invoice->total_disc_amt)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Grand Total</td>
-                            <td height="20" align="right">{{$invoice->total_payable_amt}}</td>
+                            <td height="20" align="right">{{floor($invoice->total_payable_amt)}}</td>
                         </tr>
                         <tr>
                             <td height="20">Remark</td>
@@ -174,19 +180,25 @@
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Total</td>
-                            <td height="20" align="right">{{$invoice->total_nett_amt_wo_disc}}</td>
+                            <td height="20" align="right">{{floor($invoice->total_nett_amt_wo_disc)}}</td>
+                        </tr>
+                        <tr>
+                            <td height="20"></td>
+                            <td height="20"></td>
+                            <td height="20">Total Tax Amount</td>
+                            <td height="20" align="right">{{floor($invoice->total_tax_amt)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Discount</td>
-                            <td height="20" align="right">{{$invoice->total_disc_amt}}</td>
+                            <td height="20" align="right">{{floor($invoice->total_disc_amt)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Grand Total</td>
-                            <td height="20" align="right">{{$invoice->total_payable_amt}}</td>
+                            <td height="20" align="right">{{floor($invoice->total_payable_amt)}}</td>
                         </tr>
                         <tr>
                             <td>Remark</td>
@@ -203,46 +215,46 @@
             <hr style="margin-bottom: 0px;">
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="listing">
-                <input type="hidden" id="pageSearchedValue" name="pageSearchedValue" value="">
-                <table class="table table-striped list-table" id="list-table" style="word-wrap: break-word; table-layout: fixed;">
-                    <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Qty</th>
-                        <th>Price</th>
-                        <th>Discount Amount</th>
-                        <th>Total Amount</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th class="search-col" con-id="type">Type</th>
-                        <th class="search-col" con-id="qty">Qty</th>
-                        <th class="search-col" con-id="price">Price</th>
-                        <th class="search-col" con-id="discount_amount">Discount Amount</th>
-                        <th class="search-col" con-id="total_amount">Total Amount</th>
-                    </tr>
-                    </tfoot>
-                    <tbody>
-                    @foreach($invoiceDetails as $invoiceDetail)
-                        @if($invoiceDetail->type != "")
-                        <tr>
-                            <td>{{$invoiceDetail->type}}</td>
-                            <td>{{$invoiceDetail->product_qty}}</td>
-                            <td>{{$invoiceDetail->product_price}}</td>
-                            <td>{{$invoiceDetail->consultant_discount_amount}}</td>
-                            <td>{{$invoiceDetail->product_amount}}</td>
-                        </tr>
-                        @endif
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    {{--<div class="row">--}}
+        {{--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">--}}
+            {{--<div class="listing">--}}
+                {{--<input type="hidden" id="pageSearchedValue" name="pageSearchedValue" value="">--}}
+                {{--<table class="table table-striped list-table" id="list-table" style="word-wrap: break-word; table-layout: fixed;">--}}
+                    {{--<thead>--}}
+                    {{--<tr>--}}
+                        {{--<th>Type</th>--}}
+                        {{--<th>Qty</th>--}}
+                        {{--<th>Price</th>--}}
+                        {{--<th>Discount Amount</th>--}}
+                        {{--<th>Total Amount</th>--}}
+                    {{--</tr>--}}
+                    {{--</thead>--}}
+                    {{--<tfoot>--}}
+                    {{--<tr>--}}
+                        {{--<th class="search-col" con-id="type">Type</th>--}}
+                        {{--<th class="search-col" con-id="qty">Qty</th>--}}
+                        {{--<th class="search-col" con-id="price">Price</th>--}}
+                        {{--<th class="search-col" con-id="discount_amount">Discount Amount</th>--}}
+                        {{--<th class="search-col" con-id="total_amount">Total Amount</th>--}}
+                    {{--</tr>--}}
+                    {{--</tfoot>--}}
+                    {{--<tbody>--}}
+                    {{--@foreach($invoiceDetails as $invoiceDetail)--}}
+                        {{--@if($invoiceDetail->type != "")--}}
+                        {{--<tr>--}}
+                            {{--<td>{{$invoiceDetail->type}}</td>--}}
+                            {{--<td>{{$invoiceDetail->product_qty}}</td>--}}
+                            {{--<td>{{$invoiceDetail->product_price}}</td>--}}
+                            {{--<td>{{$invoiceDetail->consultant_discount_amount}}</td>--}}
+                            {{--<td>{{$invoiceDetail->product_amount}}</td>--}}
+                        {{--</tr>--}}
+                        {{--@endif--}}
+                    {{--@endforeach--}}
+                    {{--</tbody>--}}
+                {{--</table>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
     <div class="row">
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
