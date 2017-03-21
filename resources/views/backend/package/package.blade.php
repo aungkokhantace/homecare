@@ -94,6 +94,20 @@
 
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="inclusive_transport_charge" class="text_bold_black">Inclusive Transport Charge</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            @if(isset($package))
+                <input type="checkbox" name="inclusive_transport_charge" value="1" @if($package->inclusive_transport_charge == 1)checked @endif>
+            @else
+                <input type="checkbox" name="inclusive_transport_charge" value="1" @if(Input::old('inclusive_transport_charge')=="1")checked @endif checked>
+            @endif
+            <p class="text-danger">{{$errors->first('expiry_date')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="description" class="text_bold_black">Description</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -125,6 +139,8 @@
             }).multiselectfilter().on('change',function(){
                 $('#packageForm').valid();
             });
+
+            $(':checkbox').checkboxpicker();
 
             //Start Validation for Package Entry and Edit Form
             $('#packageForm').validate({

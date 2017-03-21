@@ -113,6 +113,9 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>103],
             ['role_id'=>1, 'permission_id'=>104],
             ['role_id'=>1, 'permission_id'=>105],
+            ['role_id'=>1, 'permission_id'=>106],
+            ['role_id'=>1, 'permission_id'=>107],
+            ['role_id'=>1, 'permission_id'=>108],
 
 
             // Investigation
@@ -395,6 +398,9 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>2, 'permission_id'=>103],
             ['role_id'=>2, 'permission_id'=>104],
             ['role_id'=>2, 'permission_id'=>105],
+            ['role_id'=>2, 'permission_id'=>106],
+            ['role_id'=>2, 'permission_id'=>107],
+            ['role_id'=>2, 'permission_id'=>108],
 
 
             // Investigation

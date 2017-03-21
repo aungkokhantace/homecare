@@ -136,6 +136,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('package/edit/{id}', array('as'=>'package/edit','uses'=>'Backend\PackageController@edit'));
         Route::post('package/update', array('as'=>'package/update','uses'=>'Backend\PackageController@update'));
         Route::post('package/destroy', array('as'=>'package/destroy','uses'=>'Backend\PackageController@destroy'));
+        Route::get('package/promotion/{id}', array('as'=>'package/promotion','uses'=>'Backend\PackageController@editPromotion'));
+        Route::post('package/createPromotion', array('as'=>'package/createPromotion','uses'=>'Backend\PackageController@createPromotion'));
+        Route::post('package/updatePromotion', array('as'=>'package/updatePromotion','uses'=>'Backend\PackageController@updatePromotion'));
 
         //Service
         Route::get('service', array('as'=>'service','uses'=>'Backend\ServiceController@index'));
@@ -357,6 +360,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('investigationimaging/edit/{id}', array('as'=>'investigationimaging/edit','uses'=>'Backend\InvestigationImagingController@edit'));
         Route::post('investigationimaging/update', array('as'=>'investigationimaging/update','uses'=>'Backend\InvestigationImagingController@update'));
         Route::post('investigationimaging/destroy', array('as'=>'investigationimaging/destroy','uses'=>'Backend\InvestigationImagingController@destroy'));
+
     });
 
     Route::get('enquiry/autocompletepatient', array('as'=>'enquiry/autocompletepatient','uses'=>'Backend\SearchController@autoCompletePatient'));

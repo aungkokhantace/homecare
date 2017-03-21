@@ -56,6 +56,7 @@
                 <option value="car_type_setup" @if($type == 'car_type_setup') selected @endif>Car Type Setup</option>
                 {{--<option value="investigations" @if($type == 'investigations') selected @endif>Investigations</option>--}}
                 <option value="investigations_imaging" @if($type == 'investigations_imaging') selected @endif>Investigations Imaging</option>
+                <option value="package_promotions" @if($type == 'package_promotions') selected @endif>Package Promotions</option>
 
             </select>
             <p class="text-danger">{{$errors->first('table_name')}}</p>

@@ -21,4 +21,6 @@ interface PackageRepositoryInterface
     public function getScheduleNo($package);
     public function getPackageName($package_id);
     public function getPackageDetails($package_id);
+    public function getPromotions($package_id);
+    public function getPromotionPrice($package_id, $promotion_order);
 }

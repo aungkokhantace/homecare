@@ -114,6 +114,9 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>103,'module'=>'Package','name'=>'Edit','description'=>'Package Edit','url'=>'package/edit'],
             ['id'=>104,'module'=>'Package','name'=>'Update','description'=>'Package Update','url'=>'package/update'],
             ['id'=>105,'module'=>'Package','name'=>'Destroy','description'=>'Package Destroy','url'=>'package/destroy'],
+            ['id'=>106,'module'=>'Package','name'=>'Edit Promotion','description'=>'Package Promotion Edit','url'=>'package/promotion'],
+            ['id'=>107,'module'=>'Package','name'=>'Create Promotion','description'=>'Package Promotion Create','url'=>'package/createPromotion'],
+            ['id'=>108,'module'=>'Package','name'=>'Update Promotion','description'=>'Package Promotion Update','url'=>'package/updatePromotion'],
 
             // Investigation
             ['id'=>110,'module'=>'Investigation','name'=>'Listing','description'=>'Investigation Listing','url'=>'investigation'],

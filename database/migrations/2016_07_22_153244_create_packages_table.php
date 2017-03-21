@@ -19,6 +19,7 @@ class CreatePackagesTable extends Migration
             $table->text('description')->nullable();
             $table->integer('schedule_no')->nullable();
             $table->integer('expiry_date')->nullable();
+            $table->tinyInteger('inclusive_transport_charge')->nullable();
 
             //Common to all table ----------------------------------------------
             $table->string('created_by',100)->nullable();

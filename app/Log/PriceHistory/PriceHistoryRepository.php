@@ -8,6 +8,7 @@ namespace App\Log\PriceHistory;
  * Time: 10:35 AM
  */
 
+use App\Backend\Package\PackageRepository;
 use DB;
 
 class PriceHistoryRepository
@@ -19,6 +20,7 @@ class PriceHistoryRepository
             // Preparing all setup array for the showing data - Start
             $servicesRaw = DB::select("SELECT * FROM services");
             $packagesRaw = DB::select("SELECT * FROM packages");
+            $package_promotionsRaw = DB::select("SELECT * FROM package_promotions");
             $productsRaw = DB::select("SELECT * FROM products");
             $car_type_setupRaw = DB::select("SELECT * FROM car_type_setup");
 //            $investigationsRaw = DB::select("SELECT * FROM investigations");
@@ -29,6 +31,7 @@ class PriceHistoryRepository
 
             $services = array();
             $packages = array();
+            $package_promotions = array();
             $products = array();
             $car_type_setups = array();
 //            $investigations = array();
@@ -43,6 +46,10 @@ class PriceHistoryRepository
 
             foreach($packagesRaw as $package){
                 $packages[$package->id] = $package;
+            }
+
+            foreach($package_promotionsRaw as $package_promotion){
+                $package_promotions[$package_promotion->id] = $package_promotion;
             }
 
             foreach($productsRaw as $product){
@@ -98,6 +105,13 @@ class PriceHistoryRepository
                     }
                     if($priceHistory->table_name == 'packages'){
                         $tempName = $packages[$priceHistory->table_id]->package_name;
+                        $priceHistories[$keyPrice]->setup_name = $tempName;
+                    }
+                    if($priceHistory->table_name == 'package_promotions'){
+                        $package_id = $package_promotions[$priceHistory->table_id]->package_id;
+                        $packageRepo = new PackageRepository();
+                        $package_name = $packageRepo->getPackageName($package_id);
+                        $tempName = $package_name;
                         $priceHistories[$keyPrice]->setup_name = $tempName;
                     }
                     if($priceHistory->table_name == 'products'){

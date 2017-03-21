@@ -46,7 +46,9 @@
                         <th>Package Name</th>
                         <th>Service</th>
                         <th>Price</th>
+                        <th>Inclusive Transport Charge</th>
                         <th>Description</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -55,7 +57,9 @@
                         <th class="search-col" con-id="name">Package Name</th>
                         <th class="search-col" con-id="service">Service</th>
                         <th class="search-col" con-id="price">Price</th>
+                        <th class="search-col" con-id="inclusive_transport_charge">Inclusive Transport Charge</th>
                         <th class="search-col" con-id="description">Description</th>
+                        <th></th>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -65,7 +69,15 @@
                             <td><a href="/package/edit/{{$package->id}}">{{$package->package_name}}</a></td>
                             <td>{{$servicesArray[$package->id]}}</td>
                             <td>{{$package->price}}</td>
+                            <td>{{$package->inclusive_transport_charge}}</td>
                             <td>{{$package->description}}</td>
+                            <td>
+                                @if($package->status == 'confirm')
+                                    {{'CONFIRM'}}
+                                @else
+                                    <a href="package/promotion/{{$package->id}}"><button type="button" class="btn btn-primary">Edit Promotion Plan</button></a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
