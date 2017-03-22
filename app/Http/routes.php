@@ -370,6 +370,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('patient/profile/{id}', array('as'=>'patient/profile/{id}','uses'=>'Backend\PatientController@profile'));
     Route::get('packagesale/autofill/{id}', array('as'=>'packagesale/autofill','uses'=>'Backend\PackageSaleController@autofill'));
     Route::get('patient/checkzone/{id}', array('as'=>'patient/destroy','uses'=>'Backend\PatientController@checkZone'));
+    Route::get('packagesale/checkcouponcode/{package}/{code}', array('as'=>'packagesale/checkcouponcode','uses'=>'Backend\PackageSaleController@checkCouponCode'));
+    Route::get('packagesale/getoriginalprice/{package}', array('as'=>'packagesale/getoriginalprice','uses'=>'Backend\PackageSaleController@getOriginalPrice'));
 
 });
 

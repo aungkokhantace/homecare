@@ -111,3 +111,19 @@
 .require{
     color:red;
 }
+
+.coupon_code{
+    display:none;
+}
+
+.glyphicon-ok{
+    display:none;
+    font-size: 37px !important;
+    color:green;
+}
+
+.glyphicon-remove{
+    display:none;
+    font-size: 37px !important;
+    color:red;
+}

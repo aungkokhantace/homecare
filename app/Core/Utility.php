@@ -576,4 +576,39 @@ class Utility
 
         return 7;
     }
+
+    //for generating package sale coupon codes
+    public static function generateCouponCode($prefix,$table,$col,$offset)
+    {
+        $timestamp = date("_YmdHis_");
+
+        $idStringArray  = DB::select("SELECT `$col` as id FROM `$table` WHERE id LIKE '$prefix%'");
+        if(!empty($idStringArray)){
+            $idIntArray = array();
+            foreach($idStringArray as $id){
+                $numberpart     = str_replace($prefix,"",$id->id);  //remove prefix
+                $idInt          = intval($numberpart);                 //change to integer
+                $idIntArray[]   = $idInt;
+            }
+            $newId = 1;
+            if($idIntArray[0] != null) {
+                $max    = max($idIntArray);
+                $newId  = $max + $offset;
+            }
+        }
+        else{
+            $newId = 1;
+        }
+        return sprintf("%s%s%s",$prefix,$timestamp,$newId);          //bind prefix and newId
+    }
+
+    public static function getMaxDiscountTime()
+    {
+        $tempArrays = DB::select("SELECT * FROM core_settings WHERE type = 'MAX_DISCOUNT_TIME' and code = 'MAX_DISCOUNT_TIME'");
+        if (isset($tempArrays) && count($tempArrays) > 0) {
+            return $tempArrays[0]->value;
+        }
+        //2 by default
+        return 2;
+    }
 }

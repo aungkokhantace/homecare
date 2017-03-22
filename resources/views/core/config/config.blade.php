@@ -45,6 +45,16 @@
 
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="MAX_DISCOUNT_TIME" class="text_bold_black">Maximum Package Discount Time</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <input type="text" required class="form-control" id="MAX_DISCOUNT_TIME" name="MAX_DISCOUNT_TIME" placeholder="Enter Company Name" value="{{ isset($configs)? $configs['MAX_DISCOUNT_TIME']:Request::old('MAX_DISCOUNT_TIME') }}"/>
+            <p class="text-danger" id="error_lbl_MAX_DISCOUNT_TIME">{{$errors->first('MAX_DISCOUNT_TIME')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="code" class="text_bold_black">Site Logo</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">

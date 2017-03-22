@@ -274,7 +274,7 @@ class PackageController extends Controller
                 $second_time_price  = Input::get('second_time_price');
                 $third_time_price   = Input::get('third_time_price');
 
-                //end getting ids of updated rows
+                //start getting ids of updated rows
                 $firstTimeId = DB::table('package_promotions')
                     ->where('package_id', $package_id)
                     ->where('promotion_order', 1) //first_time

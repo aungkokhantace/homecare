@@ -29,6 +29,7 @@ class ConfigController extends Controller
 
             $configs      = $this->ConfigRepository->getSiteConfigs();
             $taxPercent   = Utility::getTaxRate();
+            $maxDiscountTime   = Utility::getMaxDiscountTime();
 
             if (is_null($configs) || count($configs) == 0)
             {
@@ -36,6 +37,7 @@ class ConfigController extends Controller
                 $configs['SETTING_COMPANY_NAME'] = "";
                 $configs['SETTING_LOGO'] = "";
                 $configs['SETTING_SITE_ACTIVATION_KEY'] = "";
+                $configs['MAX_DISCOUNT_TIME'] = "";
 
                 return view('core.config.config')->with('configs', $configs);
             }
@@ -64,6 +66,8 @@ class ConfigController extends Controller
             }
             $tempConfigs["TAX_RATE"] = $taxPercent;
 
+            $tempConfigs["MAX_DISCOUNT_TIME"] = $maxDiscountTime;
+
             return view('core.config.config')->with('configs', $tempConfigs);
 
         }
@@ -77,6 +81,7 @@ class ConfigController extends Controller
             $SETTING_SITE_ACTIVATION_KEY = Input::get('SETTING_SITE_ACTIVATION_KEY');
             $removeImageFlag = Input::get('removeImageFlag');
             $TAX_RATE = Input::get('TAX_RATE');
+            $MAX_DISCOUNT_TIME = Input::get('MAX_DISCOUNT_TIME');
 
             $currentUser = Utility::getCurrentUserID(); //get currently logged in user
 
@@ -100,6 +105,9 @@ class ConfigController extends Controller
 
                 DB::statement("DELETE FROM `core_settings` WHERE `code` = 'TAX_RATE' AND `type` = 'TAX_RATE'");
                 $result = DB::statement("INSERT INTO `core_settings` (code,type,value,description,updated_by,updated_at) VALUES ('TAX_RATE','TAX_RATE','$TAX_RATE','Tax Rate','$loginUserId','$updated_at')");
+
+                DB::statement("DELETE FROM `core_settings` WHERE `code` = 'MAX_DISCOUNT_TIME' AND `type` = 'MAX_DISCOUNT_TIME'");
+                $result = DB::statement("INSERT INTO `core_settings` (code,type,value,description,updated_by,updated_at) VALUES ('MAX_DISCOUNT_TIME','MAX_DISCOUNT_TIME','$MAX_DISCOUNT_TIME','Maximum time that discount coupon can be used','$loginUserId','$updated_at')");
 
                 $path = base_path().'/public/images';
                 $path2 = base_path().'/public';
