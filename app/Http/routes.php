@@ -467,6 +467,9 @@ Route::group(['prefix' => 'api'], function () {
 
     //tablet_issues upload api
     Route::post('tablet_issues/upload', array('as'=>'tablet_issues/upload','uses'=>'Api\TabletIssuesApiController@upload'));
+
+    //transaction_promotions upload api
+    Route::post('transaction_promotions/upload', array('as'=>'transaction_promotions/upload','uses'=>'Api\TransactionpromotionApiController@upload'));
 });
 
 

@@ -70,6 +70,9 @@ class Default_Syncs_TablesSeeder extends Seeder
             ['table_name'=>'patient_physiotherapy_musculo_4_3', 'version' =>'1'],
             ['table_name'=>'patient_physiotherapy_musculo_4_4and5', 'version' =>'1'],
 
+            ['table_name'=>'package_promotions', 'version' =>'1'],
+            ['table_name'=>'transaction_promotions', 'version' =>'1'],
+
 
 
         );

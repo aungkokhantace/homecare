@@ -80,5 +80,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind('App\Log\TabletIssues\TabletIssuesRepositoryInterface','App\Log\TabletIssues\TabletIssuesRepository');
         $this->app->bind('App\Api\TabletIssues\TabletIssuesApiRepositoryInterface','App\Api\TabletIssues\TabletIssuesApiRepository');
         $this->app->bind('App\Backend\InvestigationImaging\InvestigationImagingRepositoryInterface','App\Backend\InvestigationImaging\InvestigationImagingRepository');
+
+        //transaction_promotions upload api
+        $this->app->bind('App\Api\Transactionpromotion\TransactionpromotionApiRepositoryInterface','App\Api\Transactionpromotion\TransactionpromotionApiRepository');
     }
 }
