@@ -116,13 +116,13 @@
     display:none;
 }
 
-.glyphicon-ok{
+.valid-sign{
     display:none;
     font-size: 37px !important;
     color:green;
 }
 
-.glyphicon-remove{
+.invalid-sign{
     display:none;
     font-size: 37px !important;
     color:red;

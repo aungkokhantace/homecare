@@ -109,8 +109,8 @@
             <button type="button" class="btn btn-primary coupon_code" onclick="checkCouponCode();">Check Coupon Code</button>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-            <span class="glyphicon glyphicon-ok" id="valid-sign"></span>
-            <span class="glyphicon glyphicon-remove" id="invalid-sign"></span>
+            <span class="glyphicon glyphicon-ok valid-sign" id="valid-sign"></span>
+            <span class="glyphicon glyphicon-remove invalid-sign" id="invalid-sign"></span>
         </div>
     </div>
 
