@@ -10,4 +10,5 @@ interface TransactionpromotionApiRepositoryInterface
 {
     public function create($paramObj);
     public function createMultipleRows($data,$tablet_id,$user_id);
+    public function getObjs();
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Api\Transactionpromotion\TransactionpromotionApiRepository;
 use App\Api\Transactionpromotion\TransactionpromotionApiRepositoryInterface;
 use App\Http\Requests;
 use App\Log\LogCustom;
@@ -42,8 +43,7 @@ class TransactionpromotionApiController extends Controller
         $temp                           = Input::All();
         $inputAll                       = json_decode($temp['param_data']);
         $checkServerStatusArray         = Check::checkCodes($inputAll);
-//        dd('checkResult',$checkServerStatusArray);
-//        dd('check',$temp['param_data']);
+
         $prefix                         = "";
 
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK){
@@ -62,17 +62,28 @@ class TransactionpromotionApiController extends Controller
 
                     $result = $this->repo->createMultipleRows($data,$inputAll->tablet_activation_key,$checkServerStatusArray['user_id']);
 
-                    foreach($result['log'] as $value){
-                        $date = $value['date'];
-                        $message = '['. $date .'] '. 'info User - '.$user_id .' '. $value['message'] .' with tablet_id - '.$tablet_id. PHP_EOL;
-                        LogCustom::create($date,$message);
-                    }
                     if($result['aceplusStatusCode'] == ReturnMessage::OK){
                         DB::commit();
+
+                        //for log
+                        foreach($result['log'] as $value){
+                            $date = $value['date'];
+                            $message = '['. $date .'] '. 'info User - '.$user_id .' '. $value['message'] .' with tablet_id - '.$tablet_id. PHP_EOL;
+                            LogCustom::create($date,$message);
+                        }
+                        //for log
+
+                        //start response data section
+                        $data        = array();
+                        $transactionPromotions = $this->repo->getObjs();
+
+                        $data[0]['transaction_promotions'] = $transactionPromotions;
+                        //end response data section
 
                         $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
                         $returnedObj['aceplusStatusMessage']    = "Request success !";
                         $returnedObj['tabletId']                = $checkServerStatusArray['tablet_id'];
+                        $returnedObj['data']                    = $data;
 
                         return \Response::json($returnedObj);
                     }

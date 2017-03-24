@@ -91,4 +91,9 @@ class TransactionpromotionApiRepository implements TransactionpromotionApiReposi
         }
 
     }
+
+    public function getObjs(){
+        $result = DB::table('transaction_promotions')->get();
+        return $result;
+    }
 }
