@@ -603,6 +603,9 @@ class Default_RolePermissionSeeder extends Seeder
 
             //Addendum
             ['role_id'=>1, 'permission_id'=>346],
+
+            //For MO role to view dashboard
+            ['role_id'=>6, 'permission_id'=>16],
         );
 
         DB::table('core_permission_role')->insert($roles);
