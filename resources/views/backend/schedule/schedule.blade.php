@@ -368,7 +368,7 @@
             @if($is_enquiry_confirm == 1)
                 @if(isset($enquiry))
                     <select id="services" name="services[]" class="form-control">
-                        <option>Select Service</option>
+                        {{--<option>Select Service</option>--}}
                         @foreach($enquiry->services as $enqService)
                             @if($enqService->selected == 1)
                                 <option value="{{$enqService->id}}" selected>{{$enqService->name}}</option>
@@ -380,7 +380,7 @@
                 @endif
             @elseif($is_edit == 1)
                 <select id="services" name="services[]" class="form-control">
-                    <option>Select Service</option>
+                    {{--<option>Select Service</option>--}}
                     @foreach($schedule['services'] as $service)
                         @if($service->selected == 1)
                             <option value="{{$service->id}}" selected>{{$service->name}}</option>
@@ -392,7 +392,7 @@
 
             @elseif($is_schedule_package == 1)
                 <select id="services" name="services[]" class="form-control">
-                    <option>Select Service</option>
+                    {{--<option>Select Service</option>--}}
                     @foreach($servicesArray as $key=>$service)
                         <option value="{{$key}}">{{$service}}</option>
                     @endforeach
@@ -400,7 +400,7 @@
 
             @else
                 <select id="services" name="services[]" class="form-control">
-                    <option>Select Service</option>
+                    {{--<option>Select Service</option>--}}
                     @foreach($services as $service)
                         <option value="{{$service->id}}">{{$service->name}}</option>
                     @endforeach
