@@ -1087,7 +1087,8 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
     public function getScheduleArray($idArr){
         $arr  = implode("','",$idArr);
 
-        $scheduleArr     = DB::select("SELECT * from `schedules` WHERE `deleted_at` is null AND `patient_id` IN ('$arr') AND `status` NOT IN ('complete','cancel') AND `date` >= CURDATE()");
+//        $scheduleArr     = DB::select("SELECT * from `schedules` WHERE `deleted_at` is null AND `patient_id` IN ('$arr') AND `status` NOT IN ('complete','cancel') AND `date` >= CURDATE()");
+        $scheduleArr     = DB::select("SELECT * from `schedules` WHERE `deleted_at` is null AND `patient_id` IN ('$arr') AND `status` NOT IN ('cancel') AND `date` >= CURDATE()");
         $schedule_detailArr = DB::select("SELECT * FROM schedule_detail");
         if(isset($scheduleArr) && count($scheduleArr) > 0){
             foreach ($scheduleArr as $rawKey=>$rawValue) {
