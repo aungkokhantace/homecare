@@ -34,10 +34,11 @@ class ScheduleApiV3Repository implements ScheduleApiV3RepositoryInterface
     public function getScheduleHeader($user_id){
         $tempObj = DB::select("SELECT schedules.* FROM schedules
                               WHERE schedules.deleted_at is null
-                              AND date >= CURDATE()
+                              AND date >= DATE_ADD(CURDATE(), INTERVAL -1 DAY)
                               AND schedules.leader_id = '$user_id'
                               AND (schedules.status = 'new'
                               OR schedules.status = 'processing' OR schedules.status = 'complete')");
+        
         return $tempObj;
     }
 
