@@ -611,4 +611,11 @@ class Utility
         //2 by default
         return 2;
     }
+
+    public static function generatePatientPrefix($prefix) {
+        $tempArray = DB::select("SELECT * FROM core_configs WHERE code = 'PATIENT_ID_PREFIX' and type = 'SETTING'");
+        $temp_patient_prefix    = $tempArray[0]->value;
+        $patient_prefix         = str_replace('U',$temp_patient_prefix,$prefix);
+        return $patient_prefix;
+    }
 }

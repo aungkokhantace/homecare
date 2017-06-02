@@ -54,12 +54,15 @@ class PatientRepository implements PatientRepositoryInterface
                 $logObj         = Utility::logCreatedBy($logObj);
 
                 //start generating id for userObj
-//                $prefix = Utility::getTerminalId();
-                $prefix = "P000";
+                $prefix = Utility::getTerminalId();
+//                $prefix = "P000";
+
+                $patient_prefix = Utility::generatePatientPrefix($prefix);
+
                 $table = (new User())->getTable();
                 $col = "id";
                 $offset = 1;
-                $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                $generatedId = Utility::generatedId($patient_prefix,$table,$col,$offset);
 
                 //end generating id for userObj
                 $tempUserObj->id = $generatedId;                                 //bind id to User obj
@@ -168,12 +171,14 @@ class PatientRepository implements PatientRepositoryInterface
                 $logObj         = Utility::logCreatedBy($logObj);
 
                 //start generating id for userObj
-//                $prefix = "U000";
-                $prefix = "P000";
+                $prefix = Utility::getTerminalId();
+//                $prefix = "P000";
+
+                $patient_prefix = Utility::generatePatientPrefix($prefix);
                 $table = (new User())->getTable();
                 $col = "id";
                 $offset = 1;
-                $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                $generatedId = Utility::generatedId($patient_prefix,$table,$col,$offset);
                 //end generating id for userObj
                 $tempUserObj->id = $generatedId;                                 //bind id to User obj
 

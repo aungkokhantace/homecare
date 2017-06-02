@@ -268,6 +268,8 @@ class PatientApiController extends Controller
 
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK){
             $prefix                     = $checkServerStatusArray['tablet_id'];
+            $patient_prefix             = Utility::generatePatientPrefix($prefix);
+
             $params                     = $checkServerStatusArray['data'][0];
             $tablet_id                  = $checkServerStatusArray['tablet_id'];
             $logArr                     = array();
@@ -413,8 +415,8 @@ class PatientApiController extends Controller
                     $data = [];
                 }
 
-                $maxPatient  = Utility::getMaxKey($prefix,'patients','user_id');
-                $maxCoreUser = Utility::getMaxKey($prefix,'core_users','id');
+                $maxPatient  = Utility::getMaxKey($patient_prefix,'patients','user_id');
+                $maxCoreUser = Utility::getMaxKey($patient_prefix,'core_users','id');
                 $maxLog      = Utility::getMaxKey($prefix,'log_patient_case_summary','id');
 
                 $maxKey = array();

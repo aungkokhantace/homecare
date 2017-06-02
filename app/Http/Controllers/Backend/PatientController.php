@@ -84,7 +84,8 @@ class PatientController extends Controller
             $patientTypes = Utility::getSettingsByType("PATIENT_TYPE");
 
             $townshipRepo = new TownshipRepository();
-            $townships      = $townshipRepo->getObjs();
+//            $townships      = $townshipRepo->getObjs();
+            $townships      = $townshipRepo->getTownshipsFromZone();
 
             $allergyRepo    = new AllergyRepository();
             $allergyFood      = $allergyRepo->getArraysByType('food');
@@ -186,7 +187,7 @@ class PatientController extends Controller
         $paramObj->case_scenario        = $case_scenario;
         $paramObj->remark               = $remark;
 
-        //create log patient case summery
+        //create log patient case summary
         $prefix = Utility::getTerminalId();
         $table = (new LogPatientCaseSummary())->getTable();
         $col = "id";

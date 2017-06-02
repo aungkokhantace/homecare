@@ -401,6 +401,7 @@ class InvoiceApiV3Controller extends Controller
                 if(isset($params->schedule_trackings) && count($params->schedule_trackings) > 0){
                     $scheduleTrackings          = $params->schedule_trackings;
                     $scheduleTrackingResult     = $scheduleRepo->scheduleTrackings($scheduleTrackings);
+
                     if($scheduleTrackingResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $scheduleTrackingResult['tablet_id'] = $tablet_id;
