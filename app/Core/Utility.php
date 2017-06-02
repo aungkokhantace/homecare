@@ -614,7 +614,12 @@ class Utility
 
     public static function generatePatientPrefix($prefix) {
         $tempArray = DB::select("SELECT * FROM core_configs WHERE code = 'PATIENT_ID_PREFIX' and type = 'SETTING'");
-        $temp_patient_prefix    = $tempArray[0]->value;
+        if (isset($tempArray) && count($tempArray) > 0) {
+            $temp_patient_prefix = $tempArray[0]->value;
+        }
+        else{
+            $temp_patient_prefix    = "P";
+        }
         $patient_prefix         = str_replace('U',$temp_patient_prefix,$prefix);
         return $patient_prefix;
     }
