@@ -191,6 +191,9 @@
                 }
             });
             //End Validation for Package Sale Entry Form
+
+            //For selectbox with search function
+            $("#name").select2();
         });
 
         function autofill(value)
