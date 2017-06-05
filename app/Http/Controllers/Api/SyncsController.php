@@ -76,7 +76,9 @@ class SyncsController extends Controller{
         $result = array();
 
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK){
-            $prefix             = $checkServerStatusArray['tablet_id'];
+            $prefix              = $checkServerStatusArray['tablet_id'];
+            $patient_prefix      = Utility::generatePatientPrefix($prefix);
+
             $user_id             = $checkServerStatusArray['user_id'];
 
             $inputParametersRaw = $checkServerStatusArray['data'];
@@ -211,8 +213,10 @@ class SyncsController extends Controller{
                 $result['core_syncs_tables'] = $syncsTbVersionArray;
 
                 ///////////////////////////////////
-                $maxPatient                                 = Utility::getMaxKey($prefix,'patients','user_id');
-                $maxCoreUser                                = Utility::getMaxKey($prefix,'core_users','id');
+//                $maxPatient                                 = Utility::getMaxKey($prefix,'patients','user_id');
+                $maxPatient                                 = Utility::getMaxKey($patient_prefix,'patients','user_id');
+//                $maxCoreUser                                = Utility::getMaxKey($prefix,'core_users','id');
+                $maxCoreUser                                = Utility::getMaxKey($patient_prefix,'core_users','id');
                 $maxSchedule                                = Utility::getMaxKey($prefix,'schedules','id');
                 $maxEnquiry                                 = Utility::getMaxKey($prefix,'enquiries','id');
                 $maxPatientFamilyHistory                    = Utility::getMaxKey($prefix,'patient_family_history','id');
