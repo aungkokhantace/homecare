@@ -774,6 +774,8 @@
             });
             //End Validation for Schedule Entry and Edit Form
 
+            //For selectbox with search function
+            $("#name").select2();
         });
 
         //Ajax Method
