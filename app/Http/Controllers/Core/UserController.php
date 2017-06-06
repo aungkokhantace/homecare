@@ -41,6 +41,14 @@ class UserController extends Controller
                 $roles      = $this->userRepository->getRoles();
                 $cur_time   = Carbon::now();
                 //Log::info('TESTING LOG');
+                foreach($users as $user){
+                    if($user->active == 1){
+                        $user->status = "Active";
+                    }
+                    else{
+                        $user->status = "Inactive";
+                    }
+                }
                 return view('core.user.index')->with('users', $users)->with('roles', $roles)->with('cur_time',$cur_time);
                 //}
             }
@@ -327,5 +335,30 @@ class UserController extends Controller
                 return redirect('/');
             }
         }
+    }
+
+    public function disable(){
+        if (Auth::guard('User')->check()) {
+            $id = Input::get('selected_checkboxes');
+            $new_string = explode(',', $id);
+            foreach ($new_string as $id) {
+                $this->userRepository->disable_user($id);
+            }
+            return redirect()->action('Core\UserController@index')
+                ->withMessage(FormatGenerator::message('Success', 'User disabled ...'));
+        }
+        return redirect('/');
+    }
+
+    public function enable(){
+        if (Auth::guard('User')->check()) {
+            $id = Input::get('enable_user_id');
+
+            $this->userRepository->enable_user($id);
+
+            return redirect()->action('Core\UserController@index')
+                ->withMessage(FormatGenerator::message('Success', 'User enabled ...'));
+        }
+        return redirect('/');
     }
 }

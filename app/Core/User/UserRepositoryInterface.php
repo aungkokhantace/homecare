@@ -18,4 +18,6 @@ interface UserRepositoryInterface
     public function changeEnableToDisable($id);
     public function getArrays();
     public function getUserByUserArray($paramArray);
+    public function disable_user($id);
+    public function enable_user($id);
 }

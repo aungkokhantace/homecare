@@ -34,6 +34,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('user/destroy', array('as'=>'user/destroy','uses'=>'Core\UserController@destroy'));
         Route::get('user/profile/{id}', array('as'=>'user/profile','uses'=>'Core\UserController@profile'));
         Route::get('userAuth', array('as'=>'userAuth','uses'=>'Core\UserController@getAuthUser'));
+        Route::post('user/disable', array('as'=>'user/disable','uses'=>'Core\UserController@disable'));
+        Route::post('user/enable', array('as'=>'user/enable','uses'=>'Core\UserController@enable'));
 
         //Role
         Route::get('role', array('as'=>'role','uses'=>'Core\RoleController@index'));

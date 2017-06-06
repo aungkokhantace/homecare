@@ -21,7 +21,8 @@
                 <button type="button" onclick='edit_setup("user");' class="btn btn-default btn-md second_btn">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 </button>
-                <button type="button" onclick="delete_setup('user');" class="btn btn-default btn-md third_btn">
+                {{--<button type="button" onclick="delete_setup('user');" class="btn btn-default btn-md third_btn">--}}
+                <button type="button" onclick="disable_setup('user');" class="btn btn-default btn-md third_btn">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </button>
             </div>
@@ -29,10 +30,11 @@
 
     </div>
 
-    {!! Form::open(array('id'=> 'frm_user' ,'url' => 'user/destroy', 'class'=> 'form-horizontal user-form-border')) !!}
+    {{--{!! Form::open(array('id'=> 'frm_user' ,'url' => 'user/destroy', 'class'=> 'form-horizontal user-form-border')) !!}--}}
+    {!! Form::open(array('id'=> 'frm_disable_user' ,'url' => '/user/disable', 'class'=> 'form-horizontal user-form-border')) !!}
     {{ csrf_field() }}
     <input type="hidden" id="selected_checkboxes" name="selected_checkboxes" value="">
-
+    {!! Form::close() !!}
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="listing">
@@ -47,7 +49,7 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Address</th>
-
+                        <th>Status</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -57,9 +59,8 @@
                         <th class="search-col" con-id="staff_id">Staff ID</th>
                         <th class="search-col" con-id="email">Email</th>
                         <th class="search-col" con-id="role_name">Role</th>
-                        <th class="search-col" con-id="staff_id">Address</th>
-
-
+                        <th class="search-col" con-id="address">Address</th>
+                        <th class="search-col" con-id="status">Status</th>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -71,6 +72,20 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->role->name}}</td>
                         <td>{{$user->address}}</td>
+
+                        @if($user->active == 1)
+                            <td>Active</td>
+                        @else
+                            <td>
+                                <form id="frm_enable_user_{{$user->id}}" method="post" action="/user/enable">
+                                    {{ csrf_field() }}
+                                    Inactive &nbsp;&nbsp;
+                                    <input type="hidden" id="enable_user_id" name="enable_user_id" value="{{$user->id}}">
+                                    <button type="button" onclick="enable_user('{{$user->id}}');" class="btn btn-primary">ENABLE</button>
+                                </form>
+                            </td>
+                        @endif
+
                         </tr>
                     @endforeach
                     </tbody>
@@ -78,7 +93,7 @@
             </div>
         </div>
     </div>
-    {!! Form::close() !!}
+
 
 </div>
 @stop

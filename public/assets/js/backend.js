@@ -575,3 +575,25 @@ function check_to_redirect_to_list_without_type(){
         report_search_by_date('carusagereport');
     }
 }
+
+function enable_user(id) {
+    swal({
+            title: "Are you sure?",
+            text: "Do you want to enable this user?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55 ",
+            confirmButtonText: "Confirm",
+            cancelButtonText: "Cancel",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                $("#frm_enable_user_" + id).submit();
+            } else {
+                return;
+            }
+        });
+
+}

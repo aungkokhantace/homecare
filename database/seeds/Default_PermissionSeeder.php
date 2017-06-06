@@ -39,6 +39,8 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>15,'module'=>'User','name'=>'Destroy','description'=>'User Destroy','url'=>'user/destroy'],
             ['id'=>16,'module'=>'User','name'=>'Auth','description'=>'Getting Auth User','url'=>'userAuth'],
             ['id'=>17,'module'=>'User','name'=>'Profile','description'=>'User Profile','url'=>'user/profile'],
+            ['id'=>18,'module'=>'User','name'=>'Disable','description'=>'User Disable','url'=>'user/disable'],
+            ['id'=>19,'module'=>'User','name'=>'Enable','description'=>'User Enable','url'=>'user/enable'],
 
             // Permissions
             ['id'=>20,'module'=>'Permission','name'=>'Listing','description'=>'Permission Listing','url'=>'permission'],
