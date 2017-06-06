@@ -102,7 +102,8 @@ class AuthController extends Controller
             $validation = Auth::guard('User')->attempt([
             'id'=>$request->name,
             'password'=>$request->password,
-            'deleted_at' => null
+            'deleted_at' => null,
+            'active' => 1
         ]);
 
         if(!$validation){
