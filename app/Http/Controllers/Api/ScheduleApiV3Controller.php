@@ -50,6 +50,7 @@ class ScheduleApiV3Controller extends Controller
 
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK) {
             $prefix             = $checkServerStatusArray['tablet_id'];
+            $patient_prefix     = Utility::generatePatientPrefix($prefix);
 
             $enquiryV2Repo      = new EnquiryApiV2Repository();
             $params             = $checkServerStatusArray['data'][0];
@@ -241,8 +242,10 @@ class ScheduleApiV3Controller extends Controller
 
                 $maxSchedule = Utility::getMaxKey($prefix,'schedules','id');
                 $maxEnquery  = Utility::getMaxKey($prefix,'enquiries','id');
-                $maxPatient  = Utility::getMaxKey($prefix,'patients','user_id');
-                $maxCoreUser = Utility::getMaxKey($prefix,'core_users','id');
+//                $maxPatient  = Utility::getMaxKey($prefix,'patients','user_id');
+                $maxPatient  = Utility::getMaxKey($patient_prefix,'patients','user_id');
+//                $maxCoreUser = Utility::getMaxKey($prefix,'core_users','id');
+                $maxCoreUser = Utility::getMaxKey($patient_prefix,'core_users','id');
 
                 $maxKey = array();
 
