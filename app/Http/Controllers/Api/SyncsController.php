@@ -107,9 +107,12 @@ class SyncsController extends Controller{
                 $tempTableArray['created_by'] = $v->created_by;
                 $tempTableArray['updated_by'] = $v->updated_by;
                 $tempTableArray['deleted_by'] = $v->deleted_by;
-                $tempTableArray['created_at'] = $v->created_at;
-                $tempTableArray['updated_at'] = $v->updated_at;
-                $tempTableArray['deleted_at'] = $v->deleted_at;
+//                $tempTableArray['created_at'] = $v->created_at;
+//                $tempTableArray['updated_at'] = $v->updated_at;
+//                $tempTableArray['deleted_at'] = $v->deleted_at;
+                $tempTableArray['created_at'] = (isset($v->created_at) && $v->created_at != "") ? $v->created_at:null;
+                $tempTableArray['updated_at'] = (isset($v->updated_at) && $v->updated_at != "") ? $v->updated_at:null;
+                $tempTableArray['deleted_at'] = (isset($v->deleted_at) && $v->deleted_at != "") ? $v->deleted_at:null;
                 array_push($syncsTbVersionArray,$tempTableArray);
 
             }
