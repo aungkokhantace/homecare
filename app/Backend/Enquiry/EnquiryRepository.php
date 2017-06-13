@@ -44,7 +44,7 @@ class EnquiryRepository implements  EnquiryRepositoryInterface
     }
 
     public function getArrays($enquiry_status = null, $enquiry_case_type = null, $from_date = null, $to_date = null){
-        $tempObj = DB::select("SELECT * FROM enquiries WHERE deleted_at is null");
+        $tempObj = DB::select("SELECT * FROM enquiries WHERE deleted_at is null ORDER BY created_at DESC");
         return $tempObj;
     }
 

@@ -45,7 +45,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     }
 
     public function getArrays(){
-        $tempObj = DB::select("SELECT * FROM schedules WHERE deleted_at is null");
+        $tempObj = DB::select("SELECT * FROM schedules WHERE deleted_at is null ORDER BY date DESC");
         return $tempObj;
     }
 
@@ -860,6 +860,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         }
 
         $query = $query->whereNull('invoices.deleted_at');
+        $query = $query->orderBy('date', 'desc');
         $result = $query->get();
         return $result;
     }

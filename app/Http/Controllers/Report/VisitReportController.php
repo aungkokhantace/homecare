@@ -51,12 +51,22 @@ class VisitReportController extends Controller
                 $schedulesArray[] = $invoice->schedule_id;
             }
 
+            $leaderArray = array();
+            $scheduleRepo = new ScheduleRepository();
+            foreach($schedulesArray as $sch_id){
+                $schedule = $scheduleRepo->getObjByID($sch_id);
+                $leader_id = $schedule["result"]->leader_id;
+                array_push($leaderArray,$leader_id);
+            }
+
             $usersWithSchedules    = $this->repo->getUsersByScheduleID($type, $from_date, $to_date, $schedulesArray);
 
-            $usersArray = array();
+            $hhcspersonArray = array();
             foreach($usersWithSchedules as $user){
-                $usersArray[] = $user->user_id;
+                $hhcspersonArray[] = $user->user_id;
             }
+
+            $usersArray = array_merge($leaderArray,$hhcspersonArray);
 
             $countsArray = array_count_values($usersArray);
             $userRepo = new UserRepository();
