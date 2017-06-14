@@ -765,11 +765,46 @@ class PatientController extends Controller
 
 //                $investigation_imagings     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id)->get();
                 if(isset($investigation_imaging_id) && count($investigation_imaging_id)>0){
-                    $investigation_imagings['xray']    = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['xray'])->get();
-                    $investigation_imagings['usg']     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['usg'])->get();
-                    $investigation_imagings['ct']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['ct'])->get();
-                    $investigation_imagings['mri']     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['mri'])->get();
-                    $investigation_imagings['other']   = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['other'])->get();
+                    if(isset($investigation_imaging_id['xray'])){
+                        $investigation_imagings['xray']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['xray'])->get();
+                    }
+                    else{
+                        $investigation_imagings['xray']      = [];
+                    }
+
+                    if(isset($investigation_imaging_id['usg'])){
+                        $investigation_imagings['usg']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['usg'])->get();
+                    }
+                    else{
+                        $investigation_imagings['usg']      = [];
+                    }
+
+                    if(isset($investigation_imaging_id['ct'])){
+                        $investigation_imagings['ct']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['ct'])->get();
+                    }
+                    else{
+                        $investigation_imagings['ct']      = [];
+                    }
+
+                    if(isset($investigation_imaging_id['mri'])){
+                        $investigation_imagings['mri']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['mri'])->get();
+                    }
+                    else{
+                        $investigation_imagings['mri']      = [];
+                    }
+
+                    if(isset($investigation_imaging_id['other'])){
+                        $investigation_imagings['other']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['other'])->get();
+                    }
+                    else{
+                        $investigation_imagings['other']      = [];
+                    }
+
+//                    $investigation_imagings['xray']    = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['xray'])->get();
+//                    $investigation_imagings['']     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['usg'])->get();
+
+//                    $investigation_imagings['']     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['mri'])->get();
+//                    $investigation_imagings['']   = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['other'])->get();
 
                 $investigation_imaging      = array();
 
