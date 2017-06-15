@@ -671,6 +671,7 @@ class PatientController extends Controller
         if($valid == 1){
             $vitals =$chief_complaints  = $gph = $hl = $aen = $investigations = $provisional_diagnosis = $treatments = null;
             $neurological = $musculo_intercention = $investigation_imaging = $investigation_ecg = $investigation_other= $nutritions =null ;
+            $provisional_diagnosis_remark = "";
             if(isset($scheduleRaw) && count($scheduleRaw)>0){
                 $latest_schedule_id     = $scheduleRaw->id;
                 $patient_id             = $scheduleRaw->patient_id;
@@ -685,12 +686,15 @@ class PatientController extends Controller
                 $vitals                 = $schedule->getScheduleVitals($latest_schedule_id);
                 $chief_complaints       = $schedule->getChiefComplaint($latest_schedule_id);
                 $gph                    = $schedule->getGeneralPupilHead($latest_schedule_id);
+
                 $hl                     = $schedule->getHeartLung($latest_schedule_id);
                 $aen                    = $schedule->getAbdomenExtreNeuro($latest_schedule_id);
                 $investigation_id       = $schedule->getInvestigationId($latest_schedule_id);
                 $group_name             = $schedule->getInvestigationGroupName($investigation_id);
+
                 $investigation_labs     = $schedule->getInvestigations($investigation_id);
                 $investigations         = array();
+
                 if(isset($group_name) && count($group_name)>0){
                     foreach($group_name as $group){
                         foreach($investigation_labs as $lab){
@@ -707,6 +711,16 @@ class PatientController extends Controller
                 }
 
                 $provisional_id         = $schedule->getScheduleProvisionalDiagnosis($latest_schedule_id);
+
+                //get provisional_diagnosis_remark
+                if(isset($provisional_id) && count($provisional_id)>0){
+                    $provisional_diagnosis_remark_raw = $schedule->getScheduleProvisionalDiagnosisRemark($latest_schedule_id,$provisional_id[0]['provisional_id']);
+                    $provisional_diagnosis_remark     = $provisional_diagnosis_remark_raw["remark"][0];
+                }
+                else{
+                    $provisional_diagnosis_remark     = "";
+                }
+
                 $provisional_diagnosis  = $schedule->getProvisionalDiagnosis($provisional_id);
 
                 $treatments             = $schedule->getScheduleTreatment($latest_schedule_id);
@@ -875,6 +889,7 @@ class PatientController extends Controller
                 ->with('gph',$gph)->with('hl',$hl)->with('aen',$aen)
                 ->with('investigations',$investigations)
                 ->with('provisional_diagnosis',$provisional_diagnosis)
+                ->with('provisional_diagnosis_remark',$provisional_diagnosis_remark)
                 ->with('treatments',$treatments)->with('neurological',$neurological)
                 ->with('musculo_intercention',$musculo_intercention)
                 ->with('nutritions',$nutritions)

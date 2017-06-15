@@ -920,7 +920,17 @@
                                         <i class="fa fa-circle circle" aria-hidden="true"></i> {{$provisional->name}}<hr style="margin: 5px 0 5px 0;border-color: #5bc0de;"/>
                                     @endforeach
                                 @endif
+
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Remark
+                                    </div>
+                                    <div class="col-md-7">
+                                        <textarea class="form-control" id="remark" rows="3" cols="5"> @if(isset($provisional_diagnosis_remark) && count($provisional_diagnosis_remark) >0 ){{$provisional_diagnosis_remark}}@endif</textarea>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

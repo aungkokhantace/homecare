@@ -901,5 +901,16 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             return null;
         }
     }
+
+    public function getScheduleProvisionalDiagnosisRemark($latest_schedule_id, $provisional_id)
+    {
+        $provisional_remark  = DB::table('schedule_provisional_diagnosis')->select('remark')
+            ->whereNull('deleted_at')
+            ->where('schedule_id','=',$latest_schedule_id)
+            ->where('provisional_id','=',$provisional_id)
+            ->first();
+        $provisional_remark = collect($provisional_remark)->map(function($x){ return (array) $x; })->toArray();
+        return $provisional_remark;
+    }
 }
 
