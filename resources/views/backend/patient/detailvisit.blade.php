@@ -754,13 +754,24 @@
                             <div class="col-lg-12">
                                 <h3>Investigation Labs</h3><br/>
                                 @if(isset($investigations) && count($investigations)>0)
-                                    @foreach($investigations as $investigationKey => $investigationValue)
+{{--                                    @foreach($investigations as $investigationKey => $investigationValue)--}}
+                                    @foreach($investigations as $investigationValue)
                                         {{--<h4 style="color: #418DD8;">{{$investigationKey}}</h4>--}}
-                                        @foreach($investigationValue as $name)
-                                            <i class="fa fa-circle circle" aria-hidden="true"></i> {{$name}}<hr style="margin: 5px 0 5px 0;border-color: #5bc0de;"/>
-                                        @endforeach
+                                        {{--@foreach($investigationValue as $name)--}}
+                                            {{--<i class="fa fa-circle circle" aria-hidden="true"></i> {{$name}}<hr style="margin: 5px 0 5px 0;border-color: #5bc0de;"/>--}}
+                                        {{--@endforeach--}}
+                                        <i class="fa fa-circle circle" aria-hidden="true"></i> {{$investigationValue}}<hr style="margin: 5px 0 5px 0;border-color: #5bc0de;"/>
                                     @endforeach
                                 @endif
+
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Remark
+                                    </div>
+                                    <div class="col-md-7">
+                                        <textarea class="form-control" id="remark" rows="3" cols="5"> @if(isset($investigation_lab_remark) && count($investigation_lab_remark) >0 ){{$investigation_lab_remark}}@endif</textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

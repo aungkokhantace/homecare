@@ -795,6 +795,12 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         return $investigation_labs;
     }
 
+    public function getInvestigationLabs($investigation_id){
+//        $investigation_labs     = Investigation::select('id','name','group_name')->whereIn('id',$investigation_id)->orderBy('name')->get();
+        $investigation_labs     = DB::table('investigation_labs')->select('id','service_name')->whereIn('id',$investigation_id)->orderBy('service_name')->get();
+        return $investigation_labs;
+    }
+
     public function getScheduleProvisionalDiagnosis($latest_schedule_id){
         $provisional_id  = DB::table('schedule_provisional_diagnosis')->select('provisional_id')->whereNull('deleted_at')->where('schedule_id','=',$latest_schedule_id)->get();
         $provisional_id = collect($provisional_id)->map(function($x){ return (array) $x; })->toArray();

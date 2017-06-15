@@ -672,6 +672,7 @@ class PatientController extends Controller
             $vitals =$chief_complaints  = $gph = $hl = $aen = $investigations = $provisional_diagnosis = $treatments = null;
             $neurological = $musculo_intercention = $investigation_imaging = $investigation_ecg = $investigation_other= $nutritions =null ;
             $provisional_diagnosis_remark = "";
+            $investigation_lab_remark = "";
             if(isset($scheduleRaw) && count($scheduleRaw)>0){
                 $latest_schedule_id     = $scheduleRaw->id;
                 $patient_id             = $scheduleRaw->patient_id;
@@ -692,20 +693,23 @@ class PatientController extends Controller
                 $investigation_id       = $schedule->getInvestigationId($latest_schedule_id);
                 $group_name             = $schedule->getInvestigationGroupName($investigation_id);
 
-                $investigation_labs     = $schedule->getInvestigations($investigation_id);
+//                $investigation_labs     = $schedule->getInvestigations($investigation_id);
+                $investigation_labs     = $schedule->getInvestigationLabs($investigation_id);
                 $investigations         = array();
 
                 if(isset($group_name) && count($group_name)>0){
                     foreach($group_name as $group){
                         foreach($investigation_labs as $lab){
-                            if($group->group_name == $lab->group_name){
-                                if($lab->group_name == 'Haematology1' || $lab->group_name == 'Haematology2'){
-                                    $investigations['Haematology'][] = $lab->name;
-                                }
-                                else{
-                                    $investigations[$group->group_name][] = $lab->name;
-                                }
-                            }
+
+//                            if($group->group_name == $lab->group_name){
+//                                if($lab->group_name == 'Haematology1' || $lab->group_name == 'Haematology2'){
+//                                    $investigations['Haematology'][] = $lab->name;
+//                                }
+//                                else{
+//                                    $investigations[$group->group_name][] = $lab->name;
+//                                }
+                                array_push($investigations,$lab->service_name);
+//                            }
                         }
                     }
                 }
@@ -774,6 +778,10 @@ class PatientController extends Controller
 
                     if($investigation->investigation_imaging_remark != ''){
                         $investigation_imaging_remark = $investigation->investigation_imaging_remark;
+                    }
+                    //get investigation labs remark
+                    if($investigation->investigation_lab_remark != ''){
+                        $investigation_lab_remark = $investigation->investigation_lab_remark;
                     }
                 }
 
@@ -888,6 +896,7 @@ class PatientController extends Controller
                 ->with('chief_complaints',$chief_complaints)
                 ->with('gph',$gph)->with('hl',$hl)->with('aen',$aen)
                 ->with('investigations',$investigations)
+                ->with('investigation_lab_remark',$investigation_lab_remark)
                 ->with('provisional_diagnosis',$provisional_diagnosis)
                 ->with('provisional_diagnosis_remark',$provisional_diagnosis_remark)
                 ->with('treatments',$treatments)->with('neurological',$neurological)
