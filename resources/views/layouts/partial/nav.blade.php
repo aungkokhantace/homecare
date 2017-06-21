@@ -295,6 +295,7 @@
                     <li nav-id="report-car-usage"><a href="/carusagereport">Car Usage Report</a></li>
                     <li nav-id="report-visit-record"><a href="/visitreport">Staff Visit Report</a></li>
                     <li nav-id="report-visit-record"><a href="/patientvisitreport">Patient Visit Report</a></li>
+                    <li nav-id="report-visit-record"><a href="/patientdailyvisitreport">Patient Daily Visit Report</a></li>
                 </ul>
             </li>
 

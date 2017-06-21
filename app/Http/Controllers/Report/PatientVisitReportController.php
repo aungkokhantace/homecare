@@ -54,10 +54,10 @@ class PatientVisitReportController extends Controller
 
                 $total_patients       = count($scheduleRepo->getSchedulesByDate($date));
                 $mo_visits            = count($scheduleRepo->getEachVisitByDate($date,1)); // service_id=1 is for MO
-                $musculo_visits       = count($scheduleRepo->getEachVisitByDate($date,2)); // service_id=1 is for Musculo
-                $neuro_visits         = count($scheduleRepo->getEachVisitByDate($date,3)); // service_id=1 is for Neuro
-                $nutrition_visits     = count($scheduleRepo->getEachVisitByDate($date,4)); // service_id=1 is for Nutrition
-                $blood_drawing_visits = count($scheduleRepo->getEachVisitByDate($date,5)); // service_id=1 is for Blood Drawing
+                $musculo_visits       = count($scheduleRepo->getEachVisitByDate($date,2)); // service_id=2 is for Musculo
+                $neuro_visits         = count($scheduleRepo->getEachVisitByDate($date,3)); // service_id=3 is for Neuro
+                $nutrition_visits     = count($scheduleRepo->getEachVisitByDate($date,4)); // service_id=4 is for Nutrition
+                $blood_drawing_visits = count($scheduleRepo->getEachVisitByDate($date,5)); // service_id=5 is for Blood Drawing
 
                 $patient_visits[$date]["date"]                  = $date;
                 $patient_visits[$date]["total_patients"]        = $total_patients;
@@ -180,7 +180,6 @@ class PatientVisitReportController extends Controller
                 $excel->sheet('PatientVisitReport', function($sheet)use($patient_visits) {
                     $displayArray = array();
                     foreach($patient_visits as $visit){
-//                        dd('visit',$visit);
                         $date = $visit["date"];
                         $displayArray[$date]["Date"] = $visit["date"];
                         $displayArray[$date]["Total Patient"] = $visit["total_patients"];

@@ -350,6 +350,11 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>1031,'module'=>'Report','name'=>'Patient Visit Report Search','description'=>'Patient Visit Report Search','url'=>'patientvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
             ['id'=>1032,'module'=>'Report','name'=>'Patient Visit Report Export Excel','description'=>'Patient Visit Report Export Excel','url'=>'patientvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
 
+            //Patient Visit Report
+            ['id'=>1040,'module'=>'Report','name'=>'Patient Daily Visit Report','description'=>'Patient Daily Visit Report Listing','url'=>'patientdailyvisitreport'],
+            ['id'=>1041,'module'=>'Report','name'=>'Patient Daily Visit Report Search','description'=>'Patient Daily Visit Report Search','url'=>'patientdailyvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1042,'module'=>'Report','name'=>'Patient Daily Visit Report Export Excel','description'=>'Patient Daily Visit Report Export Excel','url'=>'patientdailyvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+
         );
 
 

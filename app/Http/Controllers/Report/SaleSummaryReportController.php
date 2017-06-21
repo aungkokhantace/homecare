@@ -55,6 +55,22 @@ class SaleSummaryReportController extends Controller
             $invoiceHeader = $this->repo->getInvoiceHeader($from_date, $to_date);
             $invoiceDetail = $this->repo->getInvoiceDetail();
 
+            //get patient age using invoice_id
+            $invoiceRepo = new InvoiceRepository();
+            foreach($invoiceHeader as $invoiceHead){
+                $invoice_id     = $invoiceHead->id;
+                $invoiceRaw     = $invoiceRepo->getObjByID($invoice_id);
+                $invoice        = $invoiceRaw["result"];
+
+                $patient_dob    = $invoice->patient->dob;
+                //calculate age from patient dob
+                $patient_age_raw= Utility::calculateAge($patient_dob);
+                $patient_age    = $patient_age_raw["value"]." ".$patient_age_raw["unit"];
+
+                //bind age to invoice obj
+                $invoiceHead->age = $patient_age;
+            }
+
             $saleSummary = array();
             if(isset($invoiceHeader) && count($invoiceHeader)>0){
                 foreach($invoiceHeader as $header){
@@ -75,7 +91,6 @@ class SaleSummaryReportController extends Controller
             }
 
             $grandTotal = number_format ($grandTotal, 2); // decimal format
-
 
             foreach($saleSummary as $summary){
                 $summary->date = Carbon::parse($summary->date)->format('d-m-Y'); //changing date format to show in view
@@ -129,6 +144,22 @@ class SaleSummaryReportController extends Controller
             $invoiceHeader = $this->repo->getInvoiceHeader($from_date, $to_date);
             $invoiceDetail = $this->repo->getInvoiceDetail();
 
+            //get patient age using invoice_id
+            $invoiceRepo = new InvoiceRepository();
+            foreach($invoiceHeader as $invoiceHead){
+                $invoice_id     = $invoiceHead->id;
+                $invoiceRaw     = $invoiceRepo->getObjByID($invoice_id);
+                $invoice        = $invoiceRaw["result"];
+
+                $patient_dob    = $invoice->patient->dob;
+                //calculate age from patient dob
+                $patient_age_raw= Utility::calculateAge($patient_dob);
+                $patient_age    = $patient_age_raw["value"]." ".$patient_age_raw["unit"];
+
+                //bind age to invoice obj
+                $invoiceHead->age = $patient_age;
+            }
+
             $saleSummary = array();
             if(isset($invoiceHeader) && count($invoiceHeader)>0){
                 foreach($invoiceHeader as $header){
@@ -138,9 +169,6 @@ class SaleSummaryReportController extends Controller
                         foreach($invoiceDetail as $detail){
                             if($header->id == $detail->invoice_id){
                                 $saleSummary[$header->id]->car_type = $detail->car_type;
-                            }
-                            else{
-                                $saleSummary[$header->id]->car_type = null;
                             }
                         }
                     }
@@ -209,6 +237,22 @@ class SaleSummaryReportController extends Controller
             $invoiceHeader = $this->repo->getInvoiceHeader($from_date, $to_date);
             $invoiceDetail = $this->repo->getInvoiceDetail();
 
+            //get patient age using invoice_id
+            $invoiceRepo = new InvoiceRepository();
+            foreach($invoiceHeader as $invoiceHead){
+                $invoice_id     = $invoiceHead->id;
+                $invoiceRaw     = $invoiceRepo->getObjByID($invoice_id);
+                $invoice        = $invoiceRaw["result"];
+
+                $patient_dob    = $invoice->patient->dob;
+                //calculate age from patient dob
+                $patient_age_raw= Utility::calculateAge($patient_dob);
+                $patient_age    = $patient_age_raw["value"]." ".$patient_age_raw["unit"];
+
+                //bind age to invoice obj
+                $invoiceHead->age = $patient_age;
+            }
+
             $saleSummary = array();
             if(isset($invoiceHeader) && count($invoiceHeader)>0){
                 foreach($invoiceHeader as $header){
@@ -219,9 +263,9 @@ class SaleSummaryReportController extends Controller
                             if($header->id == $detail->invoice_id){
                                 $saleSummary[$header->id]->car_type = $detail->car_type;
                             }
-                            else{
-                                $saleSummary[$header->id]->car_type = null;
-                            }
+//                            else{
+//                                $saleSummary[$header->id]->car_type = null;
+//                            }
                         }
                     }
                 }
@@ -248,6 +292,7 @@ class SaleSummaryReportController extends Controller
                         $count++;
                         $displayArray[$value->id]["InvoiceID"] = $value->id;
                         $displayArray[$value->id]["Patient Name"] = $value->patient;
+                        $displayArray[$value->id]["Patient Age"] = $value->age;
                         $displayArray[$value->id]["Township"] = $value->township;
 
                         $carType = $value->car_type;
@@ -281,7 +326,7 @@ class SaleSummaryReportController extends Controller
                     }
                     else{
                         $count = $count +2;
-                        $sheet->cells('A1:F1', function($cells) {
+                        $sheet->cells('A1:G1', function($cells) {
                             $cells->setBackground('#1976d3');
                             $cells->setFontSize(13);
                         });
@@ -289,9 +334,9 @@ class SaleSummaryReportController extends Controller
                         $sheet->fromArray($displayArray);
 
                         $sheet->appendRow(array(
-                            'Grand Total','', '','','',$grandTotal
+                            'Grand Total','', '','','','',$grandTotal
                         ));
-                        $sheet->cells('A'.$count.':F'.$count, function($cells) {
+                        $sheet->cells('A'.$count.':G'.$count, function($cells) {
                             $cells->setBackground('#1976d3');
                             $cells->setFontSize(13);
                         });

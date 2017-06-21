@@ -310,6 +310,11 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>1031],
             ['role_id'=>1, 'permission_id'=>1032],
 
+            //Patient Daily Visit Report
+            ['role_id'=>1, 'permission_id'=>1040],
+            ['role_id'=>1, 'permission_id'=>1041],
+            ['role_id'=>1, 'permission_id'=>1042],
+
             //Log Patient Case Summary
 
             ['role_id'=>1, 'permission_id'=>1014],
@@ -620,6 +625,11 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>2, 'permission_id'=>1030],
             ['role_id'=>2, 'permission_id'=>1031],
             ['role_id'=>2, 'permission_id'=>1032],
+
+            //Patient Daily Visit Report
+            ['role_id'=>2, 'permission_id'=>1040],
+            ['role_id'=>2, 'permission_id'=>1041],
+            ['role_id'=>2, 'permission_id'=>1042],
         );
 
         DB::table('core_permission_role')->insert($roles);

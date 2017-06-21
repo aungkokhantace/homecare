@@ -319,6 +319,11 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('patientvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientVisitReportController@search'));
         Route::get('patientvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientVisitReportController@excel'));
 
+        //Patient Daily Visit Report
+        Route::get('patientdailyvisitreport', array('as'=>'patientdailyvisitreport','uses'=>'Report\PatientDailyVisitReportController@index'));
+        Route::get('patientdailyvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientdailyvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientDailyVisitReportController@search'));
+        Route::get('patientdailyvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientdailyvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientDailyVisitReportController@excel'));
+
         //Schedule Status Report
         Route::get('schedulestatusreport', array('as'=>'schedulestatusreport','uses'=>'Report\ScheduleStatusReportController@index'));
         Route::get('schedulestatusreport/search/{from_date?}/{to_date?}', array('as'=>'schedulestatusreport/search/{from_date?}/{to_date?}','uses'=>'Report\ScheduleStatusReportController@search'));

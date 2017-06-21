@@ -920,11 +920,11 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     }
 
     public function getSchedulesWithService($schedulesArray = [], $type = null, $from_date = null, $to_date = null) {
-        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
-                    ->where('schedule_detail.type','=','service')
-                    ->whereIn('schedules.id', $schedulesArray)
-                    ->whereNull('schedules.deleted_at')
-                    ->get();
+//        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+//                    ->where('schedule_detail.type','=','service')
+//                    ->whereIn('schedules.id', $schedulesArray)
+//                    ->whereNull('schedules.deleted_at')
+//                    ->get();
 
         $query = Schedule::query();
         $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
@@ -963,6 +963,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             }
         }
 
+        $query = $query->orderBy('schedules.date','desc');
         $result = $query->get();
 
         return $result;

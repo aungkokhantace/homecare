@@ -61,6 +61,7 @@
                     <tr>
                         <th>Invoice ID</th>
                         <th>Patient Name</th>
+                        <th>Patient Age</th>
                         <th>Township</th>
                         <th>Car Type</th>
                         <th>Date</th>
@@ -71,6 +72,7 @@
                     <tr>
                         <th class="search-col" con-id="invoiceID">Invoice ID</th>
                         <th class="search-col" con-id="patient_name">Patient Name</th>
+                        <th class="search-col" con-id="patient_name">Patient Age</th>
                         <th class="search-col" con-id="township">Township</th>
                         <th class="search-col" con-id="cartype">Car Type</th>
                         <th class="search-col" con-id="date">Date</th>
@@ -82,6 +84,7 @@
                         <tr>
                             <td><a href="/salesummaryreport/invoicedetail/{{$sale->id}}">{{$sale->id}}</a></td>
                             <td>{{$sale->patient}}</td>
+                            <td>{{$sale->age}}</td>
                             <td>{{$sale->township}}</td>
                             <td>
                                 @if($sale->invoice_type == 'invoice')
@@ -96,6 +99,7 @@
                     @endforeach
                         <tr bgcolor="#1976d3">
                             <td style = "color:white">Grand Total</td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -126,7 +130,7 @@
                     [5,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 4, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "paging":   false,
