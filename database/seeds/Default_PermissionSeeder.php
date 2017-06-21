@@ -344,6 +344,12 @@ class Default_PermissionSeeder extends Seeder
 
             //Addendum
             ['id'=>346,'module'=>'Addendum','name'=>'Store','description'=>'Addendum Store','url'=>'addendum/store'],
+
+            //Patient Visit Report
+            ['id'=>1030,'module'=>'Report','name'=>'Patient Visit Report','description'=>'Patient Visit Report Listing','url'=>'patientvisitreport'],
+            ['id'=>1031,'module'=>'Report','name'=>'Patient Visit Report Search','description'=>'Patient Visit Report Search','url'=>'patientvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1032,'module'=>'Report','name'=>'Patient Visit Report Export Excel','description'=>'Patient Visit Report Export Excel','url'=>'patientvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+
         );
 
 

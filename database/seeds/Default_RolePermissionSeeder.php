@@ -305,6 +305,11 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>1012],
             ['role_id'=>1, 'permission_id'=>1013],
 
+            //Patient Visit Report
+            ['role_id'=>1, 'permission_id'=>1030],
+            ['role_id'=>1, 'permission_id'=>1031],
+            ['role_id'=>1, 'permission_id'=>1032],
+
             //Log Patient Case Summary
 
             ['role_id'=>1, 'permission_id'=>1014],
@@ -610,6 +615,11 @@ class Default_RolePermissionSeeder extends Seeder
 
             //For MO role to view dashboard
             ['role_id'=>6, 'permission_id'=>16],
+
+            //Patient Visit Report
+            ['role_id'=>2, 'permission_id'=>1030],
+            ['role_id'=>2, 'permission_id'=>1031],
+            ['role_id'=>2, 'permission_id'=>1032],
         );
 
         DB::table('core_permission_role')->insert($roles);
