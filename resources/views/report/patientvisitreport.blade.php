@@ -1,44 +1,16 @@
 @extends('layouts.master')
-@section('title','Income Summary Report')
+@section('title','Patient Visit Report')
 @section('content')
 
-<!-- begin #content -->
+        <!-- begin #content -->
 <div id="content" class="content">
 
-    <h1 class="page-header">Income Summary Report</h1>
+    <h1 class="page-header">Patient Visit Report</h1>
     @if(count(Session::get('message')) != 0)
         <div>
         </div>
     @endif
-    <br />
-
-    <div class="row">
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-            <label for="type" class="text_bold_black">Type</label>
-        </div>
-
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <select class="form-control" name="type" id="type" onchange="switchPicker();">
-                @if(isset($type) && $type == "daily")
-                    <option value="daily" selected>Daily</option>
-                @else
-                    <option value="daily">Daily</option>
-                @endif
-                @if(isset($type) && $type == "monthly")
-                    <option value="monthly" selected>Monthly</option>
-                @else
-                    <option value="monthly">Monthly</option>
-                @endif
-                @if(isset($type) && $type == "yearly")
-                    <option value="yearly" selected>Yearly</option>
-                @else
-                    <option value="yearly">Yearly</option>
-                @endif
-            </select>
-            <p class="text-danger">{{$errors->first('type')}}</p>
-        </div>
-    </div>
-    <br>
+    <br/>
 
     {{--Start Datepicker--}}
     <div class="row days" style="display:none;">
@@ -137,70 +109,84 @@
     <br class="years">
 
     <div class="row">
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <button type="button" onclick="report_search_with_type('incomesummaryreport');" class="form-control btn-primary">Preview By List</button>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <label for="type" class="text_bold_black">Type</label>
         </div>
 
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <button type="button" onclick="check_to_redirect_to_graph_with_type();" class="form-control btn-primary">Preview By Graph</button>
+            <select class="form-control" name="type" id="type" onchange="switchPicker();">
+                @if(isset($type) && $type == "daily")
+                    <option value="daily" selected>Daily</option>
+                @else
+                    <option value="daily">Daily</option>
+                @endif
+                @if(isset($type) && $type == "monthly")
+                    <option value="monthly" selected>Monthly</option>
+                @else
+                    <option value="monthly">Monthly</option>
+                @endif
+                @if(isset($type) && $type == "yearly")
+                    <option value="yearly" selected>Yearly</option>
+                @else
+                    <option value="yearly">Yearly</option>
+                @endif
+            </select>
+            <p class="text-danger">{{$errors->first('type')}}</p>
         </div>
 
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <button type="button" onclick="report_export_with_type('incomesummaryreport');" class="form-control btn-primary">Export Excel</button>
+            {{--<button type="button" onclick='patient_visit_report_search()' class="form-control btn-primary">Preview</button>--}}
+            <button type="button" onclick='report_search_with_type("patientvisitreport")' class="form-control btn-primary">Preview</button>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <button type="button" onclick='report_export_with_type("patientvisitreport");' class="form-control btn-primary">Export Excel</button>
         </div>
     </div>
+
+    <br/>
 
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="listing">
                 <input type="hidden" id="pageSearchedValue" name="pageSearchedValue" value="">
                 <table class="table list-table" id="list-table">
+
                     <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Package Income</th>
-                        <th>Car Income</th>
-                        <th>Service Income</th>
-                        <th>Medication Income</th>
-                        <th>Investigation Income</th>
-                        <th>Total</th>
+                        <th>Total Patient</th>
+                        <th>Doctor/MO Visit</th>
+                        <th>Physiotherapy Musculo Visit</th>
+                        <th>Physiotherapy Neuro Visit</th>
+                        <th>Nutrition Visit</th>
+                        <th>Blood Drawing Visit</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th class="search-col" con-id="date">Date</th>
-                        <th class="search-col" con-id="package_income">Package Income</th>
-                        <th class="search-col" con-id="car_income">Car Income</th>
-                        <th class="search-col" con-id="service_income">Service Income</th>
-                        <th class="search-col" con-id="medication_income">Medication Income</th>
-                        <th class="search-col" con-id="investigation_income">Investigation Income</th>
-                        <th class="search-col" con-id="total">Total</th>
+                        <th class="search-col" con-id="total_patients">Total Patient</th>
+                        <th class="search-col" con-id="doctor_visit">Doctor/MO Visit</th>
+                        <th class="search-col" con-id="physiotherapy_musculo_visit">Physiotherapy Musculo Visit</th>
+                        <th class="search-col" con-id="physiotherapy_neuro_visit">Physiotherapy Neuro Visit</th>
+                        <th class="search-col" con-id="nutrition_visit">Nutrition Visit</th>
+                        <th class="search-col" con-id="blood_drawing_visit">Blood Drawing Visit</th>
                     </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($invoices as $invoice)
-                            <tr>
-                                <td>{{$invoice->date}}</td>
-                                <td>{{number_format($invoice->package_price,2)}}</td>
-                                <td>{{number_format($invoice->total_car_amount,2)}}</td>
-                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
-                                <td>{{number_format($invoice->total_medication_amount,2)}}</td>
-                                <td>{{number_format($invoice->total_investigation_amount,2)}}</td>
-                                <td>{{number_format($invoice->total,2)}}</td>
-                            </tr>
+                        @foreach($patient_visits as $patient_visit)
+                        <tr>
+                            <td>{{$patient_visit["date"]}}</td>
+                            <td>{{$patient_visit["total_patients"]}}</td>
+                            <td>{{$patient_visit["mo_visits"]}}</td>
+                            <td>{{$patient_visit["musculo_visits"]}}</td>
+                            <td>{{$patient_visit["neuro_visits"]}}</td>
+                            <td>{{$patient_visit["nutrition_visits"]}}</td>
+                            <td>{{$patient_visit["blood_drawing_visits"]}}</td>
+                        </tr>
                         @endforeach
                     </tbody>
-                        <tr bgcolor="#1976d3" style = "color:white">
-                            <td></td>
-                            <td>{{number_format($totalArray['package'],2)}}</td>
-                            <td>{{number_format($totalArray['car'],2)}}</td>
-                            <td>{{number_format($totalArray['service'],2)}}</td>
-                            <td>{{number_format($totalArray['medication'],2)}}</td>
-                            <td>{{number_format($totalArray['investigation'],2)}}</td>
-                            <td>{{number_format($totalArray['total'],2)}}</td>
-                        </tr>
                 </table>
             </div>
         </div>
@@ -243,6 +229,26 @@
 
             });
 
+           /* $('#datepicker_from').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                allowInputToggle: true,
+            });
+
+            $('#datepicker_to').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                allowInputToggle: true,
+                minDate: "20-08-2016",
+
+            }); */
+
             //Start Daypickers
             $('#datepicker_from').datepicker({
                 format: 'dd-mm-yyyy',
@@ -260,7 +266,7 @@
                 changeMonth: true,
                 numberOfMonths: 1,
                 allowInputToggle: true,
-                minDate: "20-08-2016"
+//                minDate: "20-08-2016"
             });
             //End Daypickers
 
@@ -316,7 +322,6 @@
                 $('.months').hide();
                 $('.years').hide();
             }
-
         });
 
         function switchPicker(){

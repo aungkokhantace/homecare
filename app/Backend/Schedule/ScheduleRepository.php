@@ -918,5 +918,67 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $provisional_remark = collect($provisional_remark)->map(function($x){ return (array) $x; })->toArray();
         return $provisional_remark;
     }
+
+    public function getSchedulesWithService($schedulesArray = [], $type = null, $from_date = null, $to_date = null) {
+        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+                    ->where('schedule_detail.type','=','service')
+                    ->whereIn('schedules.id', $schedulesArray)
+                    ->whereNull('schedules.deleted_at')
+                    ->get();
+
+        $query = Schedule::query();
+        $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+        $query = $query->whereIn('schedules.id', $schedulesArray);
+        $query = $query->where('schedule_detail.type','=','service');
+        $query = $query->whereNull('schedules.deleted_at');
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime('01-01-'.$from_date));
+                $query = $query->where('schedules.date', '>=' , $tempFromDate);
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime('31-12-'.$to_date));
+                $query = $query->where('schedules.date', '<=', $tempToDate);
+            }
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime('01-'.$from_date));
+                $query = $query->where('schedules.date', '>=' , $tempFromDate);
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime('31-'.$to_date));
+                $query = $query->where('schedules.date', '<=', $tempToDate);
+            }
+        }
+        else{
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime($from_date));
+                $query = $query->where('schedules.date', '>=' , $tempFromDate);
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime($to_date));
+                $query = $query->where('schedules.date', '<=', $tempToDate);
+            }
+        }
+
+        $result = $query->get();
+
+        return $result;
+    }
+
+    public function getSchedulesByDate($date) {
+        $result = Schedule::where('date','=',$date)->get();
+        return $result;
+    }
+
+    public function getEachVisitByDate($date,$service_id) {
+        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+            ->where('schedules.date','=',$date)
+            ->where('schedule_detail.service_id','=',$service_id)
+            ->get();
+        return $result;
+    }
 }
 
