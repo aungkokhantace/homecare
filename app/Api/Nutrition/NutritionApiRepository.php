@@ -116,6 +116,23 @@ class NutritionApiRepository implements NutritionApiRepositoryInterface
                 $paramObj->evaluation 								= $row->evaluation;
                 $paramObj->plan_of_action_or_recommendation_for_care_plan = $row->plan_of_action_or_recommendation_for_care_plan;
                 $paramObj->remark 									= $row->remark;
+                //start newly added columns
+                $paramObj->gender 									= $row->gender;
+                $paramObj->weight 									= $row->weight;
+                $paramObj->height 									= $row->height;
+                $paramObj->age 									    = $row->age;
+                $paramObj->calorie 									= $row->calorie;
+                $paramObj->activity_factor 							= $row->activity_factor;
+                $paramObj->totalCalorie 							= $row->totalCalorie;
+                $paramObj->protein_kg 								= $row->protein_kg;
+                $paramObj->protein_gm 								= $row->protein_gm;
+                $paramObj->protein_result 							= $row->protein_result;
+                $paramObj->fluid_kg 								= $row->fluid_kg;
+                $paramObj->fluid_cm 								= $row->fluid_cm;
+                $paramObj->fluid_result 							= $row->fluid_result;
+                $paramObj->dehydration 								= $row->dehydration;
+                $paramObj->total_fluid 								= $row->total_fluid;
+                //end newly added columns
                 $paramObj->created_by                               = $row->created_by;
                 $paramObj->updated_by                               = $row->updated_by;
                 $paramObj->deleted_by                               = $row->deleted_by;
