@@ -1582,90 +1582,197 @@
                                 <br/>
                                 <div class="row">
                                     <div class="col-md-1"><label>Other</label></div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-10">
                                         <textarea class="form-control" row="1" col="7">{{$nutrition->other}}</textarea>
                                     </div>
                                 </div>
+
+                                {{--Start Old Design--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-md-12">--}}
+                                        {{--<h6><b>Estimated Nutritional Needs</b></h6>--}}
+                                        {{--<h6>Male</h6>--}}
+                                        {{--<b>66+13.7 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field1}}" class="text_box">--}}
+                                        {{--<b>(wt/kg)+5 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field2}}" class="text_box">--}}
+                                        {{--<b>(ht/cm)+6.8 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field3}}" class="text_box">--}}
+                                        {{--<b>age</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_age}}" class="text_box">--}}
+                                        {{--<b>kcal X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field8}}" class="text_box">--}}
+                                        {{--<b>AF</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field5}}" class="text_box">--}}
+                                        {{--<b>XRF</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field6}}" class="text_box">--}}
+                                        {{--<b>Kcal</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field7}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<br/>--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-md-12">--}}
+                                        {{--<h6>Female</h6>--}}
+                                        {{--<b>665+9.6 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field1}}" class="text_box">--}}
+                                        {{--<b>(wt/kg)+1.8 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field2}}" class="text_box">--}}
+                                        {{--<b>(ht/cm)+4.7 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field3}}" class="text_box">--}}
+                                        {{--<b>age</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_age}}" class="text_box">--}}
+                                        {{--<b>kcal X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field8}}" class="text_box">--}}
+                                        {{--<b>AF</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field5}}" class="text_box">--}}
+                                        {{--<b>XRF</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field6}}" class="text_box">--}}
+                                        {{--<b>Kcal</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field7}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<br/>--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-md-1"> <b>Protein</b> </div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<input type="text" value="{{$nutrition->protient_field1}}" class="text_box">--}}
+                                        {{--<b> Kg X </b>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-1">--}}
+                                        {{--<input type="text" value="{{$nutrition->protient_field2}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<b>gm/Kg (based on RF)</b>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<input type="text" value="{{$nutrition->protient_field3}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<br/>--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-md-1"><b>Fluid</b></div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field1}}" class="text_box">--}}
+                                        {{--<b> Kg X </b>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-1">--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field2}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<b> cc/Kg </b>--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field3}}" class="text_box">--}}
+                                        {{--<b> + </b>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-4">--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field4}}" class="text_box">--}}
+                                        {{--<b> (dehydration/N/V,diarrhea) </b>--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field5}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                 {{--End Old Design   --}}
+
+                                <br>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <h6><b>Estimated Nutritional Needs</b></h6>
-                                        <h6>Male</h6>
-                                        <b>66+13.7 X</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field1}}" class="text_box">
-                                        <b>(wt/kg)+5 X</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field2}}" class="text_box">
-                                        <b>(ht/cm)+6.8 X</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field3}}" class="text_box">
-                                        <b>age</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_age}}" class="text_box">
-                                        <b>kcal X</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field8}}" class="text_box">
-                                        <b>AF</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field5}}" class="text_box">
-                                        <b>XRF</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field6}}" class="text_box">
-                                        <b>Kcal</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field7}}" class="text_box">
+                                    <div class="col-md-3">
+                                        @if($nutrition->gender == "male")
+                                            <input type="radio" name="gender" value="male" checked> <b>Male</b>
+                                            <input type="radio" name="gender" value="female"> <b>Female</b>
+                                        @else
+                                            <input type="radio" name="gender" value="male"> Male
+                                            <input type="radio" name="gender" value="female" checked> Female
+                                        @endif
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <b>Weight</b>
+                                        <input type="text" value="{{$nutrition->weight}}" class="text_box">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <b>Height</b>
+                                        <input type="text" value="{{$nutrition->height}}" class="text_box">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <b>Age</b>
+                                        <input type="text" value="{{$nutrition->age}}" class="text_box">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" value="{{$nutrition->calorie}}" class="text_box">
+                                        <b>KCal</b>
                                     </div>
                                 </div>
                                 <br/>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h6>Female</h6>
-                                        <b>665+9.6 X</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field1}}" class="text_box">
-                                        <b>(wt/kg)+1.8 X</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field2}}" class="text_box">
-                                        <b>(ht/cm)+4.7 X</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field3}}" class="text_box">
-                                        <b>age</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_age}}" class="text_box">
-                                        <b>kcal X</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field8}}" class="text_box">
-                                        <b>AF</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field5}}" class="text_box">
-                                        <b>XRF</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field6}}" class="text_box">
-                                        <b>Kcal</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field7}}" class="text_box">
+                                        @if((isset($nutrition->activity_factor) && $nutrition->activity_factor > 0) || (isset($nutrition->totalCalorie) && $nutrition->totalCalorie > 0))
+                                            <input type="checkbox" checked> <b>Calculate Total Calorie</b>
+                                        @else <input type="checkbox"> <b>Calculate Total Calorie</b>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <b>Activity Factor</b>
+                                        <input type="text" value="{{$nutrition->activity_factor}}" class="text_box">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" value="{{$nutrition->totalCalorie}}" class="text_box">
+                                        <b>KCal</b>
                                     </div>
                                 </div>
                                 <br/>
                                 <div class="row">
-                                    <div class="col-md-1"> <b>Protein</b> </div>
-                                    <div class="col-md-2">
-                                        <input type="text" value="{{$nutrition->protient_field1}}" class="text_box">
-                                        <b> Kg X </b>
+                                    <div class="col-md-12">
+                                        <b>Protein :</b>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <input type="text" value="{{$nutrition->protein_kg}}" class="text_box">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->protient_field2}}" class="text_box">
+                                        <input type="text" value="{{$nutrition->protein_gm}}" class="text_box">
                                     </div>
-                                    <div class="col-md-2">
-                                        <b>gm/Kg (based on RF)</b>
+                                    <div class="col-md-1">
+                                        <input type="text" value="{{$nutrition->protein_result}}" class="text_box">
                                     </div>
-                                    <div class="col-md-2">
-                                        <input type="text" value="{{$nutrition->protient_field3}}" class="text_box">
+                                </div>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <b>Fluid :</b>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <input type="text" value="{{$nutrition->fluid_kg}}" class="text_box">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" value="{{$nutrition->fluid_cm}}" class="text_box">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" value="{{$nutrition->fluid_result}}" class="text_box">
                                     </div>
                                 </div>
                                 <br/>
                                 <div class="row">
-                                    <div class="col-md-1"><b>Fluid</b></div>
+                                    <div class="col-md-12">
+                                        @if((isset($nutrition->dehydration) && $nutrition->dehydration > 0) || (isset($nutrition->total_fluid) && $nutrition->total_fluid > 0))
+                                            <input type="checkbox" checked> <b>Add Dehydration</b>
+                                        @else <input type="checkbox"> <b>Add Dehydration</b>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-2">
-                                        <input type="text" value="{{$nutrition->fluid_field1}}" class="text_box">
-                                        <b> Kg X </b>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->fluid_field2}}" class="text_box">
+                                        <b>Dehydration</b>
+                                        <input type="text" value="{{$nutrition->dehydration}}" class="text_box">
                                     </div>
                                     <div class="col-md-2">
-                                        <b> cc/Kg </b>
-                                        <input type="text" value="{{$nutrition->fluid_field3}}" class="text_box">
-                                        <b> + </b>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" value="{{$nutrition->fluid_field4}}" class="text_box">
-                                        <b> (dehydration/N/V,diarrhea) </b>
-                                        <input type="text" value="{{$nutrition->fluid_field5}}" class="text_box">
+                                        <input type="text" value="{{$nutrition->total_fluid}}" class="text_box">
                                     </div>
                                 </div>
                                 <br/>
