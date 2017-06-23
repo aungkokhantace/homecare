@@ -1688,18 +1688,18 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <b>Weight</b>
-                                        <input type="text" value="{{$nutrition->weight}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->weight > 0){{$nutrition->weight}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-2">
                                         <b>Height</b>
-                                        <input type="text" value="{{$nutrition->height}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->height > 0){{$nutrition->height}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-2">
                                         <b>Age</b>
-                                        <input type="text" value="{{$nutrition->age}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->age > 0) {{$nutrition->age}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" value="{{$nutrition->calorie}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->calorie > 0) {{$nutrition->calorie}} @endif" class="text_box">
                                         <b>KCal</b>
                                     </div>
                                 </div>
@@ -1715,10 +1715,10 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <b>Activity Factor</b>
-                                        <input type="text" value="{{$nutrition->activity_factor}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->activity_factor > 0) {{$nutrition->activity_factor}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" value="{{$nutrition->totalCalorie}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->totalCalorie > 0) {{$nutrition->totalCalorie}} @endif" class="text_box">
                                         <b>KCal</b>
                                     </div>
                                 </div>
@@ -1730,13 +1730,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->protein_kg}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->protein_kg > 0) {{$nutrition->protein_kg}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->protein_gm}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->protein_gm > 0) {{$nutrition->protein_gm}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->protein_result}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->protein_result > 0) {{$nutrition->protein_result}} @endif" class="text_box">
                                     </div>
                                 </div>
                                 <br/>
@@ -1748,13 +1748,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->fluid_kg}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->fluid_kg > 0) {{$nutrition->fluid_kg}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->fluid_cm}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->fluid_cm > 0) {{$nutrition->fluid_cm}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->fluid_result}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->fluid_result > 0) {{$nutrition->fluid_result}} @endif" class="text_box">
                                     </div>
                                 </div>
                                 <br/>
@@ -1769,10 +1769,10 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <b>Dehydration</b>
-                                        <input type="text" value="{{$nutrition->dehydration}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->dehydration > 0) {{$nutrition->dehydration}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" value="{{$nutrition->total_fluid}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->total_fluid > 0) {{$nutrition->total_fluid}} @endif" class="text_box">
                                     </div>
                                 </div>
                                 <br/>
