@@ -105,12 +105,12 @@
                                                 {{$vital->blood_pressure_dbp}}<br/>
                                                 {{$vital->blood_pressure_map}}
                                             </td>
-                                            <td>{{$vital->spo2 . '%'}}</td>
-                                            <td>{{$vital->pulse_rate . '/min'}}</td>
+                                            <td>{{$vital->spo2 . '%'}}<br>@if(isset($vital->spo2_comment)){{$vital->spo2_comment}}@endif</td>
+                                            <td>{{$vital->pulse_rate . '/min'}}<br>@if(isset($vital->pulse_rate_comment)){{$vital->pulse_rate_comment}}@endif</td>
                                             <td>{{$vital->body_temperature_farenheit}}&#8457;</td>
                                             <td>{{$vital->weight_pound}}lb</td>
                                             <td>{{$vital->height_feet}}&#39;{{$vital->height_inches}}&#34;</td>
-                                            <td>{{$vital->blood_sugar . 'mg%'}}</td>
+                                            <td>{{$vital->blood_sugar . 'mg/dl'}}<br>@if(isset($vital->blood_sugar_comment)){{$vital->blood_sugar_comment}}@endif</td>
                                         </tr>
                                     @endforeach
                                 </table>

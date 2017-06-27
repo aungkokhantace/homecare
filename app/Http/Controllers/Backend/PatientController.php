@@ -697,8 +697,8 @@ class PatientController extends Controller
                 $investigation_labs     = $schedule->getInvestigationLabs($investigation_id);
                 $investigations         = array();
 
-                if(isset($group_name) && count($group_name)>0){
-                    foreach($group_name as $group){
+//                if(isset($group_name) && count($group_name)>0){
+//                    foreach($group_name as $group){
                         foreach($investigation_labs as $lab){
 
 //                            if($group->group_name == $lab->group_name){
@@ -711,8 +711,8 @@ class PatientController extends Controller
                                 array_push($investigations,$lab->service_name);
 //                            }
                         }
-                    }
-                }
+//                    }
+//                }
 
                 $provisional_id         = $schedule->getScheduleProvisionalDiagnosis($latest_schedule_id);
 
