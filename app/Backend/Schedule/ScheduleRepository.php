@@ -764,18 +764,29 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     }
 
     public function getGeneralPupilHead($latest_schedule_id){
+//        $gph  = DB::table('schedule_physical_exams_general_pupils_head')->whereNull('deleted_at')->where('schedule_id','=',
+//            $latest_schedule_id)->first();
         $gph  = DB::table('schedule_physical_exams_general_pupils_head')->whereNull('deleted_at')->where('schedule_id','=',
-            $latest_schedule_id)->first();
+            $latest_schedule_id)->orderBy('id', 'desc')->first();
         return $gph;
     }
 
     public function getHeartLung($latest_schedule_id){
-        $hl = DB::table('schedule_physical_exams_heart_lungs')->whereNull('deleted_at')->where('schedule_id','=',$latest_schedule_id)->first();
+//        $hl = DB::table('schedule_physical_exams_heart_lungs')->whereNull('deleted_at')->where('schedule_id','=',$latest_schedule_id)->first();
+        $hl = DB::table('schedule_physical_exams_heart_lungs')
+            ->whereNull('deleted_at')
+            ->where('schedule_id','=',$latest_schedule_id)
+            ->orderBy('id', 'desc')
+            ->first();
         return $hl;
     }
 
     public function getAbdomenExtreNeuro($latest_schedule_id){
-        $aen    = DB::table('schedule_physical_exams_abdomen_extre_neuro')->whereNull('deleted_at')->where('schedule_id','=',$latest_schedule_id)->first();
+        $aen    = DB::table('schedule_physical_exams_abdomen_extre_neuro')
+            ->whereNull('deleted_at')
+            ->where('schedule_id','=',$latest_schedule_id)
+            ->orderBy('id', 'desc')
+            ->first();
         return $aen;
     }
 
