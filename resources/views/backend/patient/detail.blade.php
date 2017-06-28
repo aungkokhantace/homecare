@@ -1609,7 +1609,7 @@
                                             @endif
                                         </div>
                                         <div class="col-md-3">
-                                            <input type="text" class="form-control" value="{{isset($musculo_1_2->cheif_comlaint_sensation_others)?$musculo_1_2->chief_complaint_others:''}}">
+                                            <input type="text" class="form-control" value="{{isset($musculo_1_2->cheif_comlaint_sensation_others)?$musculo_1_2->cheif_comlaint_sensation_others:''}}">
                                         </div>
                                     </div>
                                     <hr style="border-color: #0f0f0f;"/>
