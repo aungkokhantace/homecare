@@ -100,7 +100,8 @@ class UserApiRepository implements UserApiRepositoryInterface
                 $paramObj               = new User();
                 $paramObj->id           = $row->id;
                 $paramObj->name         = $row->name;
-                $paramObj->password     = base64_encode($row->password);
+//                $paramObj->password     = base64_encode($row->password);
+                $paramObj->password     = $row->password;
                 $paramObj->phone        = $row->phone;
                 $paramObj->email        = $row->email;
                 $paramObj->fees         = $row->fees;
