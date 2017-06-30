@@ -7,6 +7,7 @@ use App\Api\Familyhistory\FamilyhistoryApiV2Repository;
 use App\Api\Invoice\InvoiceApiV2Repository;
 use App\Api\Medicalhistory\MedicalhistoryApiV2Repository;
 use App\Api\Nutrition\NutritionApiRepository;
+use App\Api\Otherservice\OtherServiceApiRepository;
 use App\Api\Patient\PatientApiRepository;
 use App\Api\Patient\PatientApiV2Repository;
 use App\Api\Product\ProductApiV2Repository;
@@ -63,6 +64,7 @@ class InvoiceApiV3Controller extends Controller
                 $medical_historyRepo    = new MedicalhistoryApiV2Repository();
                 $family_historyRepo     = new FamilyhistoryApiV2Repository();
                 $nutritionRepo          = new NutritionApiRepository();
+                $otherServiceRepo       = new OtherServiceApiRepository();
 
                 $logArr                 = array();
 
@@ -576,6 +578,22 @@ class InvoiceApiV3Controller extends Controller
                     }
                 }
 
+                if(isset($params->other_services) && count($params->other_services) > 0){
+                    $other_services          = $params->other_services;
+                    $otherServicesResult     = $otherServiceRepo->otherservice($other_services);
+
+                    if($otherServicesResult['aceplusStatusCode'] != ReturnMessage::OK){
+                        DB::rollback();
+                        $routeResult['tablet_id'] = $tablet_id;
+                        $routeResult['data']      = (object) array();
+                        return \Response::json($otherServicesResult);
+                    }
+
+                    if(isset($otherServicesResult['log']) && count($otherServicesResult['log']) > 0){
+                        array_push($logArr,$otherServicesResult['log']);
+                    }
+                }
+
                 //all insertions were successful
                 DB::commit();
                 if(isset($logArr) && count($logArr) > 0){
@@ -669,6 +687,7 @@ class InvoiceApiV3Controller extends Controller
                 $maxRoute                           = Utility::getMaxKey($prefix,'route','id');
                 $maxPatient                         = Utility::getMaxKey($patient_prefix,'patients','user_id');
                 $maxCoreUser                        = Utility::getMaxKey($patient_prefix,'core_users','id');
+                $maxOtherService                    = Utility::getMaxKey($prefix,'other_services','id');
 
                 $maxKey = array();
 
@@ -716,6 +735,8 @@ class InvoiceApiV3Controller extends Controller
                 $maxKey[20]['max_key_id']  = $maxPatient;
                 $maxKey[21]['table_name']  = "core_users";
                 $maxKey[21]['max_key_id']  = $maxCoreUser;
+                $maxKey[21]['table_name']  = "other_services";
+                $maxKey[21]['max_key_id']  = $maxOtherService;
 
 
                 $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
