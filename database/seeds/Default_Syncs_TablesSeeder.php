@@ -73,7 +73,8 @@ class Default_Syncs_TablesSeeder extends Seeder
             ['table_name'=>'package_promotions', 'version' =>'1'],
             ['table_name'=>'transaction_promotions', 'version' =>'1'],
 
-
+            ['table_name'=>'other_services', 'version' =>'1'],
+            ['table_name'=>'other_services_detail', 'version' =>'1'],
 
         );
 

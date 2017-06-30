@@ -72,7 +72,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 }
                 //clear all existing data in patient_medical_history relating to input
                 DB::table('patient_medical_history')
-                    ->where('id','=',$id)
+//                    ->where('id','=',$id)
                     ->where('patient_id', '=', $patient_id)
                     ->where('medical_history_id','=',$medical_history_id)
                     ->delete();
@@ -138,8 +138,9 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
 
                 //clear all existing data in patient_surgery_history relating to input
                 DB::table('patient_surgery_history')
-                    ->where('id','=',$id)
+//                    ->where('id','=',$id)
                     ->where('patient_id', '=', $patient_id)
+                    ->where('description', '=', $row->description)
                     ->delete();
 
                 //creating patient_surgery_history object
@@ -203,7 +204,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 }
                 //clear all existing data in patient_family_history relating to input
                 DB::table('patient_family_history')
-                    ->where('id','=',$id)
+//                    ->where('id','=',$id)
                     ->where('patient_id', '=', $patient_id)
                     ->where('family_history_id','=',$family_history_id)
                     ->where('family_member_id','=',$family_member_id)
@@ -1490,6 +1491,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 //clear all existing data in patient_family_member relating to input
                 DB::table('patient_family_member')
                     ->where('id', '=', $row->id)
+                    ->where('name', '=', $row->name)
                     ->delete();
 
                 //creating patient_family_member object
