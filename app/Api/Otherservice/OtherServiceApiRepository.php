@@ -37,6 +37,7 @@ class OtherServiceApiRepository implements OtherServiceApiRepositoryInterface
         try{
             $tempLogArr     = array();
             foreach($data as $row){
+                $id             = $row->id;
                 $patient_id     = $row->patient_id;
                 $schedule_id    = $row->schedule_id;
 
@@ -56,6 +57,7 @@ class OtherServiceApiRepository implements OtherServiceApiRepositoryInterface
 
                 //clear all existing data in products relating to input
                 DB::table('other_services')
+                    ->where('id','=',$id)
                     ->where('patient_id','=',$patient_id)
                     ->where('schedule_id','=',$schedule_id)
                     ->delete();

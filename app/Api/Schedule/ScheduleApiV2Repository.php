@@ -256,6 +256,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $id = $row->id;
                 $schedule_id = $row->schedule_id;
                 $patient_id = $row->patient_id;
+                $chief_complaint_comment = $row->chief_complaint_comment;
 
                 //Check update or create for log date
                 $findObj    = Schedulepatientchiefcomplaint::find($id);
@@ -274,6 +275,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
 //                    ->where('id', '=', $id)
                     ->where('schedule_id', '=', $schedule_id)
                     ->where('patient_id', '=', $patient_id)
+                    ->where('chief_complaint_comment', '=', $chief_complaint_comment)
                     ->delete();
                 //end clearing all existing data relating to input data
 
