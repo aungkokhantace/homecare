@@ -1859,6 +1859,51 @@
             @endif
         <!-- End Blood Drawing Accordion -->
 
+        <!-- Start Other Service -->
+        {{--@if(isset($other_services))--}}
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-inverse">
+                <!-- Panel Heading -->
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#other_services">
+                            <i class="fa fa-plus-circle pull-right"></i>
+                            Other Services
+                        </a>
+                    </h3>
+                </div>
+                <!-- End Panel Heading -->
+
+                <!-- Start Panel Body -->
+                <div id="other_services" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3>Other Services</h3><br/>
+                                @if(isset($other_services) && count($other_services) > 0 )
+                                    <table class="table table-condensed">
+                                        <tr class="detail_visit_vital">
+                                            <th>Name</th>
+                                            <th>Remark</th>
+                                        </tr>
+
+                                        @foreach($other_services as $other_service)
+                                            <tr class="detail_visit_vital_row">
+                                                <td>{{$other_service->name}}</td>
+                                                <td>{{$other_service->remark}}</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--@endif--}}
+        <!-- End Other Service -->
+
         {!! Form::open(array('url' => 'addendum/store', 'class'=> 'form-horizontal user-form-border', 'id' => 'addendumForm', 'files' => true)) !!}
         {{--Start Addendum--}}
         <h1 class="page-header">Addendum</h1>

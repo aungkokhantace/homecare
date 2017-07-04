@@ -992,5 +992,16 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             ->get();
         return $result;
     }
+
+    public function getScheduleOtherServices($latest_schedule_id, $patient_id){
+        $treatments     = DB::table('other_services')
+            ->leftjoin('other_services_detail','other_services.id','=','other_services_detail.other_services_id')
+            ->select('other_services.id','other_services_detail.name','other_services_detail.remark')
+            ->whereNull('other_services.deleted_at')
+            ->where('other_services.schedule_id','=',$latest_schedule_id)
+            ->where('other_services.patient_id','=',$patient_id)
+            ->get();
+        return $treatments;
+    }
 }
 

@@ -662,6 +662,7 @@ class PatientController extends Controller
     }
 
     public function detailvisit($id){
+
         $scheduleRaw                   = Schedule::whereNull('deleted_at')->where('id','=',$id)->first();
         $patient                    = Patient::whereNull('deleted_at')->where('user_id','=',$scheduleRaw->patient_id)->first();
         $valid                      = 0;
@@ -669,7 +670,7 @@ class PatientController extends Controller
             $valid = 1;
         }
         if($valid == 1){
-            $vitals =$chief_complaints  = $gph = $hl = $aen = $investigations = $provisional_diagnosis = $treatments = null;
+            $vitals =$chief_complaints  = $gph = $hl = $aen = $investigations = $provisional_diagnosis = $treatments = $other_services = null;
             $neurological = $musculo_intercention = $investigation_imaging = $investigation_ecg = $investigation_other= $nutritions =null ;
             $provisional_diagnosis_remark = "";
             $investigation_lab_remark = "";
@@ -728,6 +729,8 @@ class PatientController extends Controller
                 $provisional_diagnosis  = $schedule->getProvisionalDiagnosis($provisional_id);
 
                 $treatments             = $schedule->getScheduleTreatment($latest_schedule_id);
+
+                $other_services         = $schedule->getScheduleOtherServices($latest_schedule_id, $patient_id);
 
                 $neurological           = $schedule->getNeurologicalRecords($latest_schedule_id);
 
@@ -910,6 +913,7 @@ class PatientController extends Controller
                 ->with('blood_drawings_remark',$blood_drawings_remark)
                 ->with('service_type',$service_type)
                 ->with('schedule_id',$latest_schedule_id)
+                ->with('other_services',$other_services)
                 ->with('addendums',$addendums);
         }
         else{
