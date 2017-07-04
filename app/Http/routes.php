@@ -208,8 +208,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('packagesale', array('as'=>'packagesale','uses'=>'Backend\PackageSaleController@index'));
         Route::get('packagesale/create', array('as'=>'packagesale/create','uses'=>'Backend\PackageSaleController@create'));
         Route::post('packagesale/store', array('as'=>'packagesale/store','uses'=>'Backend\PackageSaleController@store'));
-        Route::get('packagesale/invoice/{id}', array('as'=>'packagesale/invoice','uses'=>'Backend\PackageSaleController@invoice'));
-        Route::get('packagesale/export/{id}', array('as'=>'packagesale/export','uses'=>'Backend\PackageSaleController@export'));
+        Route::get('packagesale/invoice/{id}/{couponcode}', array('as'=>'packagesale/invoice','uses'=>'Backend\PackageSaleController@invoice'));
+        Route::get('packagesale/export/{id}/{couponcode}', array('as'=>'packagesale/export','uses'=>'Backend\PackageSaleController@export'));
         Route::get('packagesale/schedule/{id}', array('as'=>'packagesale/schedule','uses'=>'Backend\PackageSaleController@schedule'));
 
         //Family History

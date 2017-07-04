@@ -240,7 +240,7 @@ class PackageSaleController extends Controller
             //end coupon code section
 
                 $invoiceId = $result['invoice_id'];
-                return redirect('/packagesale/invoice/' . $invoiceId)
+                return redirect('/packagesale/invoice/' . $invoiceId.'/'.$generatedCouponCode)
                     ->withMessage(FormatGenerator::message('Success', 'Package sale success  !'));
             } else {
                 return redirect()->action('Backend\PackageSaleController@index')
@@ -274,7 +274,7 @@ class PackageSaleController extends Controller
         return \Response::json(array('gender'=>$gender, 'gender_id'=>$patients->gender, 'type'=>$type[0]->code,'type_id'=>$patients->patient_type_id, 'phone'=>$phone,'address'=>$address));
     }
 
-    public function export($id)
+    public function export($id,$couponCode)
     {
         if (Auth::guard('User')->check()) {
             $invoiceRepo = new InvoiceRepository();
@@ -344,6 +344,13 @@ class PackageSaleController extends Controller
                                     </tr>
                                 </table>';
 
+                $couponData = '<table style="font-size:9px; word-wrap: break-word; table-layout: fixed;">
+                                    <tr>
+                                        <td height="20" width="25%">Coupon Code</td>
+                                        <td height="20" width="75%">'.$couponCode.'</td>
+                                    </tr>
+                                </table>';
+
                 $saleData = '<table style="font-size:9px; word-wrap: break-word; table-layout: fixed;">
                                 <tr bgcolor="#cccccc">
                                     <td height="15">Item</td>
@@ -390,7 +397,7 @@ class PackageSaleController extends Controller
 
                 $signature = Utility::getSignature();
 
-                $html = $pdfHeader.$patientData.'<br>'.$saleData.'<br>'.$summaryData.$signature;
+                $html = $pdfHeader.$patientData.'<br>'.$couponData.'<br>'.$saleData.'<br>'.$summaryData.$signature;
 
                 Utility::exportPDF($html);
             }
@@ -474,7 +481,7 @@ class PackageSaleController extends Controller
         return redirect('/');
     }
 
-    public function invoice($invoiceId)
+    public function invoice($invoiceId,$couponCode)
     {
         $invoiceRepo = new InvoiceRepository();
         $result = $invoiceRepo->getObjByID($invoiceId);
@@ -511,7 +518,8 @@ class PackageSaleController extends Controller
                 ->with('date',$date)
                 ->with('age',$age)
                 ->with('patient_gender',$patient_gender)
-                ->with('expiryDate',$expiryDate);
+                ->with('expiryDate',$expiryDate)
+                ->with('couponCode',$couponCode);
         }
         else{
             return redirect()->action('Backend\PackageSaleController@index')

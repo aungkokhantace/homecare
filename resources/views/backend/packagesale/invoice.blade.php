@@ -53,6 +53,13 @@
                 </table>
 
                 <table class="table" style="word-wrap: break-word; table-layout: fixed;">
+                    <tr>
+                        <td width="25%">Coupon Code</td>
+                        <td width="75%">{{$couponCode}}</td>
+                    </tr>
+                </table>
+
+                <table class="table" style="word-wrap: break-word; table-layout: fixed;">
                     <tr bgcolor="#cccccc">
                         <td height="20" width="25%">Item</td>
                         <td height="20" width="25%">Description</td>
@@ -107,7 +114,7 @@
             <a href={{"/packagesale/schedule/".$invoice->patient_package_id}}> <input type="button" value="GO TO PACKAGE SCHEDULE MANAGEMENT" class="form-control btn-primary" style="padding:0px;"></a>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <a target="_blank" href={{"/packagesale/export/".$invoice->patient_package_id}}><button class="form-control btn-primary" style="padding:0px;">EXPORT INVOICE</button></a>
+            <a target="_blank" href={{"/packagesale/export/".$invoice->patient_package_id.'/'.$couponCode}}><button class="form-control btn-primary" style="padding:0px;">EXPORT INVOICE</button></a>
         </div>
 
     </div>
