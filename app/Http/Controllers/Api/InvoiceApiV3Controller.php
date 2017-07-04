@@ -735,8 +735,8 @@ class InvoiceApiV3Controller extends Controller
                 $maxKey[20]['max_key_id']  = $maxPatient;
                 $maxKey[21]['table_name']  = "core_users";
                 $maxKey[21]['max_key_id']  = $maxCoreUser;
-                $maxKey[21]['table_name']  = "other_services";
-                $maxKey[21]['max_key_id']  = $maxOtherService;
+                $maxKey[22]['table_name']  = "other_services";
+                $maxKey[22]['max_key_id']  = $maxOtherService;
 
 
                 $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
