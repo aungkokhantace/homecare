@@ -56,6 +56,10 @@ class OtherServiceApiRepository implements OtherServiceApiRepositoryInterface
                 }
 
                 //clear all existing data in products relating to input
+                DB::table('other_services_detail')
+                    ->where('other_services_id', '=', $id)
+                    ->delete();
+
                 DB::table('other_services')
                     ->where('id','=',$id)
                     ->where('patient_id','=',$patient_id)
