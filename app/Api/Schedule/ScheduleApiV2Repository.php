@@ -99,7 +99,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->status                = strtolower($row->status);
                 $paramObj->remark                = isset($row->remark)?$row->remark:"";
                 $paramObj->leader_id             = $row->leader_id;
-                $paramObj->doctor_comments       = $row->doctor_comments;
+                $paramObj->doctor_comments       = isset($row->doctor_comments)?$row->doctor_comments:"";
 
                 if($row->car_type != 3) {
                     $paramObj->car_type_id       = 0;
