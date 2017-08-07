@@ -99,6 +99,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->status                = strtolower($row->status);
                 $paramObj->remark                = isset($row->remark)?$row->remark:"";
                 $paramObj->leader_id             = $row->leader_id;
+                $paramObj->doctor_comments       = $row->doctor_comments;
 
                 if($row->car_type != 3) {
                     $paramObj->car_type_id       = 0;
@@ -213,6 +214,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->blood_sugar_comment          = isset($row->blood_sugar_comment)?$row->blood_sugar_comment:"";
                 $paramObj->bmi                          = $row->bmi;
                 $paramObj->remark                       = isset($row->remark)?$row->remark:"";
+                $paramObj->resp_rate                    = $row->resp_rate;
                 $paramObj->created_by                   = $row->created_by;
                 $paramObj->updated_by                   = $row->updated_by;
                 $paramObj->deleted_by                   = $row->deleted_by;

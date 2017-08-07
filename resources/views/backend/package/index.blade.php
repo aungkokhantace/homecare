@@ -47,7 +47,7 @@
                         <th>Service</th>
                         <th>Price</th>
                         <th>Inclusive Transport Charge</th>
-                        <th>Description</th>
+                        {{--<th>Description</th>--}}
                         <th></th>
                     </tr>
                     </thead>
@@ -58,7 +58,7 @@
                         <th class="search-col" con-id="service">Service</th>
                         <th class="search-col" con-id="price">Price</th>
                         <th class="search-col" con-id="inclusive_transport_charge">Inclusive Transport Charge</th>
-                        <th class="search-col" con-id="description">Description</th>
+                        {{--<th class="search-col" con-id="description">Description</th>--}}
                         <th></th>
                     </tr>
                     </tfoot>
@@ -70,7 +70,7 @@
                             <td>{{$servicesArray[$package->id]}}</td>
                             <td>{{$package->price}}</td>
                             <td>{{$package->inclusive_transport_charge}}</td>
-                            <td>{{$package->description}}</td>
+                            {{--<td>{{$package->description}}</td>--}}
                             <td>
                                 @if($package->status == 'confirm')
                                     {{'CONFIRM'}}

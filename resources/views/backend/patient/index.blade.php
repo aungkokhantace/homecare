@@ -44,11 +44,11 @@
                         <th><input type='checkbox' name='check' id='check_all'/></th>
                         <th>Patient ID</th>
                         <th>Patient Name</th>
-                        <th>Patient Type</th>
-                        <th>Gender</th>
+                        {{--<th>Patient Type</th>--}}
+                        {{--<th>Gender</th>--}}
                         <th>Dob</th>
                         <th>Township</th>
-                        <th>Zone</th>
+                        {{--<th>Zone</th>--}}
                         <th></th>
                         <th></th>
                     </tr>
@@ -58,11 +58,11 @@
                         <th></th>
                         <th class="search-col" con-id="user_id">Patient ID</th>
                         <th class="search-col" con-id="name">Patient Name</th>
-                        <th class="search-col" con-id="patient_type">Patient Type</th>
-                        <th class="search-col" con-id="gender">Gender</th>
+                        {{--<th class="search-col" con-id="patient_type">Patient Type</th>--}}
+                        {{--<th class="search-col" con-id="gender">Gender</th>--}}
                         <th class="search-col" con-id="dob">Dob</th>
                         <th class="search-col" con-id="township">Township</th>
-                        <th class="search-col" con-id="zone">Zone</th>
+                        {{--<th class="search-col" con-id="zone">Zone</th>--}}
                         <th class="search-col" con-id="status"></th>
                         <th class="search-col" con-id="status"></th>
                     </tr>
@@ -74,15 +74,15 @@
                             <td><input type="checkbox" class="check_source" name="edit_check" value="{{ $patient->user_id }}" id="all"></td>
                             <td><a href="/patient/edit/{{$patient->user_id}}">{{$patient->user_id}}</a></td>
                             <td><a href="/patient/edit/{{$patient->user_id}}">{{$patient->name}}</a></td>
-                            <td>{{$patientTypes[$patient->patient_type_id]}}</td>
-                            @if($patient->gender == "male")
-                                <td>Male</td>
-                            @else
-                                <td>Female</td>
-                            @endif
+                            {{--<td>{{$patientTypes[$patient->patient_type_id]}}</td>--}}
+                            {{--@if($patient->gender == "male")--}}
+                                {{--<td>Male</td>--}}
+                            {{--@else--}}
+                                {{--<td>Female</td>--}}
+                            {{--@endif--}}
                             <td>{{$patient->dob}}</td>
                             <td>{{$patient->township->name}}</td>
-                            <td>{{$patient->zone['name']}}</td>
+                            {{--<td>{{$patient->zone['name']}}</td>--}}
                             <td><a href="/patient/detail/{{$patient->user_id}}">Detail</a></td>
                             {{--<td><a href="/patient/detailvisit/{{$patient->user_id}}">Detail Visit</a></td>--}}
                             <td><a href="/patient/patientSchedule/{{$patient->user_id}}">Detail Visit</a></td>

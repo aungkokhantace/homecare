@@ -74,7 +74,8 @@ background: #66ccff !important;
 .text-theme,
 .sidebar .sub-menu > li.active > a:before {
     /*color: #f59c1a !important;*/
-    color: #66ccff !important;
+    /*color: #66ccff !important;*/
+    color: #d0f507 !important;
 }
 @media (max-width: 767px) {
     .navbar-inverse .navbar-header {
@@ -172,3 +173,15 @@ background: #66ccff !important;
   fill: #f2d380;
 }
 /*End amcharts css*/
+
+
+/*for large size radio buttons*/
+.large_radio{
+  width:20px;
+  height:20px;
+}
+
+/*For Uppercase inputs*/
+.uppercase_text_box{
+  text-transform:uppercase;
+}

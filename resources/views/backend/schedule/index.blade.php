@@ -99,8 +99,8 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Patient Name</th>
-                        <th>Phone No.</th>
-                        <th>Type</th>
+                        {{--<th>Phone No.</th>--}}
+                        {{--<th>Type</th>--}}
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -111,8 +111,8 @@
                         <th class="search-col" con-id="date">Date</th>
                         <th class="search-col" con-id="time">Time</th>
                         <th class="search-col" con-id="name">Patient Name</th>
-                        <th class="search-col" con-id="phone_no">Phone No.</th>
-                        <th class="search-col" con-id="patient_type_id">Patient Type</th>
+                        {{--<th class="search-col" con-id="phone_no">Phone No.</th>--}}
+                        {{--<th class="search-col" con-id="patient_type_id">Patient Type</th>--}}
                         <th class="search-col" con-id="status">Status</th>
                         <th></th>
                     </tr>
@@ -133,8 +133,8 @@
                             <td><a href="/schedule/edit/{{$schedule->id}}">{{$schedule->date}}</a></td>
                             <td>{{$schedule->time}}</td>
                             <td>{{$schedule->patient_name}}</td>
-                            <td>{{$schedule->phone_no}}</td>
-                            <td>{{$schedule->patient_type}}</td>
+                            {{--<td>{{$schedule->phone_no}}</td>--}}
+                            {{--<td>{{$schedule->patient_type}}</td>--}}
                             <td>{{strtoupper($schedule->status)}}</td>
                             <td>
                                 @if($schedule->status == 'new')

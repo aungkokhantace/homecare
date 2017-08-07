@@ -126,6 +126,7 @@ class EnquiryController extends Controller
         $request->validate();
         $is_new_patient             = Input::get('is_new_patient');
         $name                       = Input::get('name');
+        $uppercase_name             = strtoupper($name);
 
         $patient_id                 = (Input::has('patient_id')) ? Input::get('patient_id') : "";
 
@@ -160,7 +161,8 @@ class EnquiryController extends Controller
         $current_date               = Carbon::parse($current)->format('Y-m-d');
         $current_time               = Carbon::parse($current)->format('H:i:s');
         $paramObj                   = new Enquiry();
-        $paramObj->name             = $name;
+//        $paramObj->name             = $name;
+        $paramObj->name             = $uppercase_name;
         $paramObj->is_new_patient   = $is_new_patient;
         $paramObj->patient_id       = $patient_id;
         $paramObj->nrc_no           = $nrc_no;
@@ -235,6 +237,8 @@ class EnquiryController extends Controller
         $id                         = Input::get('id');
         $is_new_patient             = Input::get('is_new_patient');
         $name                       = Input::get('name');
+        $uppercase_name             = strtoupper($name);
+
         $patient_id                 = Input::get('patient_id');
         $nrc_no                     = Input::get('nrc_no');
         $township_id                = Input::get('township_id');
@@ -265,7 +269,8 @@ class EnquiryController extends Controller
         $remark                     = Input::get('remark');
 
         $paramObj                   = Enquiry::where('id',$id)->first();
-        $paramObj->name             = $name;
+//        $paramObj->name             = $name;
+        $paramObj->name             = $uppercase_name;
         $paramObj->is_new_patient   = $is_new_patient;
         $paramObj->patient_id       = $patient_id;
         $paramObj->nrc_no           = $nrc_no;

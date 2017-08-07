@@ -776,6 +776,9 @@
 
             //For selectbox with search function
             $("#name").select2();
+
+            //For selectbox with search function
+            $("#leader_id").select2();
         });
 
         //Ajax Method
