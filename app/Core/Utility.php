@@ -623,4 +623,10 @@ class Utility
         $patient_prefix         = str_replace('U',$temp_patient_prefix,$prefix);
         return $patient_prefix;
     }
+
+    public static function getPatientTypeByValue($value){
+        $tempArrays = DB::select("SELECT * FROM core_settings WHERE value = '$value'");
+        $result = $tempArrays[0]->code;
+        return $result;
+    }
 }

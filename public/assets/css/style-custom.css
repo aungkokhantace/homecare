@@ -190,3 +190,22 @@ background: #66ccff !important;
 .red_text{
   color:red;
 }
+
+/*For center aligned elements in patient detail page*/
+.center_aligned{
+  text-align: center;
+}
+
+/*For centered image*/
+.center_image{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 150px;
+  max-height: 200px;
+}
+
+/*For panel headings in patient detail page*/
+.patient_detail_heading{
+  background: darkorange !important;
+}

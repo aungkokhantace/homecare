@@ -172,6 +172,7 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>165,'module'=>'Patient','name'=>'Destroy','description'=>'Patient Destroy','url'=>'patient/destroy'],
             ['id'=>166,'module'=>'Patient','name'=>'Check Zone','description'=>'Patient Check Zone','url'=>'patient/checkzone'],
             ['id'=>167,'module'=>'Patient','name'=>'Detail','description'=>'Patient Detail','url'=>'patient/detail'],
+            ['id'=>168,'module'=>'Patient','name'=>'Patient Detail','description'=>'Patient Detail','url'=>'patient/patient_detail'],
 
             // Patient
             ['id'=>170,'module'=>'Patient','name'=>'Profile','description'=>'Patient Profile','url'=>'patient/profile'],

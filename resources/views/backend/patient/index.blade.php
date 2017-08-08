@@ -84,6 +84,7 @@
                             <td>{{$patient->township->name}}</td>
                             {{--<td>{{$patient->zone['name']}}</td>--}}
                             <td><a href="/patient/detail/{{$patient->user_id}}">Detail</a></td>
+                            {{--<td><a href="/patient/patient_detail/{{$patient->user_id}}">Detail</a></td>--}}
                             {{--<td><a href="/patient/detailvisit/{{$patient->user_id}}">Detail Visit</a></td>--}}
                             <td><a href="/patient/patientSchedule/{{$patient->user_id}}">Detail Visit</a></td>
                         </tr>

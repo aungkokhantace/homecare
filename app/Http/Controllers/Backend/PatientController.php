@@ -14,6 +14,7 @@ use App\Backend\Allergy\AllergyRepository;
 use App\Backend\Cartype\Cartype;
 use App\Backend\Investigation\Investigation;
 use App\Backend\LogPatientCaseSummary\LogPatientCaseSummary;
+use App\Backend\Patient\PatientRepository;
 use App\Backend\Schedule\Schedule;
 use App\Backend\Schedule\ScheduleRepository;
 use App\Backend\Scheduledetail\Scheduledetail;
@@ -943,6 +944,34 @@ class PatientController extends Controller
         else{
             return redirect()->action('Backend\PatientController@detailvisit', ['id' => $schedule_id])
                 ->withMessage(FormatGenerator::message('Fail', 'Addendum did not add ...'));
+        }
+    }
+
+    public function patientDetail($id)
+    {
+//        $patient  = Patient::whereNull('deleted_at')->where('user_id','=',$id)->first();
+        $patientRepo  = new PatientRepository();
+        $patientTemp  = $patientRepo->getObjByID($id);
+        $patient      = $patientTemp["result"];
+
+        $valid = 0; //whether patient is valid or not
+
+        if(isset($patient) && count($patient) >0){
+            $valid = 1;
+        }
+        if($valid == 1){
+            //calculate patient age and bind to patient obj
+            $age = Utility::calculateAge($patient->dob);
+            $patient->age = $age;
+
+            //get patient type by value
+            $patient_type = Utility::getPatientTypeByValue($patient->patient_type_id);
+            $patient->patient_type = $patient_type;
+
+            return view('backend.patient.patientdetail')->with('patient',$patient);
+        }
+        else{
+            return view('backend.patient.invalidpatient');
         }
     }
 }

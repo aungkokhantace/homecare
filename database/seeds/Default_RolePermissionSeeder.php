@@ -172,6 +172,7 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>165],
             ['role_id'=>1, 'permission_id'=>166],
             ['role_id'=>1, 'permission_id'=>167],
+            ['role_id'=>1, 'permission_id'=>168],
 
             // Schedule
             ['role_id'=>1, 'permission_id'=>200],
@@ -469,6 +470,7 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>2, 'permission_id'=>165],
             ['role_id'=>2, 'permission_id'=>166],
             ['role_id'=>2, 'permission_id'=>167],
+            ['role_id'=>2, 'permission_id'=>168],
 
             // Schedule
             ['role_id'=>2, 'permission_id'=>200],
