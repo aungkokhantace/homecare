@@ -36,6 +36,17 @@ class NutritionApiRepository implements NutritionApiRepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                $patient_id     = $row->patient_id;
+                $schedule_id    = $row->schedule_id;
+
+                //clear all existing data in products relating to input
+                DB::table('nutrition')
+                    ->where('patient_id','=',$patient_id)
+                    ->where('schedule_id','=',$schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row){
                 $patient_id     = $row->patient_id;
@@ -55,12 +66,12 @@ class NutritionApiRepository implements NutritionApiRepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in products relating to input
-                DB::table('nutrition')
-                    ->where('patient_id','=',$patient_id)
-                    ->where('schedule_id','=',$schedule_id)
-                    ->where('enquiry_id','=',$enquiry_id)
-                    ->delete();
+//                //clear all existing data in products relating to input
+//                DB::table('nutrition')
+//                    ->where('patient_id','=',$patient_id)
+//                    ->where('schedule_id','=',$schedule_id)
+//                    ->where('enquiry_id','=',$enquiry_id)
+//                    ->delete();
 
                 //creating nutrition object
                 $paramObj = new Nutrition();

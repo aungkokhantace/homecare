@@ -35,6 +35,23 @@ class OtherServiceApiRepository implements OtherServiceApiRepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                $id             = $row->id;
+                $patient_id     = $row->patient_id;
+                $schedule_id    = $row->schedule_id;
+
+                //clear all existing data in products relating to input
+                DB::table('other_services_detail')
+                    ->where('other_services_id', '=', $id)
+                    ->delete();
+
+                DB::table('other_services')
+                    ->where('id','=',$id)
+                    ->where('patient_id','=',$patient_id)
+                    ->where('schedule_id','=',$schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row){
                 $id             = $row->id;
@@ -55,16 +72,16 @@ class OtherServiceApiRepository implements OtherServiceApiRepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in products relating to input
-                DB::table('other_services_detail')
-                    ->where('other_services_id', '=', $id)
-                    ->delete();
-
-                DB::table('other_services')
-                    ->where('id','=',$id)
-                    ->where('patient_id','=',$patient_id)
-                    ->where('schedule_id','=',$schedule_id)
-                    ->delete();
+//                //clear all existing data in products relating to input
+//                DB::table('other_services_detail')
+//                    ->where('other_services_id', '=', $id)
+//                    ->delete();
+//
+//                DB::table('other_services')
+//                    ->where('id','=',$id)
+//                    ->where('patient_id','=',$patient_id)
+//                    ->where('schedule_id','=',$schedule_id)
+//                    ->delete();
 
                 //creating other service object
                 $paramObj = new OtherService();
