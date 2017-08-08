@@ -185,3 +185,8 @@ background: #66ccff !important;
 .uppercase_text_box{
   text-transform:uppercase;
 }
+
+/*For resp_rate > 20, show in red color*/
+.red_text{
+  color:red;
+}

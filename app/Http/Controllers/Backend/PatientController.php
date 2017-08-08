@@ -914,7 +914,8 @@ class PatientController extends Controller
                 ->with('service_type',$service_type)
                 ->with('schedule_id',$latest_schedule_id)
                 ->with('other_services',$other_services)
-                ->with('addendums',$addendums);
+                ->with('addendums',$addendums)
+                ->with('scheduleRaw',$scheduleRaw);
         }
         else{
             return view('backend.patient.invalidpatient');

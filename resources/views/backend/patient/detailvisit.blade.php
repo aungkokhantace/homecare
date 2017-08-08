@@ -91,6 +91,7 @@
                                         <th>Blood Pressure</th>
                                         <th>SPO2</th>
                                         <th>Pulse Rate</th>
+                                        <th>Resp Rate</th>
                                         <th>Body Temperature</th>
                                         <th>Weight</th>
                                         <th>Height</th>
@@ -107,6 +108,11 @@
                                             </td>
                                             <td>{{$vital->spo2 . '%'}}<br>@if(isset($vital->spo2_comment)){{$vital->spo2_comment}}@endif</td>
                                             <td>{{$vital->pulse_rate . '/min'}}<br>@if(isset($vital->pulse_rate_comment)){{$vital->pulse_rate_comment}}@endif</td>
+                                            @if($vital->resp_rate >= 20)
+                                                <td class="red_text">{{$vital->resp_rate . '/min'}}</td>
+                                            @else
+                                                <td>{{$vital->resp_rate . '/min'}}</td>
+                                            @endif
                                             <td>{{$vital->body_temperature_farenheit}}&#8457;</td>
                                             <td>{{$vital->weight_pound}}lb</td>
                                             <td>{{$vital->height_feet}}&#39;{{$vital->height_inches}}&#34;</td>
@@ -1903,6 +1909,42 @@
         </div>
         {{--@endif--}}
         <!-- End Other Service -->
+
+        <!-- Start Doctor Comment Accordion -->
+        @if(isset($service_type) && ($service_type == 1 || $service_type == 0))
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-inverse">
+                    <!-- Panel Heading -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#doctor_comments">
+                                <i class="fa fa-plus-circle pull-right"></i>
+                                Doctor Comments
+                            </a>
+                        </h3>
+                    </div>
+                    <!-- End Panel Heading -->
+
+                    <!-- Start Panel Body -->
+                    <div id="doctor_comments" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>Doctor Comments</h3>
+                                    <div class="row">
+                                        <div class="col-sm-1"><label>Comment</label></div>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" id="comment" rows="5" cols="50"> {{$scheduleRaw->doctor_comments}} </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+            <!-- End Doctor Comment Accordion -->
 
         {!! Form::open(array('url' => 'addendum/store', 'class'=> 'form-horizontal user-form-border', 'id' => 'addendumForm', 'files' => true)) !!}
         {{--Start Addendum--}}
