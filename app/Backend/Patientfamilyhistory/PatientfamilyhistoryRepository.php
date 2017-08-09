@@ -89,14 +89,18 @@ class PatientfamilyhistoryRepository implements PatientfamilyhistoryRepositoryIn
             $patient_id = $paramObj->patient_id;
             $family_history_id = $paramObj->family_history_id;
             $family_member_id = $paramObj->family_member_id;
-            $remark = $paramObj->remark;
+//            $remark = $paramObj->remark;
 
             $updateUserId = Utility::getCurrentLoginUserId();
             $updateDate = date('Y-m-d H:m:i');
+//            $result = Patientfamilyhistory::where('patient_id', $patient_id)
+//                ->where('family_history_id', $family_history_id)
+//                ->where('family_member_id', $family_member_id)
+//                ->update(['remark'=> $remark, 'updated_by' => $updateUserId,'updated_at' => $updateDate]);
             $result = Patientfamilyhistory::where('patient_id', $patient_id)
                 ->where('family_history_id', $family_history_id)
                 ->where('family_member_id', $family_member_id)
-                ->update(['remark'=> $remark, 'updated_by' => $updateUserId,'updated_at' => $updateDate]);
+                ->update(['updated_by' => $updateUserId,'updated_at' => $updateDate]);
 
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
             return $returnedObj;

@@ -231,7 +231,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('familymember/destroy', array('as'=>'familymember/destroy','uses'=>'Backend\FamilymemberController@destroy'));
 
         //Patient Family History
-        Route::get('patientfamilyhistory', array('as'=>'patientfamilyhistory','uses'=>'Backend\PatientfamilyhistoryController@index'));
+//        Route::get('patientfamilyhistory', array('as'=>'patientfamilyhistory','uses'=>'Backend\PatientfamilyhistoryController@index'));
+        Route::get('patientfamilyhistory/{patient_id}', array('as'=>'patientfamilyhistory','uses'=>'Backend\PatientfamilyhistoryController@index'));
         Route::get('patientfamilyhistory/create/{patient_id}', array('as'=>'patientfamilyhistory/create','uses'=>'Backend\PatientfamilyhistoryController@create'));
         Route::post('patientfamilyhistory/store', array('as'=>'patientfamilyhistory/store','uses'=>'Backend\PatientfamilyhistoryController@store'));
         Route::get('patientfamilyhistory/edit/{id}', array('as'=>'patientfamilyhistory/edit','uses'=>'Backend\PatientfamilyhistoryController@edit'));
@@ -247,7 +248,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('medicalhistory/destroy', array('as'=>'medicalhistory/destroy','uses'=>'Backend\MedicalhistoryController@destroy'));
 
         //Patient Medical History
-        Route::get('patientmedicalhistory', array('as'=>'patientmedicalhistory','uses'=>'Backend\PatientmedicalhistoryController@index'));
+//        Route::get('patientmedicalhistory', array('as'=>'patientmedicalhistory','uses'=>'Backend\PatientmedicalhistoryController@index'));
+        Route::get('patientmedicalhistory/{patient_id}', array('as'=>'patientmedicalhistory','uses'=>'Backend\PatientmedicalhistoryController@index'));
         Route::get('patientmedicalhistory/create/{patient_id}', array('as'=>'patientmedicalhistory/create','uses'=>'Backend\PatientmedicalhistoryController@create'));
         Route::post('patientmedicalhistory/store', array('as'=>'patientmedicalhistory/store','uses'=>'Backend\PatientmedicalhistoryController@store'));
         Route::get('patientmedicalhistory/edit/{id}', array('as'=>'patientmedicalhistory/edit','uses'=>'Backend\PatientmedicalhistoryController@edit'));
@@ -255,7 +257,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('patientmedicalhistory/destroy', array('as'=>'patientmedicalhistory/destroy','uses'=>'Backend\PatientmedicalhistoryController@destroy'));
 
         //Patient Surgery History
-        Route::get('patientsurgeryhistory', array('as'=>'patientsurgeryhistory','uses'=>'Backend\PatientsurgeryhistoryController@index'));
+//        Route::get('patientsurgeryhistory', array('as'=>'patientsurgeryhistory','uses'=>'Backend\PatientsurgeryhistoryController@index'));
+        Route::get('patientsurgeryhistory/{patient_id}', array('as'=>'patientsurgeryhistory','uses'=>'Backend\PatientsurgeryhistoryController@index'));
         Route::get('patientsurgeryhistory/create/{patient_id}', array('as'=>'patientsurgeryhistory/create','uses'=>'Backend\PatientsurgeryhistoryController@create'));
         Route::post('patientsurgeryhistory/store', array('as'=>'patientsurgeryhistory/store','uses'=>'Backend\PatientsurgeryhistoryController@store'));
         Route::get('patientsurgeryhistory/edit/{id}', array('as'=>'patientsurgeryhistory/edit','uses'=>'Backend\PatientsurgeryhistoryController@edit'));

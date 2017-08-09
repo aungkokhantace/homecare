@@ -129,29 +129,27 @@
                             <td colspan="4" class="info"><label><strong>MO SERVICE</strong></label></td>
                         </tr>
                         <tr>
-                            <td><strong>Medical History</strong><br>
-                                <label>Hello World</label><br>
-                                <label>Hello World</label><br>
-                                <label>Hello World</label><br>
-                                <label>Hello World</label>
+                            <td width="45%"><strong>Medical History</strong>
+                                @foreach($patientmedicalhistories as $patientmedicalhistory)
+                                    <br><label>{{$patientmedicalhistory->medicalHistory}}</label>
+                                @endforeach
                             </td>
-                            <td class="red_text">Edit</td>
-                            <td><strong>Surgery History</strong><br>
-                                <label>Hello World</label><br>
-                                <label>Hello World</label><br>
-                                <label>Hello World</label><br>
-                                <label>Hello World</label>
+                            <td class="red_text" width="5%"><a target="_blank" href="/patientmedicalhistory/{{$patient->user_id}}">Edit</a></td>
+
+                            <td width="45%"><strong>Surgery History</strong>
+                                @foreach($patientsurgeryhistories as $patientsurgeryhistory)
+                                    <br><label>{{$patientsurgeryhistory->description}}</label>
+                                @endforeach
                             </td>
-                            <td class="red_text">Edit</td>
+                            <td class="red_text" width="5%"><a target="_blank" href="/patientsurgeryhistory/{{$patient->user_id}}">Edit</a></td>
                         </tr>
                         <tr>
-                            <td><strong>Family History</strong><br>
-                                <label>Hello World</label><br>
-                                <label>Hello World</label><br>
-                                <label>Hello World</label><br>
-                                <label>Hello World</label>
+                            <td><strong>Family History</strong>
+                                @foreach($patientfamilyhistories as $patientfamilyhistory)
+                                    <br><label>{{$patientfamilyhistory->familyMember}} - {{$patientfamilyhistory->familyHistory}}</label>
+                                @endforeach
                             </td>
-                            <td class="red_text">Edit</td>
+                            <td class="red_text"><a target="_blank" href="/patientfamilyhistory/{{$patient->user_id}}">Edit</a></td>
                             <td></td>
                             <td></td>
                         </tr>

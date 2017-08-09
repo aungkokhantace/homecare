@@ -949,11 +949,10 @@ class PatientController extends Controller
 
     public function patientDetail($id)
     {
-//        $patient  = Patient::whereNull('deleted_at')->where('user_id','=',$id)->first();
+        //start patient info
         $patientRepo  = new PatientRepository();
         $patientTemp  = $patientRepo->getObjByID($id);
         $patient      = $patientTemp["result"];
-
         $valid = 0; //whether patient is valid or not
 
         if(isset($patient) && count($patient) >0){
@@ -967,8 +966,45 @@ class PatientController extends Controller
             //get patient type by value
             $patient_type = Utility::getPatientTypeByValue($patient->patient_type_id);
             $patient->patient_type = $patient_type;
+            //end patient info
 
-            return view('backend.patient.patientdetail')->with('patient',$patient);
+            //start patient medical histories
+            $medicalhistoryRepo = new MedicalhistoryRepository();
+            $medicalhistories =   $medicalhistoryRepo->getArraysByOrder();
+
+            $patientmedicalhistoryRepo = new PatientmedicalhistoryRepository();
+            $patientmedicalhistories =   $patientmedicalhistoryRepo->getObjByPatientID($id);
+            foreach($patientmedicalhistories as $keyMed => $patientmedicalhistory){
+                $patientmedicalhistories[$keyMed]->medicalHistory = $medicalhistories[$patientmedicalhistory->medical_history_id]->name;
+            }
+            //end patient medical histories
+
+            //start patient surgery histories
+            $surgeryRepo = new PatientsurgeryhistoryRepository();
+            $patientsurgeryhistories = $surgeryRepo->getObjByPatientID($id);
+            //end patient surgery histories
+
+            //start patient family histories
+            $patientfamilyhistoryRepo = new PatientfamilyhistoryRepository();
+            $patientfamilyhistories = $patientfamilyhistoryRepo->getObjByPatientID($id);
+
+            $familymemberRepo = new FamilymemberRepository();
+            $familymembers = $familymemberRepo->getArraysByOrder();
+
+            $familyhistoryRepo = new FamilyhistoryRepository();
+            $familyhistories = $familyhistoryRepo->getArraysByOrder();
+
+            foreach($patientfamilyhistories as $keyFam => $patientfamilyhistory){
+                $patientfamilyhistories[$keyFam]->familyMember = $familymembers[$patientfamilyhistory->family_member_id]->name;
+                $patientfamilyhistories[$keyFam]->familyHistory = $familyhistories[$patientfamilyhistory->family_history_id]->name;
+            }
+            //end patient family histories
+
+            return view('backend.patient.patientdetail')
+                ->with('patient',$patient)
+                ->with('patientmedicalhistories',$patientmedicalhistories)
+                ->with('patientsurgeryhistories',$patientsurgeryhistories)
+                ->with('patientfamilyhistories',$patientfamilyhistories);
         }
         else{
             return view('backend.patient.invalidpatient');

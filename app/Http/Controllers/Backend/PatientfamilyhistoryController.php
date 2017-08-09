@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Backend\Patientfamilyhistory\PatientfamilyhistoryRepository;
 use App\Core\Utility;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -33,8 +34,27 @@ class PatientfamilyhistoryController extends Controller
         $this->patientfamilyhistoryRepository = $patientfamilyhistoryRepository;
     }
 
-    public function index(Request $request)
+    public function index($patient_id)
     {
+        if (Auth::guard('User')->check()) {
+            $patientfamilyhistoryRepo = new PatientfamilyhistoryRepository();
+            $patientfamilyhistories = $patientfamilyhistoryRepo->getObjByPatientID($patient_id);
+
+            $familymemberRepo = new FamilymemberRepository();
+            $familymembers = $familymemberRepo->getArraysByOrder();
+
+            $familyhistoryRepo = new FamilyhistoryRepository();
+            $familyhistories = $familyhistoryRepo->getArraysByOrder();
+
+            foreach($patientfamilyhistories as $keyFam => $patientfamilyhistory){
+                $patientfamilyhistories[$keyFam]->familyMember = $familymembers[$patientfamilyhistory->family_member_id]->name;
+                $patientfamilyhistories[$keyFam]->familyHistory = $familyhistories[$patientfamilyhistory->family_history_id]->name;
+            }
+
+            return view('backend.patientfamilyhistory.index')
+                ->with('patient_id',$patient_id)
+                ->with('patientfamilyhistories',$patientfamilyhistories);
+        }
         return redirect('/');
     }
 
@@ -83,17 +103,30 @@ class PatientfamilyhistoryController extends Controller
 
         $result = $this->patientfamilyhistoryRepository->create($paramObj);
 
+//        if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
+//            return redirect('/patient/detail/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Success', 'Patient Family history created ...'));
+//        }
+//        if($result['aceplusStatusCode'] ==  ReturnMessage::NOT_IMPLEMENTED){
+//            return redirect('/patientfamilyhistory/create/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Fail',$result['aceplusStatusMessage']));
+//        }
+//        else{
+//            return redirect('/patientfamilyhistory/create/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Fail', 'Patient Family history did not create ...'));
+//        }
+
         if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
-            return redirect('/patient/detail/' . $patient_id)
-                ->withMessage(FormatGenerator::message('Success', 'Patient Family history created ...'));
+            return redirect('/patientfamilyhistory/' . $patient_id)
+                ->withMessage(FormatGenerator::message('Success', 'Patient family history created ...'));
         }
         if($result['aceplusStatusCode'] ==  ReturnMessage::NOT_IMPLEMENTED){
-            return redirect('/patientfamilyhistory/create/' . $patient_id)
+            return redirect('/patientfamilyhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Fail',$result['aceplusStatusMessage']));
         }
         else{
-            return redirect('/patientfamilyhistory/create/' . $patient_id)
-                ->withMessage(FormatGenerator::message('Fail', 'Patient Family history did not create ...'));
+            return redirect('/patientfamilyhistory/' . $patient_id)
+                ->withMessage(FormatGenerator::message('Fail', 'Patient family history did not create ...'));
         }
     }
 
@@ -106,6 +139,7 @@ class PatientfamilyhistoryController extends Controller
             $familyMembers = $familymemberRepo->getArraysByOrder();
 
             $patient_family_ids = explode('___', $id);
+
             $patient_id = $patient_family_ids[0];
             $family_history_id = $patient_family_ids[1];
             $family_member_id = $patient_family_ids[2];
@@ -137,17 +171,30 @@ class PatientfamilyhistoryController extends Controller
 
         $result = $this->patientfamilyhistoryRepository->updateByParam($paramObj);
 
+//        if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
+//            return redirect('/patient/detail/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Success', 'Patient Family history updated ...'));
+//        }
+//        if($result['aceplusStatusCode'] ==  ReturnMessage::NOT_IMPLEMENTED){
+//            return redirect('/patientmedicalhistory/create/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Fail',$result['aceplusStatusMessage']));
+//        }
+//        else{
+//            return redirect('/patientfamilyhistory/create/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Fail', 'Patient Family history did not update ...'));
+//        }
+
         if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
-            return redirect('/patient/detail/' . $patient_id)
-                ->withMessage(FormatGenerator::message('Success', 'Patient Family history updated ...'));
+            return redirect('/patientfamilyhistory/' . $patient_id)
+                ->withMessage(FormatGenerator::message('Success', 'Patient family history updated ...'));
         }
         if($result['aceplusStatusCode'] ==  ReturnMessage::NOT_IMPLEMENTED){
-            return redirect('/patientmedicalhistory/create/' . $patient_id)
+            return redirect('/patientfamilyhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Fail',$result['aceplusStatusMessage']));
         }
         else{
-            return redirect('/patientfamilyhistory/create/' . $patient_id)
-                ->withMessage(FormatGenerator::message('Fail', 'Patient Family history did not update ...'));
+            return redirect('/patientfamilyhistory/' . $patient_id)
+                ->withMessage(FormatGenerator::message('Fail', 'Patient family history did not update ...'));
         }
     }
 
@@ -155,6 +202,7 @@ class PatientfamilyhistoryController extends Controller
 
         $id         = Input::get('patientfamilyhistory_selected_checkboxes');
         $new_string = explode(',', $id);
+
         foreach($new_string as $id){
             $patient_family_ids = explode('___', $id);
             $patient_id = $patient_family_ids[0];
@@ -163,7 +211,9 @@ class PatientfamilyhistoryController extends Controller
 
             $this->patientfamilyhistoryRepository->deleteByParam($patient_id,$family_history_id,$family_member_id);
         }
-        return redirect('/patient/detail/' . $patient_id)
+//        return redirect('/patient/detail/' . $patient_id)
+//            ->withMessage(FormatGenerator::message('Success', 'Patient family history deleted ...'));
+        return redirect('/patientfamilyhistory/' . $patient_id)
             ->withMessage(FormatGenerator::message('Success', 'Patient family history deleted ...'));
 
     }

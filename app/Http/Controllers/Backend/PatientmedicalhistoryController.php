@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Backend\Medicalhistory\MedicalhistoryRepository;
+use App\Backend\Patientmedicalhistory\PatientmedicalhistoryRepository;
 use App\Core\Utility;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -32,8 +33,22 @@ class PatientmedicalhistoryController extends Controller
         $this->patientmedicalhistoryRepository = $patientmedicalhistoryRepository;
     }
 
-    public function index(Request $request)
+    public function index($patient_id)
     {
+        if (Auth::guard('User')->check()) {
+            $medicalhistoryRepo = new MedicalhistoryRepository();
+            $medicalhistories =   $medicalhistoryRepo->getArraysByOrder();
+
+            $patientmedicalhistoryRepo = new PatientmedicalhistoryRepository();
+            $patientmedicalhistories =   $patientmedicalhistoryRepo->getObjByPatientID($patient_id);
+            foreach($patientmedicalhistories as $keyMed => $patientmedicalhistory){
+                $patientmedicalhistories[$keyMed]->medicalHistory = $medicalhistories[$patientmedicalhistory->medical_history_id]->name;
+            }
+
+            return view('backend.patientmedicalhistory.index')
+                ->with('patient_id',$patient_id)
+                ->with('patientmedicalhistories',$patientmedicalhistories);
+        }
         return redirect('/');
     }
 
@@ -78,16 +93,29 @@ class PatientmedicalhistoryController extends Controller
 
         $result = $this->patientmedicalhistoryRepository->create($paramObj);
 
+//        if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
+//            return redirect('/patient/detail/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Success', 'Patient Medical history created ...'));
+//        }
+//        if($result['aceplusStatusCode'] ==  ReturnMessage::NOT_IMPLEMENTED){
+//            return redirect('/patientmedicalhistory/create/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Fail',$result['aceplusStatusMessage']));
+//        }
+//        else{
+//            return redirect('/patientmedicalhistory/create/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Fail', 'Patient Medical history did not create ...'));
+//        }
+
         if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
-            return redirect('/patient/detail/' . $patient_id)
+            return redirect('/patientmedicalhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Success', 'Patient Medical history created ...'));
         }
         if($result['aceplusStatusCode'] ==  ReturnMessage::NOT_IMPLEMENTED){
-            return redirect('/patientmedicalhistory/create/' . $patient_id)
+            return redirect('/patientmedicalhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Fail',$result['aceplusStatusMessage']));
         }
         else{
-            return redirect('/patientmedicalhistory/create/' . $patient_id)
+            return redirect('/patientmedicalhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Fail', 'Patient Medical history did not create ...'));
         }
     }
@@ -118,21 +146,31 @@ class PatientmedicalhistoryController extends Controller
         $request->validate();
         $patient_id           = Input::get('patient_id');
         $medical_history_id    = Input::get('medical_history_id');
-        $date    = Input::get('date');
+//        $date    = Input::get('date');
 
         $paramObj = new Patientmedicalhistory();
         $paramObj->patient_id = $patient_id;
         $paramObj->medical_history_id = $medical_history_id;
-        $paramObj->date = date("Y-m-d", strtotime($date));
+//        $paramObj->date = date("Y-m-d", strtotime($date));
 
         $result = $this->patientmedicalhistoryRepository->updateByParam($paramObj);
+//        $result = $this->patientmedicalhistoryRepository->update($paramObj);
+
+//        if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
+//            return redirect('/patient/detail/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Success', 'Patient Medical history updated ...'));
+//        }
+//        else{
+//            return redirect('/patientmedicalhistory/edit/' . $patient_id . '___' . $medical_history_id)
+//                ->withMessage(FormatGenerator::message('Fail', 'Patient Medical history did not update ...'));
+//        }
 
         if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
-            return redirect('/patient/detail/' . $patient_id)
+            return redirect('/patientmedicalhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Success', 'Patient Medical history updated ...'));
         }
         else{
-            return redirect('/patientmedicalhistory/edit/' . $patient_id . '___' . $medical_history_id)
+            return redirect('/patientmedicalhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Fail', 'Patient Medical history did not update ...'));
         }
     }
@@ -147,7 +185,9 @@ class PatientmedicalhistoryController extends Controller
             $medical_history_id = $patient_medical_ids[1];
             $this->patientmedicalhistoryRepository->deleteByParam($patient_id,$medical_history_id);
         }
-        return redirect('/patient/detail/' . $patient_id)
+//        return redirect('/patient/detail/' . $patient_id)
+//            ->withMessage(FormatGenerator::message('Success', 'Patient medical history deleted ...'));
+        return redirect('/patientmedicalhistory/' . $patient_id)
             ->withMessage(FormatGenerator::message('Success', 'Patient medical history deleted ...'));
 
     }

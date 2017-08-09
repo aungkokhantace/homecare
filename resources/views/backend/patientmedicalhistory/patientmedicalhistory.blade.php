@@ -54,7 +54,8 @@
             <input type="submit" name="submit" value="{{isset($patientmedicalhistory)? 'UPDATE' : 'ADD'}}" class="form-control btn-primary">
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-            <input type="button" value="CANCEL" class="form-control cancel_btn" onclick="cancel_setup_with_url('/patient/detail/{{isset($patient_id)? $patient_id:'0'}}')">
+            {{--<input type="button" value="CANCEL" class="form-control cancel_btn" onclick="cancel_setup_with_url('/patient/detail/{{isset($patient_id)? $patient_id:'0'}}')">--}}
+            <input type="button" value="CANCEL" class="form-control cancel_btn" onclick="cancel_setup_with_url('/patientmedicalhistory/{{isset($patient_id)? $patient_id:'0'}}')">
         </div>
     </div>
     {!! Form::close() !!}
