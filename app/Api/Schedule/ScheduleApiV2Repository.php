@@ -219,8 +219,8 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->height_feet                  = $row->height_feet;
                 $paramObj->height_inches                = $row->height_inches;
                 $paramObj->height_cm                    = $row->height_cm;
-                $paramObj->blood_sugar                  = $row->blood_sugar;
-                $paramObj->spo2_comment                 = $row->spo2_comment;
+                $paramObj->blood_sugar                  = isset($row->blood_sugar)?$row->blood_sugar:"";
+                $paramObj->spo2_comment                 = isset($row->spo2_comment)?$row->spo2_comment:"";
                 $paramObj->pulse_rate_comment           = isset($row->pulse_rate_comment)?$row->pulse_rate_comment:"";
                 $paramObj->blood_sugar_comment          = isset($row->blood_sugar_comment)?$row->blood_sugar_comment:"";
                 $paramObj->bmi                          = $row->bmi;
