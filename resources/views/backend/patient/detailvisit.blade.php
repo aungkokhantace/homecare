@@ -98,6 +98,7 @@
                                         <th>Blood Sugar</th>
                                     </tr>
                                     @foreach($vitals as $vital)
+                                        @if($vital->date !== "" && $vital->time !== "")
                                         <tr class="detail_visit_vital_row">
                                             <td>{{$vital->date}}</td>
                                             <td>{{$vital->time}}</td>
@@ -118,6 +119,7 @@
                                             <td>{{$vital->height_feet}}&#39;{{$vital->height_inches}}&#34;</td>
                                             <td>{{$vital->blood_sugar . 'mg/dl'}}<br>@if(isset($vital->blood_sugar_comment)){{$vital->blood_sugar_comment}}@endif</td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                 </table>
 
@@ -165,10 +167,12 @@
                                         <th>Duration</th>
                                     </tr>
                                     @foreach($chief_complaints as $chief_complaint)
+                                        @if($chief_complaint->chief_complaint_comment !== "")
                                         <tr class="detail_visit_vital_row">
                                             <td>{{$chief_complaint->chief_complaint_comment}}</td>
                                             <td>{{$chief_complaint->duration_days.'Days '.$chief_complaint->duration_months.'Months'}}</td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                 </table>
                                 <div class="row">
