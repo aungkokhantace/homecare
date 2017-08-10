@@ -63,7 +63,7 @@
         </div>
 
         <!-- Start Vital Accordion -->
-        @if(isset($service_type) && ($service_type == 1 || $service_type == 0))
+        @if(isset($service_type) && ($service_type == 1 || $service_type == 0 || $service_type == 5))
         <div class="panel-group" id="accordion">
             <div class="panel panel-inverse">
                 <!-- Panel Heading -->

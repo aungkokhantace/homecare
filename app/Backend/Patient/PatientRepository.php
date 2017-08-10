@@ -210,15 +210,22 @@ class PatientRepository implements PatientRepositoryInterface
                     //encrypt password
                     $pwd = base64_encode(Input::get('password'));
                     //bind to userObj
-                    $userObj->password = $pwd;
+                    // $userObj->password = $pwd;
+                    $tempUserObj->password = $pwd;
                 }
                 else{
                     $passwordString = "123@parami";             //if password is null, "parami@123" is set as default password
                     //encrypt password
                     $pwd = base64_encode($passwordString);  //encrypt default password
                     //bind to userObj
-                    $userObj->password = $pwd;
+                    // $userObj->password = $pwd;
+                    $tempUserObj->password = $pwd;
                 }
+
+                //set display_image and mobile_image to empty
+                $tempUserObj->display_image = "";
+                $tempUserObj->mobile_image = "";
+                $tempUserObj->deleted_by = "";
 
                 if($tempUserObj->save()){                       //user obj insert is successful
                     $user_id = $tempUserObj->id;                //extract user_id after creating a row in core_users

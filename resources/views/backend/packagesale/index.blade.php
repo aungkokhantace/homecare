@@ -62,7 +62,7 @@
                             <td>{{$packagesale->remark}}</td>
                             <td>{{$packagesale->sold_date}}</td>
                             <td><a href={{"/packagesale/schedule/".$packagesale->id}}>Detail</a></td>
-                            <td><a target="_blank" href={{"/packagesale/export/".$packagesale->id}}>Export</a></td>
+                            <td><a target="_blank" href={{"/packagesale/export/".$packagesale->id."/".$packagesale->promotion_code}}>Export</a></td>
                         </tr>
                     @endforeach
                     </tbody>

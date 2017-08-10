@@ -1,7 +1,6 @@
 <?php
 /**
  * Created by PhpStorm.
-<<<<<<< HEAD
  * Author: Wai Yan Aung
  * Date: 8/9/2016
  * Time: 4:50 PM

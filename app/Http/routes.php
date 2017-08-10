@@ -180,6 +180,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('patient/detailvisit/{id}', array('as'=>'patient/detail','uses'=>'Backend\PatientController@detailvisit'));
         //newly added patient detail design
         Route::get('patient/patient_detail/{id}', array('as'=>'patient/patient_detail','uses'=>'Backend\PatientController@patientDetail'));
+        Route::get('patient/invoice/{id}', array('as'=>'salesummaryreport/invoicedetail/{id}','uses'=>'Report\SaleSummaryReportController@invoicedetail'));
 
         //Addendum
         Route::post('addendum/store', array('as'=>'addendum/store','uses'=>'Backend\PatientController@addAddendum'));

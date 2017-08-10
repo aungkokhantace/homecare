@@ -17,6 +17,7 @@ use App\Backend\LogPatientCaseSummary\LogPatientCaseSummary;
 use App\Backend\Patient\PatientRepository;
 use App\Backend\Schedule\Schedule;
 use App\Backend\Schedule\ScheduleRepository;
+use App\Backend\Invoice\InvoiceRepository;
 use App\Backend\Scheduledetail\Scheduledetail;
 use App\Backend\Service\Service;
 use App\Backend\Township\TownshipRepository;
@@ -504,7 +505,7 @@ class PatientController extends Controller
                         $schedulesRaw[$keySch]->car_type_name = $carTypes[$valueSch->car_type_id]->name;
                     }
                 }
-
+                
                 $schedules = $schedulesRaw;
 
                 $img = $users->display_image;
@@ -589,7 +590,7 @@ class PatientController extends Controller
                         $musculo['musculo_4_4_5'][] = $musculo_4_4_5;
                     }
                 }
-
+                
                 return view('backend.patient.detail')
                     ->with('patient', $patient)
                     ->with('users', $users)
@@ -658,12 +659,11 @@ class PatientController extends Controller
             }
             array_push($patientSchedules,$patient_schedules);
         }
-
+    
         return view('backend.patient.schedules')->with('patientSchedules',$patientSchedules);
     }
 
     public function detailvisit($id){
-
         $scheduleRaw                   = Schedule::whereNull('deleted_at')->where('id','=',$id)->first();
         $patient                    = Patient::whereNull('deleted_at')->where('user_id','=',$scheduleRaw->patient_id)->first();
         $valid                      = 0;
@@ -869,7 +869,7 @@ class PatientController extends Controller
                 $blood_drawings             = $schedule->getBloodDrawing($latest_schedule_id,$patient_id);
                 $blood_drawings_remark      = $schedule->getBloodDrawingRemark($latest_schedule_id,$patient_id);
                 //end blood drawing
-
+                
                 if(isset($investigation_imaging) && count($investigation_imaging)>0){
                     if (!array_key_exists("X-RAY",$investigation_imaging)){
                         $investigation_imaging['X-RAY'] = "";
@@ -893,7 +893,7 @@ class PatientController extends Controller
             $addendumRepo = new AddendumRepository();
             $addendums    = $addendumRepo->getObjs();
             //end addendum
-
+            
             return view('backend.patient.detailvisit')->with('patient',$patient)
                 ->with('schedules',$schedule)
                 ->with('vitals',$vitals)
@@ -1000,11 +1000,148 @@ class PatientController extends Controller
             }
             //end patient family histories
 
+            //start Neuro Accessment
+            $neuro  = array();
+            $neuro_general  = DB::table('patient_physiotherapy_neuro_general')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($neuro_general) && count($neuro_general) > 0){
+                foreach($neuro_general as $general){
+                    $neuro['general'][] = $general;
+                }
+            }
+
+            $neuro_limb     = DB::table('patient_physiotherapy_neuro_limb')->whereNull('deleted_at')->where('patients_id','=',$id)->get();
+            if(isset($neuro_limb) && count($neuro_limb) > 0){
+                foreach($neuro_limb as $limb){
+                    $neuro['limb'][]  = $limb;
+                }
+            }
+
+            $neuro_functional1 = DB::table('patient_physiotherapy_neuro_functional_performance1')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($neuro_functional1) && count($neuro_functional1) > 0){
+                foreach($neuro_functional1 as $functional1){
+                    $neuro['functional1'][] = $functional1;
+                }
+            }
+
+            $neuro_functional2 = DB::table('patient_physiotherapy_neuro_functional_performance2')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($neuro_functional2) && count($neuro_functional2) > 0){
+                foreach($neuro_functional2 as $functional2){
+                    $neuro['functional2'][] = $functional2;
+                }
+            }
+
+            $neuro_functional3 = DB::table('patient_physiotherapy_neuro_functional_performance3')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($neuro_functional3) && count($neuro_functional3)>0){
+                foreach($neuro_functional3 as $functional3){
+                    $neuro['functional3'][] = $functional3;
+                }
+            }
+            //end Neuro Accessment
+
+            //start Musculo Accessment
+            $musculo    = array();
+            $patient_musculo_1_2 = DB::table('patient_physiothreapy_musculo_1_and_2')->whereNull('deleted_at')->where('patients_id','=',$id)->get();
+            if(isset($patient_musculo_1_2) && count($patient_musculo_1_2)>0){
+                foreach($patient_musculo_1_2 as $musculo_1_2){
+                    $musculo['musculo_1_2'][] = $musculo_1_2;
+                }
+            }
+
+            $patient_musculo_3_sitting  = DB::table('patient_physiotherapy_musculo_3_sitting')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_3_sitting) && count($patient_musculo_3_sitting)>0){
+                foreach($patient_musculo_3_sitting as $sitting){
+                    $musculo['musculo_3_sitting'][] = $sitting;
+                }
+            }
+
+            $patient_musculo_3_standing = DB::table('patient_physiotherapy_musculo_3_standing')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_3_standing) && count($patient_musculo_3_standing) > 0){
+                foreach($patient_musculo_3_standing as $standing){
+                    $musculo['musculo_3_standing'][] = $standing;
+                }
+            }
+
+            $patient_musculo_4_1_2 = DB::table('patient_physiotherapy_musculo_4_1and2')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_4_1_2) && count($patient_musculo_4_1_2)>0){
+                foreach($patient_musculo_4_1_2 as $musculo4) {
+                    $musculo['musculo_4_1_2'][] = $musculo4;
+                }
+            }
+
+            $patient_musculo_4_3 = DB::table('patient_physiotherapy_musculo_4_3')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_4_3) && count($patient_musculo_4_3)>0){
+                foreach($patient_musculo_4_3 as $musculo_4_3){
+                    $musculo['musculo_4_3'][] = $musculo_4_3;
+                }
+            }
+
+            $patient_musculo_4_4_5 = DB::table('patient_physiotherapy_musculo_4_4and5')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_4_4_5) && count($patient_musculo_4_4_5)>0){
+                foreach($patient_musculo_4_4_5 as $musculo_4_4_5){
+                    $musculo['musculo_4_4_5'][] = $musculo_4_4_5;
+                }
+            }
+            //end Musculo Accessment
+
+
+            //start patient visit records
+            $schedules          = Schedule::whereNull('deleted_at')->where('patient_id',$id)->get();
+            $schedule_id_arr    = array();
+
+            foreach($schedules as $sch){
+                array_push($schedule_id_arr,$sch->id);
+            }
+            $schedule_detail    = Scheduledetail::whereIn('schedule_id',$schedule_id_arr)->where('type','=','service')->get();
+
+            $users              = User::whereNull('deleted_at')->get();
+            $car_types          = Cartype::whereNull('deleted_at')->get();
+            $services           = Service::whereNull('deleted_at')->get();
+            $patientSchedules   = array();
+            $patient_schedules  = array();
+            foreach($schedules as $schedule){
+                $patient_schedules['id']   = $schedule->id;
+                $patient_schedules['date'] = $schedule->date;
+                $patient_schedules['time'] = $schedule->time;
+                if($schedule->car_type == 1) $patient_schedules['car_type'] = "Patient Own Vehicle";
+                if($schedule->car_type == 2) $patient_schedules['car_type'] = "Rental Vehicle";
+                if($schedule->car_type == 3){
+                    foreach($car_types as $car){
+                        if($car->id == $schedule->car_type_id){
+                            $patient_schedules['car_type'] = "HHCS Vehicle - ".$car->name;
+                        }
+                    }
+                }
+                foreach($users as $leader){
+                    if($leader->id == $schedule->leader_id){
+                        $patient_schedules['leader'] = $leader->name;
+                    }
+                }
+
+                foreach($schedule_detail as $detail){
+                    if($schedule->id == $detail->schedule_id){
+                        $patient_schedules['service']=$detail->service->name;
+                    }
+                }
+
+                //start invoice id
+                $invoiceRepo = new InvoiceRepository();
+                $invoice = $invoiceRepo->getInvoiceByScheduleID($schedule->id);
+                $invoice_id = $invoice->id;
+                $patient_schedules['invoice_id'] = $invoice_id;
+                //end invoice id
+
+                array_push($patientSchedules,$patient_schedules);
+            }
+            //end patient visit records
+            
             return view('backend.patient.patientdetail')
                 ->with('patient',$patient)
                 ->with('patientmedicalhistories',$patientmedicalhistories)
                 ->with('patientsurgeryhistories',$patientsurgeryhistories)
-                ->with('patientfamilyhistories',$patientfamilyhistories);
+                ->with('patientfamilyhistories',$patientfamilyhistories)
+                ->with('musculo',$musculo)
+                ->with('neuro',$neuro)
+                ->with('patientSchedules',$patientSchedules);
         }
         else{
             return view('backend.patient.invalidpatient');

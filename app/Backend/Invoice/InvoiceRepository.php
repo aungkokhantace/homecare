@@ -156,4 +156,11 @@ class InvoiceRepository implements InvoiceRepositoryInterface
             ->first();
         return $result;
     }
+
+    public function getInvoiceByScheduleID($schedule_id){
+        $result = Invoice::where('schedule_id', $schedule_id)
+            ->whereNull('deleted_at')
+            ->first();
+        return $result;
+    }
 }

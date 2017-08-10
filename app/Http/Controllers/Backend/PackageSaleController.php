@@ -49,6 +49,15 @@ class PackageSaleController extends Controller
         try{
             if (Auth::guard('User')->check()) {
                 $packagesales      = $this->repo->getObjs();
+                
+                foreach($packagesales as $sale){
+                    $package_sale_id    = $sale->id;
+                    $package_promotion  = DB::table('transaction_promotions')->where('reference_id','=',$package_sale_id)->first();
+                    $promotion_code     = $package_promotion->promotion_code;
+
+                    //bind to packagesale obj
+                    $sale->promotion_code = $promotion_code;
+                }
                 return view('backend.packagesale.index')->with('packagesales',$packagesales);
             }
             return redirect('/');
