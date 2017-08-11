@@ -207,5 +207,6 @@ background: #66ccff !important;
 
 /*For panel headings in patient detail page*/
 .patient_detail_heading{
-  background: darkorange !important;
+  /* background: darkorange !important; */
+  background: #418DD8 !important;
 }
