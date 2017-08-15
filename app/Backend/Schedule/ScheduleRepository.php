@@ -1014,5 +1014,11 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             
         return $result;
     }
+
+    public function getServiceIdByScheduleId($schedule_id){
+        $result = DB::table('schedule_detail')->where('schedule_id','=',$schedule_id)->first();
+        $service_id = $result->service_id;
+        return $service_id;
+    }
 }
 

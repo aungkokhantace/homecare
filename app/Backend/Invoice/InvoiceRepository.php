@@ -163,4 +163,46 @@ class InvoiceRepository implements InvoiceRepositoryInterface
             ->first();
         return $result;
     }
+
+    public function getEachServiceProfitByMonth($month, $service_id){
+        $result = Invoice::leftjoin('schedules', 'invoices.schedule_id', '=', 'schedules.id')
+            ->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+            ->select(DB::raw('sum(invoices.total_payable_amt) as amount'))
+            ->whereMonth('schedules.date','=', $month)
+            ->whereYear('schedules.date','=',date('Y'))
+            ->where('schedule_detail.service_id', $service_id)
+            ->where('schedule_detail.type', 'service')
+            ->where('schedules.status', 'complete')
+            ->whereNull('invoices.deleted_at')
+            ->whereNull('schedules.deleted_at')
+            ->get();
+
+        $amount = $result[0]->amount;
+        return $amount;
+    }
+    
+
+    // public function getEachProfitByMonth($month,$service_id) {
+    //     $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+    //         ->where('schedule_detail.service_id','=',$service_id)
+    //         ->where('schedules.status','=','complete')
+    //         ->whereYear('schedules.date','=',date('Y'))
+    //         ->whereMonth('schedules.date','=',$month)
+    //         ->get();
+            
+    //     return $result;
+    // }
+
+    public function getPackageSaleProfitByMonth($month) {
+        $result = Invoice::leftjoin('patient_package', 'patient_package.id', '=', 'invoices.patient_package_id')
+            ->select(DB::raw('sum(invoices.total_payable_amt) as amount'))
+            ->whereYear('patient_package.sold_date','=',date('Y'))
+            ->whereMonth('patient_package.sold_date','=',$month)
+            ->where('invoices.type','=','package')
+            ->get();
+                
+        $amount = $result[0]->amount;
+        return $amount;
+
+    }
 }

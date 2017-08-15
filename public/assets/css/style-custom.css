@@ -216,6 +216,11 @@ background: #66ccff !important;
     width : 100%;
     height  : 500px;
 }
+
+#profit_chart_div{
+    width : 100%;
+    height  : 500px;
+}
 /* end chart divs */
 
 /* start color spans shown in charts */

@@ -247,9 +247,9 @@
                     "lineThickness": 2,
                     "title": "MO Visits",
                     "useLineColorForBulletBorder": true,
-                    "valueField": "mo_visits",
-                    "lineColorField": "mo_visits_color",
-                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                    "valueField": "mo_profits",
+                    "lineColorField": "mo_profits_color",
+                    "balloonText": "<span style='font-size:11px; color:#000000'>[[value]]</span>"
                 },
                 {
                     "id": "g2",
@@ -266,9 +266,9 @@
                     "lineThickness": 2,
                     "title": "Musculo Visits",
                     "useLineColorForBulletBorder": true,
-                    "valueField": "musculo_visits",
-                    "lineColorField": "musculo_visits_color",
-                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                    "valueField": "musculo_profits",
+                    "lineColorField": "musculo_profits_color",
+                    "balloonText": "<span style='font-size:11px; color:#08088A'>[[value]]</span>"
                 },
                 {
                     "id": "g3",
@@ -285,9 +285,9 @@
                     "lineThickness": 2,
                     "title": "Neuro Visits",
                     "useLineColorForBulletBorder": true,
-                    "valueField": "neuro_visits",
-                    "lineColorField": "neuro_visits_color",
-                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                    "valueField": "neuro_profits",
+                    "lineColorField": "neuro_profits_color",
+                    "balloonText": "<span style='font-size:11px; color:#FFFF00'>[[value]]</span>"
                 },
                 {
                     "id": "g4",
@@ -304,8 +304,8 @@
                     "lineThickness": 2,
                     "title": "Nutrition Visits",
                     "useLineColorForBulletBorder": true,
-                    "valueField": "nutrition_visits",
-                    "lineColorField": "nutrition_visits_color",
+                    "valueField": "nutrition_profits",
+                    "lineColorField": "nutrition_profits_color",
                     "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
                 },
                 {
@@ -323,8 +323,27 @@
                     "lineThickness": 2,
                     "title": "Blood Drawing Visits",
                     "useLineColorForBulletBorder": true,
-                    "valueField": "blood_drawing_visits",
-                    "lineColorField": "blood_drawing_visits_color",
+                    "valueField": "blood_drawing_profits",
+                    "lineColorField": "blood_drawing_profits_color",
+                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                },
+                {
+                    "id": "g6",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Blood Drawing Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "package_sale_profits",
+                    "lineColorField": "package_sale_profits_color",
                     "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
                 }],
                 "chartScrollbar": {

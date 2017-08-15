@@ -57,5 +57,9 @@ interface ScheduleRepositoryInterface
     public function getBloodDrawingRemark($latest_schedule_id, $patient_id);
     public function getSchedulesWithService($type, $from_date, $to_date,$schedulesArray);
     public function getEachVisitByDate($date,$service_id);
+    public function getScheduleOtherServices($latest_schedule_id, $patient_id);
+    public function getEachVisitByMonth($month,$service_id);
+    // public function getEachProfitByMonth($month,$service_id);
+    public function getServiceIdByScheduleId($schedule_id);
 }
 
