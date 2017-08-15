@@ -50,7 +50,7 @@
                         <th>Township</th>
                         {{--<th>Zone</th>--}}
                         <th></th>
-                        <th></th>
+                        <!-- <th></th> -->
                     </tr>
                     </thead>
                     <tfoot>
@@ -64,7 +64,7 @@
                         <th class="search-col" con-id="township">Township</th>
                         {{--<th class="search-col" con-id="zone">Zone</th>--}}
                         <th class="search-col" con-id="status"></th>
-                        <th class="search-col" con-id="status"></th>
+                        <!-- <th class="search-col" con-id="status"></th> -->
                     </tr>
                     </tfoot>
                     <tbody>
@@ -86,7 +86,7 @@
                             <!-- <td><a href="/patient/detail/{{$patient->user_id}}">Detail</a></td> -->
                             <td><a href="/patient/patient_detail/{{$patient->user_id}}">Detail</a></td>
                             <!-- <td><a href="/patient/detailvisit/{{$patient->user_id}}">Detail Visit</a></td> -->
-                            <td><a href="/patient/patientSchedule/{{$patient->user_id}}">Detail Visit</a></td>
+                            <!-- <td><a href="/patient/patientSchedule/{{$patient->user_id}}">Detail Visit</a></td> -->
                         </tr>
 
                     @endforeach
