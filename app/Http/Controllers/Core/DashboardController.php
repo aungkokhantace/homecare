@@ -76,7 +76,7 @@ class DashboardController extends Controller
                 
                 //get service id
                 $schedule_id    = $invoice_with_schedule->schedule_id;
-                $service_id     = $scheduleRepo->getServiceIdByScheduleId($schedule_id);
+                // $service_id     = $scheduleRepo->getServiceIdByScheduleId($schedule_id);
 
                 //get month
                 $schedule       = $scheduleRepo->getObjByID($schedule_id);                
