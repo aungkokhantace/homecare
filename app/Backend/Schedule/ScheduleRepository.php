@@ -987,6 +987,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     public function getEachVisitByDate($date,$service_id) {
         $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
             ->where('schedules.date','=',$date)
+            ->where('schedules.status','=','complete')
             ->where('schedule_detail.service_id','=',$service_id)
             ->get();
         return $result;
@@ -1001,6 +1002,17 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             ->where('other_services.patient_id','=',$patient_id)
             ->get();
         return $treatments;
+    }
+
+    public function getEachVisitByMonth($month,$service_id) {
+        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+            ->where('schedule_detail.service_id','=',$service_id)
+            ->where('schedules.status','=','complete')
+            ->whereYear('schedules.date','=',date('Y'))
+            ->whereMonth('schedules.date','=',$month)
+            ->get();
+            
+        return $result;
     }
 }
 

@@ -8,139 +8,95 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use App\Backend\Invoice\InvoiceRepository;
+use App\Backend\Schedule\ScheduleRepository;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function dashboard()
     {
         if (Auth::guard('User')->check()) {
-            $users = DB::select("SELECT count(id) as userCount FROM core_users WHERE deleted_at IS  NULL AND role_id != 5");
-            $user_count = 0;
-            if (isset($users) && count($users) > 0) {
-                $user_count = $users[0]->userCount;
+            //start visit graph data
+            $invoiceRepo = new InvoiceRepository();
+            $invoicesWithSchedules = $invoiceRepo->getInvoicesWithSchedules();
+
+            $schedulesArray = array();
+            foreach($invoicesWithSchedules as $invoice){
+                $schedulesArray[] = $invoice->schedule_id;
+            }
+            
+            $scheduleRepo = new ScheduleRepository();
+
+            $schedulesWithServices = $scheduleRepo->getSchedulesWithService($schedulesArray);
+            
+            $patient_visits_array = array();
+
+            $year = date('Y');
+
+            foreach($schedulesWithServices as $schedule_with_service){
+                $date = $schedule_with_service->date;
+                $month = date("m", strtotime($date)); //get only month from schedule date //to display data according to month
+                
+                $mo_visits              = count($scheduleRepo->getEachVisitByMonth($month,1)); // service_id=1 is for MO
+                $musculo_visits         = count($scheduleRepo->getEachVisitByMonth($month,2)); // service_id=2 is for Musculo
+                $neuro_visits           = count($scheduleRepo->getEachVisitByMonth($month,3)); // service_id=3 is for Neuro
+                $nutrition_visits       = count($scheduleRepo->getEachVisitByMonth($month,4)); // service_id=4 is for Nutrition
+                $blood_drawing_visits   = count($scheduleRepo->getEachVisitByMonth($month,5)); // service_id=5 is for Blood Drawing
+
+                $patient_visits_array[$month]["date"]                       = date("$year-$month");  //to send to graph in ('YYYY-MM') format
+                $patient_visits_array[$month]["mo_visits"]                  = $mo_visits;
+                $patient_visits_array[$month]["mo_visits_color"]            = "#F0D122";    //yellow
+                $patient_visits_array[$month]["musculo_visits"]             = $musculo_visits;
+                $patient_visits_array[$month]["musculo_visits_color"]       = "#52F23B";    //green
+                $patient_visits_array[$month]["neuro_visits"]               = $neuro_visits;
+                $patient_visits_array[$month]["neuro_visits_color"]         = "#F72B0B";    //red
+                $patient_visits_array[$month]["nutrition_visits"]           = $nutrition_visits;
+                $patient_visits_array[$month]["nutrition_visits_color"]     = "#0B53F7";    //blue
+                $patient_visits_array[$month]["blood_drawing_visits"]       = $blood_drawing_visits;
+                $patient_visits_array[$month]["blood_drawing_visits_color"] = "#EC0BF7";    //violet
+
+            }
+            $patient_visits = array_values($patient_visits_array);
+
+            //reverse the array to sort by date in ascending order
+            $ordered_patient_visits = array_reverse($patient_visits);
+            //end visit graph data
+
+            //start profit graph data
+            $profits = array();
+
+            $from_date = null;
+            $to_date = null;
+
+            $invoiceHeader = $scheduleRepo->getInvoiceHeader($from_date, $to_date);
+            $invoiceDetail = $scheduleRepo->getInvoiceDetail();
+            dd('invoiceHeader',$invoiceHeader);
+            $saleSummary = array();
+            if(isset($invoiceHeader) && count($invoiceHeader)>0){
+                foreach($invoiceHeader as $header){
+                    $saleSummary[$header->id] = $header;
+                    $saleSummary[$header->id]->car_type = null;
+                    if(isset($invoiceDetail) && count($invoiceDetail)>0){
+                        foreach($invoiceDetail as $detail){
+                            if($header->id == $detail->invoice_id){
+                                $saleSummary[$header->id]->car_type = $detail->car_type;
+                            }
+                        }
+                    }
+                }
             }
 
-            $patient_count = 0;
-            $patients = DB::select("SELECT count(user_id) as patientCount FROM patients WHERE deleted_at IS  NULL");
-            if(isset($patients) && count($patients) > 0){
-                $patient_count = $patients[0]->patientCount;
+            foreach($saleSummary as $summary){
+                $summary->date = Carbon::parse($summary->date)->format('d-m-Y'); //changing date format to show in view
             }
 
-            $family_member_count = 0;
-            $familyMembers = DB::select("SELECT count(id) as familyMemberCount FROM patient_family_member WHERE deleted_at IS  NULL");
-            if(isset($familyMembers) && count($familyMembers) > 0){
-                $family_member_count = $familyMembers[0]->familyMemberCount;
-            }
-
-            $schedule_count = 0;
-            $schedules = DB::select("SELECT count(id) as scheduleCount FROM schedules WHERE deleted_at IS  NULL");
-            if(isset($schedules) && count($schedules) > 0){
-                $schedule_count = $schedules[0]->scheduleCount;
-            }
-
-            $enquiry_count = 0;
-            $enquiries = DB::select("SELECT count(id) as enquiryCount FROM enquiries WHERE deleted_at IS  NULL");
-            if(isset($enquiries) && count($enquiries) > 0){
-                $enquiry_count = $enquiries[0]->enquiryCount;
-            }
-
-            $route_count = 0;
-            $routes = DB::select("SELECT count(id) as routeCount FROM route WHERE deleted_at IS  NULL");
-            if(isset($routes) && count($routes) > 0){
-                $route_count = $routes[0]->routeCount;
-            }
-
-            $city_count = 0;
-            $cities = DB::select("SELECT count(id) as cityCount FROM cities WHERE deleted_at IS  NULL");
-            if(isset($cities) && count($cities) > 0){
-                $city_count = $cities[0]->cityCount;
-            }
-
-            $township_count = 0;
-            $townships = DB::select("SELECT count(id) as townshipCount FROM townships WHERE deleted_at IS  NULL");
-            if(isset($townships) && count($townships) > 0){
-                $township_count = $townships[0]->townshipCount;
-            }
-
-            $zone_count = 0;
-            $zones = DB::select("SELECT count(id) as zoneCount FROM zones WHERE deleted_at IS  NULL");
-            if(isset($zones) && count($zones) > 0){
-                $zone_count = $zones[0]->zoneCount;
-            }
-
-            $car_type_count = 0;
-            $carTypes = DB::select("SELECT count(id) as carTypeCount FROM car_types WHERE deleted_at IS  NULL");
-            if(isset($carTypes) && count($carTypes) > 0){
-                $car_type_count = $carTypes[0]->carTypeCount;
-            }
-
-            $medication_category_count = 0;
-            $medicationCategories = DB::select("SELECT count(id) as medicationCategoryCount FROM zones WHERE deleted_at IS  NULL");
-            if(isset($medicationCategories) && count($medicationCategories) > 0){
-                $medication_category_count = $medicationCategories[0]->medicationCategoryCount;
-            }
-
-            $medication_count = 0;
-            $medications = DB::select("SELECT count(id) as medicationCount FROM products WHERE deleted_at IS  NULL");
-            if(isset($medications) && count($medications) > 0){
-                $medication_count = $medications[0]->medicationCount;
-            }
-
-            $allergy_count = 0;
-            $allergies = DB::select("SELECT count(id) as allergyCount FROM allergies WHERE deleted_at IS  NULL");
-            if(isset($allergies) && count($allergies) > 0){
-                $allergy_count = $allergies[0]->allergyCount;
-            }
-
-            $service_count = 0;
-            $services = DB::select("SELECT count(id) as serviceCount FROM services WHERE deleted_at IS  NULL");
-            if(isset($services) && count($services) > 0){
-                $service_count = $services[0]->serviceCount;
-            }
-
-            $package_count = 0;
-            $packages = DB::select("SELECT count(id) as packageCount FROM packages WHERE deleted_at IS  NULL");
-            if(isset($packages) && count($packages) > 0){
-                $package_count = $packages[0]->packageCount;
-            }
-
-            $family_history_count = 0;
-            $familyHistories = DB::select("SELECT count(id) as familyHistoryCount FROM family_histories WHERE deleted_at IS  NULL");
-            if(isset($familyHistories) && count($familyHistories) > 0){
-                $family_history_count = $familyHistories[0]->familyHistoryCount;
-            }
-
-            $medical_history_count = 0;
-            $medicalHistories = DB::select("SELECT count(id) as medicalHistoryCount FROM medical_history WHERE deleted_at IS  NULL");
-            if(isset($medicalHistories) && count($medicalHistories) > 0){
-                $medical_history_count = $medicalHistories[0]->medicalHistoryCount;
-            }
-
-            $provisional_diagnosis_count = 0;
-            $provisionalDiagnosis = DB::select("SELECT count(id) as provisionalDiagnosisCount FROM provisional_diagnosis WHERE deleted_at IS  NULL");
-            if(isset($provisionalDiagnosis) && count($provisionalDiagnosis) > 0){
-                $provisional_diagnosis_count = $provisionalDiagnosis[0]->provisionalDiagnosisCount;
-            }
+            // dd('salesummmary',$saleSummary);
+            //end profit graph data
 
             return view('core.dashboard.dashboard')
-                ->with('userCount', $user_count)
-                ->with('patientCount',$patient_count)
-                ->with('familyMemberCount',$family_member_count)
-                ->with('scheduleCount',$schedule_count)
-                ->with('enquiryCount',$enquiry_count)
-                ->with('routeCount',$route_count)
-                ->with('cityCount',$city_count)
-                ->with('townshipCount',$township_count)
-                ->with('zoneCount',$zone_count)
-                ->with('carTypeCount',$car_type_count)
-                ->with('medicationCategoryCount',$medication_category_count)
-                ->with('medicationCount',$medication_count)
-                ->with('allergyCount',$allergy_count)
-                ->with('serviceCount',$service_count)
-                ->with('packageCount',$package_count)
-                ->with('familyHistoryCount',$family_history_count)
-                ->with('medicalHistoryCount',$medical_history_count)
-                ->with('provisionalDiagnosisCount',$provisional_diagnosis_count);
+                ->with('patient_visits',$ordered_patient_visits)
+                ->with('profits',$profits);
         }
         return redirect('/login');
     }

@@ -210,3 +210,43 @@ background: #66ccff !important;
   /* background: darkorange !important; */
   background: #418DD8 !important;
 }
+
+/* start chart divs */
+#visit_chart_div{
+    width : 100%;
+    height  : 500px;
+}
+/* end chart divs */
+
+/* start color spans shown in charts */
+.colored-span{
+  display:block;
+  width: 20px; 
+  height: 20px;
+  margin-left: 45px;
+}
+
+.mo-color{
+  background-color:#F0D122;
+}
+
+.musculo-color{
+  background-color:#52F23B;
+}
+
+.neuro-color{
+  background-color:#F72B0B;
+}
+
+.nutrition-color{
+  background-color:#0B53F7;
+}
+
+.blooddrawing-color{
+  background-color:#EC0BF7;
+}
+
+.packagesale-color{
+  background-color:#2E2E2E;
+}
+/* end color spans shown in charts */
