@@ -159,11 +159,11 @@ class EnquiryApiV2Repository implements EnquiryApiV2RepositoryInterface
                         $userResult         = $userRepo->createSingleUser($core_users);
                         //end insertion of core_users
 
-                        //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
-                        if($userResult['aceplusStatusCode'] == ReturnMessage::SKIPPED){
-                            //skip this row and continue to next loop
-                            continue;
-                        }
+                        // //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
+                        // if($userResult['aceplusStatusCode'] == ReturnMessage::SKIPPED){
+                        //     //skip this row and continue to next loop
+                        //     continue;
+                        // }
 
                         //if core_user insertion was successful
                         if($userResult['aceplusStatusCode'] == ReturnMessage::OK){

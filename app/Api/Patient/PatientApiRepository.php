@@ -428,11 +428,11 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                             $userArray[0] = $core_user;
                             $userResult = $userRepo->createSingleUser($userArray);
 
-                             //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
-                            if($userResult['aceplusStatusCode'] == ReturnMessage::SKIPPED){
-                                //skip this row and continue to next loop
-                                continue;
-                            }
+                            //  //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
+                            // if($userResult['aceplusStatusCode'] == ReturnMessage::SKIPPED){
+                            //     //skip this row and continue to next loop
+                            //     continue;
+                            // }
 
                             if ($userResult['aceplusStatusCode'] == ReturnMessage::OK) {
 
@@ -609,16 +609,39 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 }
                 $tempLogPatientArr['date']      = $row->created_at;
 
-                //clear patient_allergy data relating to input
-                DB::table('patient_allergy')
-                    ->where('patient_id', '=', $id)
-                    ->delete();
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
 
-                //clear patients data relating to input
-                DB::table('patients')
-                    ->where('user_id', '=', $id)
-                    ->where('email', '=', $email)
-                    ->delete();
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
+                    
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
+
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        //clear patient_allergy data relating to input
+                        DB::table('patient_allergy')
+                        ->where('patient_id', '=', $id)
+                        ->delete();
+
+                        //clear patients data relating to input
+                        DB::table('patients')
+                            ->where('user_id', '=', $id)
+                            ->where('email', '=', $email)
+                            ->delete();
+                    }
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
+                        $returnedObj['aceplusStatusMessage']    = "Patient data doesn't need to be updated!";
+                        $returnedObj['log']                     = $tempLogArr;
+                        return $returnedObj;
+                    }
+                }
 
                 //create patient object
                 $paramObj = new Patient();
