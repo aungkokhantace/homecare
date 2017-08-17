@@ -636,6 +636,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     //Incoming record's updated_at is not later than existing record's updated_at;
                     //So, the record incoming is updated earlier; So, database doesn't need to be updated..
                     else{
+                        dd('this row is skipped',$input_updated_at,$current_updated_at,$row);
                         $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
                         $returnedObj['aceplusStatusMessage']    = "Patient data doesn't need to be updated!";
                         $returnedObj['log']                     = $tempLogArr;
