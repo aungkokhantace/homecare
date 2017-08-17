@@ -113,6 +113,7 @@ class UserApiRepository implements UserApiRepositoryInterface
                     //Incoming record's updated_at is not later than existing record's updated_at;
                     //So, the record incoming is updated earlier; So, database doesn't need to be updated..
                     else{
+                        dd('this row is skipped',$row);
                         $returnedObj['aceplusStatusCode']       = ReturnMessage::SKIPPED;
                         $returnedObj['aceplusStatusMessage']    = "User data doesn't need to be updated!";
                         $returnedObj['log']                     = $tempLogArr;
