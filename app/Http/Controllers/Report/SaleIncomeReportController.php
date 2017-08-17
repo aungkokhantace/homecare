@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
  * Author: Aung Ko Khant
- * Date: September/14/2016
- * Time: 11:33 AM
+ * Date: 2017-08-16
+ * Time: 02:33 PM
  */
 
 namespace App\Http\Controllers\Report;
@@ -27,7 +26,7 @@ use App\Core\FormatGenerator As FormatGenerator;
 use App\Core\ReturnMessage As ReturnMessage;
 use Maatwebsite\Excel\Facades\Excel;
 
-class IncomeSummaryReportController extends Controller
+class SaleIncomeReportController extends Controller
 {
     private $repo;
 
@@ -41,13 +40,13 @@ class IncomeSummaryReportController extends Controller
             $type = null;
             $from_date = null;
             $to_date = null;
-
+            
             // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
             $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
-
+            // dd('invoices',$invoices);
             foreach($invoices as $invoice){
                 // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
-                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
+                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->total_consultant_amount+$invoice->package_price;
             }
 
             $totalArray = array();
@@ -56,15 +55,21 @@ class IncomeSummaryReportController extends Controller
             $totalServiceAmount         = 0;
             $totalMedicationAmount      = 0;
             $totalInvestigationAmount   = 0;
+            $totalConsultantAmount      = 0;
             $totalPackageAmount         = 0;
+            $totalOtherServiceAmount    = 0;
+            $totalTaxAmount             = 0;
             $totalAmount                = 0;
-
+            
             foreach($invoices as $invoice){
                 $totalCarAmount             += $invoice->total_car_amount;
                 $totalServiceAmount         += $invoice->total_service_amount;
                 $totalMedicationAmount      += $invoice->total_medication_amount;
                 $totalInvestigationAmount   += $invoice->total_investigation_amount;
+                $totalConsultantAmount      += $invoice->total_consultant_amount;
                 $totalPackageAmount         += $invoice->package_price;
+                $totalOtherServiceAmount    += $invoice->total_other_service_amount;
+                $totalTaxAmount             += $invoice->total_tax_amount;
                 $totalAmount                += $invoice->total;
             }
 
@@ -72,10 +77,13 @@ class IncomeSummaryReportController extends Controller
             $totalArray['service']          = $totalServiceAmount;
             $totalArray['medication']       = $totalMedicationAmount;
             $totalArray['investigation']    = $totalInvestigationAmount;
+            $totalArray['consultant']       = $totalConsultantAmount;
             $totalArray['package']          = $totalPackageAmount;
+            $totalArray['other']            = $totalOtherServiceAmount;
+            $totalArray['tax']              = $totalTaxAmount;
             $totalArray['total']            = $totalAmount;
-
-            return view('report.incomesummaryreport')
+            // dd('inv',$invoices);
+            return view('report.saleincomereport')
                 ->with('invoices',$invoices)
                 ->with('totalArray',$totalArray);
         }

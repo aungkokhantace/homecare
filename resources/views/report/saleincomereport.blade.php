@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title','Income Summary Report By Graph')
+@section('title','Sale Income Report')
 @section('content')
 
 <!-- begin #content -->
 <div id="content" class="content">
 
-    <h1 class="page-header">Income Summary Report</h1>
+    <h1 class="page-header">Sale Income Report</h1>
     @if(count(Session::get('message')) != 0)
         <div>
         </div>
@@ -14,7 +14,7 @@
 
     <div class="row">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-            <label for="type" class="text_bold_black">Types</label>
+            <label for="type" class="text_bold_black">Type</label>
         </div>
 
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -39,8 +39,8 @@
         </div>
     </div>
     <br>
-    
-    {{--Start Datepicker--}}
+
+    <!-- Start Datepicker -->
     <div class="row days" style="display:none;">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
             <label for="from_date" class="text_bold_black">From Date</label>
@@ -69,10 +69,10 @@
             </div>
         </div>
     </div>
-    {{--End Datepicker--}}
+    <!-- End Datepicker -->
     <br class="days">
 
-    {{--Start Monthpicker--}}
+    <!-- Start Monthpicker -->
     <div class="row months" style="display:none;">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
             <label for="from_month" class="text_bold_black">From Month</label>
@@ -101,10 +101,10 @@
             </div>
         </div>
     </div>
-    {{--End Monthpicker--}}
+    <!-- End Monthpicker -->
     <br class="months">
 
-    {{--Start Yearpicker--}}
+    <!-- Start Yearpicker -->
     <div class="row years" style="display:none;">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
             <label for="from_year" class="text_bold_black">From Year</label>
@@ -133,25 +133,88 @@
             </div>
         </div>
     </div>
-    {{--End Yearpicker--}}
+    <!-- End Yearpicker -->
     <br class="years">
 
     <div class="row">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
 
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <button type="button" onclick="check_to_redirect_to_list_with_type();" class="form-control btn-primary">Preview By List</button>
+            <button type="button" onclick="report_search_with_type('saleincomereport');" class="form-control btn-primary">Preview By List</button>
         </div>
+<!-- 
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <button type="button" onclick="check_to_redirect_to_graph_with_type();" class="form-control btn-primary">Preview By Graph</button>
+        </div> -->
 
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <button type="button" onclick="report_search_with_type('incomesummaryreportbygraph');" class="form-control btn-primary">Preview By Graph</button>
+            <button type="button" onclick="report_export_with_type('saleincomereport');" class="form-control btn-primary">Export Excel</button>
         </div>
     </div>
-    <br>
-    <br>
+
     <div class="row">
-        <div class="col-md-12">
-            <div id="linechartdiv"></div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="listing">
+                <input type="hidden" id="pageSearchedValue" name="pageSearchedValue" value="">
+                <table class="table list-table" id="list-table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Service Income</th>
+                        <th>Medication Income</th>
+                        <th>Investigation Income</th>
+                        <th>Car Income</th> 
+                        <th>Package Income</th>
+                        <th>Consultant Income</th>
+                        <th>Other Service Income</th>
+                        <th>Tax Income</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th class="search-col" con-id="date">Date</th>
+                        <th class="search-col" con-id="service_income">Service Income</th>
+                        <th class="search-col" con-id="medication_income">Medication Income</th>
+                        <th class="search-col" con-id="investigation_income">Investigation Income</th>
+                        <th class="search-col" con-id="car_income">Car Income</th>
+                        <th class="search-col" con-id="package_income">Package Income</th>
+                        <th class="search-col" con-id="consultant_income">Consultant Income</th>
+                        <th class="search-col" con-id="other_service_income">Other Service Income</th>
+                        <th class="search-col" con-id="tax_income">Tax Income</th>
+                        <th class="search-col" con-id="total">Total</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach($invoices as $invoice)
+                            <tr>
+                                <td>{{$invoice->date}}</td>                                
+                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_medication_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_investigation_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_car_amount,2)}}</td>
+                                <td>{{number_format($invoice->package_price,2)}}</td>
+                                <td>{{number_format($invoice->total_consultant_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_other_service_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_tax_amount,2)}}</td>
+                                <td>{{number_format($invoice->total,2)}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                        <tr bgcolor="#1976d3" style = "color:white">
+                            <td></td>
+                            <td>{{number_format($totalArray['service'],2)}}</td>
+                            <td>{{number_format($totalArray['medication'],2)}}</td>
+                            <td>{{number_format($totalArray['investigation'],2)}}</td>
+                            <td>{{number_format($totalArray['car'],2)}}</td>
+                            <td>{{number_format($totalArray['package'],2)}}</td>
+                            <td>{{number_format($totalArray['consultant'],2)}}</td>
+                            <td>{{number_format($totalArray['other'],2)}}</td>
+                            <td>{{number_format($totalArray['tax'],2)}}</td>
+                            <td>{{number_format($totalArray['total'],2)}}</td>
+                        </tr>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -162,142 +225,35 @@
     <script type="text/javascript" language="javascript" class="init">
         $(document).ready(function() {
 
-            var chartData = <?php echo json_encode($chartData) ?>;
-            var date_type = document.getElementById('type').value;
-            var date_format;
-            if(date_type == "daily"){
-                date_format = "DD-MM-YYYY";
-            }
-            else if(date_type == "monthly"){
-                date_format = "MM-YYYY";
-            }
-            else{
-                date_format = "YYYY";
-            }
-            console.log('dateformat',date_format);
-            var chart = AmCharts.makeChart("linechartdiv", {
-                "type": "serial",
-                "theme": "light",
-                "marginRight": 40,
-                "marginLeft": 40,
-                "autoMarginOffset": 20,
-                "mouseWheelZoomEnabled":true,
-                "dataDateFormat": date_format,
-                "valueAxes": [{
-                    "id": "v1",
-                    "axisAlpha": 0,
-                    "position": "left",
-                    "ignoreAxisWidth":true
-                }],
-                "balloon": {
-                    "borderThickness": 1,
-                    "shadowAlpha": 0
-                },
-                "graphs": [{
-                    "id": "g1",
-                    "balloon":{
-                        "drop":false,
-                        "adjustBorderColor":false,
-                        "color":"#ffffff"
-                    },
-                    "bullet": "round",
-                    "bulletBorderAlpha": 1,
-                    "bulletColor": "#FFFFFF",
-                    "bulletSize": 5,
-                    "hideBulletsCount": 50,
-                    "lineThickness": 2,
-                    "title": "red line",
-                    "useLineColorForBulletBorder": true,
-                    "valueField": "amount",
-                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
-                }],
-                "chartScrollbar": {
-                    "graph": "g1",
-                    "oppositeAxis":false,
-                    "offset":30,
-                    "scrollbarHeight": 80,
-                    "backgroundAlpha": 0,
-                    "selectedBackgroundAlpha": 0.1,
-                    "selectedBackgroundColor": "#888888",
-                    "graphFillAlpha": 0,
-                    "graphLineAlpha": 0.5,
-                    "selectedGraphFillAlpha": 0,
-                    "selectedGraphLineAlpha": 1,
-                    "autoGridCount":true,
-                    "color":"#AAAAAA"
-                },
-                "chartCursor": {
-                    "pan": true,
-                    "valueLineEnabled": true,
-                    "valueLineBalloonEnabled": true,
-                    "cursorAlpha":1,
-                    "cursorColor":"#258cbb",
-                    "limitToGraph":"g1",
-                    "valueLineAlpha":0.2,
-                    "valueZoomable":true
-                },
-                "valueScrollbar":{
-                    "oppositeAxis":false,
-                    "offset":50,
-                    "scrollbarHeight":10
-                },
-                "categoryField": "date",
-                "categoryAxis": {
-                    "parseDates": true,
-                    "dashLength": 1,
-                    "minorGridEnabled": true
-                },
-                "export": {
-                    "enabled": true,
-                    "fileName": "Income_Summary_Report_By_Graph",
-                    "menu": [ {
-                        "class": "export-main",
-                        "menu": [ {
-                            "label": "Download as image",
-                            "menu": [ "PNG", "JPG", "SVG", "PDF" ]
-                        }, {
-                            "label": "Print",
-                            "format": "PRINT"
-                        } ]
-                    } ]
-                },
-                "dataProvider": chartData
+            $('#list-table tfoot th.search-col').each( function () {
+                var title = $('#list-table thead th').eq( $(this).index() ).text();
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
+
+            var table = $('#list-table').DataTable({
+                aLengthMenu: [
+                    [5,25, 50, 100, 200, -1],
+                    [5,25, 50, 100, 200, "All"]
+                ],
+                iDisplayLength: 5,
+                "order": [[ 0, "asc" ]],
+                stateSave: false,
+                "pagingType": "full",
+                "paging":   false,
+                "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
+
             });
 
-            chart.addListener("rendered", zoomChart);
+            // Apply the search
+            table.columns().eq( 0 ).each( function ( colIdx ) {
+                $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+                    table
+                            .column( colIdx )
+                            .search( this.value )
+                            .draw();
+                } );
 
-            zoomChart();
-
-            function zoomChart() {
-                chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
-            }
-
-
-            AmCharts.checkEmptyData = function(chart) {
-                if (0 == chart.dataProvider.length) {
-                    // set min/max on the value axis
-                    chart.valueAxes[0].minimum = 0;
-                    chart.valueAxes[0].maximum = 100;
-
-                    // add dummy data point
-                    var dataPoint = {
-                        dummyValue: 0
-                    };
-                    dataPoint[chart.categoryField] = '';
-                    chart.dataProvider = [dataPoint];
-
-                    // add label
-                    chart.addLabel(0, '50%', 'The chart contains no data', 'center');
-
-                    // set opacity of the chart div
-                    chart.chartDiv.style.opacity = 0.5;
-
-                    // redraw it
-                    chart.validateNow();
-                }
-            }
-
-            AmCharts.checkEmptyData(chart);
+            });
 
             //Start Daypickers
             $('#datepicker_from').datepicker({

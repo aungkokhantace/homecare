@@ -1020,5 +1020,49 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $service_id = $result->service_id;
         return $service_id;
     }
+
+    public function getSchedulesWithServiceByType($schedulesArray = [], $type = null, $from_date = null, $to_date = null) {        
+                $query = Schedule::query();
+                $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+                $query = $query->whereIn('schedules.id', $schedulesArray);
+                $query = $query->where('schedule_detail.type','=','service');
+                $query = $query->whereNull('schedules.deleted_at');
+        
+                if(isset($type) && $type != null && $type == 'yearly'){
+                    if(isset($from_date) && $from_date != null){
+                        $tempFromDate = date("Y-m-d", strtotime('01-01-'.$from_date));
+                        $query = $query->where('schedules.date', '>=' , $tempFromDate);
+                    }
+                    if(isset($to_date) && $to_date != null){
+                        $tempToDate = date("Y-m-d", strtotime('31-12-'.$to_date));
+                        $query = $query->where('schedules.date', '<=', $tempToDate);
+                    }
+                }
+                else if(isset($type) && $type != null && $type == 'monthly'){
+                    if(isset($from_date) && $from_date != null){
+                        $tempFromDate = date("Y-m-d", strtotime('01-'.$from_date));
+                        $query = $query->where('schedules.date', '>=' , $tempFromDate);
+                    }
+                    if(isset($to_date) && $to_date != null){
+                        $tempToDate = date("Y-m-d", strtotime('31-'.$to_date));
+                        $query = $query->where('schedules.date', '<=', $tempToDate);
+                    }
+                }
+                else{
+                    if(isset($from_date) && $from_date != null){
+                        $tempFromDate = date("Y-m-d", strtotime($from_date));
+                        $query = $query->where('schedules.date', '>=' , $tempFromDate);
+                    }
+                    if(isset($to_date) && $to_date != null){
+                        $tempToDate = date("Y-m-d", strtotime($to_date));
+                        $query = $query->where('schedules.date', '<=', $tempToDate);
+                    }
+                }
+        
+                $query = $query->orderBy('schedules.date','desc');
+                $result = $query->get();
+        
+                return $result;
+            }
 }
 

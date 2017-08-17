@@ -205,4 +205,94 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         return $amount;
 
     }
+
+    public function getIncomeSummaryByType($type = null, $from_date = null, $to_date = null)
+    {
+        // dd('by_type',$type,$from_date,$to_date);
+        $query = Invoice::query();
+
+        $query = $query->leftjoin('schedules', 'schedules.id', '=', 'invoices.schedule_id');
+        $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            $query = $query->select(DB::raw('DATE_FORMAT(invoices.created_at,"%Y") as date'),
+            DB::raw('sum(invoices.total_car_amount) as total_car_amount'),
+            DB::raw('sum(invoices.total_service_amount) as total_service_amount'),
+            DB::raw('sum(invoices.total_medication_amount) as total_medication_amount'),
+            DB::raw('sum(invoices.total_investigation_amount) as total_investigation_amount'),
+            DB::raw('sum(invoices.total_consultant_fee) as total_consultant_amount'),
+            DB::raw('sum(invoices.package_price) as package_price'),
+            DB::raw('sum(invoices.total_other_service_amount) as total_other_service_amount'),
+            DB::raw('sum(invoices.total_tax_amt) as total_tax_amount'));
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            $query = $query->select(DB::raw('DATE_FORMAT(invoices.created_at,"%m-%Y") as date'),
+            DB::raw('sum(invoices.total_car_amount) as total_car_amount'),
+            DB::raw('sum(invoices.total_service_amount) as total_service_amount'),
+            DB::raw('sum(invoices.total_medication_amount) as total_medication_amount'),
+            DB::raw('sum(invoices.total_investigation_amount) as total_investigation_amount'),
+            DB::raw('sum(invoices.total_consultant_fee) as total_consultant_amount'),
+            DB::raw('sum(invoices.package_price) as package_price'),
+            DB::raw('sum(invoices.total_other_service_amount) as total_other_service_amount'),
+            DB::raw('sum(invoices.total_tax_amt) as total_tax_amount'));
+        }
+        else{
+            $query = $query->select(DB::raw('DATE_FORMAT(invoices.created_at,"%d-%m-%Y") as date'),
+            DB::raw('sum(invoices.total_car_amount) as total_car_amount'),
+            DB::raw('sum(invoices.total_service_amount) as total_service_amount'),
+            DB::raw('sum(invoices.total_medication_amount) as total_medication_amount'),
+            DB::raw('sum(invoices.total_investigation_amount) as total_investigation_amount'),
+            DB::raw('sum(invoices.total_consultant_fee) as total_consultant_amount'),
+            DB::raw('sum(invoices.package_price) as package_price'),
+            DB::raw('sum(invoices.total_other_service_amount) as total_other_service_amount'),
+            DB::raw('sum(invoices.total_tax_amt) as total_tax_amount'));
+        }
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime('01-01-'.$from_date));
+                $query = $query->where('invoices.created_at', '>=' , $tempFromDate.' 00:00:00');
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime('31-12-'.$to_date));
+                $query = $query->where('invoices.created_at', '<=', $tempToDate.' 23:59:59');
+            }
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            if(isset($from_date) && $from_date != null){
+                $temp_from_date = "01-".$from_date;
+                $from_month = date("m", strtotime($temp_from_date));
+                $query = $query->whereMonth('invoices.created_at','>=',$from_month);
+            }
+            if(isset($to_date) && $to_date != null){
+                $temp_to_date = "01-".$to_date;
+                $to_month = date("m", strtotime($temp_to_date));
+                $query = $query->whereMonth('invoices.created_at','<=',$to_month);
+            }
+        }
+        else{
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime($from_date));
+                $query = $query->where('invoices.created_at', '>=' , $tempFromDate.' 00:00:00');
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime($to_date));
+                $query = $query->where('invoices.created_at', '<=', $tempToDate.' 23:59:59');
+            }
+        }
+
+        $query = $query->whereNull('invoices.deleted_at');
+        if(isset($type) && $type != null && $type == 'yearly'){
+            $query = $query->groupBy(DB::raw("YEAR(invoices.created_at)"));
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            $query = $query->groupBy(DB::raw("MONTH(invoices.created_at)"));
+        }
+        else{
+            $query = $query->groupBy(DB::raw("DATE(invoices.created_at)"));
+        }
+        $result = $query->get();
+        // dd('result',$result);
+        return $result;
+    }
 }

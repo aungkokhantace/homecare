@@ -265,7 +265,6 @@ class PatientApiController extends Controller
         $user_id                = $inputAll->user_id;
         $prefix                 = "";
         $checkServerStatusArray = Check::checkCodes($inputAll);
-
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK){
             $prefix                     = $checkServerStatusArray['tablet_id'];
             $patient_prefix             = Utility::generatePatientPrefix($prefix);
@@ -273,7 +272,7 @@ class PatientApiController extends Controller
             $params                     = $checkServerStatusArray['data'][0];
             $tablet_id                  = $checkServerStatusArray['tablet_id'];
             $logArr                     = array();
-
+            
             try{
                 DB::beginTransaction();
 
@@ -281,7 +280,6 @@ class PatientApiController extends Controller
                     foreach ($params->patients as $patient) {
                         if (isset($patient->core_users) && count($patient->core_users) > 0) {
                             $core_users = $patient->core_users;
-
                             if(array_key_exists('id',$core_users)) {
                                 if ($core_users->id != null && $core_users->id != ""){
                                     $userArr = array();
@@ -289,6 +287,7 @@ class PatientApiController extends Controller
 
                                     $userRepo = new UserApiRepository();
                                     $userResult = $userRepo->createSingleUser($userArr);
+                                    
                                     //if user insertion was successful
                                     if($userResult['aceplusStatusCode'] == ReturnMessage::OK){
                                         if(isset($userResult['log']) && count($userResult['log']) > 0){

@@ -316,6 +316,13 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>1041],
             ['role_id'=>1, 'permission_id'=>1042],
 
+            //Sale Income Report
+            ['role_id'=>1, 'permission_id'=>1050],
+            ['role_id'=>1, 'permission_id'=>1051],
+            ['role_id'=>1, 'permission_id'=>1052],
+            // ['role_id'=>1, 'permission_id'=>1053],
+            // ['role_id'=>1, 'permission_id'=>1054],
+
             //Log Patient Case Summary
 
             ['role_id'=>1, 'permission_id'=>1014],
@@ -632,6 +639,13 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>2, 'permission_id'=>1040],
             ['role_id'=>2, 'permission_id'=>1041],
             ['role_id'=>2, 'permission_id'=>1042],
+
+            //Sale Income Report
+            ['role_id'=>2, 'permission_id'=>1050],
+            ['role_id'=>2, 'permission_id'=>1051],
+            ['role_id'=>2, 'permission_id'=>1052],
+            // ['role_id'=>2, 'permission_id'=>1053],
+            // ['role_id'=>2, 'permission_id'=>1054],
         );
 
         DB::table('core_permission_role')->insert($roles);

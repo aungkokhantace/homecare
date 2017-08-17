@@ -348,6 +348,13 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('incomesummaryreportbygraph', array('as'=>'incomesummaryreportbygraph','uses'=>'Report\IncomeSummaryReportController@graph'));
         Route::get('incomesummaryreportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'incomesummaryreportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\IncomeSummaryReportController@graphsearch'));
 
+        //New Sale Income Report
+        Route::get('saleincomereport', array('as'=>'saleincomereport','uses'=>'Report\SaleIncomeReportController@index'));
+        Route::get('saleincomereport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'saleincomereport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\SaleIncomeReportController@search'));
+        Route::get('saleincomereport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'saleincomereport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\SaleIncomeReportController@excel'));
+        // Route::get('saleincomereportbygraph', array('as'=>'saleincomereportbygraph','uses'=>'Report\SaleIncomeReportController@graph'));
+        // Route::get('saleincomereportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'saleincomereportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\SaleIncomeReportController@graphsearch'));
+
         //Activities
         Route::get('activities', array('as'=>'activities','uses'=>'Backend\ActivitiesController@index'));
 
