@@ -428,6 +428,12 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                             $userArray[0] = $core_user;
                             $userResult = $userRepo->createSingleUser($userArray);
 
+                             //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
+                            if($userResult['aceplusStatusCode'] == ReturnMessage::SKIPPED){
+                                //skip this row and continue to next loop
+                                continue;
+                            }
+
                             if ($userResult['aceplusStatusCode'] == ReturnMessage::OK) {
 
                                 //if insertion was successful, then create date and message for log

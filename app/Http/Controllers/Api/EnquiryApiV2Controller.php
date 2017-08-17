@@ -129,6 +129,12 @@ class EnquiryApiV2Controller extends Controller
                                 $userRepo      = new UserApiRepository();
                                 $userResult    = $userRepo->createSingleUser($core_users);
 
+                                //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
+                                if($userResult['aceplusStatusCode'] == ReturnMessage::SKIPPED){
+                                    //skip this row and continue to next loop
+                                    continue;
+                                }
+
                                 //if user insertion was successful
                                 if($userResult['aceplusStatusCode'] == ReturnMessage::OK){
                                     if(isset($userResult['log']) && count($userResult['log']) > 0){
