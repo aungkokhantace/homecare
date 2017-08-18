@@ -372,12 +372,12 @@ class PatientApiController extends Controller
                             $patient->deleted_at = "";
                         }
 
-                        $data[$count] = $patient;
+                        $data[0]["patients"][$count] = $patient;
 
                         if (isset($allergies) && count($allergies) > 0) {
-                            $data[$count]->patient_allergy = $allergies;
+                            $data[0]["patients"][$count]->patient_allergy = $allergies;
                         } else {
-                            $data[$count]->patient_allergy = [];
+                            $data[0]["patients"][$count]->patient_allergy = [];
                         }
 
                         if (isset($core_user) && count($core_user) > 0) {
@@ -391,9 +391,9 @@ class PatientApiController extends Controller
                                 $core_user->deleted_at = "";
                             }
 
-                            $data[$count]->core_user = $core_user;
+                            $data[0]["patients"][$count]->core_users = $core_user;
                         } else {
-                            $data[$count]->core_user = new \stdClass();
+                            $data[0]["patients"][$count]->core_users = new \stdClass();
                         }
 
                         if (isset($logs) && count($logs) > 0) {
@@ -408,9 +408,9 @@ class PatientApiController extends Controller
                                     $log->deleted_at = "";
                                 }
                             }
-                            $data[$count]->log_patient_case_summary = $logs;
+                            $data[0]["patients"][$count]->log_patient_case_summary = $logs;
                         } else {
-                            $data[$count]->log = [];
+                            $data[0]["patients"][$count]->log = [];
                         }
 
                         $count++;
@@ -438,7 +438,7 @@ class PatientApiController extends Controller
                 $returnedObj['tabletId']                = $tablet_id;
                 $returnedObj['max_key']                 = $maxKey;
                 $returnedObj['data']                    = $data;
-
+                
                 return \Response::json($returnedObj);
             }
             catch (\Exception $e) {
