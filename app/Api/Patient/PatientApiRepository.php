@@ -404,7 +404,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     $temp_current_updated_at = $findPatientObj->updated_at;
                     $current_updated_at = $temp_current_updated_at;
                     
-                    $temp_input_updated_at = $row->updated_at;
+                    $temp_input_updated_at = $data->updated_at;
                     $input_updated_at = $temp_input_updated_at;
 
                     //Incoming record's updated_at is later than existing record's updated_at;
