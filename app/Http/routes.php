@@ -447,7 +447,7 @@ Route::group(['prefix' => 'api'], function () {
 
     //enquiry api version 2
     Route::post('enquiry/upload/v2', array('as'=>'enquiry/upload/v2','uses'=>'Api\EnquiryApiV2Controller@upload'));
-    Route::post('enquiry/uploadEnquiry/v2', array('as'=>'enquiry/upload/v2','uses'=>'Api\EnquiryApiV2Controller@uploadEnquiry'));
+    Route::post('enquiry/uploadEnquiry/v2', array('as'=>'enquiry/uploadEnquiry/v2','uses'=>'Api\EnquiryApiV2Controller@uploadEnquiry'));
 
     //schedule api version 2
     Route::post('schedule/upload/v2', array('as'=>'schedule/upload/v2','uses'=>'Api\ScheduleApiV2Controller@uploadSchedule'));
