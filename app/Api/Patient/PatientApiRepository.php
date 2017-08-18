@@ -364,7 +364,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 $email = $data->email;
 
                 //Check update or create for log date
-                $findPatientObj    = Patient::where('user_id','=',$id)->get();
+                $findPatientObj    = Patient::where('user_id','=',$id)->first();
                 if(isset($findPatientObj) && count($findPatientObj) > 0){
                     $tempPatientArr['date']               = $data->updated_at;
                     $patientCreate                        = "updated";
