@@ -159,8 +159,8 @@
                 <table class="table list-table" id="list-table">
                     <thead>
                     <tr>
-                        <th rowspan=2>Date</th>
-                        <th colspan=5>Service Income</th>
+                        <th rowspan=2 class="min_width_date">Date</th>
+                        <th colspan=5 class="center_aligned">Service Income</th>
                         <th rowspan=2>Medication Income</th>
                         <th rowspan=2>Investigation Income</th>
                         <th rowspan=2>Car Income</th> 
@@ -197,11 +197,11 @@
                             <tr>
                                 <td>{{$invoice->date}}</td>                                
                                 <!-- <td>{{number_format($invoice->total_service_amount,2)}}</td> -->
-                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
-                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
-                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
-                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
-                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
+                                <td>{{number_format($invoice->serviceCountArray['MO'],2)}}</td>
+                                <td>{{number_format($invoice->serviceCountArray['Musculo'],2)}}</td>
+                                <td>{{number_format($invoice->serviceCountArray['Neuro'],2)}}</td>
+                                <td>{{number_format($invoice->serviceCountArray['Nutrition'],2)}}</td>
+                                <td>{{number_format($invoice->serviceCountArray['Blood Drawing'],2)}}</td>
                                 <td>{{number_format($invoice->total_medication_amount,2)}}</td>
                                 <td>{{number_format($invoice->total_investigation_amount,2)}}</td>
                                 <td>{{number_format($invoice->total_car_amount,2)}}</td>
@@ -215,7 +215,11 @@
                     </tbody>
                         <tr bgcolor="#1976d3" style = "color:white">
                             <td></td>
-                            <td>{{number_format($totalArray['service'],2)}}</td>
+                            <td>{{number_format($totalArray['mo'],2)}}</td>
+                            <td>{{number_format($totalArray['musculo'],2)}}</td>
+                            <td>{{number_format($totalArray['neuro'],2)}}</td>
+                            <td>{{number_format($totalArray['nutrition'],2)}}</td>
+                            <td>{{number_format($totalArray['blood drawing'],2)}}</td>
                             <td>{{number_format($totalArray['medication'],2)}}</td>
                             <td>{{number_format($totalArray['investigation'],2)}}</td>
                             <td>{{number_format($totalArray['car'],2)}}</td>

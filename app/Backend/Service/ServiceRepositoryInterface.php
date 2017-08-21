@@ -17,4 +17,5 @@ interface ServiceRepositoryInterface
     public function getObjByID($id);
     public function delete($id);
     public function getServiceName($id);
+    public function getServicePriceById($id);
 }
