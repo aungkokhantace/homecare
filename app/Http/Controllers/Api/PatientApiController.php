@@ -410,7 +410,7 @@ class PatientApiController extends Controller
                             }
                             $data[0]["patients"][$count]->log_patient_case_summary = $logs;
                         } else {
-                            $data[0]["patients"][$count]->log = [];
+                            $data[0]["patients"][$count]->log_patient_case_summary = [];
                         }
 
                         $count++;
