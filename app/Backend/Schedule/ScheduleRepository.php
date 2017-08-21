@@ -1063,6 +1063,19 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                 $result = $query->get();
         
                 return $result;
-            }
+    }
+
+    public function getSchedulesGroupedByDate($date){
+        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+        ->where('schedule_detail.type','=','service')
+        ->where('schedules.date','=',$date)
+        // ->where('schedule_detail.service_id','=',$service_id)
+        // ->where('schedules.status','=','complete')
+        // ->whereYear('schedules.date','=',date('Y'))
+        // ->whereMonth('schedules.date','=',$month)
+        ->get();
+    return $result;
+    }
+    
 }
 

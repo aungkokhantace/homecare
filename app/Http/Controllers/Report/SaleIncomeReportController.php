@@ -43,7 +43,132 @@ class SaleIncomeReportController extends Controller
             
             // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
             $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
-            // dd('invoices',$invoices);
+            
+            foreach($invoices as $invoice){
+                // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
+                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->total_consultant_amount+$invoice->package_price;
+            }
+
+            $serviceCountArray = array();
+
+            $scheduleRepo = new ScheduleRepository();
+            foreach($invoices as $invoice_service){
+                $temp_date = $invoice_service->date;
+                $date = date('Y-m-d',strtotime($temp_date));
+                $schedules = $scheduleRepo->getSchedulesGroupedByDate($date);
+
+                 //reset service counters
+                $mo_count = 0;              //service_id = 1
+                $musculo_count = 0;         //service_id = 2
+                $neuro_count = 0;           //service_id = 3
+                $nutrition_count = 0;       //service_id = 4
+                $blood_drawing_count = 0;   //service_id = 5
+
+                foreach($schedules as $schedule){
+                    $service_id = $schedule->service_id;
+                    if($service_id == 1){
+                        //MO service
+                        $mo_count++;
+                    }
+                    else if($service_id == 2){
+                        //Musculo service
+                        $musculo_count++;
+                    }
+                    else if($service_id == 3){
+                        //Neuro service
+                        $neuro_count++;
+                    }
+                    else if($service_id == 4){
+                        //Nutrition service
+                        $nutrition_count++;
+                    }
+                    else if($service_id == 5){
+                        //Blood drawing service
+                        $blood_drawing_count++;
+                    }
+                }
+
+                $serviceCountArray['MO'] = $mo_count;
+                $serviceCountArray['Musculo'] = $musculo_count;
+                $serviceCountArray['Neuro'] = $neuro_count;
+                $serviceCountArray['Nutrition'] = $nutrition_count;
+                $serviceCountArray['Blood Drawing'] = $blood_drawing_count;
+
+                $invoice_service->serviceCountArray = $serviceCountArray;
+            }
+
+            $totalArray = array();
+
+            $totalCarAmount             = 0;
+            $totalServiceAmount         = 0;
+            $totalMedicationAmount      = 0;
+            $totalInvestigationAmount   = 0;
+            $totalConsultantAmount      = 0;
+            $totalPackageAmount         = 0;
+            $totalOtherServiceAmount    = 0;
+            $totalTaxAmount             = 0;
+            $totalAmount                = 0;
+            
+            foreach($invoices as $invoice){
+                $totalCarAmount             += $invoice->total_car_amount;
+                $totalServiceAmount         += $invoice->total_service_amount;
+                $totalMedicationAmount      += $invoice->total_medication_amount;
+                $totalInvestigationAmount   += $invoice->total_investigation_amount;
+                $totalConsultantAmount      += $invoice->total_consultant_amount;
+                $totalPackageAmount         += $invoice->package_price;
+                $totalOtherServiceAmount    += $invoice->total_other_service_amount;
+                $totalTaxAmount             += $invoice->total_tax_amount;
+                $totalAmount                += $invoice->total;
+            }
+
+            $totalArray['car']              = $totalCarAmount;
+            $totalArray['service']          = $totalServiceAmount;
+            $totalArray['medication']       = $totalMedicationAmount;
+            $totalArray['investigation']    = $totalInvestigationAmount;
+            $totalArray['consultant']       = $totalConsultantAmount;
+            $totalArray['package']          = $totalPackageAmount;
+            $totalArray['other']            = $totalOtherServiceAmount;
+            $totalArray['tax']              = $totalTaxAmount;
+            $totalArray['total']            = $totalAmount;
+
+            // // Start getting income summary of each service
+            // $invoicesWithSchedules = $this->repo->getInvoicesWithSchedules();
+            
+            // $schedulesArray = array();
+            // foreach($invoicesWithSchedules as $invoice){
+            //     $schedulesArray[] = $invoice->schedule_id;
+            // }
+
+            // $eachServiceIncome    = $this->repo->getEachServiceIncome($from_date, $to_date, $schedulesArray);
+            // dd('eachServiceIncome');
+            // End getting income summary of each service
+            
+            return view('report.saleincomereport')
+                ->with('invoices',$invoices)
+                ->with('totalArray',$totalArray);
+        }
+        return redirect('/');
+    }
+
+    public function search($type = null, $from_date = null, $to_date = null){
+        if (Auth::guard('User')->check()) {
+
+            $from_year = null;
+            $to_year = null;
+            $from_month = null;
+            $to_month = null;
+            if($type == "yearly"){
+                $from_year = $from_date;
+                $to_year = $to_date;
+            }
+            if($type == "monthly"){
+                $from_month = $from_date;
+                $to_month = $to_date;
+            }
+            
+            // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
+            $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
+            
             foreach($invoices as $invoice){
                 // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->total_consultant_amount+$invoice->package_price;
@@ -82,65 +207,8 @@ class SaleIncomeReportController extends Controller
             $totalArray['other']            = $totalOtherServiceAmount;
             $totalArray['tax']              = $totalTaxAmount;
             $totalArray['total']            = $totalAmount;
-            // dd('inv',$invoices);
+            
             return view('report.saleincomereport')
-                ->with('invoices',$invoices)
-                ->with('totalArray',$totalArray);
-        }
-        return redirect('/');
-    }
-
-    public function search($type = null, $from_date = null, $to_date = null){
-        if (Auth::guard('User')->check()) {
-
-            $from_year = null;
-            $to_year = null;
-            $from_month = null;
-            $to_month = null;
-            if($type == "yearly"){
-                $from_year = $from_date;
-                $to_year = $to_date;
-            }
-            if($type == "monthly"){
-                $from_month = $from_date;
-                $to_month = $to_date;
-            }
-            
-            // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
-            $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
-            
-            foreach($invoices as $invoice){
-                // dd($invoice->date);
-                // $invoice->date = Carbon::parse($invoice->date)->format('m-Y');
-                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
-            }
-
-            $totalArray = array();
-
-            $totalCarAmount             = 0;
-            $totalServiceAmount         = 0;
-            $totalMedicationAmount      = 0;
-            $totalInvestigationAmount   = 0;
-            $totalPackageAmount         = 0;
-            $totalAmount                = 0;
-
-            foreach($invoices as $invoice){
-                $totalCarAmount             += $invoice->total_car_amount;
-                $totalServiceAmount         += $invoice->total_service_amount;
-                $totalMedicationAmount      += $invoice->total_medication_amount;
-                $totalInvestigationAmount   += $invoice->total_investigation_amount;
-                $totalPackageAmount         += $invoice->package_price;
-                $totalAmount                += $invoice->total;
-            }
-
-            $totalArray['car']              = $totalCarAmount;
-            $totalArray['service']          = $totalServiceAmount;
-            $totalArray['medication']       = $totalMedicationAmount;
-            $totalArray['investigation']    = $totalInvestigationAmount;
-            $totalArray['package']          = $totalPackageAmount;
-            $totalArray['total']            = $totalAmount;
-
-            return view('report.incomesummaryreport')
                 ->with('invoices',$invoices)
                 ->with('totalArray',$totalArray)
                 ->with('from_date',$from_date)
@@ -193,7 +261,7 @@ class SaleIncomeReportController extends Controller
             $totalArray['investigation']    = $totalInvestigationAmount;
             $totalArray['total']            = $totalAmount;
 
-            Excel::create('IncomeSummaryReport', function($excel)use($invoices, $totalArray) {
+            Excel::create('SaleIncomeReport', function($excel)use($invoices, $totalArray) {
                 $excel->sheet('SaleSummaryReport', function($sheet)use($invoices, $totalArray) {
 
                     $displayArray = array();                                   //array to be displayed in excel
@@ -271,7 +339,7 @@ class SaleIncomeReportController extends Controller
                 $chartData[$count]["amount"] = $invoice->total;
                 $count++;
             }
-            return view('report.incomesummaryreportbygraph')->with('chartData',$chartData);
+            return view('report.saleincomereportbygraph')->with('chartData',$chartData);
         }
         return redirect('/');
     }
@@ -293,7 +361,7 @@ class SaleIncomeReportController extends Controller
             }
             // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
             $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
-            // dd('invoices',$invoices);
+
             foreach($invoices as $invoice){
                 // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
@@ -309,7 +377,7 @@ class SaleIncomeReportController extends Controller
                 $count++;
             }
 
-            return view('report.incomesummaryreportbygraph')
+            return view('report.saleincomereportbygraph')
                 ->with('chartData',$chartData)
                 ->with('from_date',$from_date)
                 ->with('to_date',$to_date)
