@@ -159,19 +159,26 @@
                 <table class="table list-table" id="list-table">
                     <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Service Income</th>
-                        <th>Medication Income</th>
-                        <th>Investigation Income</th>
-                        <th>Car Income</th> 
-                        <th>Package Income</th>
-                        <th>Consultant Income</th>
-                        <th>Other Service Income</th>
-                        <th>Tax Income</th>
-                        <th>Total</th>
+                        <th rowspan=2>Date</th>
+                        <th colspan=5>Service Income</th>
+                        <th rowspan=2>Medication Income</th>
+                        <th rowspan=2>Investigation Income</th>
+                        <th rowspan=2>Car Income</th> 
+                        <th rowspan=2>Package Income</th>
+                        <th rowspan=2>Consultant Income</th>
+                        <th rowspan=2>Other Service Income</th>
+                        <th rowspan=2>Tax Income</th>
+                        <th rowspan=2>Total</th>
+                    </tr>
+                    <tr>
+                        <th>MO</th>
+                        <th>Musculo</th>
+                        <th>Neuro</th>
+                        <th>Nutrition</th>
+                        <th>Blood Drawing</th>
                     </tr>
                     </thead>
-                    <tfoot>
+                    <!-- <tfoot>
                     <tr>
                         <th class="search-col" con-id="date">Date</th>
                         <th class="search-col" con-id="service_income">Service Income</th>
@@ -184,11 +191,16 @@
                         <th class="search-col" con-id="tax_income">Tax Income</th>
                         <th class="search-col" con-id="total">Total</th>
                     </tr>
-                    </tfoot>
+                    </tfoot> -->
                     <tbody>
                         @foreach($invoices as $invoice)
                             <tr>
                                 <td>{{$invoice->date}}</td>                                
+                                <!-- <td>{{number_format($invoice->total_service_amount,2)}}</td> -->
+                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
                                 <td>{{number_format($invoice->total_service_amount,2)}}</td>
                                 <td>{{number_format($invoice->total_medication_amount,2)}}</td>
                                 <td>{{number_format($invoice->total_investigation_amount,2)}}</td>
