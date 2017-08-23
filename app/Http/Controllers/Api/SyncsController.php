@@ -74,7 +74,7 @@ class SyncsController extends Controller{
         $isFirstTimeConnect = Check::checkFirstTimeConnect($inputRaw);
         $checkServerStatusArray = Check::checkCodes($inputRaw);
         $result = array();
-
+        
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK){
             $prefix              = $checkServerStatusArray['tablet_id'];
             $patient_prefix      = Utility::generatePatientPrefix($prefix);
@@ -83,7 +83,7 @@ class SyncsController extends Controller{
 
             $inputParametersRaw = $checkServerStatusArray['data'];
             $inputParameters = array();
-
+           
             foreach ($inputParametersRaw as $paramTb) {
                 $inputParameters[$paramTb->name] = $paramTb->version;
             }
@@ -122,7 +122,6 @@ class SyncsController extends Controller{
             if(isset($syncsTables) && count($syncsTables)>0){
 
                 foreach($inputParameters as $kparam => $vparam) {
-
                     $serverTbVersion = $syncsTables[$kparam];
 
                     if(array_key_exists($kparam,$syncsTables )){
@@ -160,6 +159,55 @@ class SyncsController extends Controller{
                         }
                         else if($clientTbVersion < $serverTbVersion) {
                             if($kparam == "zone_detail"){
+                                $tempZones = DB::select("SELECT `id` FROM zones WHERE `deleted_at` is null");
+                                $tempZoneIdArr = array();
+                                foreach($tempZones as $tempZone){
+                                    array_push($tempZoneIdArr,$tempZone->id);    
+                                }
+                                $tempObj = DB::select("SELECT zone_detail.* FROM zone_detail WHERE `zone_id` IN ( '" . implode($tempZoneIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "enquiry_detail"){
+                                $tempEnquiries = DB::select("SELECT `id` FROM enquiries WHERE `deleted_at` is null");
+                                $tempEnquiryIdArr = array();
+                                foreach($tempEnquiries as $tempEnquiry){
+                                    array_push($tempEnquiryIdArr,$tempEnquiry->id);    
+                                }
+                                $tempObj = DB::select("SELECT enquiry_detail.* FROM enquiry_detail WHERE `enquiry_id` IN ( '" . implode($tempEnquiryIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "other_services_detail"){
+                                $tempOtherServices = DB::select("SELECT `id` FROM other_services WHERE `deleted_at` is null");
+                                $tempOtherServiceIdArr = array();
+                                foreach($tempOtherServices as $tempOtherService){
+                                    array_push($tempOtherServiceIdArr,$tempOtherService->id);    
+                                }
+                                $tempObj = DB::select("SELECT other_services_detail.* FROM other_services_detail WHERE `other_services_id` IN ( '" . implode($tempOtherServiceIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }                            
+                            else if($kparam == "patient_allergy"){
+                                $tempPatients = DB::select("SELECT `user_id` FROM patients WHERE `deleted_at` is null");
+                                $tempPatientIdArr = array();
+                                foreach($tempPatients as $tempPatient){
+                                    array_push($tempPatientIdArr,$tempPatient->user_id);    
+                                }
+                                $tempObj = DB::select("SELECT patient_allergy.* FROM patient_allergy WHERE `patient_id` IN ( '" . implode($tempPatientIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "patient_package_detail"){
+                                $tempPatientPackages = DB::select("SELECT `id` FROM patient_package WHERE `deleted_at` is null");
+                                $tempPatientPackageIdArr = array();
+                                foreach($tempPatientPackages as $tempPatientPackage){
+                                    array_push($tempPatientPackageIdArr,$tempPatientPackage->id);    
+                                }
+                                $tempObj = DB::select("SELECT patient_package_detail.* FROM patient_package_detail WHERE `patient_package_id` IN ( '" . implode($tempPatientPackageIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "package_promotions"){
+                                $tempObj = DB::select("SELECT * FROM " . $kparam);
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "transaction_promotions"){
                                 $tempObj = DB::select("SELECT * FROM " . $kparam);
                                 $result[$kparam] = $tempObj;
                             }
