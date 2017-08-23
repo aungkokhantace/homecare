@@ -159,8 +159,14 @@ class SyncsController extends Controller{
                             $result[$kparam] = $tempObj;
                         }
                         else if($clientTbVersion < $serverTbVersion) {
-                            $tempObj = DB::select("SELECT * FROM " . $kparam." WHERE `deleted_at` is null");
-                            $result[$kparam] = $tempObj;
+                            if($kparam == "zone_detail"){
+                                $tempObj = DB::select("SELECT * FROM " . $kparam);
+                                $result[$kparam] = $tempObj;
+                            }
+                            else{
+                                $tempObj = DB::select("SELECT * FROM " . $kparam." WHERE `deleted_at` is null");
+                                $result[$kparam] = $tempObj;
+                            }
                         }
                         else{
                             $result[$kparam] = array();

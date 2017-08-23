@@ -302,7 +302,6 @@ class InvoiceRepository implements InvoiceRepositoryInterface
 
     public function getEachServiceIncome($type = null, $from_date = null, $to_date = null,$scheduleArray = [])
     {
-        // dd('Each Service Income',$type,$from_date,$to_date);
         $query = Invoice::query();
 
         $query = $query->leftjoin('schedules', 'schedules.id', '=', 'invoices.schedule_id');
@@ -388,7 +387,6 @@ class InvoiceRepository implements InvoiceRepositoryInterface
             $query = $query->groupBy(DB::raw("DATE(invoices.created_at)"));
         }
         $result = $query->get();
-        // dd('result',$result);
         return $result;
     }
 }

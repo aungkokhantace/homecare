@@ -49,7 +49,7 @@ class SaleIncomeReportController extends Controller
             
             foreach($invoices as $invoice){
                 // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
-                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->total_consultant_amount+$invoice->package_price;
+                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount + $invoice->total_consultant_amount + $invoice->package_price + $invoice->total_other_service_amount + $invoice->total_tax_amount;
             }
 
             $serviceCountArray = array();
@@ -60,8 +60,8 @@ class SaleIncomeReportController extends Controller
             foreach($invoices as $invoice_service){
                 $temp_date = $invoice_service->date;
                 $date = date('Y-m-d',strtotime($temp_date));
-                $schedules = $scheduleRepo->getSchedulesGroupedByDate($date);
-
+                $schedules = $scheduleRepo->getSchedulesGroupedByDate($type,$date);
+                
                  //reset service counters
                 $mo_count = 0;              //service_id = 1
                 $musculo_count = 0;         //service_id = 2
@@ -157,18 +157,6 @@ class SaleIncomeReportController extends Controller
             $totalArray['tax']              = $totalTaxAmount;
             $totalArray['total']            = $totalAmount;
 
-            // // Start getting income summary of each service
-            // $invoicesWithSchedules = $this->repo->getInvoicesWithSchedules();
-            
-            // $schedulesArray = array();
-            // foreach($invoicesWithSchedules as $invoice){
-            //     $schedulesArray[] = $invoice->schedule_id;
-            // }
-
-            // $eachServiceIncome    = $this->repo->getEachServiceIncome($from_date, $to_date, $schedulesArray);
-            // dd('eachServiceIncome');
-            // End getting income summary of each service
-            // dd('invoices',$invoices);
             return view('report.saleincomereport')
                 ->with('invoices',$invoices)
                 ->with('totalArray',$totalArray);
@@ -197,13 +185,73 @@ class SaleIncomeReportController extends Controller
             
             foreach($invoices as $invoice){
                 // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
-                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->total_consultant_amount+$invoice->package_price;
+                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount + $invoice->total_consultant_amount + $invoice->package_price + $invoice->total_other_service_amount + $invoice->total_tax_amount;
+            }
+            
+            $serviceCountArray = array();
+
+            $scheduleRepo = new ScheduleRepository();
+            $serviceRepo  = new ServiceRepository();
+            
+            foreach($invoices as $invoice_service){
+                $date = $invoice_service->date;               
+                $schedules = $scheduleRepo->getSchedulesGroupedByDate($type,$date);
+                
+                 //reset service counters
+                $mo_count = 0;              //service_id = 1
+                $musculo_count = 0;         //service_id = 2
+                $neuro_count = 0;           //service_id = 3
+                $nutrition_count = 0;       //service_id = 4
+                $blood_drawing_count = 0;   //service_id = 5
+
+                foreach($schedules as $schedule){
+                    $service_id = $schedule->service_id;
+                    if($service_id == 1){
+                        //MO service
+                        $mo_count++;
+                    }
+                    else if($service_id == 2){
+                        //Musculo service
+                        $musculo_count++;
+                    }
+                    else if($service_id == 3){
+                        //Neuro service
+                        $neuro_count++;
+                    }
+                    else if($service_id == 4){
+                        //Nutrition service
+                        $nutrition_count++;
+                    }
+                    else if($service_id == 5){
+                        //Blood drawing service
+                        $blood_drawing_count++;
+                    }
+                }
+
+                $mo_price = $serviceRepo->getServicePriceById(1);               //service_id = 1 is for MO
+                $musculo_price = $serviceRepo->getServicePriceById(2);          //service_id = 1 is for Musculo
+                $neuro_price = $serviceRepo->getServicePriceById(3);            //service_id = 1 is for Neuro
+                $nutrition_price = $serviceRepo->getServicePriceById(4);        //service_id = 1 is for Nutrition
+                $blood_drawing_price = $serviceRepo->getServicePriceById(5);    //service_id = 1 is for Blood Drawing
+               
+                $serviceCountArray['MO'] = $mo_price * $mo_count;
+                $serviceCountArray['Musculo'] = $musculo_price * $musculo_count;
+                $serviceCountArray['Neuro'] = $neuro_price * $neuro_count;
+                $serviceCountArray['Nutrition'] = $nutrition_price * $nutrition_count;
+                $serviceCountArray['Blood Drawing'] = $blood_drawing_price * $blood_drawing_count;
+                
+                $invoice_service->serviceCountArray = $serviceCountArray;
             }
 
             $totalArray = array();
 
             $totalCarAmount             = 0;
-            $totalServiceAmount         = 0;
+            // $totalServiceAmount         = 0;
+            $totalMOAmount              = 0;
+            $totalMusculoAmount         = 0;
+            $totalNeuroAmount           = 0;
+            $totalNutritionAmount       = 0;
+            $totalBloodDrawingAmount    = 0;
             $totalMedicationAmount      = 0;
             $totalInvestigationAmount   = 0;
             $totalConsultantAmount      = 0;
@@ -214,7 +262,12 @@ class SaleIncomeReportController extends Controller
             
             foreach($invoices as $invoice){
                 $totalCarAmount             += $invoice->total_car_amount;
-                $totalServiceAmount         += $invoice->total_service_amount;
+                // $totalServiceAmount         += $invoice->total_service_amount;
+                $totalMOAmount              += $invoice->serviceCountArray['MO'];
+                $totalMusculoAmount         += $invoice->serviceCountArray['Musculo'];
+                $totalNeuroAmount           += $invoice->serviceCountArray['Neuro'];
+                $totalNutritionAmount       += $invoice->serviceCountArray['Nutrition'];
+                $totalBloodDrawingAmount    += $invoice->serviceCountArray['Blood Drawing'];
                 $totalMedicationAmount      += $invoice->total_medication_amount;
                 $totalInvestigationAmount   += $invoice->total_investigation_amount;
                 $totalConsultantAmount      += $invoice->total_consultant_amount;
@@ -225,7 +278,12 @@ class SaleIncomeReportController extends Controller
             }
 
             $totalArray['car']              = $totalCarAmount;
-            $totalArray['service']          = $totalServiceAmount;
+            // $totalArray['service']          = $totalServiceAmount;
+            $totalArray['mo']               = $totalMOAmount;
+            $totalArray['musculo']          = $totalMusculoAmount;
+            $totalArray['neuro']            = $totalNeuroAmount;
+            $totalArray['nutrition']        = $totalNutritionAmount;
+            $totalArray['blood drawing']    = $totalBloodDrawingAmount;
             $totalArray['medication']       = $totalMedicationAmount;
             $totalArray['investigation']    = $totalInvestigationAmount;
             $totalArray['consultant']       = $totalConsultantAmount;
@@ -256,59 +314,148 @@ class SaleIncomeReportController extends Controller
 
             // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
             $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
-
+            
             foreach($invoices as $invoice){
                 // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
-                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
+                $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount + $invoice->total_consultant_amount + $invoice->package_price + $invoice->total_other_service_amount + $invoice->total_tax_amount;
+            }
+            
+            $serviceCountArray = array();
+
+            $scheduleRepo = new ScheduleRepository();
+            $serviceRepo  = new ServiceRepository();
+            
+            foreach($invoices as $invoice_service){
+                $date = $invoice_service->date;               
+                $schedules = $scheduleRepo->getSchedulesGroupedByDate($type,$date);
+                
+                 //reset service counters
+                $mo_count = 0;              //service_id = 1
+                $musculo_count = 0;         //service_id = 2
+                $neuro_count = 0;           //service_id = 3
+                $nutrition_count = 0;       //service_id = 4
+                $blood_drawing_count = 0;   //service_id = 5
+
+                foreach($schedules as $schedule){
+                    $service_id = $schedule->service_id;
+                    if($service_id == 1){
+                        //MO service
+                        $mo_count++;
+                    }
+                    else if($service_id == 2){
+                        //Musculo service
+                        $musculo_count++;
+                    }
+                    else if($service_id == 3){
+                        //Neuro service
+                        $neuro_count++;
+                    }
+                    else if($service_id == 4){
+                        //Nutrition service
+                        $nutrition_count++;
+                    }
+                    else if($service_id == 5){
+                        //Blood drawing service
+                        $blood_drawing_count++;
+                    }
+                }
+
+                $mo_price = $serviceRepo->getServicePriceById(1);               //service_id = 1 is for MO
+                $musculo_price = $serviceRepo->getServicePriceById(2);          //service_id = 1 is for Musculo
+                $neuro_price = $serviceRepo->getServicePriceById(3);            //service_id = 1 is for Neuro
+                $nutrition_price = $serviceRepo->getServicePriceById(4);        //service_id = 1 is for Nutrition
+                $blood_drawing_price = $serviceRepo->getServicePriceById(5);    //service_id = 1 is for Blood Drawing
+               
+                $serviceCountArray['MO'] = $mo_price * $mo_count;
+                $serviceCountArray['Musculo'] = $musculo_price * $musculo_count;
+                $serviceCountArray['Neuro'] = $neuro_price * $neuro_count;
+                $serviceCountArray['Nutrition'] = $nutrition_price * $nutrition_count;
+                $serviceCountArray['Blood Drawing'] = $blood_drawing_price * $blood_drawing_count;
+                
+                $invoice_service->serviceCountArray = $serviceCountArray;
             }
 
             $totalArray = array();
 
             $totalCarAmount             = 0;
-            $totalServiceAmount         = 0;
+            // $totalServiceAmount         = 0;
+            $totalMOAmount              = 0;
+            $totalMusculoAmount         = 0;
+            $totalNeuroAmount           = 0;
+            $totalNutritionAmount       = 0;
+            $totalBloodDrawingAmount    = 0;
             $totalMedicationAmount      = 0;
             $totalInvestigationAmount   = 0;
+            $totalConsultantAmount      = 0;
             $totalPackageAmount         = 0;
+            $totalOtherServiceAmount    = 0;
+            $totalTaxAmount             = 0;
             $totalAmount                = 0;
-
+            
             foreach($invoices as $invoice){
                 $totalCarAmount             += $invoice->total_car_amount;
-                $totalServiceAmount         += $invoice->total_service_amount;
+                // $totalServiceAmount         += $invoice->total_service_amount;
+                $totalMOAmount              += $invoice->serviceCountArray['MO'];
+                $totalMusculoAmount         += $invoice->serviceCountArray['Musculo'];
+                $totalNeuroAmount           += $invoice->serviceCountArray['Neuro'];
+                $totalNutritionAmount       += $invoice->serviceCountArray['Nutrition'];
+                $totalBloodDrawingAmount    += $invoice->serviceCountArray['Blood Drawing'];
                 $totalMedicationAmount      += $invoice->total_medication_amount;
                 $totalInvestigationAmount   += $invoice->total_investigation_amount;
+                $totalConsultantAmount      += $invoice->total_consultant_amount;
                 $totalPackageAmount         += $invoice->package_price;
+                $totalOtherServiceAmount    += $invoice->total_other_service_amount;
+                $totalTaxAmount             += $invoice->total_tax_amount;
                 $totalAmount                += $invoice->total;
             }
 
-            $totalArray['package']          = $totalPackageAmount;
-            $totalArray['car']              = $totalCarAmount;
-            $totalArray['service']          = $totalServiceAmount;
-            $totalArray['medication']       = $totalMedicationAmount;
-            $totalArray['investigation']    = $totalInvestigationAmount;
-            $totalArray['total']            = $totalAmount;
-
+            
+            // $totalArray['service']          = $totalServiceAmount;
+            $totalArray['mo']               = number_format($totalMOAmount,2);
+            $totalArray['musculo']          = number_format($totalMusculoAmount,2);
+            $totalArray['neuro']            = number_format($totalNeuroAmount,2);
+            $totalArray['nutrition']        = number_format($totalNutritionAmount,2);
+            $totalArray['blood drawing']    = number_format($totalBloodDrawingAmount,2);
+            $totalArray['medication']       = number_format($totalMedicationAmount,2);
+            $totalArray['investigation']    = number_format($totalInvestigationAmount,2);
+            $totalArray['car']              = number_format($totalCarAmount,2);
+            $totalArray['package']          = number_format($totalPackageAmount,2);
+            $totalArray['consultant']       = number_format($totalConsultantAmount,2);
+            $totalArray['other']            = number_format($totalOtherServiceAmount,2);
+            $totalArray['tax']              = number_format($totalTaxAmount,2);
+            $totalArray['total']            = number_format($totalAmount,2);
+            
             Excel::create('SaleIncomeReport', function($excel)use($invoices, $totalArray) {
                 $excel->sheet('SaleSummaryReport', function($sheet)use($invoices, $totalArray) {
-
+                    
                     $displayArray = array();                                   //array to be displayed in excel
                     $count = 0;
                     foreach($invoices as $invoice){
                         $count++;
+                        // dd('inv',$invoice);
                         $displayArray[$invoice->date]["Date"] = $invoice->date;
-                        $displayArray[$invoice->date]["Package Income"] = $invoice->package_price;
-                        $displayArray[$invoice->date]["Car Income"] = $invoice->total_car_amount;
-                        $displayArray[$invoice->date]["Service Income"] = $invoice->total_service_amount;
-                        $displayArray[$invoice->date]["Medication Income"] = $invoice->total_medication_amount;
-                        $displayArray[$invoice->date]["Investigation Income"] = $invoice->total_investigation_amount;
-                        $displayArray[$invoice->date]["Total"] = $invoice->total;
+                        // $displayArray[$invoice->date]["Service Income"] = $invoice->total_service_amount;
+                        $displayArray[$invoice->date]["MO"] = number_format($invoice->serviceCountArray['MO'],2);
+                        $displayArray[$invoice->date]["Musculo"] = number_format($invoice->serviceCountArray['Musculo'],2);
+                        $displayArray[$invoice->date]["Neuro"] = number_format($invoice->serviceCountArray['Neuro'],2);
+                        $displayArray[$invoice->date]["Nutrition"] = number_format($invoice->serviceCountArray['Nutrition'],2);
+                        $displayArray[$invoice->date]["Blood Drawing"] = number_format($invoice->serviceCountArray['Blood Drawing'],2);
+                        $displayArray[$invoice->date]["Medication Income"] = number_format($invoice->total_medication_amount,2);
+                        $displayArray[$invoice->date]["Investigation Income"] = number_format($invoice->total_investigation_amount,2);
+                        $displayArray[$invoice->date]["Car Income"] = number_format($invoice->total_car_amount,2);
+                        $displayArray[$invoice->date]["Package Income"] = number_format($invoice->package_price,2);
+                        $displayArray[$invoice->date]["Consultant Income"] = number_format($invoice->total_consultant_amount,2);
+                        $displayArray[$invoice->date]["Other Service Income"] = number_format($invoice->total_other_service_amount,2);
+                        $displayArray[$invoice->date]["Tax Income"] = number_format($invoice->total_tax_amount,2);
+                        $displayArray[$invoice->date]["Total"] = number_format($invoice->total,2);
                     }
-
+                    // dd('display',$displayArray,$invoices);
                     if(count($displayArray) == 0){
                         $sheet->fromArray($displayArray);
                     }
                     else{
                         $count = $count +2;
-                        $sheet->cells('A1:G1', function($cells) {
+                        $sheet->cells('A1:N1', function($cells) {
                             $cells->setBackground('#1976d3');
                             $cells->setFontSize(13);
                             $cells->setFontColor('#ffffff');
@@ -323,11 +470,11 @@ class SaleIncomeReportController extends Controller
                             $appendedRow[$index] = $total;
                             $index++;
                         }
-
+                        // dd('append',$appendedRow);
                         $sheet->appendRow(
                             $appendedRow
                         );
-                        $sheet->cells('A'.$count.':G'.$count, function($cells) {
+                        $sheet->cells('A'.$count.':N'.$count, function($cells) {
                             $cells->setBackground('#1976d3');
                             $cells->setFontSize(13);
                             $cells->setFontColor('#ffffff');

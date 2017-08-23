@@ -1065,16 +1065,34 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                 return $result;
     }
 
-    public function getSchedulesGroupedByDate($date){
-        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
-        ->where('schedule_detail.type','=','service')
-        ->where('schedules.date','=',$date)
-        // ->where('schedule_detail.service_id','=',$service_id)
-        // ->where('schedules.status','=','complete')
-        // ->whereYear('schedules.date','=',date('Y'))
-        // ->whereMonth('schedules.date','=',$month)
-        ->get();
-    return $result;
+    public function getSchedulesGroupedByDate($type = null,$date = null){
+        $query = Schedule::query();
+        $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+        $query = $query->where('schedule_detail.type','=','service');
+        // $query = $query->where('schedules.updated_at','=',$date);
+        
+        if(isset($type) && $type != null && $type == 'yearly'){
+            // $query = $query->where(DB::raw("DATE(schedules.updated_at)"),'=',$date);
+            $temp_date = "01-01-".$date;
+            $year = date("Y", strtotime($temp_date));
+            $query = $query->whereYear('schedules.updated_at','=',$year);
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            // $query = $query->where(DB::raw("DATE(schedules.updated_at)"),'=',$date);
+            $temp_date = "01-".$date;
+            $month = date("m", strtotime($temp_date));
+            $query = $query->whereMonth(DB::raw("DATE(schedules.updated_at)"),'=',$month);
+        }
+        else{
+            // $query = $query->where(DB::raw("DATE(schedules.updated_at)"),'=',$date);
+            $temp_date = date("Y-m-d", strtotime($date));
+            $query = $query->whereDate('schedules.updated_at', '=', $temp_date);
+        }
+        $query = $query->where('schedules.status','=','complete');
+
+        $result = $query->get();
+
+        return $result;
     }
     
 }
