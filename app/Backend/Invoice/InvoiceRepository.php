@@ -389,4 +389,19 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         $result = $query->get();
         return $result;
     }
+
+    public function getInvoiceListByDate($date){
+        $formatted_date = date("Y-m-d", strtotime($date));
+        $result = Invoice::leftjoin('schedules', 'schedules.id', '=', 'invoices.schedule_id')
+                            ->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+                            ->leftjoin('patients', 'patients.user_id', '=', 'invoices.patient_id')
+                            ->leftjoin('core_users', 'core_users.id', '=', 'schedules.leader_id')
+                            ->leftjoin('services', 'services.id', '=', 'schedule_detail.service_id')
+                            ->select('invoices.id as invoice_id',DB::raw('DATE_FORMAT(invoices.created_at,"%Y-%m-%d") as date'),'patients.name as patient_name','services.name as service','core_users.name as doctor','invoices.total_payable_amt as total')
+                            ->whereDate('invoices.created_at','=',$formatted_date)
+                            ->where('schedule_detail.type','=','service')
+                            ->get();
+                            
+        return $result;
+    }
 }

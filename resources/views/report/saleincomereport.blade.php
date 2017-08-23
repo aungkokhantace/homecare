@@ -195,7 +195,7 @@
                     <tbody>
                         @foreach($invoices as $invoice)
                             <tr>
-                                <td>{{$invoice->date}}</td>                                
+                                <td><a href="/saleincomereport/invoicelist/{{$invoice->date}}">{{$invoice->date}}</a></td>
                                 <!-- <td>{{number_format($invoice->total_service_amount,2)}}</td> -->
                                 <td>{{number_format($invoice->serviceCountArray['MO'],2)}}</td>
                                 <td>{{number_format($invoice->serviceCountArray['Musculo'],2)}}</td>

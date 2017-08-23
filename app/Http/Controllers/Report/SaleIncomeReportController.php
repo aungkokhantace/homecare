@@ -68,7 +68,7 @@ class SaleIncomeReportController extends Controller
                 $neuro_count = 0;           //service_id = 3
                 $nutrition_count = 0;       //service_id = 4
                 $blood_drawing_count = 0;   //service_id = 5
-
+               
                 foreach($schedules as $schedule){
                     $service_id = $schedule->service_id;
                     if($service_id == 1){
@@ -156,7 +156,7 @@ class SaleIncomeReportController extends Controller
             $totalArray['other']            = $totalOtherServiceAmount;
             $totalArray['tax']              = $totalTaxAmount;
             $totalArray['total']            = $totalAmount;
-
+            
             return view('report.saleincomereport')
                 ->with('invoices',$invoices)
                 ->with('totalArray',$totalArray);
@@ -549,7 +549,7 @@ class SaleIncomeReportController extends Controller
                 $chartData[$count]["amount"] = $invoice->total;
                 $count++;
             }
-
+            
             return view('report.saleincomereportbygraph')
                 ->with('chartData',$chartData)
                 ->with('from_date',$from_date)
@@ -561,5 +561,30 @@ class SaleIncomeReportController extends Controller
                 ->with('type',$type);
         }
         return redirect('/');
+    }
+
+    public function invoiceList($date){
+        $invoiceList = $this->repo->getInvoiceListByDate($date);
+        $invoiceArray = array();
+        foreach($invoiceList as $invoice){
+            // dd('invoice',$invoice);
+            $invoiceArray[$invoice->invoice_id]['invoice_id']   = $invoice->invoice_id; 
+            $invoiceArray[$invoice->invoice_id]['date']         = $invoice->date; 
+            $invoiceArray[$invoice->invoice_id]['patient_name'] = $invoice->patient_name; 
+            if(array_key_exists('services',$invoiceArray[$invoice->invoice_id])){
+                $invoiceArray[$invoice->invoice_id]['services']     .= ','.$invoice->service; 
+            }
+            else{
+                $invoiceArray[$invoice->invoice_id]['services']     = $invoice->service; 
+            }   
+            $invoiceArray[$invoice->invoice_id]['doctor']       = $invoice->doctor; 
+            $invoiceArray[$invoice->invoice_id]['total']        = $invoice->total; 
+        }
+        // dd('invoiceArray',$invoiceArray);
+        // foreach($invoiceArray as $temp){
+            // dd($temp['date']);
+        // }
+        return view('report.saleincomereportinvoicelist')
+            ->with('invoiceArray',$invoiceArray);
     }
 }

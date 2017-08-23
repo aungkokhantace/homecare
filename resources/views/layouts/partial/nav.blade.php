@@ -163,8 +163,8 @@
 
                 <ul class="sub-menu">
                     <li nav-id="report-schedule-status"><a href="/schedulestatusreport">Schedule Status Report</a></li>
-                    <li nav-id="report-income-summary"><a href="/incomesummaryreport">Income Summary Report</a></li>
-                    <li nav-id="report-sale-summary"><a href="/salesummaryreport">Sale Summary Report</a></li>
+                    <!-- <li nav-id="report-income-summary"><a href="/incomesummaryreport">Income Summary Report</a></li> -->
+                    <!-- <li nav-id="report-sale-summary"><a href="/salesummaryreport">Sale Summary Report</a></li> -->
                     <li nav-id="report-sale-income"><a href="/saleincomereport">Sale Income Report</a></li>
                     <li nav-id="report-car-usage"><a href="/carusagereport">Car Usage Report</a></li>
                     <li nav-id="report-visit-record"><a href="/visitreport">Staff Visit Report</a></li>

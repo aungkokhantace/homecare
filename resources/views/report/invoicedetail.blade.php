@@ -180,25 +180,25 @@
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Total</td>
-                            <td height="20" align="right">{{floor($invoice->total_nett_amt_wo_disc)}}</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_nett_amt_wo_disc),2)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Total Tax Amount</td>
-                            <td height="20" align="right">{{floor($invoice->total_tax_amt)}}</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_tax_amt),2)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Discount</td>
-                            <td height="20" align="right">{{floor($invoice->total_disc_amt)}}</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_disc_amt),2)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Grand Total</td>
-                            <td height="20" align="right">{{floor($invoice->total_payable_amt)}}</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_payable_amt),2)}}</td>
                         </tr>
                         <tr>
                             <td>Remark</td>

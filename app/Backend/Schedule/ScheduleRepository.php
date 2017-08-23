@@ -1091,7 +1091,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $query = $query->where('schedules.status','=','complete');
 
         $result = $query->get();
-
+        
         return $result;
     }
     

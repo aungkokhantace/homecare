@@ -1085,7 +1085,7 @@ class PatientController extends Controller
 
 
             //start patient visit records
-            $schedules          = Schedule::whereNull('deleted_at')->where('patient_id',$id)->get();
+            $schedules          = Schedule::whereNull('deleted_at')->where('patient_id',$id)->where('status','complete')->get();
             $schedule_id_arr    = array();
 
             foreach($schedules as $sch){
