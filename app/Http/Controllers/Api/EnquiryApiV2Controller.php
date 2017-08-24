@@ -244,15 +244,35 @@ class EnquiryApiV2Controller extends Controller
                                     $data[0]['enquiries'][$count]->patients->patient_allergy = $patientAllergy;
                                 }
 
+                                $logs = $patientApiRepo->getLog($enqData->patient_id);
+                                if (isset($logs) && count($logs) > 0) {
+                                    foreach($logs as $log){
+                                        if($log->created_at == null){
+                                            $log->created_at = "";
+                                        }
+                                        if($log->updated_at == null){
+                                            $log->updated_at = "";
+                                        }
+                                        if($log->deleted_at == null){
+                                            $log->deleted_at = "";
+                                        }
+                                    }
+                                    $data[0]["enquiries"][$count]->patients->log_patient_case_summary = $logs;
+                                }
+                                else {
+                                    $data[0]["enquiries"][$count]->patients->log_patient_case_summary = [];
+                                }
                             }
                             else{
                                 $data[0]['enquiries'][$count]->patients = new \stdClass();
                                 $data[0]['enquiries'][$count]->patients->patient_allergy = [];
+                                $data[0]['enquiries'][$count]->patients->log_patient_case_summary = [];
                             }
                         }
                         else{
                             $data[0]['enquiries'][$count]->patients = new \stdClass();
                             $data[0]['enquiries'][$count]->patients->patient_allergy = [];
+                            $data[0]['enquiries'][$count]->patients->log_patient_case_summary = [];
                         }
 
                         if(isset($enqData->patient_id) && $enqData->patient_id != null){
@@ -272,25 +292,6 @@ class EnquiryApiV2Controller extends Controller
                                     $user->mobile_image = "";
                                 }
                                 $data[0]['enquiries'][$count]->core_users = $user;
-
-                                $logs = $patientApiRepo->getLog($patientRow->user_id);
-                                if (isset($logs) && count($logs) > 0) {
-                                    foreach($logs as $log){
-                                        if($log->created_at == null){
-                                            $log->created_at = "";
-                                        }
-                                        if($log->updated_at == null){
-                                            $log->updated_at = "";
-                                        }
-                                        if($log->deleted_at == null){
-                                            $log->deleted_at = "";
-                                        }
-                                    }
-                                    $data[0]["enquiries"][$count]->log_patient_case_summary = $logs;
-                                } else {
-                                    $data[0]["enquiries"][$count]->log_patient_case_summary = [];
-                                }
-                                
                             }
                             else{
                                 $data[0]['enquiries'][$count]->core_users = new \stdClass();
