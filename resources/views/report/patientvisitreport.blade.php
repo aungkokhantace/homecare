@@ -178,7 +178,7 @@
                         @foreach($patient_visits as $patient_visit)
                         <tr>
                             <td>{{$patient_visit["date"]}}</td>
-                            <td>{{$patient_visit["total_patients"]}}</td>
+                            <td><a href="/patientvisitreportdetail/{{$type}}/{{$patient_visit['date']}}">{{$patient_visit["total_patients"]}}</a></td>
                             <td>{{$patient_visit["mo_visits"]}}</td>
                             <td>{{$patient_visit["musculo_visits"]}}</td>
                             <td>{{$patient_visit["neuro_visits"]}}</td>

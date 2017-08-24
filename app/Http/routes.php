@@ -324,6 +324,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('patientvisitreport', array('as'=>'patientvisitreport','uses'=>'Report\PatientVisitReportController@index'));
         Route::get('patientvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientVisitReportController@search'));
         Route::get('patientvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientVisitReportController@excel'));
+        Route::get('patientvisitreportdetail/{type}/{date}', array('as'=>'patientvisitreportdetail','uses'=>'Report\PatientVisitReportController@patientVisitDetail'));
 
         //Patient Daily Visit Report
         Route::get('patientdailyvisitreport', array('as'=>'patientdailyvisitreport','uses'=>'Report\PatientDailyVisitReportController@index'));

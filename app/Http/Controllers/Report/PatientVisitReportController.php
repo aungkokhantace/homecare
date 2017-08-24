@@ -18,6 +18,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Core\Utility;
 
 class PatientVisitReportController extends Controller
 {
@@ -247,5 +248,33 @@ class PatientVisitReportController extends Controller
             return Redirect();
         }
         return redirect('/');
+    }
+
+    public function patientVisitDetail($type = null, $date = null){
+        // dd('patientVisitDetail',$type,$date);        // $detailVisits = null;
+        $scheduleRepo = new ScheduleRepository();
+        $schedules = $scheduleRepo->getSchedulesByDate($type,$date);
+        
+        $patientRepo = new PatientRepository();
+        $patients_array = array();
+        foreach($schedules as $schedule){
+            $date       = $date;
+            $patient_id = $schedule->patient_id;
+            $patientRaw = $patientRepo->getObjByID($patient_id);
+            $patient    = $patientRaw["result"];
+            $ageRaw     = Utility::calculateAge($patient->dob);
+            $age        = $ageRaw["value"]." ".$ageRaw["unit"];
+
+            //temp array for each patient
+            $temp_patient_array["date"] = $date;
+            $temp_patient_array["name"] = $patient->name;
+            $temp_patient_array["age"]  = $age;
+
+            //push to patient array
+            array_push($patients_array,$temp_patient_array);
+        }
+        
+        return view('report.patientvisitreportdetail')
+        ->with('patients_array',$patients_array);
     }
 }

@@ -315,6 +315,7 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>1040],
             ['role_id'=>1, 'permission_id'=>1041],
             ['role_id'=>1, 'permission_id'=>1042],
+            ['role_id'=>1, 'permission_id'=>1043],
 
             //Sale Income Report
             ['role_id'=>1, 'permission_id'=>1050],
@@ -639,6 +640,7 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>2, 'permission_id'=>1040],
             ['role_id'=>2, 'permission_id'=>1041],
             ['role_id'=>2, 'permission_id'=>1042],
+            ['role_id'=>2, 'permission_id'=>1043],
 
             //Sale Income Report
             ['role_id'=>2, 'permission_id'=>1050],
