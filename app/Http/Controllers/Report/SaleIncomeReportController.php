@@ -432,7 +432,6 @@ class SaleIncomeReportController extends Controller
                     $count = 0;
                     foreach($invoices as $invoice){
                         $count++;
-                        // dd('inv',$invoice);
                         $displayArray[$invoice->date]["Date"] = $invoice->date;
                         // $displayArray[$invoice->date]["Service Income"] = $invoice->total_service_amount;
                         $displayArray[$invoice->date]["MO"] = number_format($invoice->serviceCountArray['MO'],2);
@@ -449,7 +448,7 @@ class SaleIncomeReportController extends Controller
                         $displayArray[$invoice->date]["Tax Income"] = number_format($invoice->total_tax_amount,2);
                         $displayArray[$invoice->date]["Total"] = number_format($invoice->total,2);
                     }
-                    // dd('display',$displayArray,$invoices);
+                    
                     if(count($displayArray) == 0){
                         $sheet->fromArray($displayArray);
                     }
@@ -470,7 +469,6 @@ class SaleIncomeReportController extends Controller
                             $appendedRow[$index] = $total;
                             $index++;
                         }
-                        // dd('append',$appendedRow);
                         $sheet->appendRow(
                             $appendedRow
                         );
@@ -567,7 +565,6 @@ class SaleIncomeReportController extends Controller
         $invoiceList = $this->repo->getInvoiceListByDate($date);
         $invoiceArray = array();
         foreach($invoiceList as $invoice){
-            // dd('invoice',$invoice);
             $invoiceArray[$invoice->invoice_id]['invoice_id']   = $invoice->invoice_id; 
             $invoiceArray[$invoice->invoice_id]['date']         = $invoice->date; 
             $invoiceArray[$invoice->invoice_id]['patient_name'] = $invoice->patient_name; 
@@ -580,10 +577,7 @@ class SaleIncomeReportController extends Controller
             $invoiceArray[$invoice->invoice_id]['doctor']       = $invoice->doctor; 
             $invoiceArray[$invoice->invoice_id]['total']        = $invoice->total; 
         }
-        // dd('invoiceArray',$invoiceArray);
-        // foreach($invoiceArray as $temp){
-            // dd($temp['date']);
-        // }
+        
         return view('report.saleincomereportinvoicelist')
             ->with('invoiceArray',$invoiceArray);
     }

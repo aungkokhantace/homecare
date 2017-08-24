@@ -1092,7 +1092,7 @@ class PatientController extends Controller
                 array_push($schedule_id_arr,$sch->id);
             }
             $schedule_detail    = Scheduledetail::whereIn('schedule_id',$schedule_id_arr)->where('type','=','service')->get();
-
+            
             $users              = User::whereNull('deleted_at')->get();
             $car_types          = Cartype::whereNull('deleted_at')->get();
             $services           = Service::whereNull('deleted_at')->get();
@@ -1116,13 +1116,18 @@ class PatientController extends Controller
                         $patient_schedules['leader'] = $leader->name;
                     }
                 }
-
+                
                 foreach($schedule_detail as $detail){
                     if($schedule->id == $detail->schedule_id){
-                        $patient_schedules['service']=$detail->service->name;
+                        // $patient_schedules['service']=$detail->service->name;
+                        if(array_key_exists('service',$patient_schedules)){
+                            $patient_schedules['service'] .= ','.$detail->service->name;
+                        }
+                        else{
+                            $patient_schedules['service'] = $detail->service->name;
+                        }
                     }
                 }
-
                 //start invoice id
                 $invoiceRepo = new InvoiceRepository();
                 $invoice = $invoiceRepo->getInvoiceByScheduleID($schedule->id);

@@ -37,7 +37,7 @@ class PatientVisitReportController extends Controller
 
             $invoiceRepo = new InvoiceRepository();
             $invoicesWithSchedules = $invoiceRepo->getInvoicesWithSchedules();
-
+            
             $schedulesArray = array();
             foreach($invoicesWithSchedules as $invoice){
                 $schedulesArray[] = $invoice->schedule_id;
@@ -45,13 +45,12 @@ class PatientVisitReportController extends Controller
 
             $scheduleRepo = new ScheduleRepository();
 
-            $schedulesWithServices = $scheduleRepo->getSchedulesWithService($schedulesArray);
-
+            // $schedulesWithServices = $scheduleRepo->getSchedulesWithService($schedulesArray);
+            $schedulesWithServices = $scheduleRepo->getSchedulesWithServiceByFilter($schedulesArray);
+            // dd('schedules',$schedulesWithServices);
             $patient_visits = array();
-
             foreach($schedulesWithServices as $schedule_with_service){
                 $date = $schedule_with_service->date;
-
                 $total_patients       = count($scheduleRepo->getSchedulesByDate($date));
                 $mo_visits            = count($scheduleRepo->getEachVisitByDate($date,1)); // service_id=1 is for MO
                 $musculo_visits       = count($scheduleRepo->getEachVisitByDate($date,2)); // service_id=2 is for Musculo
@@ -67,7 +66,7 @@ class PatientVisitReportController extends Controller
                 $patient_visits[$date]["nutrition_visits"]      = $nutrition_visits;
                 $patient_visits[$date]["blood_drawing_visits"]  = $blood_drawing_visits;
             }
-
+            // dd('type',$type,$patient_visits);
             return view('report.patientvisitreport')
                 ->with('type',$type)
                 ->with('patient_visits',$patient_visits)
@@ -104,18 +103,19 @@ class PatientVisitReportController extends Controller
 
             $scheduleRepo = new ScheduleRepository();
 
-            $schedulesWithServices = $scheduleRepo->getSchedulesWithService($schedulesArray, $type, $from_date, $to_date);
-
+            // $schedulesWithServices = $scheduleRepo->getSchedulesWithService($schedulesArray, $type, $from_date, $to_date);
+            $schedulesWithServices = $scheduleRepo->getSchedulesWithServiceByFilter($schedulesArray, $type, $from_date, $to_date);
+            // dd('scheduleWithServicesByFilter',$schedulesWithServices);
             $patient_visits = array();
 
             foreach($schedulesWithServices as $schedule_with_service){
-                $date = $schedule_with_service->date;
-                $total_patients       = count($scheduleRepo->getSchedulesByDate($date));
-                $mo_visits            = count($scheduleRepo->getEachVisitByDate($date,1)); // service_id=1 is for MO
-                $musculo_visits       = count($scheduleRepo->getEachVisitByDate($date,2)); // service_id=1 is for Musculo
-                $neuro_visits         = count($scheduleRepo->getEachVisitByDate($date,3)); // service_id=1 is for Neuro
-                $nutrition_visits     = count($scheduleRepo->getEachVisitByDate($date,4)); // service_id=1 is for Nutrition
-                $blood_drawing_visits = count($scheduleRepo->getEachVisitByDate($date,5)); // service_id=1 is for Blood Drawing
+                $date = $schedule_with_service->formatted_date;
+                $total_patients       = count($scheduleRepo->getSchedulesByDate($type,$date));
+                $mo_visits            = count($scheduleRepo->getEachVisitByDate($type,$date,1)); // service_id=1 is for MO
+                $musculo_visits       = count($scheduleRepo->getEachVisitByDate($type,$date,2)); // service_id=1 is for Musculo
+                $neuro_visits         = count($scheduleRepo->getEachVisitByDate($type,$date,3)); // service_id=1 is for Neuro
+                $nutrition_visits     = count($scheduleRepo->getEachVisitByDate($type,$date,4)); // service_id=1 is for Nutrition
+                $blood_drawing_visits = count($scheduleRepo->getEachVisitByDate($type,$date,5)); // service_id=1 is for Blood Drawing
 
                 $patient_visits[$date]["date"]                  = $date;
                 $patient_visits[$date]["total_patients"]        = $total_patients;
@@ -125,7 +125,7 @@ class PatientVisitReportController extends Controller
                 $patient_visits[$date]["nutrition_visits"]      = $nutrition_visits;
                 $patient_visits[$date]["blood_drawing_visits"]  = $blood_drawing_visits;
             }
-
+            dd('patient_visits',$patient_visits);
             return view('report.patientvisitreport')
                 ->with('type',$type)
                 ->with('patient_visits',$patient_visits)

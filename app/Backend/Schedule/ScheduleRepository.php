@@ -979,14 +979,17 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         return $result;
     }
 
-    public function getSchedulesByDate($date) {
-        $result = Schedule::where('date','=',$date)->get();
+    public function getSchedulesByDate($type = null,$date = null) {
+        // dd('param in repo',$type,$date);
+        // $result = Schedule::where('date','=',$date)->where('status','=','complete')->get();
+        $result = Schedule::whereDate('updated_at','=',$date)->where('status','=','complete')->get();
         return $result;
     }
 
     public function getEachVisitByDate($date,$service_id) {
         $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
-            ->where('schedules.date','=',$date)
+            // ->where('schedules.date','=',$date)
+            ->whereDate('schedules.updated_at','=',$date)
             ->where('schedules.status','=','complete')
             ->where('schedule_detail.service_id','=',$service_id)
             ->get();
@@ -1090,6 +1093,69 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         }
         $query = $query->where('schedules.status','=','complete');
 
+        $result = $query->get();
+        
+        return $result;
+    }
+
+    public function getSchedulesWithServiceByFilter($schedulesArray = [], $type = null, $from_date = null, $to_date = null) {
+        // dd('filters',$schedulesArray,$type,$from_date,$to_date);
+        $query = Schedule::query();
+        $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            $query = $query->select(DB::raw('DATE_FORMAT(schedules.updated_at,"%Y") as formatted_date'),'schedules.*');
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            $query = $query->select(DB::raw('DATE_FORMAT(schedules.updated_at,"%m-%Y") as formatted_date'),'schedules.*');
+        }
+        else{
+            $query = $query->select(DB::raw('DATE_FORMAT(schedules.updated_at,"%d-%m-%Y") as formatted_date'),'schedules.*');
+        }
+
+        $query = $query->whereIn('schedules.id', $schedulesArray);
+        $query = $query->where('schedules.status','=','complete');
+        $query = $query->where('schedule_detail.type','=','service');
+        $query = $query->whereNull('schedules.deleted_at');
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            if(isset($from_date) && $from_date != null){
+                $temp_from_date = "01-01-".$from_date;
+                $from_year = date("Y", strtotime($temp_from_date));
+                $query = $query->whereYear('schedules.updated_at','>=',$from_year);
+            }
+            if(isset($to_date) && $to_date != null){
+                $temp_to_date = "01-01-".$to_date;
+                $to_year = date("Y", strtotime($temp_to_date));
+                $query = $query->whereYear('schedules.updated_at','<=',$to_year);
+            }
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            if(isset($from_date) && $from_date != null){
+                $temp_from_date = "01-".$from_date;
+                $from_month = date("m", strtotime($temp_from_date));
+                $query = $query->whereMonth('schedules.updated_at','>=',$from_month);
+            }
+            if(isset($to_date) && $to_date != null){
+                $temp_to_date = "01-".$to_date;
+                $to_month = date("m", strtotime($temp_to_date));
+                $query = $query->whereMonth('schedules.updated_at','<=',$to_month);
+            }
+        }
+        else{
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime($from_date));
+                // $query = $query->where('schedules.updated_at', '>=' , $tempFromDate.' 00:00:00');
+                $query = $query->whereDate('schedules.updated_at','>=',$tempFromDate);
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime($to_date));
+                // $query = $query->where('schedules.updated_at', '<=', $tempToDate.' 23:59:59');
+                $query = $query->whereDate('schedules.updated_at','<=',$tempToDate);
+            }
+        }
+
+        $query = $query->orderBy('schedules.updated_at','desc');
         $result = $query->get();
         
         return $result;
