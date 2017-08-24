@@ -723,7 +723,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     //end insertion of patient_allergy
 
                     //start insertion of log_patient_case_summary
-                    if (isset($row->log_patient_case_summary) && count($row->log_patient_case_summary) > 0) {
+                    if (isset($row->log_patient_case_summary) && count($row->log_patient_case_summary) > 0 && $row->log_patient_case_summary != null && $row->log_patient_case_summary != "") {
                         foreach ($row->log_patient_case_summary as $log) {
                             //create log obj
                             $logObj                         = new LogPatientCaseSummary();
