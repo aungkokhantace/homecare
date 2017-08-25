@@ -1054,15 +1054,16 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         return $result;
     }
 
-    public function getScheduleOtherServices($latest_schedule_id, $patient_id){
-        $treatments     = DB::table('other_services')
+    public function getScheduleOtherServices($latest_schedule_id, $patient_id,$servicesArray){
+        $otherServices     = DB::table('other_services')
             ->leftjoin('other_services_detail','other_services.id','=','other_services_detail.other_services_id')
             ->select('other_services.id','other_services_detail.name','other_services_detail.remark')
             ->whereNull('other_services.deleted_at')
             ->where('other_services.schedule_id','=',$latest_schedule_id)
             ->where('other_services.patient_id','=',$patient_id)
+            ->whereIn('other_services.service_id',$servicesArray)
             ->get();
-        return $treatments;
+        return $otherServices;
     }
 
     public function getEachVisitByMonth($month,$service_id) {
@@ -1218,7 +1219,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         return $result;
     }
 
-    public function getScheduleDetailService($id,$type){
+    public function getScheduleDetailServices($id,$type){
         $tempObj = DB::select("SELECT * FROM schedule_detail WHERE schedule_id = '$id' AND type = '$type'");
         return $tempObj;
     }

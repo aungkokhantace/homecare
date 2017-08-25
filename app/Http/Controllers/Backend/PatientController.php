@@ -730,8 +730,19 @@ class PatientController extends Controller
                 $provisional_diagnosis  = $schedule->getProvisionalDiagnosis($provisional_id);
 
                 $treatments             = $schedule->getScheduleTreatment($latest_schedule_id);
+                
+                //start other services
+                $type = "service";
+                $schedule_details = $schedule->getScheduleDetailServices($latest_schedule_id,$type);
+                
+                $schedule_detail_services_array = array();
 
-                $other_services         = $schedule->getScheduleOtherServices($latest_schedule_id, $patient_id);
+                foreach($schedule_details as $sch_detail){
+                    array_push($schedule_detail_services_array,$sch_detail->service_id);
+                }
+                
+                $other_services         = $schedule->getScheduleOtherServices($latest_schedule_id, $patient_id,$schedule_detail_services_array);
+                //end other services
 
                 $neurological           = $schedule->getNeurologicalRecords($latest_schedule_id);
 
