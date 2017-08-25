@@ -64,9 +64,19 @@ class EnquiryController extends Controller
                     foreach($enquiries as $key=>$enquiry){
                         $enquiries[$key]->patient_type = $patientTypes[$enquiry->patient_type_id];
                         $enquiries[$key]->received_by  = $users[$enquiry->created_by]->name;
+
+                        //get enquiry_detail
+                        $enquiry_id = $enquiry->id;
+                        $type = "service";
+                        // dd('enq',$enquiry_id);
+                        $enquiry_details = $this->enquiryRepository->getEnquiryDetail($enquiry_id,$type);
+                        foreach($enquiry_details as $detail){
+                            // dd('detail',$detail);
+                        }
+                        // dd('detail',$enquiry_detail[0]->service_id);
                     }
                 }
-
+            //    dd('enquiries',$enquiries);
                 return view('backend.enquiry.index')
                     ->with('enquiries', $enquiries)
                     ->with('enquiry_status', $enquiry_status)

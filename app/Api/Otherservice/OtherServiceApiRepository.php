@@ -89,6 +89,7 @@ class OtherServiceApiRepository implements OtherServiceApiRepositoryInterface
                 $paramObj->id 								        = $row->id;
                 $paramObj->patient_id 								= $row->patient_id;
                 $paramObj->schedule_id 								= $row->schedule_id;
+                $paramObj->service_id 								= $row->service_id;
 
                 $paramObj->created_by                               = $row->created_by;
                 $paramObj->updated_by                               = $row->updated_by;
