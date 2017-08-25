@@ -57,6 +57,12 @@ class EnquiryController extends Controller
                     $users[$user->id] = $user;
                 }
 
+                $servicesArray = array();
+                $serviceRepo = new ServiceRepository();
+                $servicesRaw = $serviceRepo->getArrays();
+                foreach($servicesRaw as $key=>$service) {
+                    $servicesArray[$service->id] = $service;
+                }
 
                 //$enquiries      = $this->enquiryRepository->getObjs($enquiry_status, $enquiry_case_type, $from_date, $to_date);
                 $enquiries      = $this->enquiryRepository->getArrays($enquiry_status, $enquiry_case_type, $from_date, $to_date);
@@ -65,18 +71,23 @@ class EnquiryController extends Controller
                         $enquiries[$key]->patient_type = $patientTypes[$enquiry->patient_type_id];
                         $enquiries[$key]->received_by  = $users[$enquiry->created_by]->name;
 
-                        //get enquiry_detail
+                        //get service from enquiry_detail
                         $enquiry_id = $enquiry->id;
                         $type = "service";
-                        // dd('enq',$enquiry_id);
+                        
                         $enquiry_details = $this->enquiryRepository->getEnquiryDetail($enquiry_id,$type);
                         foreach($enquiry_details as $detail){
-                            // dd('detail',$detail);
+                            $service_id = $detail->service_id;
+                            if(array_key_exists('services',$enquiries[$key])){
+                                $enquiries[$key]->services  .= ','.$servicesArray[$service_id]->name;    
+                            }
+                            else{
+                                $enquiries[$key]->services  = $servicesArray[$service_id]->name;    
+                            }                        
                         }
-                        // dd('detail',$enquiry_detail[0]->service_id);
                     }
                 }
-            //    dd('enquiries',$enquiries);
+            
                 return view('backend.enquiry.index')
                     ->with('enquiries', $enquiries)
                     ->with('enquiry_status', $enquiry_status)
@@ -86,7 +97,7 @@ class EnquiryController extends Controller
             }
             return redirect('/');
         }
-        catch(\Exception $e){
+        catch(\Exception $e){            
             return redirect('/error/204/enquiry');
         }
     }

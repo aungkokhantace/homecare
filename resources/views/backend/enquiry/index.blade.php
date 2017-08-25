@@ -112,7 +112,7 @@
                         <th>Created Date</th>
                         <th>Received By</th>
                         <th>Patient Name</th>
-                        <!-- <th>Service</th> -->
+                        <th>Service</th>
                         {{--<th>Phone No.</th>--}}
                         {{--<th>Type</th>--}}
                         {{--<th>Gender</th>--}}
@@ -127,7 +127,7 @@
                         <th class="search-col" con-id="date">Date</th>
                         <th class="search-col" con-id="name">Received By</th>
                         <th class="search-col" con-id="name">Patient Name</th>
-                        <!-- <th class="search-col" con-id="service">Service</th> -->
+                        <th class="search-col" con-id="service">Service</th>
                         {{--<th class="search-col" con-id="phone_no">Phone No.</th>--}}
                         {{--<th class="search-col" con-id="patient_type_id">Patient Type</th>--}}
                         {{--<th class="search-col" con-id="gender">Gender</th>--}}
@@ -144,7 +144,7 @@
                             <td><a href="/enquiry/edit/{{$enquiry->id}}">{{$enquiry->created_at}}</a></td>
                             <td>{{$enquiry->received_by}}</td>
                             <td>{{$enquiry->name}}</td>
-                            {{-- <td>{{$enquiry->service}}</td> --}}
+                            <td>{{$enquiry->services}}</td>
                             {{--<td>{{$enquiry->phone_no}}</td>--}}
 {{--                            <td>{{$enquiry->patient_type}}</td>--}}
                             {{--<td>{{strtoupper($enquiry->gender)}}</td>--}}
