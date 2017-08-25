@@ -1217,6 +1217,11 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         
         return $result;
     }
+
+    public function getScheduleDetailService($id,$type){
+        $tempObj = DB::select("SELECT * FROM schedule_detail WHERE schedule_id = '$id' AND type = '$type'");
+        return $tempObj;
+    }
     
 }
 

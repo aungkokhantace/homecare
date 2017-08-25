@@ -70,17 +70,46 @@ class ScheduleController extends Controller
                     $patients[$patient->user_id] = $patient;
                 }
 
-                $schedules      = $this->scheduleRepository->getArrays($schedule_status , $from_date , $to_date );
+                $servicesArray = array();
+                $serviceRepo = new ServiceRepository();
+                $servicesRaw = $serviceRepo->getArrays();
+                foreach($servicesRaw as $key=>$service) {
+                    $servicesArray[$service->id] = $service;
+                }
 
+                $schedules      = $this->scheduleRepository->getArrays($schedule_status , $from_date , $to_date );
+                
                 if(isset($schedules) && count($schedules)>0) {
                     foreach ($schedules as $key => $schedule) {
                         $tempPatientId = $schedule->patient_id;
                         $patientTypeId = $patients[$tempPatientId]->patient_type_id;
+                        
                         $patientName = $patients[$tempPatientId]->name;
                         $schedules[$key]->patient_type = $patientTypes[$patientTypeId];
                         $schedules[$key]->patient_name = $patientName;
+
+                        //get leader id
+                        $leader_id = $schedule->leader_id;
+                        $schedules[$key]->leader = $users[$leader_id]->name;
+
+                         //get service from schedule_detail
+                         $schedule_id = $schedule->id;
+                         $type = "service";
+                         
+                         $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
+                        
+                         foreach($schedule_details as $detail){
+                             $service_id = $detail->service_id;
+                             if(array_key_exists('services',$schedules[$key])){
+                                 $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;    
+                             }
+                             else{
+                                 $schedules[$key]->services  = $servicesArray[$service_id]->name;    
+                             }                        
+                         }
                     }
                 }
+                
                 return view('backend.schedule.index')
                     ->with('schedules', $schedules)
                     ->with('schedule_status', $schedule_status)
