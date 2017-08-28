@@ -223,11 +223,12 @@ class EnquiryController extends Controller
             $enquiry            = $this->enquiryRepository->getObjByID($id);
 
             //calculate age
-            $dob = $enquiry->dob;
+            // $dob = $enquiry->dob;
+            $dob = Carbon::parse($enquiry->dob)->format('d-m-Y');
 
-            // if($dob == "30-11--0001"){
-            //     $dob = "01-01-1970";
-            // }
+            if($dob == "30-11--0001" || $dob == "0000-00-00" || $dob == "00-00-0000"){
+                $dob = "01-01-1970";
+            }
 
             $age = Utility::calculateAge($dob);
 
