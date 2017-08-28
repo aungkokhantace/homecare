@@ -228,7 +228,9 @@ class EnquiryController extends Controller
 
             if($dob == "30-11--0001" || $dob == "0000-00-00" || $dob == "00-00-0000"){
                 $dob = "01-01-1970";
+                $enquiry->dob = "01-01-1970";
             }
+
 
             $age = Utility::calculateAge($dob);
 
