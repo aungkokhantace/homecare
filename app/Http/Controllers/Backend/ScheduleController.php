@@ -96,7 +96,8 @@ class ScheduleController extends Controller
                          $schedule_id = $schedule->id;
                          $type = "service";
                          
-                         $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
+                        //  $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
+                         $schedule_details = $this->scheduleRepository->getScheduleDetailServices($schedule_id,$type);
                         
                          foreach($schedule_details as $detail){
                              $service_id = $detail->service_id;
