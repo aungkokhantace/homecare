@@ -98,16 +98,20 @@ class ScheduleController extends Controller
                          
                         //  $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
                          $schedule_details = $this->scheduleRepository->getScheduleDetailServices($schedule_id,$type);
-                        
-                         foreach($schedule_details as $detail){
-                             $service_id = $detail->service_id;
-                             if(array_key_exists('services',$schedules[$key])){
-                                 $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;    
-                             }
-                             else{
-                                 $schedules[$key]->services  = $servicesArray[$service_id]->name;    
-                             }                        
-                         }
+                        if(isset($schedule_details) && count($schedule_details)>0){
+                            foreach($schedule_details as $detail){
+                                $service_id = $detail->service_id;
+                                if(array_key_exists('services',$schedules[$key])){
+                                    $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;    
+                                }
+                                else{
+                                    $schedules[$key]->services  = $servicesArray[$service_id]->name;    
+                                }                        
+                            }
+                        }
+                        else{
+                            $schedules[$key]->services  = "";    
+                        }                         
                     }
                 }
                 
