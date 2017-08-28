@@ -224,6 +224,11 @@ class EnquiryController extends Controller
 
             //calculate age
             $dob = $enquiry->dob;
+
+            // if($dob == "30-11--0001"){
+            //     $dob = "01-01-1970";
+            // }
+
             $age = Utility::calculateAge($dob);
 
             $patientTypes       = Utility::getSettingsByType("PATIENT_TYPE");

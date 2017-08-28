@@ -49,6 +49,7 @@ class PatientVisitReportController extends Controller
             $schedulesWithServices = $scheduleRepo->getSchedulesWithServiceByFilter($schedulesArray);
             
             $patient_visits = array();
+            
             foreach($schedulesWithServices as $schedule_with_service){
                 // $date = $schedule_with_service->date;
                 $date = $schedule_with_service->formatted_date;
@@ -67,6 +68,7 @@ class PatientVisitReportController extends Controller
                 $patient_visits[$date]["nutrition_visits"]      = $nutrition_visits;
                 $patient_visits[$date]["blood_drawing_visits"]  = $blood_drawing_visits;
             }
+            
             return view('report.patientvisitreport')
                 ->with('type',$type)
                 ->with('patient_visits',$patient_visits)
@@ -251,7 +253,6 @@ class PatientVisitReportController extends Controller
     }
 
     public function patientVisitDetail($type = null, $date = null){
-        // dd('patientVisitDetail',$type,$date);        // $detailVisits = null;
         $scheduleRepo = new ScheduleRepository();
         $schedules = $scheduleRepo->getSchedulesByDate($type,$date);
         
