@@ -629,4 +629,9 @@ class Utility
         $result = $tempArrays[0]->code;
         return $result;
     }
+
+    public static function getCurrentUserRole(){
+        $role = Auth::guard('User')->user()->role_id;
+        return $role;
+    }
 }
