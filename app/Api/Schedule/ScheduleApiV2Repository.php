@@ -70,18 +70,37 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //start clearing all existing data relating to input data
-                //delete existing schedule_detail data which is the same as input data
-                DB::table('schedule_detail')
-                    ->where('schedule_id', '=', $id)
-                    ->delete();
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
+                    
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
+                    
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
 
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        //start clearing all existing data relating to input data
+                        //delete existing schedule_detail data which is the same as input data
+                        DB::table('schedule_detail')
+                        ->where('schedule_id', '=', $id)
+                        ->delete();
 
-                //delete existing schedules data which is the same as input data
-                DB::table('schedules')
-                    ->where('id', '=', $id)
-                    ->delete();
-                //end clearing all existing data relating to input data
+                        //delete existing schedules data which is the same as input data
+                        DB::table('schedules')
+                            ->where('id', '=', $id)
+                            ->delete();
+                        //end clearing all existing data relating to input data
+                    }                    
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        continue;
+                    }
+                }
 
                 //creating schedule object
                 $paramObj                        = new Schedule();
@@ -1276,11 +1295,32 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 }
                 $create = "updated";
 
-                $findObj->status        = $row->status;
-                $findObj->updated_at    = (isset($row->updated_at) && $row->updated_at != "") ? $row->updated_at:null;
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
+                    
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
+                    
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
 
-                //saving schedule obj
-                $result = $this->createSingleRow($findObj);
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        $findObj->status        = $row->status;
+                        $findObj->updated_at    = (isset($row->updated_at) && $row->updated_at != "") ? $row->updated_at:null;
+        
+                        //saving schedule obj
+                        $result = $this->createSingleRow($findObj);       
+                    }
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        continue;
+                    }
+                }
+                
 
                 //check whether schedule insertion was successful or not
                 if ($result['aceplusStatusCode'] == ReturnMessage::OK) {
