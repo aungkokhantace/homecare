@@ -390,17 +390,16 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         return $result;
     }
 
-    public function getInvoiceListByDate($type,$date){
-        
-        if($type == "yearly"){
+    public function getInvoiceListByDate($date,$type){
+        if(isset($type) && $type == "yearly"){
             $date = "01-01-".$date;
         }
-        else if($type == "monthly"){
+        else if(isset($type) && $type == "monthly"){
             $date = "01-".$date;
         }
-            
+        
         $formatted_date = date("Y-m-d", strtotime($date));
-
+        
         $month=date("m",strtotime($formatted_date));
         $year=date("Y",strtotime($formatted_date));
         

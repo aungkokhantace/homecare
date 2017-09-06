@@ -195,7 +195,11 @@
                     <tbody>
                         @foreach($invoices as $invoice)
                             <tr>
-                                <td><a href="/saleincomereport/invoicelist/{{$type}}/{{$invoice->date}}">{{$invoice->date}}</a></td>
+                                @if(isset($type) && $type !== null)
+                                <td><a href="/saleincomereport/invoicelist/{{$invoice->date}}/{{$type}}">{{$invoice->date}}</a></td>
+                                @else
+                                <td><a href="/saleincomereport/invoicelist/{{$invoice->date}}">{{$invoice->date}}</a></td>
+                                @endif
                                 <td>{{number_format($invoice->serviceCountArray['MO'],2)}}</td>
                                 <td>{{number_format($invoice->serviceCountArray['Musculo'],2)}}</td>
                                 <td>{{number_format($invoice->serviceCountArray['Neuro'],2)}}</td>
