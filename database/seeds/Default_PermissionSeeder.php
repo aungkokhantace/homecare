@@ -361,7 +361,7 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>1050,'module'=>'Report','name'=>'Sale Income Report','description'=>'Sale Income Report Listing','url'=>'saleincomereport'],
             ['id'=>1051,'module'=>'Report','name'=>'Sale Income Report Search','description'=>'Sale Income Report Search','url'=>'saleincomereport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
             ['id'=>1052,'module'=>'Report','name'=>'Sale Income Report Export Excel','description'=>'Sale Income Report Export Excel','url'=>'saleincomereport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
-            ['id'=>1053,'module'=>'Report','name'=>'Sale Income Report InvoiceList','description'=>'Sale Income Report InvoiceList','url'=>'saleincomereport/invoicelist/{date?}'],
+            ['id'=>1053,'module'=>'Report','name'=>'Sale Income Report InvoiceList','description'=>'Sale Income Report InvoiceList','url'=>'saleincomereport/invoicelist/saleincomereport/invoicelist/{type?}/{date?}'],
             // ['id'=>1054,'module'=>'Report','name'=>'Sale Income Report Graph','description'=>'Sale Income Report Graph','url'=>'saleincomereport'],
             // ['id'=>1055,'module'=>'Report','name'=>'Sale Income Report Graph Search','description'=>'Sale Income Report Graph Search','url'=>'saleincomereport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
 

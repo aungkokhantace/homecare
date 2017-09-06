@@ -390,17 +390,52 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         return $result;
     }
 
-    public function getInvoiceListByDate($date){
+    public function getInvoiceListByDate($type,$date){
+        
+        if($type == "yearly"){
+            $date = "01-01-".$date;
+        }
+        else if($type == "monthly"){
+            $date = "01-".$date;
+        }
+            
         $formatted_date = date("Y-m-d", strtotime($date));
-        $result = Invoice::leftjoin('schedules', 'schedules.id', '=', 'invoices.schedule_id')
-                            ->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
-                            ->leftjoin('patients', 'patients.user_id', '=', 'invoices.patient_id')
-                            ->leftjoin('core_users', 'core_users.id', '=', 'schedules.leader_id')
-                            ->leftjoin('services', 'services.id', '=', 'schedule_detail.service_id')
-                            ->select('invoices.id as invoice_id',DB::raw('DATE_FORMAT(invoices.created_at,"%Y-%m-%d") as date'),'patients.name as patient_name','services.name as service','core_users.name as doctor','invoices.total_payable_amt as total')
-                            ->whereDate('invoices.created_at','=',$formatted_date)
-                            ->where('schedule_detail.type','=','service')
-                            ->get();
+
+        $month=date("m",strtotime($formatted_date));
+        $year=date("Y",strtotime($formatted_date));
+        
+    
+        // $result = Invoice::leftjoin('schedules', 'schedules.id', '=', 'invoices.schedule_id')
+        //                     ->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+        //                     ->leftjoin('patients', 'patients.user_id', '=', 'invoices.patient_id')
+        //                     ->leftjoin('core_users', 'core_users.id', '=', 'schedules.leader_id')
+        //                     ->leftjoin('services', 'services.id', '=', 'schedule_detail.service_id')
+        //                     ->select('invoices.id as invoice_id',DB::raw('DATE_FORMAT(invoices.created_at,"%Y-%m-%d") as date'),'patients.name as patient_name','services.name as service','core_users.name as doctor','invoices.total_payable_amt as total')
+        //                     ->whereDate('invoices.created_at','=',$formatted_date)
+        //                     ->where('schedule_detail.type','=','service')
+        //                     ->get();
+
+        $query = Invoice::query();
+        $query = $query->leftjoin('schedules', 'schedules.id', '=', 'invoices.schedule_id');
+        $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+        $query = $query->leftjoin('patients', 'patients.user_id', '=', 'invoices.patient_id');
+        $query = $query->leftjoin('core_users', 'core_users.id', '=', 'schedules.leader_id');
+        $query = $query->leftjoin('services', 'services.id', '=', 'schedule_detail.service_id');
+        $query = $query->select('invoices.id as invoice_id',DB::raw('DATE_FORMAT(invoices.created_at,"%Y-%m-%d") as date'),'patients.name as patient_name','services.name as service','core_users.name as doctor','invoices.total_payable_amt as total');
+        if($type == "yearly"){
+            $query = $query->whereYear('invoices.created_at','=',$formatted_date);
+        }
+        elseif($type == "monthly"){
+            $query = $query->whereMonth('invoices.created_at','=',$month);
+            $query = $query->whereYear('invoices.created_at','=',$year);
+        }
+        else{
+            $query = $query->whereDate('invoices.created_at','=',$formatted_date);
+        }
+        
+        $query = $query->where('schedule_detail.type','=','service');
+        $result = $query->get();
+        
                             
         return $result;
     }

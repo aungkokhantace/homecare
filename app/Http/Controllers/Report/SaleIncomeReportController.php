@@ -561,8 +561,9 @@ class SaleIncomeReportController extends Controller
         return redirect('/');
     }
 
-    public function invoiceList($date){
-        $invoiceList = $this->repo->getInvoiceListByDate($date);
+    public function invoiceList($type,$date){
+        $invoiceList = $this->repo->getInvoiceListByDate($type,$date);
+        
         $invoiceArray = array();
         foreach($invoiceList as $invoice){
             $invoiceArray[$invoice->invoice_id]['invoice_id']   = $invoice->invoice_id; 
