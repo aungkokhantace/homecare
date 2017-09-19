@@ -372,7 +372,11 @@ class EnquiryApiV2Repository implements EnquiryApiV2RepositoryInterface
 
         $arr  = implode("','",$idArr);
 
-        $enquiryArr     = DB::select("SELECT * from `enquiries` WHERE `deleted_at` is null AND `patient_id` IN ('$arr')");
+        $enquiryArr     = DB::select("SELECT * from `enquiries` WHERE `deleted_at` is null 
+        AND `patient_id` IN ('$arr') 
+        AND created_at >= DATE_SUB(CURDATE(), INTERVAL 3 DAY)
+        AND status = 'new'");
+
         $enquiry_detailArr = DB::select("SELECT * FROM enquiry_detail");
         if(isset($enquiryArr) && count($enquiryArr) > 0){
             foreach ($enquiryArr as $rawKey=>$rawValue) {

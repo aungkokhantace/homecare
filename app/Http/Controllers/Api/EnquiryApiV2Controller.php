@@ -34,7 +34,7 @@ class EnquiryApiV2Controller extends Controller
     }
 
     public function upload(){
-        dd('test_upload');
+       
         $temp                   = Input::All();
         $inputAll               = json_decode($temp['param_data']);
         $checkServerStatusArray = Check::checkCodes($inputAll);
