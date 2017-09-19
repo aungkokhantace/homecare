@@ -98,7 +98,7 @@ class PatientRepository implements PatientRepositoryInterface
                     $userObj->password = $pwd;
                 }
                 else{
-                    $passwordString = "123@parami";             //if password is null, "parami@123" is set as default password
+                    $passwordString = "12345@parami";             //if password is null, "12345@parami" is set as default password
                     //encrypt password
                     $pwd = base64_encode($passwordString);  //encrypt default password
                     //bind to userObj
@@ -214,7 +214,7 @@ class PatientRepository implements PatientRepositoryInterface
                     $tempUserObj->password = $pwd;
                 }
                 else{
-                    $passwordString = "123@parami";             //if password is null, "parami@123" is set as default password
+                    $passwordString = "12345@parami";             //if password is null, "12345@parami" is set as default password
                     //encrypt password
                     $pwd = base64_encode($passwordString);  //encrypt default password
                     //bind to userObj
