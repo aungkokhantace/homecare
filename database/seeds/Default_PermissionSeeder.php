@@ -311,6 +311,9 @@ class Default_PermissionSeeder extends Seeder
             //car usage report
             ['id'=>1022,'module'=>'Report','name'=>'Car Usage Report Graph','description'=>'Car Usage Report Graph','url'=>'carusagereportbygraph'],
             ['id'=>1023,'module'=>'Report','name'=>'Car Usage Report Graph Search','description'=>'Car Usage Report Graph Search','url'=>'carusagereportbygraph/search/{from_date?}/{to_date?}'],
+            
+            //Patient Detail New    
+            ['id'=>1024,'module'=>'Patient','name'=>'Patient Detail','description'=>'Patient Detail','url'=>'patient/patient_detail'],
 
             //Log Activities
             ['id'=>300,'module'=>'Log','name'=>'Activities','description'=>'Activities','url'=>'activities'],

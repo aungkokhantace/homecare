@@ -341,6 +341,10 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>1022],
             ['role_id'=>1, 'permission_id'=>1023],
 
+            //Patient Detail New
+            ['role_id'=>1, 'permission_id'=>1024],
+            ['role_id'=>2, 'permission_id'=>1024],
+
 
             // For Admin Role ( id = 2 )
 
