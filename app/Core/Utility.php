@@ -468,7 +468,7 @@ class Utility
                             <td align="center" height="20">No.(60/A), G-1, New Parami Road, Mayangone Township, Yangon, Myanmar</td>
                         </tr>
                         <tr>
-                            <td align="center" height="20">Contact:(+95-1) 661694, 657228. E-mail:shwezaneka@gmail.com, gzp.hhcs@gmail.com</td>
+                            <td align="center" height="20">Contact:(+95-9) 979909996, 9754013459. E-mail:shwezaneka@gmail.com, gzp.hhcs@gmail.com</td>
                         </tr>
                         <tr>
                             <td align="center" height="18" bgcolor="#00c0f1" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>
