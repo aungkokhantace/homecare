@@ -44,7 +44,13 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     }
 
     public function getArrays(){
-        $tempObj = DB::select("SELECT * FROM schedules WHERE deleted_at is null ORDER BY date DESC");
+        // $tempObj = DB::select("SELECT * FROM schedules WHERE deleted_at is null ORDER BY date DESC");
+        $tempObj = DB::select("SELECT * FROM schedules 
+                                LEFT JOIN
+                                patients ON schedules.patient_id = patients.user_id
+                                WHERE schedules.deleted_at is null 
+                                AND patients.deleted_at is null 
+                                ORDER BY schedules.date DESC");
         return $tempObj;
     }
 
