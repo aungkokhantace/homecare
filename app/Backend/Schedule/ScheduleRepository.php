@@ -1227,8 +1227,10 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     public function getArraysByUser($user_id){
         // $tempObj = DB::select("SELECT * FROM schedules WHERE deleted_at is null ORDER BY date DESC");
         $tempObj = Schedule::where('leader_id','=',$user_id)
-                            ->whereNull('deleted_at')
-                            ->orderby('updated_at','desc')
+                            ->leftjoin('patients', 'schedules.patient_id', '=', 'patients.user_id')
+                            ->whereNull('schedules.deleted_at')
+                            ->whereNull('patients.deleted_at')
+                            ->orderby('schedules.updated_at','desc')
                             ->get();
         return $tempObj;
     }
