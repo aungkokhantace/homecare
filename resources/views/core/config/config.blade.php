@@ -55,6 +55,36 @@
 
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="SETTING_ADDRESS" class="text_bold_black">Hospital Address</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <textarea autocomplete="off" class="form-control" id="SETTING_ADDRESS" name="SETTING_ADDRESS" placeholder="Enter Hospital Address" rows="5" cols="50">{{ isset($configs)? $configs['SETTING_ADDRESS']:Request::old('SETTING_ADDRESS') }}</textarea>
+            <p class="text-danger" id="error_SETTING_ADDRESS">{{$errors->first('SETTING_ADDRESS')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="SETTING_CONTACT_PHONE" class="text_bold_black">Hospital Phone</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <textarea autocomplete="off" class="form-control" id="SETTING_CONTACT_PHONE" name="SETTING_CONTACT_PHONE" placeholder="Enter Hospital Contact Phone" rows="5" cols="50">{{ isset($configs)? $configs['SETTING_CONTACT_PHONE']:Request::old('SETTING_CONTACT_PHONE') }}</textarea>
+            <p class="text-danger" id="error_SETTING_CONTACT_PHONE">{{$errors->first('SETTING_CONTACT_PHONE')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="SETTING_CONTACT_EMAIL" class="text_bold_black">Hospital Email</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <textarea autocomplete="off" class="form-control" id="SETTING_CONTACT_EMAIL" name="SETTING_CONTACT_EMAIL" placeholder="Enter Hospital Contact Email" rows="5" cols="50">{{ isset($configs)? $configs['SETTING_CONTACT_EMAIL']:Request::old('SETTING_CONTACT_EMAIL') }}</textarea>
+            <p class="text-danger" id="error_SETTING_CONTACT_EMAIL">{{$errors->first('SETTING_CONTACT_EMAIL')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="code" class="text_bold_black">Site Logo</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">

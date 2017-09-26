@@ -96,4 +96,9 @@ class TransactionpromotionApiRepository implements TransactionpromotionApiReposi
         $result = DB::table('transaction_promotions')->get();
         return $result;
     }
+
+    public function getArrays(){
+        $result = DB::select("SELECT * FROM transaction_promotions");
+        return $result;
+    }
 }
