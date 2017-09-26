@@ -463,12 +463,43 @@ class Utility
                             <td align="center" width="33%" height="20"></td>
                         </tr>
                         </table>';
+        
+        //get company address from core_config
+        $companyAddressRaw      = DB::table('core_configs')->where('code','=','SETTING_ADDRESS')->first();
+        if(isset($companyAddressRaw) && count($companyAddressRaw) > 0){
+            $companyAddress     = $companyAddressRaw->value;
+        }
+        else{
+            //set as default
+            $companyAddress     = "No.(60/A), G-1, New Parami Road, Mayangone Township, Yangon, Myanmar";
+        }
+
+        //get company contact phone from core_config
+        $companyPhoneRaw        = DB::table('core_configs')->where('code','=','SETTING_CONTACT_PHONE')->first();
+        if(isset($companyPhoneRaw) && count($companyPhoneRaw) > 0){
+            $companyPhone       = $companyPhoneRaw->value;
+        }
+        else{
+            //set as default
+            $companyPhone       = "(+95-9) 979909996, 9754013459";
+        }
+
+        //get company contact email from core_config
+        $companyEmailRaw        = DB::table('core_configs')->where('code','=','SETTING_CONTACT_EMAIL')->first();
+        if(isset($companyEmailRaw) && count($companyEmailRaw) > 0){
+            $companyEmail       = $companyEmailRaw->value;
+        }
+        else{
+            //set as default
+            $companyEmail       = "gzp.hhcs@gmail.com";
+        }
+        
         $letterHead = '<br><table style="font-size:11px;">
                         <tr>
-                            <td align="center" height="20">No.(60/A), G-1, New Parami Road, Mayangone Township, Yangon, Myanmar</td>
+                            <td align="center" height="20">'.$companyAddress.'</td>
                         </tr>
                         <tr>
-                            <td align="center" height="20">Contact:(+95-9) 979909996, 9754013459. E-mail:shwezaneka@gmail.com, gzp.hhcs@gmail.com</td>
+                            <td align="center" height="20">Contact:'.$companyPhone.'. E-mail:'.$companyEmail.'</td>
                         </tr>
                         <tr>
                             <td align="center" height="18" bgcolor="#00c0f1" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>

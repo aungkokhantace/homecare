@@ -16,7 +16,7 @@ $companyLogo = \App\Core\Check::companyLogo();
 <div class="container">
     <div class="row middle">
         <div class="col-md-5 col-md-offset-3 login-left">
-            <p id="logo"><strong>{{$companyName}}</strong></p>
+            <p id="logo" class="login-company-name"><strong>{{$companyName}}</strong></p>
         </div>
     </div>
     <div class="row">
