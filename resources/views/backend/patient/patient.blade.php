@@ -787,6 +787,9 @@
             //End Validation for Patient Entry and Edit Form
 
             $(':checkbox').checkboxpicker();
+
+            //For selectbox with search function
+            $("#townships").select2();
         });
 
         function saveConfig(action) {

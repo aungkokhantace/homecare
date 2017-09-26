@@ -996,6 +996,9 @@
 //                    }, 'Enter a positive number.');
             //End Validation for Enquiry Entry Form
 
+            //For selectbox with search function
+            $("#township_id").select2();
+
         });
     </script>
 @stop

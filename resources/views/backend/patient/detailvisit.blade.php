@@ -1010,11 +1010,12 @@
                                             ?>
                                         @endforeach
                                         <tr class="detail_visit_vital_row">
+                                            <td></td>
+                                            <!-- <td><b>{{$totalDosage}}</b></td> -->
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td><b>Total</b></td>
-                                            <td><b>{{$totalDosage}}</b></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
                                             <td><b>{{$totalSold}}</b></td>
                                             <td style="text-align: right;"><b>{{number_format($totalPrice)}}</b></td>
                                         </tr>
