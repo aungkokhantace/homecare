@@ -33,7 +33,16 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 
             @if(isset($package))
-                <select id="services" name="services[]" multiple="multiple" class="form-control">
+                <!-- <select id="services" name="services[]" multiple="multiple" class="form-control">
+                    @foreach($package['services'] as $service)
+                        @if($service->selected == 1)
+                            <option value="{{$service->id}}" selected>{{$service->name}}</option>
+                        @else
+                            <option value="{{$service->id}}">{{$service->name}}</option>
+                        @endif
+                    @endforeach
+                </select> -->
+                <select id="services" name="services[]" class="form-control">
                     @foreach($package['services'] as $service)
                         @if($service->selected == 1)
                             <option value="{{$service->id}}" selected>{{$service->name}}</option>
@@ -43,7 +52,12 @@
                     @endforeach
                 </select>
             @else
-                <select id="services" name="services[]" multiple="multiple" class="form-control">
+                <!-- <select id="services" name="services[]" multiple="multiple" class="form-control">
+                    @foreach($services as $service)
+                        <option value="{{$service->id}}">{{$service->name}}</option>
+                    @endforeach
+                </select> -->
+                <select id="services" name="services[]" class="form-control">
                     @foreach($services as $service)
                         <option value="{{$service->id}}">{{$service->name}}</option>
                     @endforeach
@@ -133,12 +147,12 @@
 @section('page_script')
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#services").multiselect({
-                show: ["bounce", 100],
-                hide: ["explode", 600]
-            }).multiselectfilter().on('change',function(){
-                $('#packageForm').valid();
-            });
+            // $("#services").multiselect({
+            //     show: ["bounce", 100],
+            //     hide: ["explode", 600]
+            // }).multiselectfilter().on('change',function(){
+            //     $('#packageForm').valid();
+            // });
 
             $(':checkbox').checkboxpicker();
 

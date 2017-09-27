@@ -34,9 +34,10 @@
                     <thead>
                     <tr>
                         <th><input type='checkbox' name='check' id='check_all'/></th>
+                        <th>Patient Name</th>
                         <th>Patient ID</th>
                         <th>Package Name</th>
-                        <th>Remark</th>
+                        <!-- <th>Remark</th> -->
                         <th>Date</th>
                         <th>Detail</th>
                         <th>Export</th>
@@ -45,9 +46,10 @@
                     <tfoot>
                     <tr>
                         <th></th>
+                        <th class="search-col" con-id="patient_name">Patient Name</th>
                         <th class="search-col" con-id="patient_id">Patient ID</th>
                         <th class="search-col" con-id="package_name">Package Name</th>
-                        <th class="search-col" con-id="remark">Remark</th>
+                        <!-- <th class="search-col" con-id="remark">Remark</th> -->
                         <th class="search-col" con-id="date">Date</th>
                         <th class="search-col"></th>
                         <th class="search-col"></th>
@@ -57,9 +59,10 @@
                     @foreach($packagesales as $packagesale)
                         <tr>
                             <td><input type="checkbox" class="check_source" name="edit_check" value="{{ $packagesale->id }}" id="all"></td>
+                            <td>{{$packagesale->patient->name}}</td>
                             <td>{{$packagesale->patient->user_id}}</td>
                             <td>{{$packagesale->package->package_name}}</td>
-                            <td>{{$packagesale->remark}}</td>
+                            <!-- <td>{{$packagesale->remark}}</td> -->
                             <td>{{$packagesale->sold_date}}</td>
                             <td><a href={{"/packagesale/schedule/".$packagesale->id}}>Detail</a></td>
                             <td><a target="_blank" href={{"/packagesale/export/".$packagesale->id."/".$packagesale->promotion_code}}>Export</a></td>
