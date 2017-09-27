@@ -26,20 +26,39 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
 {
     public function getObjs($schedule_status = null, $from_date = null, $to_date = null)
     {
+        // $query = Schedule::query();
+        // if(isset($schedule_status) && $schedule_status != null && $schedule_status <> 'all'){
+        //     $query = $query->where('status', $schedule_status);
+        // }
+        // if(isset($from_date) && $from_date != null){
+        //     $tempFromDate = date("Y-m-d", strtotime($from_date));
+        //     $query = $query->where('date', '>=' , $tempFromDate);
+        // }
+        // if(isset($to_date) && $to_date != null){
+        //     $tempToDate = date("Y-m-d", strtotime($to_date));
+        //     $query = $query->where('date', '<=', $tempToDate);
+        // }
+        // $query = $query->whereNull('deleted_at');
+        // $objs = $query->get();
+        // return $objs;
+
         $query = Schedule::query();
+        $query = $query->leftjoin('patients', 'patients.user_id', '=', 'schedules.patient_id');
         if(isset($schedule_status) && $schedule_status != null && $schedule_status <> 'all'){
-            $query = $query->where('status', $schedule_status);
+            $query = $query->where('schedules.status', $schedule_status);
         }
         if(isset($from_date) && $from_date != null){
             $tempFromDate = date("Y-m-d", strtotime($from_date));
-            $query = $query->where('date', '>=' , $tempFromDate);
+            $query = $query->where('schedules.date', '>=' , $tempFromDate);
         }
         if(isset($to_date) && $to_date != null){
             $tempToDate = date("Y-m-d", strtotime($to_date));
-            $query = $query->where('date', '<=', $tempToDate);
+            $query = $query->where('schedules.date', '<=', $tempToDate);
         }
-        $query = $query->whereNull('deleted_at');
+        $query = $query->whereNull('schedules.deleted_at');
+        $query = $query->whereNull('patients.deleted_at');
         $objs = $query->get();
+           
         return $objs;
     }
 
@@ -1239,6 +1258,29 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                             ->orderby('schedules.updated_at','desc')
                             ->get();
         return $tempObj;
+    }
+
+    public function getObjsByUser($user_id, $schedule_status = null, $from_date = null, $to_date = null)
+    {
+        $query = Schedule::query();
+        $query = $query->leftjoin('patients', 'patients.user_id', '=', 'schedules.patient_id');
+        if(isset($schedule_status) && $schedule_status != null && $schedule_status <> 'all'){
+            $query = $query->where('schedules.status', $schedule_status);
+        }
+        if(isset($from_date) && $from_date != null){
+            $tempFromDate = date("Y-m-d", strtotime($from_date));
+            $query = $query->where('schedules.date', '>=' , $tempFromDate);
+        }
+        if(isset($to_date) && $to_date != null){
+            $tempToDate = date("Y-m-d", strtotime($to_date));
+            $query = $query->where('schedules.date', '<=', $tempToDate);
+        }
+        $query = $query->whereNull('schedules.deleted_at');
+        $query = $query->whereNull('patients.deleted_at');
+        $query = $query->where('schedules.leader_id', '=', $user_id);
+        $objs = $query->get();
+           
+        return $objs;
     }
     
 }

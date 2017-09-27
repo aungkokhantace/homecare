@@ -653,10 +653,52 @@ class Default_RolePermissionSeeder extends Seeder
             // ['role_id'=>2, 'permission_id'=>1053],
             // ['role_id'=>2, 'permission_id'=>1054],
 
-            //MO permissions
-            ['role_id'=>3, 'permission_id'=>140],
-            ['role_id'=>3, 'permission_id'=>200],
-            ['role_id'=>3, 'permission_id'=>160],
+            //MO permissions(role_id = 6)
+            //Enquiry
+            ['role_id'=>6, 'permission_id'=>140],
+            ['role_id'=>6, 'permission_id'=>141],
+            ['role_id'=>6, 'permission_id'=>142],
+            ['role_id'=>6, 'permission_id'=>143],
+            ['role_id'=>6, 'permission_id'=>144],
+            ['role_id'=>6, 'permission_id'=>145],
+            ['role_id'=>6, 'permission_id'=>146],
+            ['role_id'=>6, 'permission_id'=>147],
+            ['role_id'=>6, 'permission_id'=>148],
+
+            //Schedule
+            ['role_id'=>6, 'permission_id'=>200],
+            ['role_id'=>6, 'permission_id'=>201],
+            ['role_id'=>6, 'permission_id'=>202],
+            ['role_id'=>6, 'permission_id'=>203],
+            ['role_id'=>6, 'permission_id'=>204],
+            ['role_id'=>6, 'permission_id'=>205],
+            ['role_id'=>6, 'permission_id'=>206],
+            ['role_id'=>6, 'permission_id'=>207],
+
+            //Patient
+            ['role_id'=>6, 'permission_id'=>160],
+            ['role_id'=>6, 'permission_id'=>161],
+            ['role_id'=>6, 'permission_id'=>162],
+            ['role_id'=>6, 'permission_id'=>163],
+            ['role_id'=>6, 'permission_id'=>164],
+            ['role_id'=>6, 'permission_id'=>165],
+            ['role_id'=>6, 'permission_id'=>166],
+            ['role_id'=>6, 'permission_id'=>167],
+            ['role_id'=>6, 'permission_id'=>168],
+            ['role_id'=>6, 'permission_id'=>1024],
+            //for patient_detail->invoice & invoice export
+            ['role_id'=>6, 'permission_id'=>1012],
+            ['role_id'=>6, 'permission_id'=>1013],
+            //for patient_detail->addendum_store
+            ['role_id'=>6, 'permission_id'=>346],
+
+            //Package Sale
+            ['role_id'=>6, 'permission_id'=>210],
+            ['role_id'=>6, 'permission_id'=>211],
+            ['role_id'=>6, 'permission_id'=>212],
+            ['role_id'=>6, 'permission_id'=>213],
+            ['role_id'=>6, 'permission_id'=>214],
+            ['role_id'=>6, 'permission_id'=>215],
         );
 
         DB::table('core_permission_role')->insert($roles);
