@@ -157,6 +157,10 @@
             {
               "table_name": "patient_package",
               "max_key_id": 0
+            },
+            {
+                "table_name": "transaction_promotions",
+                "max_key_id": 0
             }
           ],
           "data": [
@@ -182,7 +186,31 @@
 
                   ]
                 }
-              ]
+              ],
+            "transaction_promotions": [
+                {
+                    "id": "U0011",
+                    "promotion_code": "U001_20170920140155_1",
+                    "reference_type": "package_sale",
+                    "reference_id": "U0012",
+                    "package_id": 2,
+                    "used": 0,
+                    "promo_group_code": "U001_20170920140155_1",
+                    "promo_group_code_order": 1,
+                    "remark": ""
+                },
+                {
+                    "id": "U0012",
+                    "promotion_code": "U001_20170920140458_2",
+                    "reference_type": "package_sale",
+                    "reference_id": "U0013",
+                    "package_id": 2,
+                    "used": 0,
+                    "promo_group_code": "U001_20170920140458_2",
+                    "promo_group_code_order": 1,
+                    "remark": ""
+                }
+            ]
             }
           ]
         }

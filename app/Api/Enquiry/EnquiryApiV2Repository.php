@@ -61,19 +61,41 @@ class EnquiryApiV2Repository implements EnquiryApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in enquiry_detail relating to input
-                if (isset($row->enquiry_detail) && count($row->enquiry_detail) > 0) {
-                    DB::table('enquiry_detail')
-                        ->where('enquiry_id', '=', $id)
-                        ->delete();
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
+                    
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
+                    
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
 
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        //start clearing all existing data relating to input data
+                         //clear all existing data in enquiry_detail relating to input
+                        if (isset($row->enquiry_detail) && count($row->enquiry_detail) > 0) {
+                            DB::table('enquiry_detail')
+                                ->where('enquiry_id', '=', $id)
+                                ->delete();
+
+                        }
+
+                        //clear all existing data in enquiries relating to input
+                        DB::table('enquiries')
+                            ->where('id', '=', $id)
+                            //->where('patient_id', '=', $patient_id)
+                            ->delete();
+                        //end clearing all existing data relating to input data
+                    }                    
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        continue;
+                    }
                 }
-
-                //clear all existing data in enquiries relating to input
-                DB::table('enquiries')
-                    ->where('id', '=', $id)
-//                    ->where('patient_id', '=', $patient_id)
-                    ->delete();
 
                 //creating enquiry object
                 $paramObj = new Enquiry();
@@ -277,17 +299,38 @@ class EnquiryApiV2Repository implements EnquiryApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in enquiry_detail relating to input
-                DB::table('enquiry_detail')
-                    ->where('enquiry_id', '=', $id)
-                    ->delete();
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
+
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
+                    
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
+
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        //clear all existing data in enquiry_detail relating to input
+                        DB::table('enquiry_detail')
+                        ->where('enquiry_id', '=', $id)
+                        ->delete();
 
 
-                //clear all existing data in enquiries relating to input
-                DB::table('enquiries')
-                    ->where('id', '=', $id)
-//                    ->where('patient_id', '=', $patient_id)
-                    ->delete();
+                        //clear all existing data in enquiries relating to input
+                        DB::table('enquiries')
+                            ->where('id', '=', $id)
+                            //->where('patient_id', '=', $patient_id)
+                            ->delete();
+                    }
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        //skip current record
+                        continue;
+                    }
+                }
 
                 //creating enquiry object
                 $paramObj = new Enquiry();
