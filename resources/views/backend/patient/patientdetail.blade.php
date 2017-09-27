@@ -91,6 +91,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4><label><strong>Allergies</strong></label></h4>
+                            <!-- if patient has allergies, display by allergy category -->
                             @if($patient->having_allergy == 1)
                                 @foreach($patient['allergies']['food'] as $allergy)
                                     @if($allergy->selected == 1)
@@ -109,6 +110,9 @@
                                         <label for="allergy">[Environment] - {{$allergy->name}}</label><br/>
                                     @endif
                                 @endforeach
+                            <!-- patient has no allergy -->
+                            @else
+                            <label for="allergy"><b>No</b></label>
                             @endif
                         </div>
                     </div>
