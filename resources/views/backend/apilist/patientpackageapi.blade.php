@@ -23,6 +23,7 @@
             <li class="active"><a href="#" class="api-active-tab">Patient Package API</a></li>
             <li><a href="/apilist/waytrackingapi" class="api-tab">Way Tracking API</a></li>
             <li><a href="/apilist/patientapi" class="api-tab">Patient API</a></li>
+            <li><a href="/apilist/companyinformationapi" class="api-tab">Company Information API</a></li>
         </ul>
     </div>
 

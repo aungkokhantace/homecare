@@ -373,6 +373,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('apilist/patientpackageapi', array('as'=>'apilist/patientpackageapi','uses'=>'Backend\ApiListController@patientpackageapi'));
         Route::get('apilist/waytrackingapi', array('as'=>'apilist/waytrackingapi','uses'=>'Backend\ApiListController@waytrackingapi'));
         Route::get('apilist/patientapi', array('as'=>'apilist/patientapi','uses'=>'Backend\ApiListController@patientapi'));
+        Route::get('apilist/companyinformationapi', array('as'=>'apilist/companyinformationapi','uses'=>'Backend\ApiListController@companyinformationapi'));
 
         //Price history
         Route::get('pricehistory/{type?}/{id?}', array('as'=>'pricehistory/{type?}/{id?}','uses'=>'Log\PriceHistoryController@search'));
@@ -498,6 +499,9 @@ Route::group(['prefix' => 'api'], function () {
 
     //transaction_promotions upload api
     Route::post('transaction_promotions/upload', array('as'=>'transaction_promotions/upload','uses'=>'Api\TransactionpromotionApiController@upload'));
+
+    //company information download api
+    Route::post('download/company_information', array('as'=>'download/company_information','uses'=>'Api\CompanyInformationApiController@download'));
 });
 
 

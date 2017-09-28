@@ -84,4 +84,13 @@ class ApiListController extends Controller
         }
         return redirect('/');
     }
+
+    
+    public function companyinformationapi()
+    {
+        if (Auth::guard('User')->check()) {
+            return view('backend.apilist.companyinformationapi');
+        }
+        return redirect('/');
+    }
 }
