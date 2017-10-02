@@ -455,14 +455,15 @@ class Utility
 
     public static function getPDFHeader(){
         $companyLogo = \App\Core\Check::companyLogo();
-        $image = '<img style="width:80px;height:50px;" src="'.$companyLogo.'" alt="Parami HomeCare Logo"><br>';
-        $logo = '<table>
-                        <tr>
-                            <td align="center" width="33%" height="20"></td>
-                            <td align="center" width="33%" height="20">'.$image.'</td>
-                            <td align="center" width="33%" height="20"></td>
-                        </tr>
-                        </table>';
+        // $image = '<img style="width:80px;height:50px;" src="'.$companyLogo.'" alt="Parami HomeCare Logo"><br>';
+        $image = '<img style="width:65px;height:35px;" src="'.$companyLogo.'" alt="Parami HomeCare Logo"><br>';
+        // $logo = '<table>
+        //                 <tr>
+        //                     <td align="center" width="33%" height="20"></td>
+        //                     <td align="center" width="33%" height="20">'.$image.'</td>
+        //                     <td align="center" width="33%" height="20"></td>
+        //                 </tr>
+        //                 </table>';
         
         //get company address from core_config
         $companyAddressRaw      = DB::table('core_configs')->where('code','=','SETTING_ADDRESS')->first();
@@ -494,18 +495,32 @@ class Utility
             $companyEmail       = "gzp.hhcs@gmail.com";
         }
         
+        // $letterHead = '<br><table style="font-size:11px;">
+        //                 <tr>
+        //                     <td align="center" height="20">'.$companyAddress.'</td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td align="center" height="20">Contact:'.$companyPhone.'. E-mail:'.$companyEmail.'</td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td align="center" height="18" bgcolor="#00c0f1" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>
+        //                 </tr>
+        //                 </table>';
+        
         $letterHead = '<br><table style="font-size:11px;">
                         <tr>
-                            <td align="center" height="20">'.$companyAddress.'</td>
+                            <td width="20%" height="20" rowspan="2" valign="middle">'.$image.'</td>
+                            <td width="80%" align="left" height="20">'.$companyAddress.'</td>
                         </tr>
                         <tr>
-                            <td align="center" height="20">Contact:'.$companyPhone.'. E-mail:'.$companyEmail.'</td>
+                            <td align="left" height="20">Contact:'.$companyPhone.'. E-mail:'.$companyEmail.'</td>
                         </tr>
                         <tr>
-                            <td align="center" height="18" bgcolor="#00c0f1" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>
+                            <td align="center" height="18" bgcolor="#00c0f1" colspan="2" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>
                         </tr>
                         </table>';
-        $pdfHeader  = $logo.$letterHead;
+        // $pdfHeader  = $logo.$letterHead;
+        $pdfHeader  = $letterHead;
         return $pdfHeader;
     }
 
