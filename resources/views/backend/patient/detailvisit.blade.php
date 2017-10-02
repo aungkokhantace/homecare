@@ -988,7 +988,8 @@
                                         <th>Dosage</th>
                                         <th>Frequency</th>
                                         <th>Duration</th>
-                                        <th>Time</th>
+                                        <!-- <th>Time</th> -->
+                                        <th>Route</th>
                                         <th>Sold Qty.</th>
                                         <th>Price</th>
                                     </tr>
@@ -999,7 +1000,8 @@
                                                 <td>{{$treatment->total_dosage}}</td>
                                                 <td>{{$treatment->frequency}}</td>
                                                 <td>{{$treatment->days}}</td>
-                                                <td>{{$treatment->time}}</td>
+                                                <!-- <td>{{$treatment->time}}</td> -->
+                                                <td>{{$treatment->route_name}}</td>
                                                 <td>{{$treatment->sold_dosage}}</td>
                                                 <td style="text-align: right;">{{number_format($treatment->price * $treatment->sold_dosage)}}</td>
                                             </tr>

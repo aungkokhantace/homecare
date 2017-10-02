@@ -194,6 +194,7 @@
 
             //For selectbox with search function
             $("#name").select2();
+            $("#package").select2();
         });
 
         function autofill(value)

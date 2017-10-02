@@ -47,6 +47,7 @@ use App\Backend\Familyhistory\FamilyhistoryRepository;
 use App\Backend\Familymember\FamilymemberRepository;
 use App\Backend\Medicalhistory\MedicalhistoryRepository;
 use App\Backend\Patientmedicalhistory\PatientmedicalhistoryRepository;
+use App\Backend\Route\RouteRepository;
 
 class PatientController extends Controller
 {
@@ -904,6 +905,13 @@ class PatientController extends Controller
             $addendumRepo = new AddendumRepository();
             $addendums    = $addendumRepo->getObjs();
             //end addendum
+
+            $routeRepo = new RouteRepository();
+            foreach($treatments as $treatment){  
+                $route = $routeRepo->getObjByID($treatment->time);
+                $route_name = $route->name;
+                $treatment->route_name = $route_name;
+            }
             
             return view('backend.patient.detailvisit')->with('patient',$patient)
                 ->with('schedules',$schedule)
