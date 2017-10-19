@@ -394,7 +394,7 @@ class ScheduleController extends Controller
         try {
             DB::beginTransaction();
             if($is_new_patient == 1) { // Schedule Saving with creating new patient case // New Patient Case
-
+                
                 $enquiry = Enquiry::find($enquiry_id);
                 $userObj = new User();
                 $patientObj = new Patient();
@@ -467,16 +467,26 @@ class ScheduleController extends Controller
                 }
             }
             else{
+                
                 // Schedule Saving without creating new patient case
                 $result = $this->scheduleRepository->create($paramObj,$services,$hhcsPersonnels);
                 if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
-
+                    
+                    // // Updating the enquiry status to confirm
+                    // if($enquiry_id !== ""){
+                    //     $enquiry = Enquiry::find($enquiry_id);   
+                    //     $enquiry->status = "confirm";
+                    //     $enquiry->save();
+                        
+                    // }
                     // Updating the enquiry status to confirm
-                    if($enquiry_id !== ""){
-                        $enquiry = Enquiry::find($enquiry_id);
+                    if(isset($enquiry) && count($enquiry)>0){
                         $enquiry->status = "confirm";
+                        // $enquiry->patient_id = $createdPatient->user_id;
                         $enquiry->save();
                     }
+
+
                     if($patient_package_id != "") {
                         // Updating the Package Schedule Used Count
                         $packageSaleRepo = new PackageSaleRepository();

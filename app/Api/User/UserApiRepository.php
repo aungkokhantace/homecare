@@ -162,6 +162,13 @@ class UserApiRepository implements UserApiRepositoryInterface
                     $paramObj->display_image= $display_image;
 
                     $file = base_path() . "/public/images/users/" . $display_image;
+
+                    $path = base_path().'/public/images/users/';
+                    if ( ! file_exists($path))
+                    {
+                        mkdir($path, 0777, true);
+                    }
+
                     $success = file_put_contents($file, $data);
                 }
 
