@@ -594,6 +594,39 @@ class InvoiceApiV3Controller extends Controller
                     }
                 }
 
+                //for updating enquiry status to "complete"
+                if(isset($params->invoices) && count($params->invoices) > 0){
+                    $invoices       = $params->invoices;
+                    $temp_sche_id_array = array();
+
+                    //loop through invoices that has a schedule_id and get enquiry_id from each schedule
+                    foreach($invoices as $sch_in_invoice){
+                        //get schedule_id of invoice and get enquiry_id from that schedule
+                        if(isset($sch_in_invoice->schedule_id) && count($sch_in_invoice->schedule_id) > 0){
+                            $enquiry_id = $scheduleRepo->getEnquiryIdFromScheduleId($sch_in_invoice->schedule_id);
+                            $enquiry = Enquiry::find($enquiry_id);
+                            //update status to "complete"
+                            if(isset($enquiry) && count($enquiry)>0){
+                                $enquiry->status = "complete";
+                                $enquiry->save();
+                            }
+                        }                        
+                    }
+
+                    $invoiceResult  = $invoiceRepo->invoices($invoices);
+
+                    if($invoiceResult['aceplusStatusCode'] != ReturnMessage::OK) {
+                        DB::rollback();
+                        $invoiceResult['tablet_id'] = $tablet_id;
+                        $invoiceResult['data']      = (object) array();
+                        return \Response::json($invoiceResult);
+                    }
+
+                    if(isset($invoiceResult['log']) && count($invoiceResult['log']) > 0){
+                        array_push($logArr,$invoiceResult['log']);
+                    }
+                }
+
                 //all insertions were successful
                 DB::commit();
                 if(isset($logArr) && count($logArr) > 0){
