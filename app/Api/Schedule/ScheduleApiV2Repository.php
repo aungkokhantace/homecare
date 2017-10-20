@@ -1349,7 +1349,13 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
 
     public function getEnquiryIdFromScheduleId($schedule_id){
         $scheduleObj = Schedule::find($schedule_id);
-        $enquiry_id = $scheduleObj->enquiry_id;
+        if(isset($scheduleObj->enquiry_id) && count($scheduleObj->enquiry_id) > 0){
+            $enquiry_id = $scheduleObj->enquiry_id;
+        }
+        else{
+            $enquiry_id = null;
+        }
+        
         return $enquiry_id;
     }
 }

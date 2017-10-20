@@ -604,12 +604,14 @@ class InvoiceApiV3Controller extends Controller
                         //get schedule_id of invoice and get enquiry_id from that schedule
                         if(isset($sch_in_invoice->schedule_id) && count($sch_in_invoice->schedule_id) > 0){
                             $enquiry_id = $scheduleRepo->getEnquiryIdFromScheduleId($sch_in_invoice->schedule_id);
-                            $enquiry = Enquiry::find($enquiry_id);
-                            //update status to "complete"
-                            if(isset($enquiry) && count($enquiry)>0){
-                                $enquiry->status = "complete";
-                                $enquiry->save();
-                            }
+                            if(isset($enquiry_id) && count($enquiry_id) > 0){
+                                $enquiry = Enquiry::find($enquiry_id);
+                                //update status to "complete"
+                                if(isset($enquiry) && count($enquiry)>0){
+                                    $enquiry->status = "complete";
+                                    $enquiry->save();
+                                }
+                            }                            
                         }                        
                     }
 
