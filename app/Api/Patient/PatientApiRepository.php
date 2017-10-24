@@ -365,6 +365,34 @@ class PatientApiRepository implements PatientApiRepositoryInterface
 
                 //Check update or create for log date
                 $findPatientObj    = Patient::where('user_id','=',$id)->first();
+
+                //start log summary
+                // $findObj    = Patient::where('user_id','=',$id)->first();
+                $findObj    = $findPatientObj;
+                
+                if(isset($findObj) && count($findObj) > 0){
+                    //compare input and current case scenarios
+                    $current_case_scenario  = $findObj->case_scenario;                            
+                    $input_case_scenario    = $data->case_scenario;
+
+                    if($current_case_scenario !== $input_case_scenario){
+                        //create log patient case summary
+                        $prefix = Utility::getTerminalId();
+                        $table = (new LogPatientCaseSummary())->getTable();
+                        $col = "id";
+                        $offset = 1;
+                        $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                        $logObj                         = new LogPatientCaseSummary();
+                        $logObj->id                     = $generatedId;
+                        $logObj->patient_id             = $data->user_id;
+                        $logObj->case_summary           = $input_case_scenario;
+                        $logObj->created_at             = date("Y-m-d H:i:s");
+                        $logObj->save();            //log obj insert is successful
+                        //end creating log patient case summary
+                    }    
+                }  
+                //end log summary
+
                 if(isset($findPatientObj) && count($findPatientObj) > 0){
                     $tempPatientArr['date']               = $data->updated_at;
                     $patientCreate                        = "updated";
@@ -427,10 +455,10 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                                 // ->where('email', '=', $email)
                                 ->delete();
 
-                            //clear patient log data relating to input
-                            DB::table('log_patient_case_summary')
-                                ->where('patient_id', '=', $id)
-                                ->delete();
+                            // //clear patient log data relating to input
+                            // DB::table('log_patient_case_summary')
+                            //     ->where('patient_id', '=', $id)
+                            //     ->delete();
                     }
                     //Incoming record's updated_at is not later than existing record's updated_at;
                     //So, the record incoming is updated earlier; So, database doesn't need to be updated..
@@ -637,7 +665,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     $allergyCreate              = "created";
                 }
                 $tempLogPatientArr['date']      = $row->created_at;
-
+                
                 if(isset($findObj) && count($findObj) > 0){
                     $current_updated_at = "";
                     $input_updated_at = "";
@@ -650,6 +678,10 @@ class PatientApiRepository implements PatientApiRepositoryInterface
 
                     //Incoming record's updated_at is later than existing record's updated_at;
                     //So, the record incoming is updated later; So, database must be updated..
+                    // if($row->user_id == "U0054"){
+                    //     dd('compare',$input_updated_at,$current_updated_at);
+                    // }
+                    
                     if($input_updated_at > $current_updated_at){
                         //clear patient_allergy data relating to input
                         DB::table('patient_allergy')
@@ -672,6 +704,21 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                         continue;
                     }
                 }
+                // else{
+                //     //create log patient case summary
+                //     $prefix = Utility::getTerminalId();
+                //     $table = (new LogPatientCaseSummary())->getTable();
+                //     $col = "id";
+                //     $offset = 1;
+                //     $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                //     $logObj                         = new LogPatientCaseSummary();
+                //     $logObj->id                     = $generatedId;
+                //     $logObj->patient_id             = $row->user_id;
+                //     $logObj->case_summary           = $row->case_scenario;
+                //     $logObj->created_at             = date("Y-m-d H:i:s");
+                //     $logObj->save();            //log obj insert is successful
+                //     //end creating log patient case summary
+                // }
 
                 //create patient object
                 $paramObj = new Patient();
@@ -694,8 +741,8 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 $paramObj->deleted_by = $row->deleted_by;
                 $paramObj->created_at   = (isset($row->created_at) && $row->created_at != "") ? $row->created_at:null;
                 $paramObj->updated_at   = (isset($row->updated_at) && $row->updated_at != "") ? $row->updated_at:null;
-                $paramObj->deleted_at   = (isset($row->deleted_at) && $row->deleted_at != "") ? $row->deleted_at:null;
-
+                $paramObj->deleted_at   = (isset($row->deleted_at) && $row->deleted_at != "") ? $row->deleted_at:null;                
+                
                 $patientResult = $this->createSingleObj($paramObj);
                 
                 //check whether patient insertion was successful or not
@@ -753,7 +800,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     // }
                     // //end insertion of log_patient_case_summary
                     
-                    if(isset($findObj) && count($findObj) > 0){
+                    // if(isset($findObj) && count($findObj) > 0){
                         // $current_updated_at = "";
                         // $input_updated_at = "";
                         
@@ -763,43 +810,28 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                         // $temp_input_updated_at = $row->updated_at;
                         // $input_updated_at = $temp_input_updated_at;
                         
-                        if($input_updated_at > $current_updated_at){                            
-                            $current_case_scenario  = $findObj->case_scenario;                            
-                            $input_case_scenario    = $row->case_scenario;
+                        // if($input_updated_at > $current_updated_at){                            
+                            // $current_case_scenario  = $findObj->case_scenario;                            
+                            // $input_case_scenario    = $row->case_scenario;
                             
-                            if($current_case_scenario !== $input_case_scenario){
-                                //create log patient case summary
-                                $prefix = Utility::getTerminalId();
-                                $table = (new LogPatientCaseSummary())->getTable();
-                                $col = "id";
-                                $offset = 1;
-                                $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
-                                $logObj                         = new LogPatientCaseSummary();
-                                $logObj->id                     = $generatedId;
-                                $logObj->patient_id             = $row->user_id;
-                                $logObj->case_summary           = $input_case_scenario;
-                                $logObj->created_at             = date("Y-m-d H:i:s");
-                                $logObj->save();            //log obj insert is successful
-                                //end creating log patient case summary
-                            }
-                        }
-                    }
-                    
-                    else{
-                        //create log patient case summary
-                        $prefix = Utility::getTerminalId();
-                        $table = (new LogPatientCaseSummary())->getTable();
-                        $col = "id";
-                        $offset = 1;
-                        $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
-                        $logObj                         = new LogPatientCaseSummary();
-                        $logObj->id                     = $generatedId;
-                        $logObj->patient_id             = $row->user_id;
-                        $logObj->case_summary           = $row->case_scenario;
-                        $logObj->created_at             = date("Y-m-d H:i:s");
-                        $logObj->save();            //log obj insert is successful
-                        //end creating log patient case summary
-                    }     
+                            // if($current_case_scenario !== $input_case_scenario){
+                            //     //create log patient case summary
+                            //     $prefix = Utility::getTerminalId();
+                            //     $table = (new LogPatientCaseSummary())->getTable();
+                            //     $col = "id";
+                            //     $offset = 1;
+                            //     $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                            //     $logObj                         = new LogPatientCaseSummary();
+                            //     $logObj->id                     = $generatedId;
+                            //     $logObj->patient_id             = $row->user_id;
+                            //     $logObj->case_summary           = $input_case_scenario;
+                            //     $logObj->created_at             = date("Y-m-d H:i:s");
+                            //     $logObj->save();            //log obj insert is successful
+                            //     //end creating log patient case summary
+                            // }
+                        // }
+                    // }
+                               
                     
                     continue;       //continue to next loop(i.e. next row of patient data)
 

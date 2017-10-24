@@ -48,7 +48,7 @@ class PatientRepository implements PatientRepositoryInterface
                 $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
 
                 DB::beginTransaction();
-
+                
                 $tempUserObj = Utility::addCreatedBy($userObj);
                 $tempObj = Utility::addCreatedBy($paramObj);
                 $logObj         = Utility::logCreatedBy($logObj);
@@ -301,7 +301,8 @@ class PatientRepository implements PatientRepositoryInterface
 
         try{
             DB::beginTransaction();
-            $tempObj     = Utility::addUpdatedBy($paramObj);
+            
+            $tempObj     = Utility::addUpdatedBy($paramObj);            
             $tempUserObj = Utility::addUpdatedBy($userObj);
             $logObj      = Utility::logUpdatedby($logObj);
             //retrieve zone_id from township_id
@@ -331,7 +332,7 @@ class PatientRepository implements PatientRepositoryInterface
                 $email          = $tmp.'.'.$tempUserObj->staff_id."@gmail.com";
                 $tempObj->email = $email;
             }
-
+            
             if($tempObj->save()){
                 if($tempUserObj->save()) {
                     $patient_id = $tempObj->user_id;
@@ -356,14 +357,14 @@ class PatientRepository implements PatientRepositoryInterface
 
                     return $returnedObj;
                 }
-
+                
                 $logObj->patient_id = $tempObj->user_id;
                 $logObj->save();
-
+                
                 DB::commit();
 
                 //update info log
-                $date = $tempObj->created_at;
+                $date = $tempObj->updated_at;
                 $message = '['. $date .'] '. 'info: ' . 'User '.$currentUser.' updated patient_id = '.$tempObj->user_id . PHP_EOL;
                 LogCustom::create($date,$message);
                 $message = '['. $date .'] '. 'info: ' . 'User '.$currentUser.' updated user_id = '.$tempUserObj->id . PHP_EOL;

@@ -125,6 +125,9 @@ class EnquiryApiV2Controller extends Controller
                             if(array_key_exists('id',$core_user)) {
 
                                 if($core_user->id != null || $core_user->id != ""){
+
+                                
+                                
                                 $core_users = array();
                                 $core_users[0] = $core_user;
                                 $userRepo      = new UserApiRepository();
@@ -144,6 +147,33 @@ class EnquiryApiV2Controller extends Controller
 
                                     if(isset($enquiry->patients) && count($enquiry->patients) > 0){
                                         $patient = $enquiry->patients;
+
+                                        //start log summary
+                                        // $findObj    = Patient::where('user_id','=',$id)->first();
+                                        $findObj    = Patient::find($patient->user_id);
+                                        
+                                        if(isset($findObj) && count($findObj) > 0){
+                                            //compare input and current case scenarios
+                                            $current_case_scenario  = $findObj->case_scenario;                            
+                                            $input_case_scenario    = $patient->case_scenario;
+
+                                            if($current_case_scenario !== $input_case_scenario){
+                                                //create log patient case summary
+                                                $prefix = Utility::getTerminalId();
+                                                $table = (new LogPatientCaseSummary())->getTable();
+                                                $col = "id";
+                                                $offset = 1;
+                                                $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                                                $logObj                         = new LogPatientCaseSummary();
+                                                $logObj->id                     = $generatedId;
+                                                $logObj->patient_id             = $patient->user_id;
+                                                $logObj->case_summary           = $input_case_scenario;
+                                                $logObj->created_at             = date("Y-m-d H:i:s");
+                                                $logObj->save();            //log obj insert is successful
+                                                //end creating log patient case summary
+                                            }    
+                                        }  
+                                        //end log summary
 
                                         if(array_key_exists('user_id',$patient)) {
                                             if ($patient->user_id != null && $patient->user_id != ""){

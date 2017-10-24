@@ -278,6 +278,34 @@ class PatientApiController extends Controller
 
                 if(isset($params->patients) && count($params->patients)>0) {
                     foreach ($params->patients as $patient) {
+                        //start log summary
+                        $id = $patient->user_id;
+                        // $findObj    = Patient::where('user_id','=',$id)->first();
+                        $findObj    = Patient::find($id);
+                        
+                        if(isset($findObj) && count($findObj) > 0){
+                            //compare input and current case scenarios
+                            $current_case_scenario  = $findObj->case_scenario;                            
+                            $input_case_scenario    = $patient->case_scenario;
+
+                            if($current_case_scenario !== $input_case_scenario){
+                                //create log patient case summary
+                                $prefix = Utility::getTerminalId();
+                                $table = (new LogPatientCaseSummary())->getTable();
+                                $col = "id";
+                                $offset = 1;
+                                $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                                $logObj                         = new LogPatientCaseSummary();
+                                $logObj->id                     = $generatedId;
+                                $logObj->patient_id             = $patient->user_id;
+                                $logObj->case_summary           = $input_case_scenario;
+                                $logObj->created_at             = date("Y-m-d H:i:s");
+                                $logObj->save();            //log obj insert is successful
+                                //end creating log patient case summary
+                            }    
+                        }  
+                        //end log summary      
+
                         if (isset($patient->core_users) && count($patient->core_users) > 0) {
                             $core_users = $patient->core_users;
                             if(array_key_exists('id',$core_users)) {
