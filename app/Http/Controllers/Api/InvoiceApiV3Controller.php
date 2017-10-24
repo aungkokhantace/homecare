@@ -596,18 +596,18 @@ class InvoiceApiV3Controller extends Controller
                 }
 
 
-                    $invoiceResult  = $invoiceRepo->invoices($invoices);
+                    // $invoiceResult  = $invoiceRepo->invoices($invoices);
 
-                    if($invoiceResult['aceplusStatusCode'] != ReturnMessage::OK) {
-                        DB::rollback();
-                        $invoiceResult['tablet_id'] = $tablet_id;
-                        $invoiceResult['data']      = (object) array();
-                        return \Response::json($invoiceResult);
-                    }
+                    // if($invoiceResult['aceplusStatusCode'] != ReturnMessage::OK) {
+                    //     DB::rollback();
+                    //     $invoiceResult['tablet_id'] = $tablet_id;
+                    //     $invoiceResult['data']      = (object) array();
+                    //     return \Response::json($invoiceResult);
+                    // }
 
-                    if(isset($invoiceResult['log']) && count($invoiceResult['log']) > 0){
-                        array_push($logArr,$invoiceResult['log']);
-                    }
+                    // if(isset($invoiceResult['log']) && count($invoiceResult['log']) > 0){
+                    //     array_push($logArr,$invoiceResult['log']);
+                    // }
 
                     
                     //for updating enquiry status to "complete"
