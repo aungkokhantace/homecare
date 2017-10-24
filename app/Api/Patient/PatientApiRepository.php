@@ -614,9 +614,10 @@ class PatientApiRepository implements PatientApiRepositoryInterface
             foreach ($data as $row) {
                 $id = $row->user_id;
                 $email = $row->email;
-
+               
                 //Check update or create for log date
                 $findObj    = Patient::where('user_id','=',$id)->first();
+                
                 if(isset($findObj) && count($findObj) > 0){
                     $tempPatientArr['date']     = $row->updated_at;
                     $patientCreate              = "updated";
@@ -625,7 +626,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     $tempPatientArr['date']     = $row->created_at;
                     $patientCreate              = "created";
                 }
-
+           
                 $findAllergy    = DB::table('patient_allergy')->where('patient_id','=',$id)->get();
                 if(isset($findAllergy) && count($findAllergy) > 0){
                     $tempAllergyArr['date']     = $row->updated_at;
@@ -696,7 +697,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 $paramObj->deleted_at   = (isset($row->deleted_at) && $row->deleted_at != "") ? $row->deleted_at:null;
 
                 $patientResult = $this->createSingleObj($paramObj);
-
+                
                 //check whether patient insertion was successful or not
                 if ($patientResult['aceplusStatusCode'] == ReturnMessage::OK) {
 
@@ -721,52 +722,51 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     }
                     //end insertion of patient_allergy
 
-                    //start insertion of log_patient_case_summary
-                    if (isset($row->log_patient_case_summary) && count($row->log_patient_case_summary) > 0 && $row->log_patient_case_summary != null && $row->log_patient_case_summary != "") {
-                        foreach ($row->log_patient_case_summary as $log) {
-                            //create log obj
-                            $logObj                         = new LogPatientCaseSummary();
-                            $logObj->id                     = $log->id;
-                            $logObj->patient_id             = $log->patient_id;
-                            $logObj->case_summary           = $log->case_summary;
-                            $logObj->created_by             = $log->created_by;
-                            $logObj->updated_by             = $log->updated_by;
-                            $logObj->deleted_by             = $log->deleted_by;
-                            $logObj->created_at             = $log->created_at;
-                            $logObj->updated_at             = $log->updated_at;
-                            $logObj->deleted_at             = (isset($log->deleted_at)&& $log->deleted_at != "")?$log->deleted_at:null;
+                    // //start insertion of log_patient_case_summary
+                    // if (isset($row->log_patient_case_summary) && count($row->log_patient_case_summary) > 0 && $row->log_patient_case_summary != null && $row->log_patient_case_summary != "") {
+                    //     foreach ($row->log_patient_case_summary as $log) {
+                    //         //create log obj
+                    //         $logObj                         = new LogPatientCaseSummary();
+                    //         $logObj->id                     = $log->id;
+                    //         $logObj->patient_id             = $log->patient_id;
+                    //         $logObj->case_summary           = $log->case_summary;
+                    //         $logObj->created_by             = $log->created_by;
+                    //         $logObj->updated_by             = $log->updated_by;
+                    //         $logObj->deleted_by             = $log->deleted_by;
+                    //         $logObj->created_at             = $log->created_at;
+                    //         $logObj->updated_at             = $log->updated_at;
+                    //         $logObj->deleted_at             = (isset($log->deleted_at)&& $log->deleted_at != "")?$log->deleted_at:null;
 
-                            $logResult = $this->createSingleObj($logObj);
+                    //         $logResult = $this->createSingleObj($logObj);
 
-                            if ($logResult['aceplusStatusCode'] == ReturnMessage::OK) {
-                                //if insertion was successful, then create date and message for log_apatient_case summary's log
-                                $tempLogPatientArr['message'] = $patientCreate.' log_patient_case_summary_id ='.$logObj->id . ' for patient_id = '.$logObj->patient_id;
-                                array_push($tempLogArr,$tempLogPatientArr);
-                                continue; //log insertion was successful, continue to next loop
-                            }
-                            else{
-                                $returnedObj['aceplusStatusMessage'] = $logResult['aceplusStatusMessage'];
-                                return $returnedObj;
-                            }
-                        }
-                    }
-                    //end insertion of log_patient_case_summary
-
+                    //         if ($logResult['aceplusStatusCode'] == ReturnMessage::OK) {
+                    //             //if insertion was successful, then create date and message for log_apatient_case summary's log
+                    //             $tempLogPatientArr['message'] = $patientCreate.' log_patient_case_summary_id ='.$logObj->id . ' for patient_id = '.$logObj->patient_id;
+                    //             array_push($tempLogArr,$tempLogPatientArr);
+                    //             continue; //log insertion was successful, continue to next loop
+                    //         }
+                    //         else{
+                    //             $returnedObj['aceplusStatusMessage'] = $logResult['aceplusStatusMessage'];
+                    //             return $returnedObj;
+                    //         }
+                    //     }
+                    // }
+                    // //end insertion of log_patient_case_summary
+                    
                     if(isset($findObj) && count($findObj) > 0){
-                        $current_updated_at = "";
-                        $input_updated_at = "";
+                        // $current_updated_at = "";
+                        // $input_updated_at = "";
                         
-                        $temp_current_updated_at = $findObj->updated_at;
-                        $current_updated_at = $temp_current_updated_at;
+                        // $temp_current_updated_at = $findObj->updated_at;
+                        // $current_updated_at = $temp_current_updated_at;
                         
-                        $temp_input_updated_at = $row->updated_at;
-                        $input_updated_at = $temp_input_updated_at;
-
-                        if($input_updated_at > $current_updated_at){
-
+                        // $temp_input_updated_at = $row->updated_at;
+                        // $input_updated_at = $temp_input_updated_at;
+                        
+                        if($input_updated_at > $current_updated_at){                            
                             $current_case_scenario  = $findObj->case_scenario;                            
                             $input_case_scenario    = $row->case_scenario;
-                            dd($current_case_scenario,$input_case_scenario);
+                            
                             if($current_case_scenario !== $input_case_scenario){
                                 //create log patient case summary
                                 $prefix = Utility::getTerminalId();
@@ -781,9 +781,10 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                                 $logObj->created_at             = date("Y-m-d H:i:s");
                                 $logObj->save();            //log obj insert is successful
                                 //end creating log patient case summary
-                            }                      
+                            }
                         }
-                    }  
+                    }
+                    
                     else{
                         //create log patient case summary
                         $prefix = Utility::getTerminalId();
@@ -799,7 +800,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                         $logObj->save();            //log obj insert is successful
                         //end creating log patient case summary
                     }     
-
+                    
                     continue;       //continue to next loop(i.e. next row of patient data)
 
                 } else {
