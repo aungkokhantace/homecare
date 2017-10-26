@@ -903,7 +903,8 @@ class PatientController extends Controller
 
             //start addendum
             $addendumRepo = new AddendumRepository();
-            $addendums    = $addendumRepo->getObjs();
+            // $addendums    = $addendumRepo->getObjs();            
+            $addendums    = $addendumRepo->getObjsByPatientID($patient->user_id);
             //end addendum
 
             $routeRepo = new RouteRepository();

@@ -113,4 +113,10 @@ class AddendumRepository implements AddendumRepositoryInterface
         $result = DB::select("SELECT * FROM townships WHERE addendum_id = $id AND deleted_at IS NULL");
         return $result;
     }
+
+    public function getObjsByPatientID($patient_id)
+    {
+        $objs = Addendum::whereNull('deleted_at')->where('patient_id','=',$patient_id)->get();
+        return $objs;
+    }
 }

@@ -16,4 +16,5 @@ interface AddendumRepositoryInterface
     public function getObjByID($id);
     public function delete($id);
     public function checkToDelete($id);
+    public function getObjsByPatientID($patient_id);
 }
