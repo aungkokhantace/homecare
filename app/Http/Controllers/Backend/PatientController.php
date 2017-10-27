@@ -908,8 +908,9 @@ class PatientController extends Controller
             //end addendum
 
             $routeRepo = new RouteRepository();
-            foreach($treatments as $treatment){  
-                $route = $routeRepo->getObjByID($treatment->time);
+            
+            foreach($treatments as $treatment){ 
+                $route = $routeRepo->getObjByID($treatment->time);                
                 $route_name = $route->name;
                 $treatment->route_name = $route_name;
             }
@@ -1111,14 +1112,16 @@ class PatientController extends Controller
             foreach($schedules as $sch){
                 array_push($schedule_id_arr,$sch->id);
             }
-            $schedule_detail    = Scheduledetail::whereIn('schedule_id',$schedule_id_arr)->where('type','=','service')->get();
+            // $schedule_detail    = Scheduledetail::whereIn('schedule_id',$schedule_id_arr)->where('type','=','service')->get();
             
             $users              = User::whereNull('deleted_at')->get();
             $car_types          = Cartype::whereNull('deleted_at')->get();
             $services           = Service::whereNull('deleted_at')->get();
             $patientSchedules   = array();
-            $patient_schedules  = array();
+            
             foreach($schedules as $schedule){
+                $patient_schedules  = array();  //reset the array
+
                 $patient_schedules['id']   = $schedule->id;
                 $patient_schedules['date'] = $schedule->date;
                 $patient_schedules['time'] = $schedule->time;
@@ -1137,9 +1140,12 @@ class PatientController extends Controller
                     }
                 }
                 
+                $schedule_detail    = Scheduledetail::where('schedule_id',$schedule->id)->where('type','=','service')->get();
+                
                 foreach($schedule_detail as $detail){
-                    if($schedule->id == $detail->schedule_id){
+                    if($schedule->id == $detail->schedule_id){  
                         // $patient_schedules['service']=$detail->service->name;
+
                         if(array_key_exists('service',$patient_schedules)){
                             $patient_schedules['service'] .= ','.$detail->service->name;
                         }
@@ -1148,6 +1154,7 @@ class PatientController extends Controller
                         }
                     }
                 }
+                
                 //start invoice id
                 $invoiceRepo = new InvoiceRepository();
                 $invoice = $invoiceRepo->getInvoiceByScheduleID($schedule->id);
@@ -1158,7 +1165,10 @@ class PatientController extends Controller
                 array_push($patientSchedules,$patient_schedules);
             }
             //end patient visit records
-            
+
+            //sort patient schedules by date and time
+           array_multisort(array_column($patientSchedules, 'date'),  SORT_DESC, array_column($patientSchedules, 'time'), SORT_DESC, $patientSchedules);
+           
             return view('backend.patient.patientdetail')
                 ->with('patient',$patient)
                 ->with('patientmedicalhistories',$patientmedicalhistories)
