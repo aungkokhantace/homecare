@@ -170,7 +170,24 @@
                                         @if($chief_complaint->chief_complaint_comment !== "")
                                         <tr class="detail_visit_vital_row">
                                             <td>{{$chief_complaint->chief_complaint_comment}}</td>
-                                            <td>{{$chief_complaint->duration_days.'Days '.$chief_complaint->duration_months.'Months'}}</td>
+                                            <!-- <td>{{$chief_complaint->duration_days.'Days '.$chief_complaint->duration_months.'Months'}}</td> -->
+                                            <td>
+                                                @if(isset($chief_complaint->duration_days) && $chief_complaint->duration_days !== "")
+                                                    @if($chief_complaint->duration_days > 1)
+                                                        {{$chief_complaint->duration_days.'Days '}}
+                                                    @else
+                                                        {{$chief_complaint->duration_days.'Day '}}
+                                                    @endif                                                                                                     
+                                                @endif
+
+                                                @if(isset($chief_complaint->duration_months) && $chief_complaint->duration_months !== "")
+                                                    @if($chief_complaint->duration_months > 1)
+                                                        {{$chief_complaint->duration_months.'Months'}}
+                                                    @else
+                                                        {{$chief_complaint->duration_months.'Month'}}
+                                                    @endif                                                                                                     
+                                                @endif
+                                            </td>
                                         </tr>
                                         @endif
                                     @endforeach
