@@ -852,7 +852,10 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                           ->leftjoin('products','products.id','=','schedule_treatment_histories.product_id')
                           ->select('products.product_name','products.price','schedule_treatment_histories.*')
                           ->whereNull('schedule_treatment_histories.deleted_at')
-                          ->where('schedule_treatment_histories.schedule_id','=',$latest_schedule_id)->get();
+                          ->where('schedule_treatment_histories.schedule_id','=',$latest_schedule_id)
+                          ->whereNotNull('schedule_treatment_histories.product_id')
+                          ->where('schedule_treatment_histories.product_id','!=','')
+                          ->get();
         return $treatments;
     }
 
