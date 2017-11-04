@@ -1033,6 +1033,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 $paramObj->pre_mobid_status_bed_bound           = $row->pre_mobid_status_bed_bound;
                 $paramObj->smoking_history_start                = $row->smoking_history_start;
                 $paramObj->smoking_history_stop                 = $row->smoking_history_stop;
+                $paramObj->smoking_history_status               = $row->smoking_history_status;
                 $paramObj->mental_status                        = $row->mental_status;
                 $paramObj->vision                               = $row->vision;
                 $paramObj->hearing                              = $row->hearing;
@@ -1040,6 +1041,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 $paramObj->orientation_time                     = $row->orientation_time;
                 $paramObj->orientation_place                    = $row->orientation_place;
                 $paramObj->orientation_person                   = $row->orientation_person;
+                $paramObj->orientation_remark                   = $row->orientation_remark;
                 $paramObj->obey_ommands                         = $row->obey_ommands;
                 $paramObj->follow_gestures                      = $row->follow_gestures;
                 $paramObj->created_by                           = $row->created_by;
