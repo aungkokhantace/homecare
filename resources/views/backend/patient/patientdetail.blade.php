@@ -281,9 +281,9 @@
 
                                                                         <div class="row">
                                                                             <div class="col-md-3"><label>Pain(grade)</label></div>
-                                                                            <div class="col-md-4">
+                                                                            <!-- <div class="col-md-4">
                                                                                 <input type="range" min="1" max="10" step="2" value="{{isset($musculo_1_2->chief_complaint_pain_grade)?$musculo_1_2->chief_complaint_pain_grade:0}}" disabled="disabled">
-                                                                            </div>
+                                                                            </div> -->
                                                                             <div class="col-md-1">
                                                                                 <input type="text" value="{{isset($musculo_1_2->chief_complaint_pain_grade)?$musculo_1_2->chief_complaint_pain_grade:0}}" class="pain_grade" >
                                                                             </div>

@@ -30,7 +30,8 @@
             <label for="name">Name<span class="require">*</span></label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <input readonly type="text" required class="form-control" id="name" name="name" placeholder="Enter Investigation Name" value="{{ isset($investigation)? $investigation->name:Request::old('name') }}"/>
+            <!-- <input readonly type="text" required class="form-control" id="name" name="name" placeholder="Enter Investigation Name" value="{{ isset($investigation)? $investigation->name:Request::old('name') }}"/> -->
+            <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Investigation Name" value="{{ isset($investigation)? $investigation->name:Request::old('name') }}"/>
             <p class="text-danger">{{$errors->first('name')}}</p>
         </div>
     </div>
