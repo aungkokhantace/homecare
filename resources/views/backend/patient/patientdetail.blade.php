@@ -1524,6 +1524,22 @@
                                                                 <hr style="border-color: #0f0f0f;"/>
                                                                 <div class="row">
                                                                     <div class="col-md-2">
+                                                                        <label>Smoking History Status</label>
+                                                                    </div>
+                                                                    @if($general->smoking_history_status == 1)
+                                                                    <div class="col-md-1">
+                                                                        <input type="radio" name="smoking_history_status" checked> Yes
+                                                                        <input type="radio" name="smoking_history_status"> No
+                                                                    </div>
+                                                                    @else
+                                                                        <input type="radio" name="smoking_history_status"> Yes
+                                                                        <input type="radio" name="smoking_history_status" checked> No
+                                                                    @endif
+                                                                </div>
+                                                                <br>
+                                                                @if($general->smoking_history_status == 1)
+                                                                <div class="row">
+                                                                    <div class="col-md-2">
                                                                         <label>Smoking History: Start </label>
                                                                     </div>
                                                                     <div class="col-md-3">
@@ -1537,6 +1553,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <br/>
+                                                                @endif
                                                                 <div class="row">
                                                                     <div class="col-md-2"><label>Mental Status</label></div>
                                                                     <div class="col-md-3"><input type="text" class="form-control" value="{{$general->mental_status}}"></div>
@@ -1567,6 +1584,12 @@
                                                                         @if($general->orientation_person ==1 ) <input type="checkbox" checked> Person
                                                                         @else <input type="checkbox"> Person
                                                                         @endif
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <label>Remark</label>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <input type="text" class="form-control" value="{{$general->orientation_remark}}">
                                                                     </div>
                                                                 </div>
                                                                 <br/>
