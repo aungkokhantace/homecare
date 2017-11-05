@@ -864,6 +864,16 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         return $neurologicals;
     }
 
+    public function getLastFourteenNeurologicalRecords($patient_id){
+        $neurologicals  = DB::table('schedule_physiotherapy_neuro')
+                            ->whereNull('deleted_at')
+                            ->where('patient_id','=',$patient_id)
+                            ->orderBy('created_at','desc')
+                            ->limit(14) //get up to 14 records
+                            ->get();
+        return $neurologicals;
+    }
+
     public function getMusculoIntercentionRecords($latest_schedule_id){
         $musculo_intercention   = DB::table('schedule_physiotherapy_musculo')->whereNull('deleted_at')->where('schedules_id',$latest_schedule_id)->get();
         return $musculo_intercention;

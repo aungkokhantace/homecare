@@ -1079,245 +1079,256 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h3>Neurological Treatment Record</h3><br/>
-                                @if(isset($neurological) && count($neurological)>0)
-                                    @foreach($neurological as $neuro)
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Resting <br> BP/HR/SP O2</label>
-                                            </div>
-                                            <div class="col-md-8">
-
-                                                <div class="row">
-                                                    <div class="col-md-1">
-
-                                                        <?php
-                                                        if (strpos($neuro->resting_bp, ',') !== false){
-                                                            $bp = array();
-                                                            $bp = explode(',',$neuro->resting_bp);
-                                                            echo $bp[0].",<br/>".$bp[1]."<br/>".$bp[2];
-
-                                                            }
-                                                        else{
-                                                            $bp = $neuro->resting_bp;
-                                                            echo $bp.',';
-                                                        }
-
-                                                        ?>
-
-                                                    </div>
-                                                    <div class="col-md-1">{{$neuro->resting_hr}} ,</div>
-                                                    <div class="col-md-1">{{$neuro->resting_spo2}}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Passive ROM exercise <br> U/L & L/L</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->passive_rom_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Visual Exercise</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->visual_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Oral Motor Exercise</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->oral_motor_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Active Assisted ROM exercise <br/> U/L & L/L</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->active_assisted_rom_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Bridging/ Inner range of quadriceps/ dorsiflexion</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->bridging_inner_range == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Transfer bed &#8596; chair</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->transfer_bed == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Sitting balance</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->sitting_balance == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Sit to Stand</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->sit_to_stand == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Standing balance</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->standing_balance == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Stepping (10cm/15cm)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->stepping == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Single Leg balance</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->single_leg_balance == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>March on spot</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->march_on_spot == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Ambulation<br/>
-                                                <span style="line-height: 30px;">&#9679;Parallel Bar</span><br/>
-                                                <span style="line-height: 30px;">&#9679;Walk + ball throw + kick ball</span><br/>
-                                                <span style="line-height: 30px;">&#9679;Outdoor with walking aids</span><br/>
-                                                <span style="line-height: 30px;">&#9679;Tandem walk/ cross walk</span></label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <br/>
-                                                <span style="line-height: 30px;">@if($neuro->ambulation_parallel_bar == 1) <input type="checkbox" checked><br/>
-                                                @else <input type="checkbox"><br/>
-                                                @endif</span>
-                                                <span style="line-height: 30px;">@if($neuro->ambulation_walk == 1) <input type="checkbox" checked><br/>
-                                                @else <input type="checkbox"><br/>
-                                                @endif</span>
-                                                <span style="line-height: 30px;">@if($neuro->ambulation_outdoor == 1) <input type="checkbox" checked><br/>
-                                                @else <input type="checkbox"><br/>
-                                                @endif</span>
-                                                <span style="line-height: 30px;">@if($neuro->ambulation_tandem_walk == 1) <input type="checkbox" checked><br/>
-                                                @else <input type="checkbox"><br/>
-                                                @endif</span>
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Stair &#8595; &#8593;</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->stair == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Arm pedal/ Leg pedal</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->arm_pedal == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Treadmil (km/h, duration)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->treadmill == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Hand exercise (opposition/ fisting/ writing/ active assisted exercise)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->hand_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                    @endforeach
-                                        <div class="row">
-                                            <div class="col-md-3"><label>Remark</label></div>
-                                            <div class="col-md-8"><textarea class="form-control" id="remark" rows="3" cols="5">@if(isset($neurological) && count($neurological)>0){{$neuro->remark}}@endif</textarea></div>
-                                        </div>
+                               <h3>Neurological Treatment Record</h3><br/>                                
+                                
+                                @if(isset($neurological_by_date_array) && count($neurological_by_date_array)>0)
+                                    <table class="table full_width_table">
+                                        <tr>
+                                            <td><label><strong>Date</strong></label></td>
+                                            @foreach($neurological_by_date_array["date"] as $date)
+                                            <td><strong>{{$date}}</strong></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="5"><label>Resting</label></td>
+                                            @foreach($neurological_by_date_array["sbp"] as $neurological_sbp)
+                                            <td><label>SBP = </label>{{$neurological_sbp}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            @foreach($neurological_by_date_array["dbp"] as $neurological_dbp)
+                                            <td><label>DBP = </label>{{$neurological_dbp}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            @foreach($neurological_by_date_array["map"] as $neurological_map)
+                                            <td><label>MAP = </label>{{$neurological_map}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            @foreach($neurological_by_date_array["resting_hr"] as $neurological_resting_hr)
+                                            <td><label>HR = </label>{{$neurological_resting_hr}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            @foreach($neurological_by_date_array["resting_spo2"] as $resting_spo2)
+                                            <td><label>SPO2 = </label>{{$resting_spo2}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Passive ROM exercise <br>U/L & L/L</label></td>
+                                            @foreach($neurological_by_date_array["passive_rom_exercise"] as $passive_rom_exercise)
+                                            <td>
+                                            @if($passive_rom_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Visual Exercise</label></td>
+                                            @foreach($neurological_by_date_array["visual_exercise"] as $visual_exercise)
+                                            <td>
+                                            @if($visual_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Oral Motor Exercise</label></td>
+                                            @foreach($neurological_by_date_array["oral_motor_exercise"] as $oral_motor_exercise)
+                                            <td>
+                                            @if($oral_motor_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Active Assisted ROM exercise <br/> U/L & L/L</label></td>
+                                            @foreach($neurological_by_date_array["active_assisted_rom_exercise"] as $active_assisted_rom_exercise)
+                                            <td>
+                                            @if($active_assisted_rom_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Bridging/ Inner range of quadriceps/ dorsiflexion</label></td>
+                                            @foreach($neurological_by_date_array["bridging_inner_range"] as $bridging_inner_range)
+                                            <td>
+                                            @if($bridging_inner_range == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Transfer bed &#8596; chair</label></td>
+                                            @foreach($neurological_by_date_array["transfer_bed"] as $transfer_bed)
+                                            <td>
+                                            @if($transfer_bed == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Sitting balance</label></td>
+                                            @foreach($neurological_by_date_array["sitting_balance"] as $sitting_balance)
+                                            <td>
+                                            @if($sitting_balance == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Sit to Stand</label></td>
+                                            @foreach($neurological_by_date_array["sit_to_stand"] as $sit_to_stand)
+                                            <td>
+                                            @if($sit_to_stand == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Standing balance</label></td>
+                                            @foreach($neurological_by_date_array["standing_balance"] as $standing_balance)
+                                            <td>
+                                            @if($standing_balance == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Stepping (10cm/15cm)</label></td>
+                                            @foreach($neurological_by_date_array["stepping"] as $stepping)
+                                            <td>
+                                            @if($stepping == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Single Leg balance</label></td>
+                                            @foreach($neurological_by_date_array["single_leg_balance"] as $single_leg_balance)
+                                            <td>
+                                            @if($single_leg_balance == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>March on spot</label></td>
+                                            @foreach($neurological_by_date_array["march_on_spot"] as $march_on_spot)
+                                            <td>
+                                            @if($march_on_spot == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Ambulation</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>&#9679; Parallel Bar</label></td>
+                                            @foreach($neurological_by_date_array["ambulation_parallel_bar"] as $ambulation_parallel_bar)
+                                            <td>
+                                            @if($ambulation_parallel_bar == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>&#9679; Walk + ball throw + kick ball</label></td>
+                                            @foreach($neurological_by_date_array["ambulation_walk"] as $ambulation_walk)
+                                            <td>
+                                            @if($ambulation_walk == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>&#9679; Outdoor with walking aids</label></td>
+                                            @foreach($neurological_by_date_array["ambulation_outdoor"] as $ambulation_outdoor)
+                                            <td>
+                                            @if($ambulation_outdoor == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>&#9679; Tandem walk/ cross walk</label></td>
+                                            @foreach($neurological_by_date_array["ambulation_tandem_walk"] as $ambulation_tandem_walk)
+                                            <td>
+                                            @if($ambulation_tandem_walk == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Stair &#8595; &#8593;</label></td>
+                                            @foreach($neurological_by_date_array["stair"] as $stair)
+                                            <td>
+                                            @if($stair == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Arm pedal/ Leg pedal</label></td>
+                                            @foreach($neurological_by_date_array["arm_pedal"] as $arm_pedal)
+                                            <td>
+                                            @if($arm_pedal == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Treadmil (km/h, duration)</label></td>
+                                            @foreach($neurological_by_date_array["treadmill"] as $treadmill)
+                                            <td>
+                                            @if($treadmill == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Hand exercise (opposition/ fisting/ writing/ active assisted exercise)</label></td>
+                                            @foreach($neurological_by_date_array["hand_exercise"] as $hand_exercise)
+                                            <td>
+                                            @if($hand_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Hand exercise (opposition/ fisting/ writing/ active assisted exercise)</label></td>
+                                            @foreach($neurological_by_date_array["hand_exercise"] as $hand_exercise)
+                                            <td>
+                                            @if($hand_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                    </table>
                                 @endif
                             </div>
                         </div>

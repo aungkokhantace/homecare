@@ -745,8 +745,57 @@ class PatientController extends Controller
                 $other_services         = $schedule->getScheduleOtherServices($latest_schedule_id, $patient_id,$schedule_detail_services_array);
                 //end other services
 
-                $neurological           = $schedule->getNeurologicalRecords($latest_schedule_id);
+                // $neurological           = $schedule->getNeurologicalRecords($latest_schedule_id);
+                $neurological           = $schedule->getLastFourteenNeurologicalRecords($patient_id);
+                
+                //build array of 14 schedule_physiotherapy_neuro records by date
+                $neurological_by_date_array = array();
+                foreach($neurological as $neuro_by_date){
+                    // $neuro_date = date('Y-m-d',strtotime($neuro_by_date->created_at));
+                    $neuro_date = $neuro_by_date->created_at;
+                    $neurological_by_date_array["date"][$neuro_date] = date('Y-m-d',strtotime($neuro_by_date->created_at));
+                    if (strpos($neuro_by_date->resting_bp, ',') !== false){
+                        $bp = array();
+                        $bp = explode(',',$neuro_by_date->resting_bp);
+                        $neurological_by_date_array["sbp"][$neuro_date] = $bp[0];
+                        $neurological_by_date_array["dbp"][$neuro_date] = $bp[1];
+                        $neurological_by_date_array["map"][$neuro_date] = $bp[2];
+                    }
+                    else {
+                        $bp = $neuro_by_date->resting_bp; //$bp is null
+                        $neurological_by_date_array["sbp"][$neuro_date] = $bp;
+                        $neurological_by_date_array["dbp"][$neuro_date] = $bp;
+                        $neurological_by_date_array["map"][$neuro_date] = $bp;
+                    }
 
+                    $neurological_by_date_array["resting_hr"][$neuro_date] = $neuro_by_date->resting_hr;
+                    $neurological_by_date_array["resting_spo2"][$neuro_date] = $neuro_by_date->resting_spo2;
+                    $neurological_by_date_array["passive_rom_exercise"][$neuro_date] = $neuro_by_date->passive_rom_exercise;
+                    $neurological_by_date_array["visual_exercise"][$neuro_date] = $neuro_by_date->visual_exercise;
+                    $neurological_by_date_array["oral_motor_exercise"][$neuro_date] = $neuro_by_date->oral_motor_exercise;
+                    $neurological_by_date_array["active_assisted_rom_exercise"][$neuro_date] = $neuro_by_date->active_assisted_rom_exercise;
+                    $neurological_by_date_array["bridging_inner_range"][$neuro_date] = $neuro_by_date->bridging_inner_range;
+                    $neurological_by_date_array["transfer_bed"][$neuro_date] = $neuro_by_date->transfer_bed;
+                    $neurological_by_date_array["sitting_balance"][$neuro_date] = $neuro_by_date->sitting_balance;
+                    $neurological_by_date_array["sit_to_stand"][$neuro_date] = $neuro_by_date->sit_to_stand;
+                    $neurological_by_date_array["standing_balance"][$neuro_date] = $neuro_by_date->standing_balance;
+                    $neurological_by_date_array["stepping"][$neuro_date] = $neuro_by_date->stepping;
+                    $neurological_by_date_array["single_leg_balance"][$neuro_date] = $neuro_by_date->single_leg_balance;
+                    $neurological_by_date_array["march_on_spot"][$neuro_date] = $neuro_by_date->march_on_spot;
+                    $neurological_by_date_array["ambulation_parallel_bar"][$neuro_date] = $neuro_by_date->ambulation_parallel_bar;
+                    $neurological_by_date_array["ambulation_walk"][$neuro_date] = $neuro_by_date->ambulation_walk;
+                    $neurological_by_date_array["ambulation_outdoor"][$neuro_date] = $neuro_by_date->ambulation_outdoor;
+                    $neurological_by_date_array["ambulation_tandem_walk"][$neuro_date] = $neuro_by_date->ambulation_tandem_walk;
+                    $neurological_by_date_array["stair"][$neuro_date] = $neuro_by_date->stair;
+                    $neurological_by_date_array["arm_pedal"][$neuro_date] = $neuro_by_date->arm_pedal;
+                    $neurological_by_date_array["treadmill"][$neuro_date] = $neuro_by_date->treadmill;
+                    $neurological_by_date_array["hand_exercise"][$neuro_date] = $neuro_by_date->hand_exercise;
+                    $neurological_by_date_array["writing_assisted_exercise"][$neuro_date] = $neuro_by_date->writing_assisted_exercise;
+                    $neurological_by_date_array["signature_of_physiotherapist"][$neuro_date] = $neuro_by_date->signature_of_physiotherapist;
+                    $neurological_by_date_array["remark"][$neuro_date] = $neuro_by_date->remark;
+                    
+                }
+               
                 $musculo_intercention   = $schedule->getMusculoIntercentionRecords($latest_schedule_id);
 
                 $nutritions             = $schedule->getNutrition($latest_schedule_id,$patient_id);
@@ -914,7 +963,7 @@ class PatientController extends Controller
                 $route_name = $route->name;
                 $treatment->route_name = $route_name;
             }
-            
+            // dd('neurological_by_date_array',$neurological_by_date_array);
             return view('backend.patient.detailvisit')->with('patient',$patient)
                 ->with('schedules',$schedule)
                 ->with('vitals',$vitals)
@@ -937,7 +986,8 @@ class PatientController extends Controller
                 ->with('schedule_id',$latest_schedule_id)
                 ->with('other_services',$other_services)
                 ->with('addendums',$addendums)
-                ->with('scheduleRaw',$scheduleRaw);
+                ->with('scheduleRaw',$scheduleRaw)
+                ->with('neurological_by_date_array',$neurological_by_date_array);
         }
         else{
             return view('backend.patient.invalidpatient');

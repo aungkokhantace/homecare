@@ -145,3 +145,9 @@
     color:black !important;
     font-weight: bold;
 }
+
+.full_width_table{
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
