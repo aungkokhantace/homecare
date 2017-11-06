@@ -76,6 +76,17 @@ class Default_Syncs_TablesSeeder extends Seeder
             ['table_name'=>'other_services', 'version' =>'1'],
             ['table_name'=>'other_services_detail', 'version' =>'1'],
 
+            ['table_name'=>'schedule_investigations', 'version' =>'1'],
+            ['table_name'=>'schedule_patient_chief_complaint', 'version' =>'1'],
+            ['table_name'=>'schedule_patient_vitals', 'version' =>'1'],
+            ['table_name'=>'schedule_patient_vitals_remark', 'version' =>'1'],
+            ['table_name'=>'schedule_physical_exams_abdomen_extre_neuro', 'version' =>'1'],
+            ['table_name'=>'schedule_physical_exams_general_pupils_head', 'version' =>'1'],
+            ['table_name'=>'schedule_physical_exams_heart_lungs', 'version' =>'1'],
+            ['table_name'=>'schedule_physiotherapy_musculo', 'version' =>'1'],
+            ['table_name'=>'schedule_physiotherapy_neuro', 'version' =>'1'],
+            ['table_name'=>'schedule_provisional_diagnosis', 'version' =>'1'],
+
         );
 
         DB::table('core_syncs_tables')->insert($syncs_tables);
