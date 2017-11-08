@@ -1099,7 +1099,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             ->whereNull('other_services.deleted_at')
             ->where('other_services.schedule_id','=',$latest_schedule_id)
             ->where('other_services.patient_id','=',$patient_id)
-            ->whereIn('other_services.service_id',$servicesArray)
+            // ->whereIn('other_services.service_id',$servicesArray)
             ->get();
         return $otherServices;
     }
