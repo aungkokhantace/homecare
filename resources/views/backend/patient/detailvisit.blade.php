@@ -1090,6 +1090,12 @@
                                             @endforeach
                                         </tr>
                                         <tr>
+                                            <td><label><strong>Time</strong></label></td>
+                                            @foreach($neurological_by_date_array["time"] as $time)
+                                            <td><strong>{{$time}}</strong></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
                                             <td rowspan="5"><label>Resting</label></td>
                                             @foreach($neurological_by_date_array["sbp"] as $neurological_sbp)
                                             <td><label>SBP = </label>{{$neurological_sbp}}</td>
@@ -1318,7 +1324,7 @@
                                             </td>
                                             @endforeach
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td><label>Hand exercise (opposition/ fisting/ writing/ active assisted exercise)</label></td>
                                             @foreach($neurological_by_date_array["hand_exercise"] as $hand_exercise)
                                             <td>
@@ -1327,7 +1333,7 @@
                                             @endif
                                             </td>
                                             @endforeach
-                                        </tr>
+                                        </tr> -->
                                     </table>
                                 @endif
                             </div>

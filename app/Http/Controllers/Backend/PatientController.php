@@ -754,6 +754,7 @@ class PatientController extends Controller
                     // $neuro_date = date('Y-m-d',strtotime($neuro_by_date->created_at));
                     $neuro_date = $neuro_by_date->created_at;
                     $neurological_by_date_array["date"][$neuro_date] = date('Y-m-d',strtotime($neuro_by_date->created_at));
+                    $neurological_by_date_array["time"][$neuro_date] = date('H:i:s',strtotime($neuro_by_date->created_at));
                     if (strpos($neuro_by_date->resting_bp, ',') !== false){
                         $bp = array();
                         $bp = explode(',',$neuro_by_date->resting_bp);
