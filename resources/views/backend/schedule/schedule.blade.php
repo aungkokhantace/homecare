@@ -443,37 +443,59 @@
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             @if($is_edit == 1)
-                @if($schedule->car_type == 1)
+                @if($is_edit == 1)
+                    @if($schedule->car_type == 1)
+                        <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
+                    @else
+                        <input type="radio" name="car_type" value="1"> Patient Owned Vehicle
+                    @endif
+                @else
+                    <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
+                @endif
+
+                <br/>
+
+                @if($is_edit == 1)
+                    @if($schedule->car_type == 2)
+                        <input type="radio" name="car_type" value="2" checked> Rental Vehicle
+                    @else
+                        <input type="radio" name="car_type" value="2"> Rental Vehicle
+                    @endif
+                @else
+                    <input type="radio" name="car_type" value="2"> Rental Vehicle
+                @endif
+
+                <br />
+
+                @if($is_edit == 1)
+                    @if($schedule->car_type == 3)
+                        <input type="radio" name="car_type" value="3" checked> HHCS Vehicle
+                    @else
+                        <input type="radio" name="car_type" value="3"> HHCS Vehicle
+                    @endif
+                @else
+                    <input type="radio" name="car_type" value="3"> HHCS Vehicle
+                @endif
+            @endif
+
+            @if($is_enquiry_confirm == 1)
+                @if($enquiry->car_type == 1)
                     <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
                 @else
                     <input type="radio" name="car_type" value="1"> Patient Owned Vehicle
                 @endif
-            @else
-                <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
-            @endif
-
-            <br/>
-
-            @if($is_edit == 1)
-                @if($schedule->car_type == 2)
+                <br/>
+                @if($enquiry->car_type == 2)
                     <input type="radio" name="car_type" value="2" checked> Rental Vehicle
                 @else
                     <input type="radio" name="car_type" value="2"> Rental Vehicle
                 @endif
-            @else
-                <input type="radio" name="car_type" value="2"> Rental Vehicle
-            @endif
-
-            <br />
-
-            @if($is_edit == 1)
-                @if($schedule->car_type == 3)
+                <br/>
+                @if($enquiry->car_type == 3)
                     <input type="radio" name="car_type" value="3" checked> HHCS Vehicle
                 @else
                     <input type="radio" name="car_type" value="3"> HHCS Vehicle
                 @endif
-            @else
-                <input type="radio" name="car_type" value="3"> HHCS Vehicle
             @endif
             <p class="text-danger">{{$errors->first('car_type')}}</p><br/>
 
@@ -641,12 +663,19 @@
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="remark" class="text_bold_black">Remark</label>
         </div>
-
-        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-        <textarea class="form-control" id="remark" name="remark" placeholder="Enter Remark" rows="7" cols="40">{{isset($schedule)?
-        $schedule->remark:Input::old('remark')}}</textarea>
-            <p class="text-danger">{{$errors->first('remark')}}</p>
-        </div>
+        @if($is_enquiry_confirm == 1)
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <textarea class="form-control" id="remark" name="remark" placeholder="Enter Remark" rows="7" cols="40">{{$enquiry->remark}}</textarea>
+                <p class="text-danger">{{$errors->first('remark')}}</p>
+            </div>
+        @else
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <textarea class="form-control" id="remark" name="remark" placeholder="Enter Remark" rows="7" cols="40">{{isset($schedule)?
+            $schedule->remark:Input::old('remark')}}</textarea>
+                <p class="text-danger">{{$errors->first('remark')}}</p>
+            </div>
+        @endif
+        
     </div>
     <br/>
 
