@@ -34,7 +34,7 @@ class EnquiryApiV2Controller extends Controller
     }
 
     public function upload(){
-       
+
         $temp                   = Input::All();
         $inputAll               = json_decode($temp['param_data']);
         $checkServerStatusArray = Check::checkCodes($inputAll);
@@ -359,6 +359,72 @@ class EnquiryApiV2Controller extends Controller
                 $returnedObj['user_id']                 = $user_id;
                 $returnedObj['max_key']                 = $maxKey;
                 $returnedObj['data']                    = $data;
+
+                return \Response::json($returnedObj);
+            }
+            catch (\Exception $e) {
+                DB::rollback();
+                $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+                $returnedObj['aceplusStatusMessage'] = $e->getMessage() . " ----- line " . $e->getLine() . " ----- " . $e->getFile();
+                $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
+                return \Response::json($returnedObj);
+            }
+        }
+        else{
+            return \Response::json($checkServerStatusArray);
+        }
+    }
+
+    //update enquiry status
+    public function uploadEnquiryStatus(){
+
+        $temp                   = Input::All();
+        $inputAll               = json_decode($temp['param_data']);
+        $checkServerStatusArray = Check::checkCodes($inputAll);
+        $prefix                 = "";
+        $user_id                = $inputAll->user_id;
+
+        if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK) {
+            $prefix             = $checkServerStatusArray['tablet_id'];
+            $enquiryV2Repo      = new EnquiryApiV2Repository();
+            $params             = $checkServerStatusArray['data'][0];
+            $tablet_id          = $checkServerStatusArray['tablet_id'];
+            $logArr             = array();
+
+            try {
+                DB::beginTransaction();
+
+                if (isset($params->enquiries) && count($params->enquiries) > 0) {
+
+                    $enquiryResult = $enquiryV2Repo->uploadEnquiryStatus($params->enquiries);
+                    if($enquiryResult['aceplusStatusCode'] != ReturnMessage::OK) {
+                        DB::rollback();
+                        $enquiryResult['tablet_id'] = $tablet_id;
+                        $enquiryResult['data'] = (object) array();
+                        return \Response::json($enquiryResult);
+                    }
+
+                    if(isset($enquiryResult['log']) && count($enquiryResult['log']) > 0){
+                        array_push($logArr,$enquiryResult['log']);
+                    }
+                }
+
+                //all operations were successful
+                DB::commit();
+
+                //create custom log file with created_at or updated_at
+                foreach($logArr as $logKey=>$logValue){
+                    foreach($logValue as $value){
+                        $date = $value['date'];
+                        $message = '['. $date .'] '. 'info User - '.$user_id .' '. $value['message'] .' with tablet_id - '.$tablet_id. PHP_EOL;
+                        LogCustom::create($date,$message);
+                    }
+                }
+
+                $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
+                $returnedObj['aceplusStatusMessage']    = "Request success !";
+                $returnedObj['tabletId']                = $tablet_id;
 
                 return \Response::json($returnedObj);
             }
