@@ -73,10 +73,10 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 if(isset($findObj) && count($findObj) > 0){
                     $current_updated_at = "";
                     $input_updated_at = "";
-                    
+
                     $temp_current_updated_at = $findObj->updated_at;
                     $current_updated_at = $temp_current_updated_at;
-                    
+
                     $temp_input_updated_at = $row->updated_at;
                     $input_updated_at = $temp_input_updated_at;
 
@@ -94,7 +94,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                             ->where('id', '=', $id)
                             ->delete();
                         //end clearing all existing data relating to input data
-                    }                    
+                    }
                     //Incoming record's updated_at is not later than existing record's updated_at;
                     //So, the record incoming is updated earlier; So, database doesn't need to be updated..
                     else{
@@ -136,7 +136,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
 
                 //saving schedule obj
                 $result = $this->createSingleRow($paramObj);
-                
+
                 //check whether schedule insertion was successful or not
                 if ($result['aceplusStatusCode'] == ReturnMessage::OK) {
                     //if schedule insertion was successful, continue to child objects and do next loop
@@ -421,6 +421,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->sold_dosage                  = $row->sold_dosage;
                 $paramObj->unsold_dosage                = $row->unsold_dosage;
                 $paramObj->time                         = $row->time;
+                $paramObj->flag                         = $row->flag;
                 $paramObj->created_by                   = $row->created_by;
                 $paramObj->updated_by                   = $row->updated_by;
                 $paramObj->deleted_by                   = $row->deleted_by;
@@ -1298,10 +1299,10 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 if(isset($findObj) && count($findObj) > 0){
                     $current_updated_at = "";
                     $input_updated_at = "";
-                    
+
                     $temp_current_updated_at = $findObj->updated_at;
                     $current_updated_at = $temp_current_updated_at;
-                    
+
                     $temp_input_updated_at = $row->updated_at;
                     $input_updated_at = $temp_input_updated_at;
 
@@ -1310,9 +1311,9 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     if($input_updated_at > $current_updated_at){
                         $findObj->status        = $row->status;
                         $findObj->updated_at    = (isset($row->updated_at) && $row->updated_at != "") ? $row->updated_at:null;
-        
+
                         //saving schedule obj
-                        $result = $this->createSingleRow($findObj);       
+                        $result = $this->createSingleRow($findObj);
                     }
                     //Incoming record's updated_at is not later than existing record's updated_at;
                     //So, the record incoming is updated earlier; So, database doesn't need to be updated..
@@ -1320,7 +1321,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                         continue;
                     }
                 }
-                
+
 
                 //check whether schedule insertion was successful or not
                 if ($result['aceplusStatusCode'] == ReturnMessage::OK) {

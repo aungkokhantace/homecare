@@ -64,10 +64,10 @@ class EnquiryApiV2Repository implements EnquiryApiV2RepositoryInterface
                 if(isset($findObj) && count($findObj) > 0){
                     $current_updated_at = "";
                     $input_updated_at = "";
-                    
+
                     $temp_current_updated_at = $findObj->updated_at;
                     $current_updated_at = $temp_current_updated_at;
-                    
+
                     $temp_input_updated_at = $row->updated_at;
                     $input_updated_at = $temp_input_updated_at;
 
@@ -89,7 +89,7 @@ class EnquiryApiV2Repository implements EnquiryApiV2RepositoryInterface
                             //->where('patient_id', '=', $patient_id)
                             ->delete();
                         //end clearing all existing data relating to input data
-                    }                    
+                    }
                     //Incoming record's updated_at is not later than existing record's updated_at;
                     //So, the record incoming is updated earlier; So, database doesn't need to be updated..
                     else{
@@ -305,7 +305,7 @@ class EnquiryApiV2Repository implements EnquiryApiV2RepositoryInterface
 
                     $temp_current_updated_at = $findObj->updated_at;
                     $current_updated_at = $temp_current_updated_at;
-                    
+
                     $temp_input_updated_at = $row->updated_at;
                     $input_updated_at = $temp_input_updated_at;
 
@@ -415,8 +415,8 @@ class EnquiryApiV2Repository implements EnquiryApiV2RepositoryInterface
 
         $arr  = implode("','",$idArr);
 
-        $enquiryArr     = DB::select("SELECT * from `enquiries` WHERE `deleted_at` is null 
-        AND `patient_id` IN ('$arr') 
+        $enquiryArr     = DB::select("SELECT * from `enquiries` WHERE `deleted_at` is null
+        AND `patient_id` IN ('$arr')
         AND created_at >= DATE_SUB(CURDATE(), INTERVAL 3 DAY)
         AND status = 'new'");
 
@@ -486,5 +486,76 @@ class EnquiryApiV2Repository implements EnquiryApiV2RepositoryInterface
         }
 
         return $newEnquiryArr;
+    }
+
+    public function uploadEnquiryStatus($data){
+        $returnedObj = array();
+        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+
+        try{
+            $tempLogArr = array();
+            foreach($data as $row) {
+                $id = $row->id;
+
+                //Check update or create for log date
+                $findObj    = Enquiry::find($id);
+                if(isset($findObj) && count($findObj) > 0){
+                    $tempArr['date'] = $row->updated_at;
+                }
+                else{
+                    $tempArr['date'] = date("Y-m-d H:i:s");
+                }
+                $create = "updated";
+
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
+
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
+
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
+
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        $findObj->status        = $row->status;
+                        $findObj->updated_at    = (isset($row->updated_at) && $row->updated_at != "") ? $row->updated_at:null;
+
+                        //saving enquiry obj
+                        $result = $this->createSingleRow($findObj);
+                    }
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        continue;
+                    }
+                }
+
+
+                //check whether schedule insertion was successful or not
+                if ($result['aceplusStatusCode'] == ReturnMessage::OK) {
+                    //if insertion was successful, then create date and message for log
+                    $tempArr['message'] = $create.' schedule_id = '.$findObj->id;
+                    array_push($tempLogArr,$tempArr);
+                    continue;       //continue to next loop(i.e. next row of schedule data)
+
+                } else {
+                    //if schedule insertion was not successful
+                    $returnedObj['aceplusStatusMessage'] = $result['aceplusStatusMessage'];
+                    return $returnedObj;
+                }
+            }
+
+            $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
+            $returnedObj['aceplusStatusMessage'] = "Schedule status successfully updated";
+            $returnedObj['log']                  = $tempLogArr;
+            return $returnedObj;
+        }
+        catch(\Exception $e){
+            $returnedObj['aceplusStatusMessage'] = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
+            return $returnedObj;
+        }
     }
 }

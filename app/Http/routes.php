@@ -471,6 +471,9 @@ Route::group(['prefix' => 'api'], function () {
     //schedule status update api ...//only for schedule status
     Route::post('schedule/upload/status', array('as'=>'schedule/upload/status','uses'=>'Api\ScheduleApiV3Controller@uploadScheduleStatus'));
 
+    //enquiry status update api ...//only for enquiry status
+    Route::post('enquiry/upload/status', array('as'=>'enquiry/upload/status','uses'=>'Api\EnquiryApiV2Controller@uploadEnquiryStatus'));
+
     //patient_physiotherapy_musculo
     Route::post('patient_physiothreapy_musculo/upload', array('as'=>'patient_physiothreapy_musculo/upload','uses'=>'Api\PatientApiV2Controller@uploadPatientPhysiothreapyMusculo'));
 
@@ -503,5 +506,3 @@ Route::group(['prefix' => 'api'], function () {
     //company information download api
     Route::post('download/company_information', array('as'=>'download/company_information','uses'=>'Api\CompanyInformationApiController@download'));
 });
-
-
