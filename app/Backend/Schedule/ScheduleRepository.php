@@ -58,17 +58,17 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $query = $query->whereNull('schedules.deleted_at');
         $query = $query->whereNull('patients.deleted_at');
         $objs = $query->get();
-           
+
         return $objs;
     }
 
     public function getArrays(){
         // $tempObj = DB::select("SELECT * FROM schedules WHERE deleted_at is null ORDER BY date DESC");
-        $tempObj = DB::select("SELECT * FROM schedules 
+        $tempObj = DB::select("SELECT * FROM schedules
                                 LEFT JOIN
                                 patients ON schedules.patient_id = patients.user_id
-                                WHERE schedules.deleted_at is null 
-                                AND patients.deleted_at is null 
+                                WHERE schedules.deleted_at is null
+                                AND patients.deleted_at is null
                                 ORDER BY schedules.date DESC");
         return $tempObj;
     }
@@ -853,6 +853,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                           ->select('products.product_name','products.price','schedule_treatment_histories.*')
                           ->whereNull('schedule_treatment_histories.deleted_at')
                           ->where('schedule_treatment_histories.schedule_id','=',$latest_schedule_id)
+                          ->where('schedule_treatment_histories.flag','=', 2)
                           ->whereNotNull('schedule_treatment_histories.product_id')
                           ->where('schedule_treatment_histories.product_id','!=','')
                           ->get();
@@ -1018,7 +1019,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     }
 
     public function getSchedulesByDate($type = null,$date = null) {
-        
+
         // $result = Schedule::where('date','=',$date)->where('status','=','complete')->get();
         // $result = Schedule::whereDate('updated_at','=',$date)->where('status','=','complete')->get();
 
@@ -1044,7 +1045,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                 $query = $query->whereDate('schedules.updated_at','=',$temp_date);
             }
         }
-        
+
         $query = $query->whereNull('schedules.deleted_at');
         $query = $query->where('status','=','complete');
         $result = $query->get();
@@ -1052,7 +1053,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     }
 
     public function getEachVisitByDate($type,$date,$service_id) {
-        
+
         // $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
         //     // ->where('schedules.date','=',$date)
         //     ->whereDate('schedules.updated_at','=',$date)
@@ -1083,7 +1084,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                 $query = $query->whereDate('schedules.updated_at','=',$temp_date);
             }
         }
-        
+
         $query = $query->whereNull('schedules.deleted_at');
         $query = $query->where('schedules.status','=','complete');
         $query = $query->where('schedule_detail.type','=','service');
@@ -1111,7 +1112,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             ->whereYear('schedules.date','=',date('Y'))
             ->whereMonth('schedules.date','=',$month)
             ->get();
-            
+
         return $result;
     }
 
@@ -1121,13 +1122,13 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         return $service_id;
     }
 
-    public function getSchedulesWithServiceByType($schedulesArray = [], $type = null, $from_date = null, $to_date = null) {        
+    public function getSchedulesWithServiceByType($schedulesArray = [], $type = null, $from_date = null, $to_date = null) {
                 $query = Schedule::query();
                 $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
                 $query = $query->whereIn('schedules.id', $schedulesArray);
                 $query = $query->where('schedule_detail.type','=','service');
                 $query = $query->whereNull('schedules.deleted_at');
-        
+
                 if(isset($type) && $type != null && $type == 'yearly'){
                     if(isset($from_date) && $from_date != null){
                         $tempFromDate = date("Y-m-d", strtotime('01-01-'.$from_date));
@@ -1158,10 +1159,10 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                         $query = $query->where('schedules.date', '<=', $tempToDate);
                     }
                 }
-        
+
                 $query = $query->orderBy('schedules.date','desc');
                 $result = $query->get();
-        
+
                 return $result;
     }
 
@@ -1170,7 +1171,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
         $query = $query->where('schedule_detail.type','=','service');
         // $query = $query->where('schedules.updated_at','=',$date);
-        
+
         if(isset($type) && $type != null && $type == 'yearly'){
             // $query = $query->where(DB::raw("DATE(schedules.updated_at)"),'=',$date);
             $temp_date = "01-01-".$date;
@@ -1191,7 +1192,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $query = $query->where('schedules.status','=','complete');
 
         $result = $query->get();
-        
+
         return $result;
     }
 
@@ -1253,7 +1254,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
 
         $query = $query->orderBy('schedules.updated_at','desc');
         $result = $query->get();
-        
+
         return $result;
     }
 
@@ -1292,9 +1293,8 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $query = $query->whereNull('patients.deleted_at');
         $query = $query->where('schedules.leader_id', '=', $user_id);
         $objs = $query->get();
-           
+
         return $objs;
     }
-    
-}
 
+}
