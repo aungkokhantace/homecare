@@ -23,6 +23,7 @@
         </div>
     </div>
 
+    @if(Auth::guard('User')->user()->role_id == '1')
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="SETTING_SITE_ACTIVATION_KEY" class="text_bold_black">Site Activation Key</label>
@@ -32,6 +33,7 @@
             <p class="text-danger">{{$errors->first('SETTING_SITE_ACTIVATION_KEY')}}</p>
         </div>
     </div>
+    @endif
 
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
