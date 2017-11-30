@@ -54,7 +54,7 @@
             <select class="form-control" name="enquiry_case_type" id="enquiry_case_type">
                 <option value="all" {{($enquiry_case_type == 'all')? 'selected' : ''}}>All statuses</option>
                 <option value="1" {{($enquiry_case_type == '1')? 'selected' : ''}}>Yes</option>
-                <option value="2" {{($enquiry_case_type == '2')? 'selected' : ''}}>No</option>
+                <option value="0" {{($enquiry_case_type == '0')? 'selected' : ''}}>No</option>
             </select>
         </div>
     </div>
