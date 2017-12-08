@@ -115,13 +115,13 @@ class AddendumRepository implements AddendumRepositoryInterface
     }
 
     public function getObjsByPatientID($patient_id)
-    {
-        $objs = Addendum::whereNull('deleted_at')->where('patient_id','=',$patient_id)->get();
-        return $objs;
-    }
-}
-
-  public function getObjsByPatientAndScheduleID($patient_id,$schedule_id)
+   {
+       $objs = Addendum::whereNull('deleted_at')
+                    ->where('patient_id','=',$patient_id)
+                    ->get();
+       return $objs;
+   }
+    public function getObjsByPatientAndScheduleID($patient_id,$schedule_id)
    {
        $objs = Addendum::whereNull('deleted_at')
                     ->where('patient_id','=',$patient_id)
