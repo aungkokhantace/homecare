@@ -199,7 +199,7 @@ class PatientController extends Controller
         $logObj                         = new LogPatientCaseSummary();
         $logObj->id                     = $generatedId;
         $logObj->case_summary           = $case_scenario;
-        
+
         //save user obj and patient obj
         $result = $this->repo->create($flag = 1, $userObj,$paramObj,$allergies,$logObj); //$flag=1 is for including DB::beginTransaction() and 0 is not
 
@@ -506,7 +506,7 @@ class PatientController extends Controller
                         $schedulesRaw[$keySch]->car_type_name = $carTypes[$valueSch->car_type_id]->name;
                     }
                 }
-                
+
                 $schedules = $schedulesRaw;
 
                 $img = $users->display_image;
@@ -591,7 +591,7 @@ class PatientController extends Controller
                         $musculo['musculo_4_4_5'][] = $musculo_4_4_5;
                     }
                 }
-                
+
                 return view('backend.patient.detail')
                     ->with('patient', $patient)
                     ->with('users', $users)
@@ -660,7 +660,7 @@ class PatientController extends Controller
             }
             array_push($patientSchedules,$patient_schedules);
         }
-    
+
         return view('backend.patient.schedules')->with('patientSchedules',$patientSchedules);
     }
 
@@ -731,23 +731,23 @@ class PatientController extends Controller
                 $provisional_diagnosis  = $schedule->getProvisionalDiagnosis($provisional_id);
 
                 $treatments             = $schedule->getScheduleTreatment($latest_schedule_id);
-                
+
                 //start other services
                 $type = "service";
                 $schedule_details = $schedule->getScheduleDetailServices($latest_schedule_id,$type);
-                
+
                 $schedule_detail_services_array = array();
 
                 foreach($schedule_details as $sch_detail){
                     array_push($schedule_detail_services_array,$sch_detail->service_id);
                 }
-                
+
                 $other_services         = $schedule->getScheduleOtherServices($latest_schedule_id, $patient_id,$schedule_detail_services_array);
                 //end other services
 
                 // $neurological           = $schedule->getNeurologicalRecords($latest_schedule_id);
                 $neurological           = $schedule->getLastFourteenNeurologicalRecords($patient_id);
-                
+
                 //build array of 14 schedule_physiotherapy_neuro records by date
                 $neurological_by_date_array = array();
                 foreach($neurological as $neuro_by_date){
@@ -794,9 +794,9 @@ class PatientController extends Controller
                     $neurological_by_date_array["writing_assisted_exercise"][$neuro_date] = $neuro_by_date->writing_assisted_exercise;
                     $neurological_by_date_array["signature_of_physiotherapist"][$neuro_date] = $neuro_by_date->signature_of_physiotherapist;
                     $neurological_by_date_array["remark"][$neuro_date] = $neuro_by_date->remark;
-                    
+
                 }
-               
+
                 $musculo_intercention   = $schedule->getMusculoIntercentionRecords($latest_schedule_id);
 
                 $nutritions             = $schedule->getNutrition($latest_schedule_id,$patient_id);
@@ -931,7 +931,7 @@ class PatientController extends Controller
                 $blood_drawings             = $schedule->getBloodDrawing($latest_schedule_id,$patient_id);
                 $blood_drawings_remark      = $schedule->getBloodDrawingRemark($latest_schedule_id,$patient_id);
                 //end blood drawing
-                
+
                 if(isset($investigation_imaging) && count($investigation_imaging)>0){
                     if (!array_key_exists("X-RAY",$investigation_imaging)){
                         $investigation_imaging['X-RAY'] = "";
@@ -953,18 +953,19 @@ class PatientController extends Controller
 
             //start addendum
             $addendumRepo = new AddendumRepository();
-            // $addendums    = $addendumRepo->getObjs();            
-            $addendums    = $addendumRepo->getObjsByPatientID($patient->user_id);
+
+            // $addendums    = $addendumRepo->getObjs();
+            $addendums    = $addendumRepo->getObjsByPatientAndScheduleID($patient->user_id);
             //end addendum
 
             $routeRepo = new RouteRepository();
-            
-            foreach($treatments as $treatment){ 
-                $route = $routeRepo->getObjByID($treatment->time);                
+
+            foreach($treatments as $treatment){
+                $route = $routeRepo->getObjByID($treatment->time);
                 $route_name = $route->name;
                 $treatment->route_name = $route_name;
             }
-            // dd('neurological_by_date_array',$neurological_by_date_array);
+
             return view('backend.patient.detailvisit')->with('patient',$patient)
                 ->with('schedules',$schedule)
                 ->with('vitals',$vitals)
@@ -1163,13 +1164,14 @@ class PatientController extends Controller
             foreach($schedules as $sch){
                 array_push($schedule_id_arr,$sch->id);
             }
+
             // $schedule_detail    = Scheduledetail::whereIn('schedule_id',$schedule_id_arr)->where('type','=','service')->get();
-            
+
             $users              = User::whereNull('deleted_at')->get();
             $car_types          = Cartype::whereNull('deleted_at')->get();
             $services           = Service::whereNull('deleted_at')->get();
             $patientSchedules   = array();
-            
+
             foreach($schedules as $schedule){
                 $patient_schedules  = array();  //reset the array
 
@@ -1190,11 +1192,11 @@ class PatientController extends Controller
                         $patient_schedules['leader'] = $leader->name;
                     }
                 }
-                
+
                 $schedule_detail    = Scheduledetail::where('schedule_id',$schedule->id)->where('type','=','service')->get();
-                
+
                 foreach($schedule_detail as $detail){
-                    if($schedule->id == $detail->schedule_id){  
+                    if($schedule->id == $detail->schedule_id){
                         // $patient_schedules['service']=$detail->service->name;
 
                         if(array_key_exists('service',$patient_schedules)){
@@ -1205,7 +1207,7 @@ class PatientController extends Controller
                         }
                     }
                 }
-                
+
                 //start invoice id
                 $invoiceRepo = new InvoiceRepository();
                 $invoice = $invoiceRepo->getInvoiceByScheduleID($schedule->id);
@@ -1219,7 +1221,7 @@ class PatientController extends Controller
 
             //sort patient schedules by date and time
            array_multisort(array_column($patientSchedules, 'date'),  SORT_DESC, array_column($patientSchedules, 'time'), SORT_DESC, $patientSchedules);
-           
+
             return view('backend.patient.patientdetail')
                 ->with('patient',$patient)
                 ->with('patientmedicalhistories',$patientmedicalhistories)

@@ -151,3 +151,8 @@
     margin:0px;
     padding:0px;
 }
+
+textarea{
+  /*overflow-y: scroll;*/
+  overflow-x: hidden;
+}
