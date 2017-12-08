@@ -145,3 +145,8 @@
     color:black !important;
     font-weight: bold;
 }
+
+textarea{
+  /*overflow-y: scroll;*/
+  overflow-x: hidden;
+}
