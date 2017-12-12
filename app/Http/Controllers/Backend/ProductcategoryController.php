@@ -28,7 +28,9 @@ class ProductcategoryController extends Controller
     {
         try{
             if (Auth::guard('User')->check()) {
-                $productCategory      = $this->repo->getObjs();
+                // $productCategory      = $this->repo->getObjs();
+                $excluded_array = [10001, 10002]; //ids to be hidden from list (new_medication and treatment)
+                $productCategory      = $this->repo->getObjsByExcludedArray($excluded_array);
                 return view('backend.productcategory.index')->with('productCategory', $productCategory);
             }
             return redirect('/');
@@ -69,6 +71,9 @@ class ProductcategoryController extends Controller
 
     public function edit($id){
         if (Auth::guard('User')->check()) {
+          if (in_array($id, [10001, 10002])) {
+                return response()->view('core.error.pagenotfound', [], 404);
+            }
             $productCategory = $this->repo->getObjByID($id);
             return view('backend.productcategory.productcategory')->with('productCategory', $productCategory);
         }

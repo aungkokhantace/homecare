@@ -114,4 +114,10 @@ class ProductcategoryRepository implements ProductcategoryRepositoryInterface
         $result = DB::select("SELECT * FROM products WHERE product_category_id = $id AND deleted_at IS NULL");
         return $result;
     }
+
+    public function getObjsByExcludedArray($excluded_array)
+    {
+        $objs = Productcategory::whereNull('deleted_at')->whereNotIn('id',$excluded_array)->get();
+        return $objs;
+    }
 }

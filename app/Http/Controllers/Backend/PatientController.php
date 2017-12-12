@@ -966,6 +966,8 @@ class PatientController extends Controller
                 $treatment->route_name = $route_name;
             }
 
+            $treatment_procedures             = $schedule->getTreatmentProcedure($latest_schedule_id);
+            
             return view('backend.patient.detailvisit')->with('patient',$patient)
                 ->with('schedules',$schedule)
                 ->with('vitals',$vitals)
@@ -989,7 +991,8 @@ class PatientController extends Controller
                 ->with('other_services',$other_services)
                 ->with('addendums',$addendums)
                 ->with('scheduleRaw',$scheduleRaw)
-                ->with('neurological_by_date_array',$neurological_by_date_array);
+                ->with('neurological_by_date_array',$neurological_by_date_array)
+                ->with('treatment_procedures',$treatment_procedures);
         }
         else{
             return view('backend.patient.invalidpatient');

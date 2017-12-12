@@ -118,7 +118,7 @@
                             <td height="20" align="right">{{$invoice->total_consultant_fee}}</td>
                         </tr>
                         <tr>
-                            <td height="20">3</td>
+                            <td height="20" rowspan="2">3</td>
                             <td height="20">Medications
                                 <table class="table">
                                     @foreach($medicationArray as $medication)
@@ -131,7 +131,21 @@
                                     @endforeach
                                 </table>
                             </td>
-                            <td height="20" align="right">{{$invoice->total_medication_amount}}</td>
+                            <td height="20" align="right" rowspan="2">{{$invoice->total_medication_amount}}</td>
+                        </tr>
+                        <tr>
+                            <!-- <td height="20"></td> -->
+                            <td height="20">Treatment (Procedure)
+                                <table class="table" style="margin-top=none;">
+                                    @foreach($treatmentProcedureArray as $treatmentProcedure)
+                                        <tr>
+                                            <td>{{$treatmentProcedure['name']}}</td>
+                                            <td>{{$treatmentProcedure['price']}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </td>
+                            <!-- <td></td> -->
                         </tr>
                         <tr>
                             <td height="20">4</td>

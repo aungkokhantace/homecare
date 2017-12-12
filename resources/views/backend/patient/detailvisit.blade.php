@@ -177,7 +177,7 @@
                                                         {{$chief_complaint->duration_days.'Days '}}
                                                     @else
                                                         {{$chief_complaint->duration_days.'Day '}}
-                                                    @endif                                                                                                     
+                                                    @endif
                                                 @endif
 
                                                 @if(isset($chief_complaint->duration_months) && $chief_complaint->duration_months !== "")
@@ -185,7 +185,7 @@
                                                         {{$chief_complaint->duration_months.'Months'}}
                                                     @else
                                                         {{$chief_complaint->duration_months.'Month'}}
-                                                    @endif                                                                                                     
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>
@@ -1038,7 +1038,7 @@
                                             <td><b>{{$totalSold}}</b></td>
                                             <td style="text-align: right;"><b>{{number_format($totalPrice)}}</b></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td colspan="7">
                                                 <div class="row">
                                                     <div class="col-sm-1"><label>Remark</label></div>
@@ -1047,9 +1047,42 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                 </table>
                                 @endif
+
+                                <!-- start treatment procedures -->
+                                <h3>Treatment (Procedure)</h3><br/>
+                                @if(isset($treatment_procedures) && count($treatment_procedures) > 0 )
+                                <table class="table table-condensed">
+                                    <tr class="detail_visit_vital">
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    @foreach($treatment_procedures as $treatment_procedure)
+                                        <tr class="detail_visit_vital_row">
+                                            <td>{{$treatment_procedure->product_name}}</td>
+                                            <td>{{$treatment_procedure->price}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                                @endif
+                                <!-- end treatment procedures -->
+
+                                <!-- start treatment remark -->
+                                <table class="table table-condensed">
+                                  <tr>
+                                      <td colspan="7">
+                                          <div class="row">
+                                              <div class="col-sm-1"><label>Remark</label></div>
+                                              <div class="col-sm-4">
+                                                  <textarea class="form-control" id="remark" rows="3" cols="5"> @if(isset($treatments) && count($treatments) >0 ){{$treatment->remark}}@endif</textarea>
+                                              </div>
+                                          </div>
+                                      </td>
+                                  </tr>
+                                </table>
+                                <!-- end treatment remark -->
                             </div>
                         </div>
                     </div>
@@ -1079,8 +1112,8 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                               <h3>Neurological Treatment Record</h3><br/>                                
-                                
+                               <h3>Neurological Treatment Record</h3><br/>
+
                                 @if(isset($neurological_by_date_array) && count($neurological_by_date_array)>0)
                                     <table class="table full_width_table">
                                         <tr>

@@ -519,6 +519,19 @@ class SaleSummaryReportController extends Controller
                         ->with('expiryDate',$expiryDate);
                 }
 
+                // start medication procedures
+                $treatmentProcedureArray = array();
+                $treatmentProcedureCounter = 0;
+                //to create medication procedure array
+                foreach($invoiceDetails as $invoiceDetail){
+                    if($invoiceDetail->type == "treatment"){
+                        $treatmentProcedureArray[$treatmentProcedureCounter]['name'] = $invoiceDetail->product->product_name;
+                        $treatmentProcedureArray[$treatmentProcedureCounter]['price'] = $invoiceDetail->product_amount;
+                        $treatmentProcedureCounter++;
+                    }
+                }
+                // end medication procedures
+
                 //invoice type is "invoice", without expiry date
                 return view('report.invoicedetail')
                     ->with('invoice',$invoice)
@@ -527,7 +540,8 @@ class SaleSummaryReportController extends Controller
                     ->with('age',$age)
                     ->with('patient_gender',$patient_gender)
                     ->with('investigationArray',$investigationArray)
-                    ->with('medicationArray',$medicationArray);
+                    ->with('medicationArray',$medicationArray)
+                    ->with('treatmentProcedureArray',$treatmentProcedureArray);
 
             }
             else{
@@ -752,6 +766,19 @@ class SaleSummaryReportController extends Controller
                             }
                         }
 
+                        // start medication procedures
+                        $treatmentProcedureArray = array();
+                        $treatmentProcedureCounter = 0;
+                        //to create medication procedure array
+                        foreach($invoiceDetails as $invoiceDetail){
+                            if($invoiceDetail->type == "treatment"){
+                                $treatmentProcedureArray[$treatmentProcedureCounter]['name'] = $invoiceDetail->product->product_name;
+                                $treatmentProcedureArray[$treatmentProcedureCounter]['price'] = $invoiceDetail->product_amount;
+                                $treatmentProcedureCounter++;
+                            }
+                        }
+                        // end medication procedures
+
                         $saleData = '<table style="font-size:9px; word-wrap: break-word; table-layout: fixed;">
                                         <tr bgcolor="#cccccc">
                                             <th height="15" width="10%">Item</th>
@@ -769,7 +796,7 @@ class SaleSummaryReportController extends Controller
                                             <td height="20" align="right">'.$invoice->total_consultant_fee.'</td>
                                         </tr>
                                         <tr>
-                                            <td height="30">3</td>
+                                            <td height="30" rowspan="2">3</td>
                                             <td height="30">Medications
                                             <hr><br>';
                                                 $saleData.='<table style="font-size:9px; word-wrap: break-word; table-layout: fixed;">';
@@ -784,7 +811,21 @@ class SaleSummaryReportController extends Controller
                                                 $saleData.='</table><br>';
 
                                             $saleData.='</td>
-                                            <td height="20" align="right">'.$invoice->total_medication_amount.'</td>
+                                            <td height="20" align="right" rowspan="2">'.$invoice->total_medication_amount.'</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="30">Treatment (Procedure)
+                                            <hr><br>';
+                                                $saleData.='<table style="font-size:9px; word-wrap: break-word; table-layout: fixed;">';
+                                                    foreach($treatmentProcedureArray as $treatmentProcedure){
+                                                        $saleData .= '<tr height="30">';
+                                                        $saleData .= '<td>'. $treatmentProcedure['name'] .'</td>';
+                                                        $saleData .= '<td>'. $treatmentProcedure['price'] .'</td>';
+                                                        $saleData .= '</tr><hr>';
+                                                    }
+                                                $saleData.='</table><br>';
+
+                                            $saleData.='</td>
                                         </tr>
                                          <tr>
                                             <td height="30">4</td>

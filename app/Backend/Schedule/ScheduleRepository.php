@@ -848,6 +848,9 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     }
 
     public function getScheduleTreatment($latest_schedule_id){
+        //not to include 'new_medication' and 'treatment' from products table
+        // $excluded_array = [10001,10002];
+
         $treatments     = DB::table('schedule_treatment_histories')
                           ->leftjoin('products','products.id','=','schedule_treatment_histories.product_id')
                           ->select('products.product_name','products.price','schedule_treatment_histories.*')
@@ -856,7 +859,10 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
                           ->where('schedule_treatment_histories.flag','=', 2)
                           ->whereNotNull('schedule_treatment_histories.product_id')
                           ->where('schedule_treatment_histories.product_id','!=','')
+                          //where product.id is normal products (for medication)
+                          // ->whereNotIn('products.product_category_id',$excluded_array)
                           ->get();
+
         return $treatments;
     }
 
@@ -1295,6 +1301,20 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $objs = $query->get();
 
         return $objs;
+    }
+
+    public function getTreatmentProcedure($latest_schedule_id){
+        $treatments     = DB::table('schedule_treatment_histories')
+                          ->leftjoin('products','products.id','=','schedule_treatment_histories.product_id')
+                          ->select('products.product_name','products.price','schedule_treatment_histories.*')
+                          ->whereNull('schedule_treatment_histories.deleted_at')
+                          ->where('schedule_treatment_histories.schedule_id','=',$latest_schedule_id)
+                          ->where('schedule_treatment_histories.flag','=', 3) //for treatment procedures
+                          ->whereNotNull('schedule_treatment_histories.product_id')
+                          ->where('schedule_treatment_histories.product_id','!=','')
+                          ->get();
+
+        return $treatments;
     }
 
 }

@@ -88,8 +88,22 @@ class ProductController extends Controller
         if (Auth::guard('User')->check()) {
             $product = $this->repo->getObjByID($id);
             $categoryRepo = new ProductcategoryRepository();
-            $categories      = $categoryRepo->getObjs();
-            return view('backend.product.product')->with('product', $product)->with('categories', $categories);
+            // $categories      = $categoryRepo->getObjs();
+            $excluded_array = [10001, 10002]; //ids to be hidden from list (new_medication and treatment)
+            $categories      = $categoryRepo->getObjsByExcludedArray($excluded_array);
+
+            //start setting flag to block category and description edit
+            $category_edit_block_flag = 0;  //initialize flag
+
+            // if category is 10001 or 10002, allow editing only name and price (disable category and description edit)
+            if( in_array($product->product_category_id, [10001, 10002]) ){
+            //set flag to 1
+              $category_edit_block_flag = 1;
+            }
+            //end setting flag to block category and description edit
+            return view('backend.product.product')->with('product', $product)
+                                                  ->with('categories', $categories)
+                                                  ->with('category_edit_block_flag', $category_edit_block_flag);
         }
         return redirect('/');
     }
