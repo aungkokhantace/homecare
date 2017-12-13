@@ -350,6 +350,28 @@
         </div>
     @endif
 
+    @if(isset($user) && ($user->role_id == 6 || $user->role_id == 7))
+    <div class="row doctor_license_number">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 doctor_license_number">
+            <label for="doctor_license_number" class="text_bold_black">Doctor License Number<span class="require">*</span> (SAMA-)</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 doctor_license_number">
+            <input type="text" class="form-control" id="doctor_license_number" name="doctor_license_number" placeholder="Enter Doctor License Number" value="{{ isset($user)? $user->doctor_license_number:Request::old('doctor_license_number') }}"/>
+            <p class="text-danger">{{$errors->first('doctor_license_number')}}</p>
+        </div>
+    </div>
+    @else
+    <div class="row doctor_license_number">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 doctor_license_number" style="display:none;">
+            <label for="doctor_license_number" class="text_bold_black">Doctor License Number<span class="require">*</span> (SAMA-)</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 doctor_license_number" style="display:none;">
+            <input type="text" class="form-control" id="doctor_license_number" name="doctor_license_number" placeholder="Enter Doctor License Number" value="{{ isset($user)? $user->doctor_license_number:Request::old('doctor_license_number') }}"/>
+            <p class="text-danger">{{$errors->first('doctor_license_number')}}</p>
+        </div>
+    </div>
+    @endif
+
     @if(isset($user) && $user->role_id == 7)
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fees_div">
@@ -516,6 +538,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $(".password").hide();
+            // $(".doctor_license_number").hide();
 
             //Start fileupload js
             $(".add_image_div").click(function(){
@@ -583,7 +606,8 @@
                         equalTo   : "#password"
                     },
                     role_id       : 'required',
-                    fees          : 'required'
+                    fees          : 'required',
+                    doctor_license_number : 'required'
                 },
                 messages: {
                     name          : 'Name is required',
@@ -601,7 +625,8 @@
                         equalTo   : "Password and Confirm Password must match"
                     },
                     role_id       : "Role is required",
-                    fees          : "Fees is required"
+                    fees          : "Fees is required",
+                    doctor_license_number          : "Doctor License Number is required"
                 },
                 submitHandler: function(form) {
                     $('input[type="submit"]').attr('disabled','disabled');
@@ -614,10 +639,23 @@
             $('#role_id').change(function(){
                 if($('#role_id').val()== 7){
                     var data = $('#role_id').val();
+                    $('.doctor_license_number').show();
                     $('.fees_div').show();
+                }
+                // else{
+                //     var data = $('#role_id').val();
+                //     $('.doctor_license_number').hide();
+                //     $('.fees_div').hide();
+                // }
+
+                else if($('#role_id').val()== 6){
+                    var data = $('#role_id').val();
+                    $('.doctor_license_number').show();
+                    $('.fees_div').hide();
                 }
                 else{
                     var data = $('#role_id').val();
+                    $('.doctor_license_number').hide();
                     $('.fees_div').hide();
                 }
             });

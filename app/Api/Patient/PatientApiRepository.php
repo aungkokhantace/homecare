@@ -21,11 +21,11 @@ use App\Backend\Zone\ZoneRepository;
 
 class PatientApiRepository implements PatientApiRepositoryInterface
 {
-    
+
     public function getArrays()
     {
     	$columns = 'id,name,password,phone,email,fees,display_image,mobile_image,role_id,address,active,created_by,updated_by,deleted_by,created_at,updated_at,deleted_at';
-        
+
         $tempObj = DB::select("SELECT * FROM patients WHERE deleted_at is null");
 
         $userObj = DB::select("SELECT $columns FROM core_users WHERE deleted_at is null");
@@ -130,7 +130,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
 //                    $patient_id = $tempObj->id;
                     if(isset($childArray) && count($childArray)>0){
                         foreach($childArray as $allergy_id){
-                        	
+
                             DB::table('patient_allergy')->insert([
                                 ['patient_id' => $user_id, 'allergy_id' => $allergy_id]
                             ]);
@@ -310,7 +310,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
             $logObj->save();
 
 
-                
+
             DB::commit();
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
             return $returnedObj;
@@ -369,10 +369,10 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 //start log summary
                 // $findObj    = Patient::where('user_id','=',$id)->first();
                 $findObj    = $findPatientObj;
-                
+
                 if(isset($findObj) && count($findObj) > 0){
                     //compare input and current case scenarios
-                    $current_case_scenario  = $findObj->case_scenario;                            
+                    $current_case_scenario  = $findObj->case_scenario;
                     $input_case_scenario    = $data->case_scenario;
 
                     if($current_case_scenario !== $input_case_scenario){
@@ -389,8 +389,8 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                         $logObj->created_at             = date("Y-m-d H:i:s");
                         $logObj->save();            //log obj insert is successful
                         //end creating log patient case summary
-                    }    
-                }  
+                    }
+                }
                 //end log summary
 
                 if(isset($findPatientObj) && count($findPatientObj) > 0){
@@ -431,7 +431,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
 
                     $temp_current_updated_at = $findPatientObj->updated_at;
                     $current_updated_at = $temp_current_updated_at;
-                    
+
                     $temp_input_updated_at = $data->updated_at;
                     $input_updated_at = $temp_input_updated_at;
 
@@ -472,7 +472,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 }
                 ////////////////////
 
-                
+
 
                 if (isset($data->core_users) && count($data->core_users) > 0) {
 
@@ -642,10 +642,10 @@ class PatientApiRepository implements PatientApiRepositoryInterface
             foreach ($data as $row) {
                 $id = $row->user_id;
                 $email = $row->email;
-               
+
                 //Check update or create for log date
                 $findObj    = Patient::where('user_id','=',$id)->first();
-                
+
                 if(isset($findObj) && count($findObj) > 0){
                     $tempPatientArr['date']     = $row->updated_at;
                     $patientCreate              = "updated";
@@ -654,7 +654,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     $tempPatientArr['date']     = $row->created_at;
                     $patientCreate              = "created";
                 }
-           
+
                 $findAllergy    = DB::table('patient_allergy')->where('patient_id','=',$id)->get();
                 if(isset($findAllergy) && count($findAllergy) > 0){
                     $tempAllergyArr['date']     = $row->updated_at;
@@ -665,14 +665,14 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     $allergyCreate              = "created";
                 }
                 $tempLogPatientArr['date']      = $row->created_at;
-                
+
                 if(isset($findObj) && count($findObj) > 0){
                     $current_updated_at = "";
                     $input_updated_at = "";
-                    
+
                     $temp_current_updated_at = $findObj->updated_at;
                     $current_updated_at = $temp_current_updated_at;
-                    
+
                     $temp_input_updated_at = $row->updated_at;
                     $input_updated_at = $temp_input_updated_at;
 
@@ -681,7 +681,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     // if($row->user_id == "U0054"){
                     //     dd('compare',$input_updated_at,$current_updated_at);
                     // }
-                    
+
                     if($input_updated_at > $current_updated_at){
                         //clear patient_allergy data relating to input
                         DB::table('patient_allergy')
@@ -741,10 +741,10 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 $paramObj->deleted_by = $row->deleted_by;
                 $paramObj->created_at   = (isset($row->created_at) && $row->created_at != "") ? $row->created_at:null;
                 $paramObj->updated_at   = (isset($row->updated_at) && $row->updated_at != "") ? $row->updated_at:null;
-                $paramObj->deleted_at   = (isset($row->deleted_at) && $row->deleted_at != "") ? $row->deleted_at:null;                
-                
+                $paramObj->deleted_at   = (isset($row->deleted_at) && $row->deleted_at != "") ? $row->deleted_at:null;
+
                 $patientResult = $this->createSingleObj($paramObj);
-                
+
                 //check whether patient insertion was successful or not
                 if ($patientResult['aceplusStatusCode'] == ReturnMessage::OK) {
 
@@ -799,21 +799,21 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     //     }
                     // }
                     // //end insertion of log_patient_case_summary
-                    
+
                     // if(isset($findObj) && count($findObj) > 0){
                         // $current_updated_at = "";
                         // $input_updated_at = "";
-                        
+
                         // $temp_current_updated_at = $findObj->updated_at;
                         // $current_updated_at = $temp_current_updated_at;
-                        
+
                         // $temp_input_updated_at = $row->updated_at;
                         // $input_updated_at = $temp_input_updated_at;
-                        
-                        // if($input_updated_at > $current_updated_at){                            
-                            // $current_case_scenario  = $findObj->case_scenario;                            
+
+                        // if($input_updated_at > $current_updated_at){
+                            // $current_case_scenario  = $findObj->case_scenario;
                             // $input_case_scenario    = $row->case_scenario;
-                            
+
                             // if($current_case_scenario !== $input_case_scenario){
                             //     //create log patient case summary
                             //     $prefix = Utility::getTerminalId();
@@ -831,8 +831,8 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                             // }
                         // }
                     // }
-                               
-                    
+
+
                     continue;       //continue to next loop(i.e. next row of patient data)
 
                 } else {

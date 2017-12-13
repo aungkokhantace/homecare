@@ -77,7 +77,7 @@ class UserApiRepository implements UserApiRepositoryInterface
 
                 //Check update or create for log date
                 $findObj    = User::find($id);
-               
+
                 if(isset($findObj) && count($findObj) > 0){
                     $tempArr['date'] = $row->updated_at;
                     $create = "updated";
@@ -93,7 +93,7 @@ class UserApiRepository implements UserApiRepositoryInterface
 
                     $temp_current_updated_at = $findObj->updated_at;
                     $current_updated_at = $temp_current_updated_at;
-                    
+
                     $temp_input_updated_at = $row->updated_at;
                     $input_updated_at = $temp_input_updated_at;
 
@@ -130,6 +130,7 @@ class UserApiRepository implements UserApiRepositoryInterface
                 $paramObj->phone        = $row->phone;
                 $paramObj->email        = $row->email;
                 $paramObj->fees         = $row->fees;
+                $paramObj->doctor_license_number         = $row->doctor_license_number;
 //                $paramObj->display_image= $row->display_image;
                 $paramObj->mobile_image = $row->mobile_image;
                 $paramObj->role_id      = $row->role_id;

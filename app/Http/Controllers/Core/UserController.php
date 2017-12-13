@@ -123,6 +123,8 @@ class UserController extends Controller
         $password           = base64_encode(Input::get('password'));
         $roleId             = Input::get('role_id');
         $fees               = Input::get('fees');
+        $temp_doctor_license_number = Input::get('doctor_license_number');
+        $doctor_license_number = 'SAMA-'.$temp_doctor_license_number; //bind sama prefix
         $address            = trim(Input::get('address'));
 
         $userObj            = new User();
@@ -137,6 +139,7 @@ class UserController extends Controller
         $userObj->password  = $password;
         $userObj->role_id   = $roleId;
         $userObj->fees      = $fees;
+        $userObj->doctor_license_number      = $doctor_license_number;
         $userObj->address   = $address;
 
         $result = $this->userRepository->create($userObj);
@@ -169,6 +172,10 @@ class UserController extends Controller
                 else{
                     $normalUser = true;
                 }
+
+                //remove sama prefix to show in edit form
+                $user->doctor_license_number = ltrim($user->doctor_license_number,"SAMA-");
+
                 return view('core.user.user')
                     ->with('user', $user)
                     ->with('roles', $roles)
@@ -219,16 +226,25 @@ class UserController extends Controller
         if(isset($roleId) && $roleId == 7){
             $fees           = Input::get('fees');
         }
-        else{
-            $fees           = null;
+        if(isset($roleId) && ($roleId == 6 || $roleId == 7)){
+          $temp_doctor_license_number = Input::get('doctor_license_number');
+          $doctor_license_number = 'SAMA-'.$temp_doctor_license_number; //bind sama prefix
         }
+        // else{
+        //     $fees           = null;
+        // }
 
         $userObj            = User::find($id);
         $userObj->name      = $name;
         $userObj->phone     = $phone;
         $userObj->email     = $email;
         $userObj->role_id   = $roleId;
-        $userObj->fees      = $fees;
+        if(isset($roleId) && $roleId == 7){
+          $userObj->fees      = $fees;
+        }
+        if(isset($roleId) && ($roleId == 6 || $roleId == 7)){
+          $userObj->doctor_license_number      = $doctor_license_number;
+        }
         $userObj->address   = $address;
         $password           = Input::get('password');
 
@@ -241,6 +257,7 @@ class UserController extends Controller
             $pwd    = base64_encode(Input::get('password'));
             $userObj->password = $pwd;
         }
+
         $result = $this->userRepository->update($userObj);
 
         if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
