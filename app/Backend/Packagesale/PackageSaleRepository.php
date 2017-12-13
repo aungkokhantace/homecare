@@ -54,11 +54,13 @@ class PackageSaleRepository implements PackageSaleRepositoryInterface
             //end generating patient_package_id
 
             //start generating invoice_id
-            $prefix = Utility::getTerminalId();
+            $temp_prefix = Utility::getTerminalId();
+            // $prefix = Utility::getInvoicePrefix(); //get invoice prefix
+            $invoice_prefix = Utility::generateInvoicePrefix($prefix);
             $table = (new Invoice())->getTable();
             $col = "id";
             $offset = 1;
-            $invoiceId = Utility::generatedId($prefix,$table,$col,$offset);
+            $invoiceId = Utility::generatedId($invoice_prefix,$table,$col,$offset);
 
             $tempInvoiceObj->id = $invoiceId;
             //end generating invoice_id

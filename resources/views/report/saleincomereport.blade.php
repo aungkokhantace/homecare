@@ -142,7 +142,7 @@
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <button type="button" onclick="report_search_with_type('saleincomereport');" class="form-control btn-primary">Preview By List</button>
         </div>
-<!-- 
+<!--
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <button type="button" onclick="check_to_redirect_to_graph_with_type();" class="form-control btn-primary">Preview By Graph</button>
         </div> -->
@@ -163,7 +163,7 @@
                         <th colspan=5 class="center_aligned">Service Income</th>
                         <th rowspan=2>Medication Income</th>
                         <th rowspan=2>Investigation Income</th>
-                        <th rowspan=2>Car Income</th> 
+                        <th rowspan=2>Car Income</th>
                         <th rowspan=2>Package Income</th>
                         <th rowspan=2>Consultant Income</th>
                         <th rowspan=2>Other Service Income</th>
@@ -251,16 +251,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 0, "asc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
-                "paging":   false,
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

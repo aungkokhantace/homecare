@@ -609,26 +609,26 @@ class InvoiceApiV3Controller extends Controller
                     //     array_push($logArr,$invoiceResult['log']);
                     // }
 
-                    
+
                     //for updating enquiry status to "complete"
                     if(isset($params->invoices) && count($params->invoices) > 0){
                         $invoices       = $params->invoices;
                         $temp_sche_id_array = array();
-                        
+
                         //loop through invoices that has a schedule_id and get enquiry_id from each schedule
                         foreach($invoices as $sch_in_invoice){
                             //get schedule_id of invoice and get enquiry_id from that schedule
                             if(isset($sch_in_invoice->schedule_id) && count($sch_in_invoice->schedule_id) > 0){
                                 $enquiry_id = $scheduleRepo->getEnquiryIdFromScheduleId($sch_in_invoice->schedule_id);
-                                if(isset($enquiry_id) && count($enquiry_id) > 0){                                    
-                                    $enquiry = Enquiry::find($enquiry_id);                                    
+                                if(isset($enquiry_id) && count($enquiry_id) > 0){
+                                    $enquiry = Enquiry::find($enquiry_id);
                                     //update status to "complete"
                                     if(isset($enquiry) && count($enquiry)>0){
                                         $enquiry->status = "complete";
                                         $enquiry->save();
                                     }
-                                }                            
-                            }                        
+                                }
+                            }
                         }
                 }
 
@@ -702,8 +702,10 @@ class InvoiceApiV3Controller extends Controller
 
                 $prefix                             = $checkServerStatusArray['tablet_id'];
                 $patient_prefix                     = Utility::generatePatientPrefix($prefix);
+                $invoice_prefix                     = Utility::generateInvoicePrefix($prefix);
 
-                $maxInvoice                         = Utility::getMaxKey($prefix,'invoices','id');
+                // $maxInvoice                         = Utility::getMaxKey($prefix,'invoices','id');
+                $maxInvoice                         = Utility::getMaxKey($invoice_prefix,'invoices','id');
                 $maxMedicalHistory                  = Utility::getMaxKey($prefix,'medical_history','id');
                 $maxFamilyHistory                   = Utility::getMaxKey($prefix,'family_histories','id');
                 $maxPatientFamilyHistory            = Utility::getMaxKey($prefix,'patient_family_history','id');

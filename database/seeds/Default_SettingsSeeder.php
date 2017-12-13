@@ -23,6 +23,8 @@ class Default_SettingsSeeder extends Seeder
             ['code'=>'FOREIGNER', 'type'=>'PATIENT_TYPE', 'value' =>'2', 'description' =>'Foreign Patient'],
             ['code'=>'TAX_RATE', 'type'=>'TAX_RATE', 'value' =>'7', 'description' =>'Tax Rate'],
             ['code'=>'MAX_DISCOUNT_TIME', 'type'=>'MAX_DISCOUNT_TIME', 'value' =>'2', 'description' =>'Maximum time that discount coupon can be used'],
+            ['code'=>'PATIENT_ID_PREFIX', 'type'=>'PREFIX', 'value' =>'P', 'description' =>'Patient ID prefix'],
+            ['code'=>'INVOICE_ID_PREFIX', 'type'=>'PREFIX', 'value' =>'I', 'description' =>'Invoice ID prefix'],
 
         );
 

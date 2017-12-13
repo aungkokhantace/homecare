@@ -82,9 +82,9 @@
                             {{--@endif--}}
                             <td>{{$patient->dob}}</td>
                             <td>{{$patient->township->name}}</td>
-                            {{--<td>{{$patient->zone['name']}}</td>--}}
+                            <!-- <td>{{$patient->zone['name']}}</td> -->
                             <!-- <td><a href="/patient/detail/{{$patient->user_id}}">Detail</a></td> -->
-                            <td><a href="/patient/patient_detail/{{$patient->user_id}}">Detail</a></td>
+                            <td><a href="/patient/patient_detail/{{$patient->user_id}}">Visit / Invoice</a></td>
                             <!-- <td><a href="/patient/detailvisit/{{$patient->user_id}}">Detail Visit</a></td> -->
                             <!-- <td><a href="/patient/patientSchedule/{{$patient->user_id}}">Detail Visit</a></td> -->
                         </tr>
@@ -111,15 +111,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
                 "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

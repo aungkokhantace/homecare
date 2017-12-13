@@ -348,14 +348,14 @@ class Utility
     }
 
     public static function mobileUploadImage($photo){
-        
+
         //$path       = base_path().'/public/images/users/';
         //$png_url    = "perfil-".time().".jpg";
-        
+
         //$img        = substr($photo, strpos($photo, ",")+1);
-       
+
         //$png_url    = $photo.time().".jpg";
-       
+
         $path       = base_path() . "/public/images/users/" ;
         $success    = file_put_contents($path, $photo);
         return "success";
@@ -464,7 +464,7 @@ class Utility
         //                     <td align="center" width="33%" height="20"></td>
         //                 </tr>
         //                 </table>';
-        
+
         //get company address from core_config
         $companyAddressRaw      = DB::table('core_configs')->where('code','=','SETTING_ADDRESS')->first();
         if(isset($companyAddressRaw) && count($companyAddressRaw) > 0){
@@ -494,7 +494,7 @@ class Utility
             //set as default
             $companyEmail       = "gzp.hhcs@gmail.com";
         }
-        
+
         // $letterHead = '<br><table style="font-size:11px;">
         //                 <tr>
         //                     <td align="center" height="20">'.$companyAddress.'</td>
@@ -506,7 +506,7 @@ class Utility
         //                     <td align="center" height="18" bgcolor="#00c0f1" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>
         //                 </tr>
         //                 </table>';
-        
+
         $letterHead = '<br><table style="font-size:11px;">
                         <tr>
                             <td width="20%" height="20" rowspan="2" valign="middle">'.$image.'</td>
@@ -659,7 +659,8 @@ class Utility
     }
 
     public static function generatePatientPrefix($prefix) {
-        $tempArray = DB::select("SELECT * FROM core_configs WHERE code = 'PATIENT_ID_PREFIX' and type = 'SETTING'");
+        // $tempArray = DB::select("SELECT * FROM core_configs WHERE code = 'PATIENT_ID_PREFIX' and type = 'PREFIX'");
+        $tempArray = DB::select("SELECT * FROM core_settings WHERE code = 'PATIENT_ID_PREFIX' and type = 'PREFIX'");
         if (isset($tempArray) && count($tempArray) > 0) {
             $temp_patient_prefix = $tempArray[0]->value;
         }
@@ -679,5 +680,28 @@ class Utility
     public static function getCurrentUserRole(){
         $role = Auth::guard('User')->user()->role_id;
         return $role;
+    }
+
+    // public static function getInvoicePrefix()
+    // {
+    //     $terminal    = DB::table('terminals')->where('tablet_id','=','backend_invoice')->first();
+    //     if(isset($terminal) && count($terminal)>0){
+    //         return $terminal->id;
+    //     }
+    //     else{
+    //         return "I000";
+    //     }
+    // }
+
+    public static function generateInvoicePrefix($prefix) {
+        $tempArray = DB::select("SELECT * FROM core_settings WHERE code = 'INVOICE_ID_PREFIX' and type = 'PREFIX'");
+        if (isset($tempArray) && count($tempArray) > 0) {
+            $temp_invoice_prefix = $tempArray[0]->value;
+        }
+        else{
+            $temp_invoice_prefix    = "I";
+        }
+        $invoice_prefix         = str_replace('U',$temp_invoice_prefix,$prefix);
+        return $invoice_prefix;
     }
 }

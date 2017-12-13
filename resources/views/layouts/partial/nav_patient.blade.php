@@ -10,7 +10,7 @@
 
             <li nav-id='dashboard'  class="has-sub" >
                 <a href="/patient/dashboard">
-                    <b class="caret pull-right"></b>
+                    <!-- <b class="caret pull-right"></b> -->
                     <i class="fa fa-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
@@ -18,7 +18,7 @@
 
             <li nav-id='profile'  class="has-sub" >
                 <a href="/patient/profile">
-                    <b class="caret pull-right"></b>
+                    <!-- <b class="caret pull-right"></b> -->
                     <i class="fa fa-male"></i>
                     <span>Profile</span>
                 </a>
@@ -26,7 +26,7 @@
 
             <li nav-id='case'  class="has-sub" >
                 <a href="/patient/case">
-                    <b class="caret pull-right"></b>
+                    <!-- <b class="caret pull-right"></b> -->
                     <i class="fa fa-line-chart"></i>
                     <span>Case Summary</span>
                 </a>
@@ -34,7 +34,7 @@
 
             <li nav-id='invoice'  class="has-sub" >
                 <a href="/patient/invoice">
-                    <b class="caret pull-right"></b>
+                    <!-- <b class="caret pull-right"></b> -->
                     <i class="fa fa-folder"></i>
                     <span>Invoice</span>
                 </a>
@@ -42,7 +42,7 @@
 
             <li  nav-id='medications' class="has-sub">
                 <a href="/patient/medication">
-                    <b class="caret pull-right"></b>
+                    <!-- <b class="caret pull-right"></b> -->
                     <i class="fa fa-medkit"></i>
                     <span>Medications</span>
                 </a>
@@ -51,7 +51,7 @@
 
             <li  nav-id='schedulehistory'  class="has-sub">
                 <a href="/patient/schedule">
-                    <b class="caret pull-right"></b>
+                    <!-- <b class="caret pull-right"></b> -->
                     <i class="fa fa-calendar"></i>
                     <span>Schedule History</span>
                 </a>
@@ -59,7 +59,7 @@
 
             <li  nav-id='servicehistory'  class="has-sub">
                 <a href="/patient/service">
-                    <b class="caret pull-right"></b>
+                    <!-- <b class="caret pull-right"></b> -->
                     <i class="fa fa-automobile"></i>
                     <span>Service History</span>
                 </a>
@@ -67,7 +67,7 @@
 
             <li  nav-id='pakcagehistory'  class="has-sub">
                 <a href="/patient/package">
-                    <b class="caret pull-right"></b>
+                    <!-- <b class="caret pull-right"></b> -->
                     <i class="fa fa-suitcase"></i>
                     <span>Package History</span>
                 </a>
@@ -75,7 +75,7 @@
 
             <li  nav-id='bookingrequest'  class="has-sub">
                 <a href="/patient/bookingrequest">
-                    <b class="caret pull-right"></b>
+                    <!-- <b class="caret pull-right"></b> -->
                     <i class="fa fa-calendar"></i>
                     <span>Booking Request</span>
                 </a>

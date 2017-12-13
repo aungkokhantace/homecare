@@ -49,7 +49,7 @@ class PackageSaleController extends Controller
         try{
             if (Auth::guard('User')->check()) {
                 $packagesales      = $this->repo->getObjs();
-                
+
                 foreach($packagesales as $sale){
                     $package_sale_id    = $sale->id;
                     $package_promotion  = DB::table('transaction_promotions')->where('reference_id','=',$package_sale_id)->first();
@@ -320,17 +320,17 @@ class PackageSaleController extends Controller
 
                 $patientData = '<table style="font-size:9px; word-wrap: break-word; table-layout: fixed;">
                                     <tr>
-                                        <td height="20" width="20%">Name</td>
+                                        <td height="20" width="20%">Name / Reg No.</td>
                                         <td height="20" width="5%">-</td>
-                                        <td height="20" width="25%">'.$invoice->patient->name.'</td>
+                                        <td height="20" width="25%">'.$invoice->patient->name.' / '.$invoice->patient->user_id.'</td>
                                         <td height="20" width="20%">Voucher No.</td>
                                         <td height="20" width="5%">-</td>
                                         <td height="20" width="25%">'.$invoice->id.'</td>
                                     </tr>
                                     <tr>
-                                        <td height="20" width="20%">Age/Sex</td>
+                                        <td height="20" width="20%">DOB(Age) / Sex</td>
                                         <td height="20" width="5%">-</td>
-                                        <td height="20" width="25%">'.$age['value'].' '.$age['unit'].'/'.$patient_gender.'</td>
+                                        <td height="20" width="25%">'.$invoice->patient->dob.'('.$age['value'].' '.$age['unit'].') / '.$patient_gender.'</td>
                                         <td height="20" width="20%">Date</td>
                                         <td height="20" width="5%">-</td>
                                         <td height="20" width="25%">'.$invoice->created_at->format('d-m-Y').'</td>

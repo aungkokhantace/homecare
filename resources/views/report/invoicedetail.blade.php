@@ -14,17 +14,17 @@
             <div class="panel-body">
                 <table class="table" style="word-wrap: break-word; table-layout: fixed;">
                     <tr>
-                        <td height="20" width="20%">Name</td>
+                        <td height="20" width="20%">Name / Reg No.</td>
                         <td height="20" width="5%">-</td>
-                        <td height="20" width="25%">{{$invoice->patient->name}}</td>
+                        <td height="20" width="25%">{{$invoice->patient->name}} / {{$invoice->patient->user_id}}</td>
                         <td height="20" width="20%">Voucher No.</td>
                         <td height="20" width="5%">-</td>
                         <td height="20" width="25%">{{$invoice->id}}</td>
                     </tr>
                     <tr>
-                        <td height="20" width="20%">Age/Sex</td>
+                        <td height="20" width="20%">DOB(Age) / Sex</td>
                         <td height="20" width="5%">-</td>
-                        <td height="20" width="25%">{{$age['value']." ".$age['unit']}}/{{$patient_gender}}</td>
+                        <td height="20" width="25%">{{$invoice->patient->dob}}({{$age['value']." ".$age['unit']}}) / {{$patient_gender}}</td>
                         <td height="20" width="20%">Date</td>
                         <td height="20" width="5%">-</td>
                         <td height="20" width="25%">{{$invoice->created_at->format('d-m-Y')}}</td>
@@ -291,15 +291,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

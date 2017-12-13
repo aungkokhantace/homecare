@@ -114,7 +114,7 @@
             @if(isset($package))
                 <input type="checkbox" name="inclusive_transport_charge" value="1" @if($package->inclusive_transport_charge == 1)checked @endif>
             @else
-                <input type="checkbox" name="inclusive_transport_charge" value="1" @if(Input::old('inclusive_transport_charge')=="1")checked @endif checked>
+                <input type="checkbox" name="inclusive_transport_charge" value="1" @if(Input::old('inclusive_transport_charge')=="1")checked @endif>
             @endif
             <p class="text-danger">{{$errors->first('expiry_date')}}</p>
         </div>
