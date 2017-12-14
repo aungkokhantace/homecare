@@ -52,7 +52,8 @@
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                     <label for="code" class="text_bold_black">Photo</label>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
+                <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3"> -->
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
                     @if(isset($user))
                         <div class="add_image_div add_image_div_red" style="background-image: url({{'/images/users/'.$user->display_image}});background-position:center;background-size:cover">
                         </div>
@@ -70,7 +71,8 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <label></label>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+                <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2"> -->
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
                     <input type="button" class="form-control image_remove_btn" value="Remove Image" id="removeImage" name="removeImage">
                 </div>
             </div>
