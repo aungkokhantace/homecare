@@ -828,6 +828,7 @@
                     $('#is_new_patient').val(0);
                     $('#patient_id').val(ui.item.patient_id);
                     $('#packages').html(ui.item.packages);
+                    $('#address').html(ui.item.address);
 
                     var dob         = new Date(ui.item.dob);
                     var dob_year    = dob.getFullYear();
@@ -912,6 +913,7 @@
                     $("#allergies").css({"background-color": "skyblue"});
                     $("#packages").css({"background-color": "skyblue"});
                     $("#age").css({"background-color": "skyblue"});
+                    $("#address").css({"background-color": "skyblue"});
 
                     $('#staff_id').text(ui.item.staff_id);
                     $("#div_staff_id").css({"background-color": "skyblue"});
