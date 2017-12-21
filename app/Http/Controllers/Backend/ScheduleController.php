@@ -83,40 +83,40 @@ class ScheduleController extends Controller
                 //if currently logged in user is MO role, get only schedules that belong to him or her
                 if($currentUserRole == 6){
                    $schedules      = $this->scheduleRepository->getArraysByUser($currentUserID);
-                   
+
                    if(isset($schedules) && count($schedules)>0) {
                        foreach ($schedules as $key => $schedule) {
                            $tempPatientId = $schedule->patient_id;
                            $patientTypeId = $patients[$tempPatientId]->patient_type_id;
-                           
+
                            $patientName = $patients[$tempPatientId]->name;
                            $schedules[$key]->patient_type = $patientTypes[$patientTypeId];
                            $schedules[$key]->patient_name = $patientName;
-   
+
                            //get leader id
                            $leader_id = $schedule->leader_id;
                            $schedules[$key]->leader = $users[$leader_id]->name;
-   
+
                             //get service from schedule_detail
                             $schedule_id = $schedule->id;
                             $type = "service";
-                            
+
                            //  $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
                             $schedule_details = $this->scheduleRepository->getScheduleDetailServices($schedule_id,$type);
                            if(isset($schedule_details) && count($schedule_details)>0){
                                foreach($schedule_details as $detail){
                                    $service_id = $detail->service_id;
                                    if(array_key_exists('services',$schedules[$key])){
-                                       $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;    
+                                       $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;
                                    }
                                    else{
-                                       $schedules[$key]->services  = $servicesArray[$service_id]->name;    
-                                   }                        
+                                       $schedules[$key]->services  = $servicesArray[$service_id]->name;
+                                   }
                                }
                            }
                            else{
-                               $schedules[$key]->services  = "";    
-                           }                         
+                               $schedules[$key]->services  = "";
+                           }
                        }
                    }
                 }
@@ -127,39 +127,39 @@ class ScheduleController extends Controller
                         foreach ($schedules as $key => $schedule) {
                             $tempPatientId = $schedule->patient_id;
                             $patientTypeId = $patients[$tempPatientId]->patient_type_id;
-                            
+
                             $patientName = $patients[$tempPatientId]->name;
                             $schedules[$key]->patient_type = $patientTypes[$patientTypeId];
                             $schedules[$key]->patient_name = $patientName;
-    
+
                             //get leader id
                             $leader_id = $schedule->leader_id;
                             $schedules[$key]->leader = $users[$leader_id]->name;
-    
+
                              //get service from schedule_detail
                              $schedule_id = $schedule->id;
                              $type = "service";
-                             
+
                             //  $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
                              $schedule_details = $this->scheduleRepository->getScheduleDetailServices($schedule_id,$type);
                             if(isset($schedule_details) && count($schedule_details)>0){
                                 foreach($schedule_details as $detail){
                                     $service_id = $detail->service_id;
                                     if(array_key_exists('services',$schedules[$key])){
-                                        $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;    
+                                        $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;
                                     }
                                     else{
-                                        $schedules[$key]->services  = $servicesArray[$service_id]->name;    
-                                    }                        
+                                        $schedules[$key]->services  = $servicesArray[$service_id]->name;
+                                    }
                                 }
                             }
                             else{
-                                $schedules[$key]->services  = "";    
-                            }                         
+                                $schedules[$key]->services  = "";
+                            }
                         }
                     }
                 }
-                
+
                 return view('backend.schedule.index')
                     ->with('schedules', $schedules)
                     ->with('schedule_status', $schedule_status)
@@ -300,7 +300,7 @@ class ScheduleController extends Controller
             $patients = $patientRepo->getArrays();
 
             $currentUserID = Utility::getCurrentUserID();
-            
+
             return view('backend.schedule.schedule')
                 ->with('enquiry_confirm_id', $enquiry_confirm_id)
                 ->with('new_schedule', $new_schedule)
@@ -394,7 +394,7 @@ class ScheduleController extends Controller
         try {
             DB::beginTransaction();
             if($is_new_patient == 1) { // Schedule Saving with creating new patient case // New Patient Case
-                
+
                 $enquiry = Enquiry::find($enquiry_id);
                 $userObj = new User();
                 $patientObj = new Patient();
@@ -467,17 +467,17 @@ class ScheduleController extends Controller
                 }
             }
             else{
-                
+
                 // Schedule Saving without creating new patient case
                 $result = $this->scheduleRepository->create($paramObj,$services,$hhcsPersonnels);
                 if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
-                    
+
                     // // Updating the enquiry status to confirm
                     // if($enquiry_id !== ""){
-                    //     $enquiry = Enquiry::find($enquiry_id);   
+                    //     $enquiry = Enquiry::find($enquiry_id);
                     //     $enquiry->status = "confirm";
                     //     $enquiry->save();
-                        
+
                     // }
                     // Updating the enquiry status to confirm
                     if(isset($enquiry) && count($enquiry)>0){
@@ -785,7 +785,7 @@ class ScheduleController extends Controller
                 foreach ($schedules as $key => $schedule) {
                     $tempPatientId = $schedule->patient_id;
                     $patientTypeId = $patients[$tempPatientId]->patient_type_id;
-                    
+
                     $patientName = $patients[$tempPatientId]->name;
                     $schedules[$key]->patient_type = $patientTypes[$patientTypeId];
                     $schedules[$key]->patient_name = $patientName;
@@ -797,23 +797,23 @@ class ScheduleController extends Controller
                      //get service from schedule_detail
                      $schedule_id = $schedule->id;
                      $type = "service";
-                     
+
                     //  $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
                      $schedule_details = $this->scheduleRepository->getScheduleDetailServices($schedule_id,$type);
                     if(isset($schedule_details) && count($schedule_details)>0){
                         foreach($schedule_details as $detail){
                             $service_id = $detail->service_id;
                             if(array_key_exists('services',$schedules[$key])){
-                                $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;    
+                                $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;
                             }
                             else{
-                                $schedules[$key]->services  = $servicesArray[$service_id]->name;    
-                            }                        
+                                $schedules[$key]->services  = $servicesArray[$service_id]->name;
+                            }
                         }
                     }
                     else{
-                        $schedules[$key]->services  = "";    
-                    }                         
+                        $schedules[$key]->services  = "";
+                    }
                 }
             }
 
