@@ -361,6 +361,10 @@ Route::group(['middleware' => 'web'], function () {
         //Activities
         Route::get('activities', array('as'=>'activities','uses'=>'Backend\ActivitiesController@index'));
 
+        //Patient Test Data
+        Route::get('insert_patient/{count}', array('as'=>'activities','uses'=>'Backend\TestController@insert_patient_test_data'));
+        Route::get('delete_patient', array('as'=>'activities','uses'=>'Backend\TestController@delete_patient_test_data'));
+
         //Import CSV
         Route::get('import', array('as'=>'import','uses'=>'CSVImport\CSVImportController@import'));
         Route::post('import/store', array('as'=>'import/store','uses'=>'CSVImport\CSVImportController@store'));
