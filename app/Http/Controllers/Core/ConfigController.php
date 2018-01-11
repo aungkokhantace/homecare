@@ -94,7 +94,7 @@ class ConfigController extends Controller
         if (Auth::guard('User')->check()) {
 
             $SETTING_COMPANY_NAME = Input::get('SETTING_COMPANY_NAME');
-            $SETTING_SITE_ACTIVATION_KEY = Input::get('SETTING_SITE_ACTIVATION_KEY');
+            // $SETTING_SITE_ACTIVATION_KEY = Input::get('SETTING_SITE_ACTIVATION_KEY');
             $removeImageFlag = Input::get('removeImageFlag');
             $TAX_RATE = Input::get('TAX_RATE');
             $MAX_DISCOUNT_TIME = Input::get('MAX_DISCOUNT_TIME');
@@ -120,8 +120,10 @@ class ConfigController extends Controller
                 DB::statement("DELETE FROM `$this->tbConfig` WHERE `code` = 'SETTING_COMPANY_NAME'");
                 $result = DB::statement("INSERT INTO `$this->tbConfig` (code,type,value,description,updated_by,updated_at) VALUES ('SETTING_COMPANY_NAME','SETTING','$SETTING_COMPANY_NAME','Company Name','$loginUserId','$updated_at')");
 
+                /*
                 DB::statement("DELETE FROM `$this->tbConfig` WHERE `code` = 'SETTING_SITE_ACTIVATION_KEY'");
                 $result = DB::statement("INSERT INTO `$this->tbConfig` (code,type,value,description,updated_by,updated_at) VALUES ('SETTING_SITE_ACTIVATION_KEY','SETTING','$SETTING_SITE_ACTIVATION_KEY','Site Activation Key','$loginUserId','$updated_at')");
+                */
 
                 DB::statement("DELETE FROM `core_settings` WHERE `code` = 'TAX_RATE' AND `type` = 'TAX_RATE'");
                 $result = DB::statement("INSERT INTO `core_settings` (code,type,value,description,updated_by,updated_at) VALUES ('TAX_RATE','TAX_RATE','$TAX_RATE','Tax Rate','$loginUserId','$updated_at')");
