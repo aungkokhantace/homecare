@@ -538,7 +538,9 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
 
     public function getHHCSPersonal()
     {
-        $tempObj = DB::select("SELECT * FROM core_users WHERE deleted_at is null AND role_id NOT IN (1,2,5)");
+        // $tempObj = DB::select("SELECT * FROM core_users WHERE deleted_at is null AND role_id NOT IN (1,2,5)");
+        //get only active users
+        $tempObj = DB::select("SELECT * FROM core_users WHERE deleted_at is null AND role_id NOT IN (1,2,5) AND active = 1");
         return $tempObj;
     }
 
