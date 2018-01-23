@@ -26,19 +26,21 @@ class DashboardController extends Controller
             foreach($invoicesWithSchedules as $invoice){
                 $schedulesArray[] = $invoice->schedule_id;
             }
-            
+
             $scheduleRepo = new ScheduleRepository();
 
             $schedulesWithServices = $scheduleRepo->getSchedulesWithService($schedulesArray);
-            
+
             $patient_visits_array = array();
 
-            $year = date('Y');
-            
+            // $year = date('Y');
+
             foreach($schedulesWithServices as $schedule_with_service){
                 $date = $schedule_with_service->date;
+                // dd('date',$date);
                 $month = date("m", strtotime($date)); //get only month from schedule date //to display data according to month
-                
+                $year = date("Y", strtotime($date)); //get only month from schedule date //to display data according to month
+                // dd('month',$month);
                 $mo_visits              = count($scheduleRepo->getEachVisitByMonth($month,1)); // service_id=1 is for MO
                 $musculo_visits         = count($scheduleRepo->getEachVisitByMonth($month,2)); // service_id=2 is for Musculo
                 $neuro_visits           = count($scheduleRepo->getEachVisitByMonth($month,3)); // service_id=3 is for Neuro
@@ -59,11 +61,12 @@ class DashboardController extends Controller
                 $patient_visits_array[$month]["blood_drawing_visits_color"] = "#EC0BF7";    //violet
 
             }
-            
-            $patient_visits = array_values($patient_visits_array);
 
+            $patient_visits = array_values($patient_visits_array);
+            // dd('patient_visits',$patient_visits);
             //reverse the array to sort by date in ascending order
             $ordered_patient_visits = array_reverse($patient_visits);
+            // dd('ordered',$ordered_patient_visits);
             //end visit graph data
 
 
@@ -73,16 +76,16 @@ class DashboardController extends Controller
             $invoiceRepo = new InvoiceRepository();
             foreach($invoicesWithSchedules as $invoice_with_schedule){
                 $invoice_id = $invoice_with_schedule->id;
-                
+
                 //get service id
                 $schedule_id    = $invoice_with_schedule->schedule_id;
                 // $service_id     = $scheduleRepo->getServiceIdByScheduleId($schedule_id);
 
                 //get month
-                $schedule       = $scheduleRepo->getObjByID($schedule_id);                
+                $schedule       = $scheduleRepo->getObjByID($schedule_id);
                 $schedule_date  = $schedule['result']->date;
                 $month = date("m", strtotime($schedule_date)); //get only month from schedule date //to display data according to month
-                
+
                 $mo_profits             = $invoiceRepo->getEachServiceProfitByMonth($month,1);      // service_id=1 is for MO
                 $musculo_profits        = $invoiceRepo->getEachServiceProfitByMonth($month,2);      // service_id=2 is for Musculo
                 $neuro_profits          = $invoiceRepo->getEachServiceProfitByMonth($month,3);      // service_id=3 is for Neuro
@@ -97,7 +100,7 @@ class DashboardController extends Controller
                 }
                 else{
                     $profit_array[$month]["mo_profits"]              = 0.0;
-                }               
+                }
                 $profit_array[$month]["mo_profits_color"]            = "#F0D122";               //yellow
                 //end adding mo_profits data to array
 
@@ -146,12 +149,12 @@ class DashboardController extends Controller
             //start getting package sale profits
             $packageSaleRepo    = new PackageSaleRepository();
             $packageSales       = $packageSaleRepo->getObjs();
-            
+
             foreach($packageSales as $packageSale){
                 $sold_date = $packageSale->sold_date;
                 $month = date("m", strtotime($sold_date)); //get only month from sold date //to display data according to month
-                
-                $package_sale_profits = $invoiceRepo->getPackageSaleProfitByMonth($month);                
+
+                $package_sale_profits = $invoiceRepo->getPackageSaleProfitByMonth($month);
 
                 if(array_key_exists($month,$profit_array)){
                     $profit_array[$month]["package_sale_profits"]       = $package_sale_profits;
@@ -174,8 +177,8 @@ class DashboardController extends Controller
                 }
             }
             //end getting package sale profits
-            
-            
+
+
             foreach($profit_array as $key=>$each_profit){
                 if(!array_key_exists('package_sale_profits',$each_profit)){
                     $profit_array[$key]['package_sale_profits'] = 0.0;
@@ -186,7 +189,7 @@ class DashboardController extends Controller
             }
 
             ksort($profit_array);
-            $profits = array_values($profit_array);          
+            $profits = array_values($profit_array);
             //end profit graph data
 
             return view('core.dashboard.dashboard')

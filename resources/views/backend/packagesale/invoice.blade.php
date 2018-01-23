@@ -70,7 +70,13 @@
                         <td height="20">1</td>
                         <td height="20">{{$package->package_name}}</td>
                         <td height="20">{{$expiryDate}}</td>
-                        <td height="20">{{$package->price}}</td>
+                        <td height="20">{{number_format($package->price,2)}}</td>
+                    </tr>
+                    <tr>
+                        <td height="20">2</td>
+                        <td height="20">Transportation Price</td>
+                        <td height="20">-</td>
+                        <td height="20">{{number_format($invoice->total_car_amount,2)}}</td>
                     </tr>
                 </table>
 
@@ -85,19 +91,26 @@
                         <td height="20">Remark</td>
                         <td height="20">{{$invoice->packagesale->remark}}</td>
                         <td height="20">Total</td>
-                        <td height="20">{{$invoice->total_nett_amt_wo_disc}}</td>
+                        <td height="20">{{number_format($invoice->total_nett_amt_wo_disc,2)}}</td>
+                        <!-- <td height="20">{{$package->price + $invoice->total_car_amount}}</td> -->
                     </tr>
                     <tr>
                         <td height="20"></td>
                         <td height="20"></td>
                         <td height="20">Discount</td>
-                        <td height="20">{{$invoice->total_disc_amt}}</td>
+                        <td height="20">{{number_format($invoice->total_disc_amt,2)}}</td>
+                    </tr>
+                    <tr>
+                        <td height="20"></td>
+                        <td height="20"></td>
+                        <td height="20">Tax Amount</td>
+                        <td height="20">{{number_format($invoice->total_tax_amt,2)}}</td>
                     </tr>
                     <tr>
                         <td height="20"></td>
                         <td height="20"></td>
                         <td height="20">Grand Total</td>
-                        <td height="20">{{$invoice->total_payable_amt}}</td>
+                        <td height="20">{{number_format($invoice->total_payable_amt,2)}}</td>
                     </tr>
                 </table>
             </div>

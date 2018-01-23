@@ -1519,6 +1519,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 $paramObj->patient_id			= $row->patient_id;
                 $paramObj->package_id 			= $row->package_id;
                 $paramObj->package_price 		= $row->package_price;
+                $paramObj->transportation_price = $row->transportation_price;
                 $paramObj->package_usage_count 	= $row->package_usage_count;
                 $paramObj->package_used_count 	= $row->package_used_count;
                 $paramObj->sold_date 			= $row->sold_date;

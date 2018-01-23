@@ -405,6 +405,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('patient/checkzone/{id}', array('as'=>'patient/destroy','uses'=>'Backend\PatientController@checkZone'));
     Route::get('packagesale/checkcouponcode/{package}/{code}', array('as'=>'packagesale/checkcouponcode','uses'=>'Backend\PackageSaleController@checkCouponCode'));
     Route::get('packagesale/getoriginalprice/{package}', array('as'=>'packagesale/getoriginalprice','uses'=>'Backend\PackageSaleController@getOriginalPrice'));
+    Route::get('packagesale/get_original_and_transportation_price/{package_id}/{zone_id}', array('as'=>'packagesale/getoriginalprice','uses'=>'Backend\PackageSaleController@getOriginalAndTransportationPrice'));
 
 });
 

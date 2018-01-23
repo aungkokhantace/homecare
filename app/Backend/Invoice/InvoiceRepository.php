@@ -181,7 +181,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         $amount = $result[0]->amount;
         return $amount;
     }
-    
+
 
     // public function getEachProfitByMonth($month,$service_id) {
     //     $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
@@ -190,7 +190,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
     //         ->whereYear('schedules.date','=',date('Y'))
     //         ->whereMonth('schedules.date','=',$month)
     //         ->get();
-            
+
     //     return $result;
     // }
 
@@ -201,7 +201,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
             ->whereMonth('patient_package.sold_date','=',$month)
             ->where('invoices.type','=','package')
             ->get();
-                
+
         $amount = $result[0]->amount;
         return $amount;
 
@@ -306,7 +306,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
 
         $query = $query->leftjoin('schedules', 'schedules.id', '=', 'invoices.schedule_id');
         $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
-        
+
         if(isset($type) && $type != null && $type == 'yearly'){
             $query = $query->select(DB::raw('DATE_FORMAT(invoices.created_at,"%Y") as date'),
             DB::raw('sum(invoices.total_car_amount) as total_car_amount'),
@@ -397,13 +397,13 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         else if(isset($type) && $type == "monthly"){
             $date = "01-".$date;
         }
-        
+
         $formatted_date = date("Y-m-d", strtotime($date));
-        
+
         $month=date("m",strtotime($formatted_date));
         $year=date("Y",strtotime($formatted_date));
-        
-    
+
+
         // $result = Invoice::leftjoin('schedules', 'schedules.id', '=', 'invoices.schedule_id')
         //                     ->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
         //                     ->leftjoin('patients', 'patients.user_id', '=', 'invoices.patient_id')
@@ -414,6 +414,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         //                     ->where('schedule_detail.type','=','service')
         //                     ->get();
 
+        //start getting service invoices
         $query = Invoice::query();
         $query = $query->leftjoin('schedules', 'schedules.id', '=', 'invoices.schedule_id');
         $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
@@ -431,11 +432,43 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         else{
             $query = $query->whereDate('invoices.created_at','=',$formatted_date);
         }
-        
+
         $query = $query->where('schedule_detail.type','=','service');
         $result = $query->get();
-        
-                            
+        //end getting service invoices
+
+        //start getting package invoices
+        $query = Invoice::query();
+        $query = $query->leftjoin('patient_package', 'patient_package.id', '=', 'invoices.patient_package_id');
+        // $query = $query->leftjoin('patient_package_detail', 'patient_package_detail.patient_package_id', '=', 'patient_package.id');
+        $query = $query->leftjoin('patients', 'patients.user_id', '=', 'patient_package.patient_id');
+        // $query = $query->leftjoin('core_users', 'core_users.id', '=', 'schedules.leader_id');
+        // $query = $query->leftjoin('services', 'services.id', '=', 'schedule_detail.service_id');
+        $query = $query->select('invoices.id as invoice_id',DB::raw('DATE_FORMAT(invoices.created_at,"%Y-%m-%d") as date'),'patients.name as patient_name','invoices.total_payable_amt as total');
+        if($type == "yearly"){
+            $query = $query->whereYear('invoices.created_at','=',$formatted_date);
+        }
+        elseif($type == "monthly"){
+            $query = $query->whereMonth('invoices.created_at','=',$month);
+            $query = $query->whereYear('invoices.created_at','=',$year);
+        }
+        else{
+            $query = $query->whereDate('invoices.created_at','=',$formatted_date);
+        }
+
+        $query = $query->where('invoices.type','=','package');
+        $package_result = $query->get();
+        //end getting package invoices
+
+        // dd('result',$result);
+        // dd('result',$package_result);
+        foreach($package_result as $package_inv){
+          $package_inv->service = "Package";
+          $package_inv->doctor = "";
+
+          $result->push($package_inv);
+        }
+        // dd('final_result',$result);
         return $result;
     }
 }

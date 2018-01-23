@@ -635,6 +635,12 @@ class SaleSummaryReportController extends Controller
                                     <td height="20">' . $expiryDate . '</td>
                                     <td height="20">' . $invoice->package->price . '</td>
                                 </tr>
+                                <tr>
+                                    <td height="20">2</td>
+                                    <td height="20">' . 'Transportation Price' . '</td>
+                                    <td height="20">' . '-' . '</td>
+                                    <td height="20">' . number_format($invoice->total_car_amount,2) . '</td>
+                                </tr>
                             </table>
                             <hr>';
                     }
@@ -788,12 +794,12 @@ class SaleSummaryReportController extends Controller
                                         <tr>
                                             <td height="20">1</td>
                                             <td height="20">Service Charges</td>
-                                            <td height="20" align="right">'.$invoice->total_service_amount.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_service_amount,2).'</td>
                                         </tr>
                                         <tr>
                                             <td height="20">2</td>
                                             <td height="20">Consulation Fees</td>
-                                            <td height="20" align="right">'.$invoice->total_consultant_fee.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_consultant_fee,2).'</td>
                                         </tr>
                                         <tr>
                                             <td height="30" rowspan="2">3</td>
@@ -811,7 +817,7 @@ class SaleSummaryReportController extends Controller
                                                 $saleData.='</table><br>';
 
                                             $saleData.='</td>
-                                            <td height="20" align="right" rowspan="2">'.$invoice->total_medication_amount.'</td>
+                                            <td height="20" align="right" rowspan="2">'.number_format($invoice->total_medication_amount,2).'</td>
                                         </tr>
                                         <tr>
                                             <td height="30">Treatment (Procedure)
@@ -841,17 +847,17 @@ class SaleSummaryReportController extends Controller
                                                 $saleData.='</table><br>';
 
                                             $saleData.='</td>
-                                            <td height="30" align="right">'.$invoice->total_investigation_amount.'</td>
+                                            <td height="30" align="right">'.number_format($invoice->total_investigation_amount,2).'</td>
                                         </tr>';
                                     $saleData.='<tr>
                                                     <td height="20" width="10%">5</td>
                                                     <td height="20" width="65%">Transportation Charges</td>
-                                                    <td height="20" align="right" width="25%">'.$invoice->total_car_amount.'</td>
+                                                    <td height="20" align="right" width="25%">'.number_format($invoice->total_car_amount,2).'</td>
                                                 </tr>
                                                 <tr>
                                                     <td height="20" width="10%">6</td>
                                                     <td height="20" width="65%">Others</td>
-                                                    <td height="20" width="25%" align="right">'.$invoice->total_other_service_amount.'</td>
+                                                    <td height="20" width="25%" align="right">'.number_format($invoice->total_other_service_amount,2).'</td>
                                                 </tr>
                                                 <tr>
                                                     <td height="20" width="10%">7</td>
@@ -876,19 +882,25 @@ class SaleSummaryReportController extends Controller
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Total</td>
-                                    <td height="20" align="right">'.$invoice->total_nett_amt_wo_disc.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_nett_amt_wo_disc,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Discount</td>
-                                    <td height="20" align="right">'.$invoice->total_disc_amt.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_disc_amt,2).'</td>
+                                </tr>
+                                <tr>
+                                    <td height="20"></td>
+                                    <td height="20"></td>
+                                    <td height="20">Tax Amount</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_tax_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Grand Total</td>
-                                    <td height="20" align="right">'.$invoice->total_payable_amt.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_payable_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20">Remark</td>
@@ -910,19 +922,25 @@ class SaleSummaryReportController extends Controller
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Total</td>
-                                    <td height="20" align="right">'.$invoice->total_nett_amt_wo_disc.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_nett_amt_wo_disc,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Discount</td>
-                                    <td height="20" align="right">'.$invoice->total_disc_amt.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_disc_amt,2).'</td>
+                                </tr>
+                                <tr>
+                                    <td height="20"></td>
+                                    <td height="20"></td>
+                                    <td height="20">Tax Amount</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_tax_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Grand Total</td>
-                                    <td height="20" align="right">'.$invoice->total_payable_amt.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_payable_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20">Remark</td>
@@ -1013,6 +1031,12 @@ class SaleSummaryReportController extends Controller
                                     <td height="20">'.$invoice->package->package_name.'</td>
                                     <td height="20">'.$expiryDate.'</td>
                                     <td height="20">'.$invoice->package->price.'</td>
+                                </tr>
+                                <tr>
+                                    <td height="20">2</td>
+                                    <td height="20">'.'Transportation Price'.'</td>
+                                    <td height="20">'.'-'.'</td>
+                                    <td height="20">'.number_format($invoice->total_car_amount,2).'</td>
                                 </tr>
                             </table>
                             <hr>';
@@ -1153,12 +1177,12 @@ class SaleSummaryReportController extends Controller
                                         <tr>
                                             <td height="20">1</td>
                                             <td height="20">Service Charges</td>
-                                            <td height="20" align="right">'.$invoice->total_service_amount.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_service_amount,2).'</td>
                                         </tr>
                                         <tr>
                                             <td height="20">2</td>
                                             <td height="20">Consulation Fees</td>
-                                            <td height="20" align="right">'.$invoice->total_consultant_fee.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_consultant_fee,2).'</td>
                                         </tr>
                                         <tr>
                                             <td height="30">3</td>
@@ -1176,7 +1200,7 @@ class SaleSummaryReportController extends Controller
                             $saleData.='</table><br>';
 
                             $saleData.='</td>
-                                            <td height="20" align="right">'.$invoice->total_medication_amount.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_medication_amount,2).'</td>
                                         </tr>
                                          <tr>
                                             <td height="30">4</td>
@@ -1192,13 +1216,13 @@ class SaleSummaryReportController extends Controller
                             $saleData.='</table><br>';
 
                             $saleData.='</td>
-                                            <td height="30" align="right">'.$invoice->total_investigation_amount.'</td>
+                                            <td height="30" align="right">'.number_format($invoice->total_investigation_amount,2).'</td>
                                         </tr>
                                     </table>';
                             $saleData.='<tr>
                                                     <td height="20" width="10%">5</td>
                                                     <td height="20" width="65%">Transportation Charges</td>
-                                                    <td height="20" align="right" width="24%">'.$invoice->total_car_amount.'</td>
+                                                    <td height="20" align="right" width="24%">'.number_format($invoice->total_car_amount,2).'</td>
                                                 </tr>
                                                 <tr>
                                                     <td height="20" width="10%">6</td>
@@ -1228,19 +1252,25 @@ class SaleSummaryReportController extends Controller
                                     <td height="20">Remark</td>
                                     <td height="20">'.$invoice->packagesale->remark.'</td>
                                     <td height="20">Total</td>
-                                    <td height="20">'.$invoice->total_nett_amt_wo_disc.'</td>
+                                    <td height="20">'.number_format($invoice->total_nett_amt_wo_disc,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Discount</td>
-                                    <td height="20">'.$invoice->total_disc_amt.'</td>
+                                    <td height="20">'.number_format($invoice->total_disc_amt,2).'</td>
+                                </tr>
+                                <tr>
+                                    <td height="20"></td>
+                                    <td height="20"></td>
+                                    <td height="20">Tax Amount</td>
+                                    <td height="20">'.number_format($invoice->total_tax_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Grand Total</td>
-                                    <td height="20">'.$invoice->total_payable_amt.'</td>
+                                    <td height="20">'.number_format($invoice->total_payable_amt,2).'</td>
                                 </tr>
                             </table>
                             <hr>';

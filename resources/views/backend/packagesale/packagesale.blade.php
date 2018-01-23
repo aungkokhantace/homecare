@@ -69,10 +69,22 @@
     <br/>
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="zone" class="text_bold_black">Zone</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <input type="text" readonly class="form-control" id="zone" name="zone" placeholder="Enter Patient Zone" value="{{Request::old('zone')}}"/>
+            {{--<label id="phone">Zone</label>--}}
+            <input type="hidden" name="zone_id" id="zone_id" value="">
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="package" class="text_bold_black">Package<span class="require">*</span></label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <select class="form-control" name="package" id="package" onchange="getOriginalPrice(value);">
+            <!-- <select class="form-control" name="package" id="package" onchange="getOriginalPrice(value);"> -->
+            <select class="form-control" name="package" id="package" onchange="getOriginalPriceAndTransportationPrice(value);">
                 <option value="" selected disabled>Select Package</option>
                 @foreach($packages as $package)
                     <option value="{{$package->id}}">{{$package->package_name}}</option>
@@ -82,7 +94,16 @@
         </div>
     </div>
 
-
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="transportation_price_display" class="text_bold_black">Transportation Price</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <input type="text" readonly class="form-control" id="transportation_price_display" name="transportation_price_display" placeholder="Transportation Price"z value="{{Request::old('transportation_price_display')}}"/>
+            <input type="hidden" name="transportation_price" id="transportation_price" value="">
+        </div>
+    </div>
+    <br />
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="have_discount_coupon" class="text_bold_black">Have Discount Coupon</label>
@@ -195,17 +216,20 @@
             //For selectbox with search function
             $("#name").select2();
             $("#package").select2();
+
+            $('#package').prop('disabled', 'disabled');
         });
 
         function autofill(value)
         {
-            console.log(value);
+            // console.log(value);
             $id=value;
             // Add loading state
             $('#gender').val('Loading please wait ...');
             $('#patient_type').val('Loading please wait ...');
             $('#phone').val('Loading please wait ...');
             $('#address').val('Loading please wait ...');
+            $('#zone').val('Loading please wait ...');
 
             // Set request
             var request = $.get('/packagesale/autofill/'+$id);
@@ -218,6 +242,13 @@
                 $('#type_id').val(response['type_id']);
                 $('#phone').val(response['phone']);
                 $('#address').val(response['address']);
+                $('#zone').val(response['zone']['name']);
+                $('#zone_id').val(response['zone']['id']);
+                // console.log(response['zone']['id']);
+
+                //enable package selectbox
+                $('#package').prop('disabled', false);
+
                 $data=response;
             });
         }
@@ -269,18 +300,49 @@
             }
         }
 
-        function getOriginalPrice(value){
+        // function getOriginalPrice(value){
+        //     // Set request
+        //     var request = $.get('/packagesale/getoriginalprice/'+value);
+        //
+        //     // When it's done
+        //     request.done(function(response) {
+        //         $('#valid-sign').hide();
+        //         $('#invalid-sign').hide();
+        //         $('#coupon_code').val("");
+        //         $('#original_price').val(response);
+        //         $('#discount_amount').val(0.00.toFixed(2));
+        //         $('#total_payable_amount').val(response);
+        //     });
+        // }
+
+        function getOriginalPriceAndTransportationPrice(value){
+            var package_id = value;
+            var zone_id = $('#zone_id').val();
+            // console.log('zone_id_is :'+zone_id);
             // Set request
-            var request = $.get('/packagesale/getoriginalprice/'+value);
+            var request = $.get('/packagesale/get_original_and_transportation_price/'+package_id+'/'+zone_id);
 
             // When it's done
             request.done(function(response) {
+                console.log('number_of_schedules :'+response['transportation_price_result']['number_of_schedules']);
+                console.log('car_price :'+response['transportation_price_result']['car_price']);
+                console.log('transportation_price :'+response['transportation_price_result']['transportation_price']);
+
                 $('#valid-sign').hide();
                 $('#invalid-sign').hide();
                 $('#coupon_code').val("");
-                $('#original_price').val(response);
+                $('#original_price').val(response['original_price']);
                 $('#discount_amount').val(0.00.toFixed(2));
-                $('#total_payable_amount').val(response);
+                $('#total_payable_amount').val(response['original_price']);
+
+                $('#transportation_price').val(response['transportation_price_result']['transportation_price']);
+                if(response['transportation_price_result']['transportation_price'] !== 0){
+                  $('#transportation_price_display').val(response['transportation_price_result']['car_price'] + "(Zone Car Price) * " + response['transportation_price_result']['number_of_schedules'] + "(Schedule Count) =" + response['transportation_price_result']['transportation_price']);
+                }
+                else{
+                  $('#transportation_price_display').val("0.0");
+                }
+
             });
         }
     </script>

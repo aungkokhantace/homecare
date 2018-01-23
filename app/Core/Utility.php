@@ -704,4 +704,16 @@ class Utility
         $invoice_prefix         = str_replace('U',$temp_invoice_prefix,$prefix);
         return $invoice_prefix;
     }
+
+    public static function getTaxPercent() {
+        $tempArray = DB::select("SELECT * FROM core_settings WHERE code = 'TAX_RATE' and type = 'TAX_RATE'");
+
+        if (isset($tempArray) && count($tempArray) > 0) {
+            $tax_percent = $tempArray[0]->value;
+        }
+        else{
+            $tax_percent    = 0.0;
+        }
+        return $tax_percent;
+    }
 }

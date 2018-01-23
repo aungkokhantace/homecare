@@ -43,10 +43,10 @@ class SaleIncomeReportController extends Controller
             $type = null;
             $from_date = null;
             $to_date = null;
-            
+
             // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
             $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
-            
+
             foreach($invoices as $invoice){
                 // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount + $invoice->total_consultant_amount + $invoice->package_price + $invoice->total_other_service_amount + $invoice->total_tax_amount;
@@ -61,14 +61,14 @@ class SaleIncomeReportController extends Controller
                 $temp_date = $invoice_service->date;
                 $date = date('Y-m-d',strtotime($temp_date));
                 $schedules = $scheduleRepo->getSchedulesGroupedByDate($type,$date);
-                
+
                  //reset service counters
                 $mo_count = 0;              //service_id = 1
                 $musculo_count = 0;         //service_id = 2
                 $neuro_count = 0;           //service_id = 3
                 $nutrition_count = 0;       //service_id = 4
                 $blood_drawing_count = 0;   //service_id = 5
-               
+
                 foreach($schedules as $schedule){
                     $service_id = $schedule->service_id;
                     if($service_id == 1){
@@ -98,16 +98,16 @@ class SaleIncomeReportController extends Controller
                 $neuro_price = $serviceRepo->getServicePriceById(3);            //service_id = 1 is for Neuro
                 $nutrition_price = $serviceRepo->getServicePriceById(4);        //service_id = 1 is for Nutrition
                 $blood_drawing_price = $serviceRepo->getServicePriceById(5);    //service_id = 1 is for Blood Drawing
-               
+
                 $serviceCountArray['MO'] = $mo_price * $mo_count;
                 $serviceCountArray['Musculo'] = $musculo_price * $musculo_count;
                 $serviceCountArray['Neuro'] = $neuro_price * $neuro_count;
                 $serviceCountArray['Nutrition'] = $nutrition_price * $nutrition_count;
                 $serviceCountArray['Blood Drawing'] = $blood_drawing_price * $blood_drawing_count;
-                
+
                 $invoice_service->serviceCountArray = $serviceCountArray;
             }
-            
+
             $totalArray = array();
 
             $totalCarAmount             = 0;
@@ -124,7 +124,7 @@ class SaleIncomeReportController extends Controller
             $totalOtherServiceAmount    = 0;
             $totalTaxAmount             = 0;
             $totalAmount                = 0;
-            
+
             foreach($invoices as $invoice){
                 $totalCarAmount             += $invoice->total_car_amount;
                 // $totalServiceAmount         += $invoice->total_service_amount;
@@ -156,7 +156,7 @@ class SaleIncomeReportController extends Controller
             $totalArray['other']            = $totalOtherServiceAmount;
             $totalArray['tax']              = $totalTaxAmount;
             $totalArray['total']            = $totalAmount;
-            
+
             return view('report.saleincomereport')
                 ->with('invoices',$invoices)
                 ->with('totalArray',$totalArray);
@@ -179,24 +179,24 @@ class SaleIncomeReportController extends Controller
                 $from_month = $from_date;
                 $to_month = $to_date;
             }
-            
+
             // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
             $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
-            
+
             foreach($invoices as $invoice){
                 // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount + $invoice->total_consultant_amount + $invoice->package_price + $invoice->total_other_service_amount + $invoice->total_tax_amount;
             }
-            
+
             $serviceCountArray = array();
 
             $scheduleRepo = new ScheduleRepository();
             $serviceRepo  = new ServiceRepository();
-            
+
             foreach($invoices as $invoice_service){
-                $date = $invoice_service->date;               
+                $date = $invoice_service->date;
                 $schedules = $scheduleRepo->getSchedulesGroupedByDate($type,$date);
-                
+
                  //reset service counters
                 $mo_count = 0;              //service_id = 1
                 $musculo_count = 0;         //service_id = 2
@@ -233,13 +233,13 @@ class SaleIncomeReportController extends Controller
                 $neuro_price = $serviceRepo->getServicePriceById(3);            //service_id = 1 is for Neuro
                 $nutrition_price = $serviceRepo->getServicePriceById(4);        //service_id = 1 is for Nutrition
                 $blood_drawing_price = $serviceRepo->getServicePriceById(5);    //service_id = 1 is for Blood Drawing
-               
+
                 $serviceCountArray['MO'] = $mo_price * $mo_count;
                 $serviceCountArray['Musculo'] = $musculo_price * $musculo_count;
                 $serviceCountArray['Neuro'] = $neuro_price * $neuro_count;
                 $serviceCountArray['Nutrition'] = $nutrition_price * $nutrition_count;
                 $serviceCountArray['Blood Drawing'] = $blood_drawing_price * $blood_drawing_count;
-                
+
                 $invoice_service->serviceCountArray = $serviceCountArray;
             }
 
@@ -259,7 +259,7 @@ class SaleIncomeReportController extends Controller
             $totalOtherServiceAmount    = 0;
             $totalTaxAmount             = 0;
             $totalAmount                = 0;
-            
+
             foreach($invoices as $invoice){
                 $totalCarAmount             += $invoice->total_car_amount;
                 // $totalServiceAmount         += $invoice->total_service_amount;
@@ -291,7 +291,7 @@ class SaleIncomeReportController extends Controller
             $totalArray['other']            = $totalOtherServiceAmount;
             $totalArray['tax']              = $totalTaxAmount;
             $totalArray['total']            = $totalAmount;
-            
+
             return view('report.saleincomereport')
                 ->with('invoices',$invoices)
                 ->with('totalArray',$totalArray)
@@ -314,21 +314,21 @@ class SaleIncomeReportController extends Controller
 
             // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
             $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
-            
+
             foreach($invoices as $invoice){
                 // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount + $invoice->total_consultant_amount + $invoice->package_price + $invoice->total_other_service_amount + $invoice->total_tax_amount;
             }
-            
+
             $serviceCountArray = array();
 
             $scheduleRepo = new ScheduleRepository();
             $serviceRepo  = new ServiceRepository();
-            
+
             foreach($invoices as $invoice_service){
-                $date = $invoice_service->date;               
+                $date = $invoice_service->date;
                 $schedules = $scheduleRepo->getSchedulesGroupedByDate($type,$date);
-                
+
                  //reset service counters
                 $mo_count = 0;              //service_id = 1
                 $musculo_count = 0;         //service_id = 2
@@ -365,13 +365,13 @@ class SaleIncomeReportController extends Controller
                 $neuro_price = $serviceRepo->getServicePriceById(3);            //service_id = 1 is for Neuro
                 $nutrition_price = $serviceRepo->getServicePriceById(4);        //service_id = 1 is for Nutrition
                 $blood_drawing_price = $serviceRepo->getServicePriceById(5);    //service_id = 1 is for Blood Drawing
-               
+
                 $serviceCountArray['MO'] = $mo_price * $mo_count;
                 $serviceCountArray['Musculo'] = $musculo_price * $musculo_count;
                 $serviceCountArray['Neuro'] = $neuro_price * $neuro_count;
                 $serviceCountArray['Nutrition'] = $nutrition_price * $nutrition_count;
                 $serviceCountArray['Blood Drawing'] = $blood_drawing_price * $blood_drawing_count;
-                
+
                 $invoice_service->serviceCountArray = $serviceCountArray;
             }
 
@@ -391,7 +391,7 @@ class SaleIncomeReportController extends Controller
             $totalOtherServiceAmount    = 0;
             $totalTaxAmount             = 0;
             $totalAmount                = 0;
-            
+
             foreach($invoices as $invoice){
                 $totalCarAmount             += $invoice->total_car_amount;
                 // $totalServiceAmount         += $invoice->total_service_amount;
@@ -409,7 +409,7 @@ class SaleIncomeReportController extends Controller
                 $totalAmount                += $invoice->total;
             }
 
-            
+
             // $totalArray['service']          = $totalServiceAmount;
             $totalArray['mo']               = number_format($totalMOAmount,2);
             $totalArray['musculo']          = number_format($totalMusculoAmount,2);
@@ -424,10 +424,10 @@ class SaleIncomeReportController extends Controller
             $totalArray['other']            = number_format($totalOtherServiceAmount,2);
             $totalArray['tax']              = number_format($totalTaxAmount,2);
             $totalArray['total']            = number_format($totalAmount,2);
-            
+
             Excel::create('SaleIncomeReport', function($excel)use($invoices, $totalArray) {
                 $excel->sheet('SaleSummaryReport', function($sheet)use($invoices, $totalArray) {
-                    
+
                     $displayArray = array();                                   //array to be displayed in excel
                     $count = 0;
                     foreach($invoices as $invoice){
@@ -448,7 +448,7 @@ class SaleIncomeReportController extends Controller
                         $displayArray[$invoice->date]["Tax Income"] = number_format($invoice->total_tax_amount,2);
                         $displayArray[$invoice->date]["Total"] = number_format($invoice->total,2);
                     }
-                    
+
                     if(count($displayArray) == 0){
                         $sheet->fromArray($displayArray);
                     }
@@ -492,10 +492,10 @@ class SaleIncomeReportController extends Controller
             $type = null;
             $from_date = null;
             $to_date = null;
-            
+
             // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
             $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
-            
+
             foreach($invoices as $invoice){
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
@@ -547,7 +547,7 @@ class SaleIncomeReportController extends Controller
                 $chartData[$count]["amount"] = $invoice->total;
                 $count++;
             }
-            
+
             return view('report.saleincomereportbygraph')
                 ->with('chartData',$chartData)
                 ->with('from_date',$from_date)
@@ -566,19 +566,19 @@ class SaleIncomeReportController extends Controller
         
         $invoiceArray = array();
         foreach($invoiceList as $invoice){
-            $invoiceArray[$invoice->invoice_id]['invoice_id']   = $invoice->invoice_id; 
-            $invoiceArray[$invoice->invoice_id]['date']         = $invoice->date; 
-            $invoiceArray[$invoice->invoice_id]['patient_name'] = $invoice->patient_name; 
+            $invoiceArray[$invoice->invoice_id]['invoice_id']   = $invoice->invoice_id;
+            $invoiceArray[$invoice->invoice_id]['date']         = $invoice->date;
+            $invoiceArray[$invoice->invoice_id]['patient_name'] = $invoice->patient_name;
             if(array_key_exists('services',$invoiceArray[$invoice->invoice_id])){
-                $invoiceArray[$invoice->invoice_id]['services']     .= ','.$invoice->service; 
+                $invoiceArray[$invoice->invoice_id]['services']     .= ','.$invoice->service;
             }
             else{
-                $invoiceArray[$invoice->invoice_id]['services']     = $invoice->service; 
-            }   
-            $invoiceArray[$invoice->invoice_id]['doctor']       = $invoice->doctor; 
-            $invoiceArray[$invoice->invoice_id]['total']        = $invoice->total; 
+                $invoiceArray[$invoice->invoice_id]['services']     = $invoice->service;
+            }
+            $invoiceArray[$invoice->invoice_id]['doctor']       = $invoice->doctor;
+            $invoiceArray[$invoice->invoice_id]['total']        = $invoice->total;
         }
-        
+
         return view('report.saleincomereportinvoicelist')
             ->with('invoiceArray',$invoiceArray);
     }
