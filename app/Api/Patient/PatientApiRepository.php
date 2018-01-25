@@ -872,13 +872,20 @@ class PatientApiRepository implements PatientApiRepositoryInterface
     //get patients whose created_at or updated_at is greater than $latest_date
     public function getPatientDataWithLatestDate($latest_date)
     {
-        $result = DB::table('patients')
-                        ->whereNull('deleted_at')
-                        ->where(function ($query) use ($latest_date) {
-                            $query->where('created_at','>',$latest_date)
-                                  ->orWhere('updated_at','>',$latest_date);
-                        })
-                        ->get();
+        if(isset($latest_date) && $latest_date !== "" && $latest_date !== null){
+          $result = DB::table('patients')
+                          ->whereNull('deleted_at')
+                          ->where(function ($query) use ($latest_date) {
+                              $query->where('created_at','>',$latest_date)
+                                    ->orWhere('updated_at','>',$latest_date);
+                          })
+                          ->get();
+        }
+        else{
+          $result = DB::table('patients')
+                          ->whereNull('deleted_at')
+                          ->get();
+        }
         return $result;
     }
 
