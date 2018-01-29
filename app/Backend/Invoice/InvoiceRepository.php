@@ -182,6 +182,23 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         return $amount;
     }
 
+    public function getEachServiceProfitByYearAndMonth($year, $month, $service_id){
+        $result = Invoice::leftjoin('schedules', 'invoices.schedule_id', '=', 'schedules.id')
+            ->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+            ->select(DB::raw('sum(invoices.total_payable_amt) as amount'))
+            ->whereMonth('schedules.date','=', $month)
+            ->whereYear('schedules.date','=',$year)
+            ->where('schedule_detail.service_id', $service_id)
+            ->where('schedule_detail.type', 'service')
+            ->where('schedules.status', 'complete')
+            ->whereNull('invoices.deleted_at')
+            ->whereNull('schedules.deleted_at')
+            ->get();
+
+        $amount = $result[0]->amount;
+        return $amount;
+    }
+
 
     // public function getEachProfitByMonth($month,$service_id) {
     //     $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')

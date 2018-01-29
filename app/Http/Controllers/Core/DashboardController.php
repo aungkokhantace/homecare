@@ -15,16 +15,25 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function dashboard()
+    public function dashboard($year = null)
     {
         if (Auth::guard('User')->check()) {
             //start visit graph data
+
+            $current_year = date('Y');
+
+            if($year == null || $year == ""){
+              $year = date('Y');
+            }
+
             $invoiceRepo = new InvoiceRepository();
             $invoicesWithSchedules = $invoiceRepo->getInvoicesWithSchedules();
-
             $schedulesArray = array();
             foreach($invoicesWithSchedules as $invoice){
-                $schedulesArray[] = $invoice->schedule_id;
+                //check whether invoice created year is current year
+                if(date("Y",strtotime($invoice->created_at)) == $year){
+                  $schedulesArray[] = $invoice->schedule_id;
+                }
             }
 
             $scheduleRepo = new ScheduleRepository();
@@ -33,19 +42,22 @@ class DashboardController extends Controller
 
             $patient_visits_array = array();
 
-            // $year = date('Y');
 
             foreach($schedulesWithServices as $schedule_with_service){
                 $date = $schedule_with_service->date;
-                // dd('date',$date);
                 $month = date("m", strtotime($date)); //get only month from schedule date //to display data according to month
-                $year = date("Y", strtotime($date)); //get only month from schedule date //to display data according to month
-                // dd('month',$month);
-                $mo_visits              = count($scheduleRepo->getEachVisitByMonth($month,1)); // service_id=1 is for MO
-                $musculo_visits         = count($scheduleRepo->getEachVisitByMonth($month,2)); // service_id=2 is for Musculo
-                $neuro_visits           = count($scheduleRepo->getEachVisitByMonth($month,3)); // service_id=3 is for Neuro
-                $nutrition_visits       = count($scheduleRepo->getEachVisitByMonth($month,4)); // service_id=4 is for Nutrition
-                $blood_drawing_visits   = count($scheduleRepo->getEachVisitByMonth($month,5)); // service_id=5 is for Blood Drawing
+
+                // $mo_visits              = count($scheduleRepo->getEachVisitByMonth($month,1)); // service_id=1 is for MO
+                // $musculo_visits         = count($scheduleRepo->getEachVisitByMonth($month,2)); // service_id=2 is for Musculo
+                // $neuro_visits           = count($scheduleRepo->getEachVisitByMonth($month,3)); // service_id=3 is for Neuro
+                // $nutrition_visits       = count($scheduleRepo->getEachVisitByMonth($month,4)); // service_id=4 is for Nutrition
+                // $blood_drawing_visits   = count($scheduleRepo->getEachVisitByMonth($month,5)); // service_id=5 is for Blood Drawing
+
+                $mo_visits              = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,1)); // service_id=1 is for MO
+                $musculo_visits         = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,2)); // service_id=2 is for Musculo
+                $neuro_visits           = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,3)); // service_id=3 is for Neuro
+                $nutrition_visits       = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,4)); // service_id=4 is for Nutrition
+                $blood_drawing_visits   = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,5)); // service_id=5 is for Blood Drawing
 
                 //add result to array
                 $patient_visits_array[$month]["date"]                       = date("$year-$month");  //to send to graph in ('YYYY-MM') format
@@ -63,18 +75,16 @@ class DashboardController extends Controller
             }
 
             $patient_visits = array_values($patient_visits_array);
-            // dd('patient_visits',$patient_visits);
             //reverse the array to sort by date in ascending order
             $ordered_patient_visits = array_reverse($patient_visits);
-            // dd('ordered',$ordered_patient_visits);
             //end visit graph data
-
 
             //start profit graph data
             $profit_array = array();
             //start getting service profits
             $invoiceRepo = new InvoiceRepository();
             foreach($invoicesWithSchedules as $invoice_with_schedule){
+                if(date("Y",strtotime($invoice_with_schedule->created_at)) == $year){
                 $invoice_id = $invoice_with_schedule->id;
 
                 //get service id
@@ -86,11 +96,17 @@ class DashboardController extends Controller
                 $schedule_date  = $schedule['result']->date;
                 $month = date("m", strtotime($schedule_date)); //get only month from schedule date //to display data according to month
 
-                $mo_profits             = $invoiceRepo->getEachServiceProfitByMonth($month,1);      // service_id=1 is for MO
-                $musculo_profits        = $invoiceRepo->getEachServiceProfitByMonth($month,2);      // service_id=2 is for Musculo
-                $neuro_profits          = $invoiceRepo->getEachServiceProfitByMonth($month,3);      // service_id=3 is for Neuro
-                $nutrition_profits      = $invoiceRepo->getEachServiceProfitByMonth($month,4);      // service_id=4 is for Nutrition
-                $blood_drawing_profits  = $invoiceRepo->getEachServiceProfitByMonth($month,5);      // service_id=5 is for Blood Drawing
+                // $mo_profits             = $invoiceRepo->getEachServiceProfitByMonth($month,1);      // service_id=1 is for MO
+                // $musculo_profits        = $invoiceRepo->getEachServiceProfitByMonth($month,2);      // service_id=2 is for Musculo
+                // $neuro_profits          = $invoiceRepo->getEachServiceProfitByMonth($month,3);      // service_id=3 is for Neuro
+                // $nutrition_profits      = $invoiceRepo->getEachServiceProfitByMonth($month,4);      // service_id=4 is for Nutrition
+                // $blood_drawing_profits  = $invoiceRepo->getEachServiceProfitByMonth($month,5);      // service_id=5 is for Blood Drawing
+
+                $mo_profits             = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,1);      // service_id=1 is for MO
+                $musculo_profits        = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,2);      // service_id=2 is for Musculo
+                $neuro_profits          = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,3);      // service_id=3 is for Neuro
+                $nutrition_profits      = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,4);      // service_id=4 is for Nutrition
+                $blood_drawing_profits  = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,5);      // service_id=5 is for Blood Drawing
 
                 //add result to array
                 $profit_array[$month]["date"]                        = date("$year-$month");    //to send to graph in ('YYYY-MM') format
@@ -143,8 +159,9 @@ class DashboardController extends Controller
                 }
                 $profit_array[$month]["blood_drawing_profits_color"] = "#EC0BF7";               //violet
                 //end adding blood_drawing_profits data to array
+              }
             }
-            //start getting service profits
+            //end getting service profits
 
             //start getting package sale profits
             $packageSaleRepo    = new PackageSaleRepository();
@@ -152,6 +169,7 @@ class DashboardController extends Controller
 
             foreach($packageSales as $packageSale){
                 $sold_date = $packageSale->sold_date;
+                if(date("Y",strtotime($sold_date)) == $year){
                 $month = date("m", strtotime($sold_date)); //get only month from sold date //to display data according to month
 
                 $package_sale_profits = $invoiceRepo->getPackageSaleProfitByMonth($month);
@@ -175,6 +193,7 @@ class DashboardController extends Controller
                     $profit_array[$month]["package_sale_profits"]       = $package_sale_profits;
                     $profit_array[$month]["package_sale_profits_color"] = "#2E2E2E";               //black
                 }
+              }
             }
             //end getting package sale profits
 
@@ -194,7 +213,9 @@ class DashboardController extends Controller
 
             return view('core.dashboard.dashboard')
                 ->with('patient_visits',$ordered_patient_visits)
-                ->with('profits',$profits);
+                ->with('profits',$profits)
+                ->with('year',$year)
+                ->with('current_year',$current_year);
         }
         return redirect('/login');
     }

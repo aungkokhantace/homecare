@@ -7,6 +7,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('login', array('as'=>'login','uses'=>'Auth\AuthController@doLogin'));
     Route::get('logout', array('as'=>'logout','uses'=>'Auth\AuthController@doLogout'));
     Route::get('dashboard', array('as'=>'dashboard','uses'=>'Core\DashboardController@dashboard'));
+    Route::get('dashboard/{year?}', array('as'=>'dashboard','uses'=>'Core\DashboardController@dashboard'));
     Route::get('patient/dashboard', array('as'=>'patient/dashboard','uses'=>'Patient\PatientDashboardController@dashboard'));
     Route::get('/errors/{errorId}', array('as'=>'/errors/{errorId}','uses'=>'Core\ErrorController@index'));
     Route::get('/error/{errorId}/{module}', array('as'=>'/error/{errorId}','uses'=>'Core\ErrorController@error'));
@@ -357,6 +358,12 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('saleincomereport/invoice/{id}', array('as'=>'salesummaryreport/invoicedetail/{id}','uses'=>'Report\SaleSummaryReportController@invoicedetail'));
         // Route::get('saleincomereportbygraph', array('as'=>'saleincomereportbygraph','uses'=>'Report\SaleIncomeReportController@graph'));
         // Route::get('saleincomereportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'saleincomereportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\SaleIncomeReportController@graphsearch'));
+
+        //Schedule Tracking Report
+        Route::get('scheduletrackingreport', array('as'=>'scheduletrackingreport','uses'=>'Report\ScheduleTrackingReportController@index'));
+        Route::get('scheduletrackingreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'scheduletrackingreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\ScheduleTrackingReportController@search'));
+        Route::get('scheduletrackingreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'scheduletrackingreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\ScheduleTrackingReportController@excel'));
+        Route::get('scheduletrackingreport/schedule_detail/{id}', array('as'=>'scheduletrackingreport/schedule_detail/{id}','uses'=>'Report\ScheduleTrackingReportController@scheduleDetail'));
 
         //Activities
         Route::get('activities', array('as'=>'activities','uses'=>'Backend\ActivitiesController@index'));

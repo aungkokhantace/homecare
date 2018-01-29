@@ -311,8 +311,8 @@ class Default_PermissionSeeder extends Seeder
             //car usage report
             ['id'=>1022,'module'=>'Report','name'=>'Car Usage Report Graph','description'=>'Car Usage Report Graph','url'=>'carusagereportbygraph'],
             ['id'=>1023,'module'=>'Report','name'=>'Car Usage Report Graph Search','description'=>'Car Usage Report Graph Search','url'=>'carusagereportbygraph/search/{from_date?}/{to_date?}'],
-            
-            //Patient Detail New    
+
+            //Patient Detail New
             ['id'=>1024,'module'=>'Patient','name'=>'Patient Detail','description'=>'Patient Detail','url'=>'patient/patient_detail'],
 
             //Log Activities
@@ -369,6 +369,11 @@ class Default_PermissionSeeder extends Seeder
             // ['id'=>1054,'module'=>'Report','name'=>'Sale Income Report Graph','description'=>'Sale Income Report Graph','url'=>'saleincomereport'],
             // ['id'=>1055,'module'=>'Report','name'=>'Sale Income Report Graph Search','description'=>'Sale Income Report Graph Search','url'=>'saleincomereport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
 
+            //Schedule Tracking Report
+            ['id'=>1060,'module'=>'Report','name'=>'Schedule Tracking Report','description'=>'Schedule Tracking Report Listing','url'=>'scheduletrackingreport'],
+            ['id'=>1061,'module'=>'Report','name'=>'Schedule Tracking Report Search','description'=>'Schedule Tracking Report Search','url'=>'scheduletrackingreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1062,'module'=>'Report','name'=>'Schedule Tracking Report Export','description'=>'Schedule Tracking Report Export','url'=>'scheduletrackingreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1063,'module'=>'Report','name'=>'Schedule Tracking Report Detail','description'=>'Schedule Tracking Report Detail','url'=>'scheduletrackingreport/schedule_detail/{id}'],
         );
 
 
@@ -399,7 +404,7 @@ class Default_PermissionSeeder extends Seeder
         else{
             DB::table('core_permissions')->insert($permissions);
         }
-        
+
         echo "\n";
         echo "*****************************************************";
         echo "\n";
