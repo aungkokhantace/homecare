@@ -28,7 +28,7 @@ class ScheduletrackingRepository implements  ScheduletrackingRepositoryInterface
       //                     ->orderBy('schedules.date','desc')
       //                     ->get();
 
-      $query = ScheduleTracking::query();
+      $query = Scheduletracking::query();
 
       if(isset($type) && $type != null && $type == 'yearly'){
           if(isset($from_date) && $from_date != null){
@@ -76,7 +76,7 @@ class ScheduletrackingRepository implements  ScheduletrackingRepositoryInterface
   }
 
   public function getObjByID($id){
-      $result = ScheduleTracking::find($id);
+      $result = Scheduletracking::find($id);
       return $result;
   }
 }
