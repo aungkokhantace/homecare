@@ -11,6 +11,33 @@
 <div id="content" class="content">
 
     <h1 class="page-header">Dashboard</h1>
+
+    <!-- Start filter -->
+    <div class="row">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <label for="year" class="text_bold_black">Year</label>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <select class="form-control" name="year" id="year">
+              @for($i = $current_year; $i >= $current_year -50; $i--)
+                  @if($year == $i)
+                  <option value="{{$i}}" selected>{{$i}}</option>
+                  @else
+                  <option value="{{$i}}">{{$i}}</option>
+                  @endif
+              @endfor
+            </select>
+            <p class="text-danger">{{$errors->first('type')}}</p>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <button type="button" onclick="search_dashboard_by_year();" class="form-control btn-primary">Search</button>
+        </div>
+    </div>
+    <br>
+    <!-- End filter -->
+
     <h3 class="center_aligned">Monthly Visit Graph</h3>
     <div class="col-md-12">
          <div class="row">
@@ -19,8 +46,8 @@
             <div class="col-md-1"><span class="colored-span neuro-color"></span></div><div class="col-md-1"><span>Neuro</span></div>
             <div class="col-md-1"><span class="colored-span nutrition-color"></span></div><div class="col-md-1"><span>Nutrition</span></div>
             <div class="col-md-1"><span class="colored-span blooddrawing-color"></span></div><div class="col-md-2"><span>Blood Drawing</span></div>
-        </div> 
-        
+        </div>
+
         <div id="visit_chart_div"></div><br><br><hr><br>
     </div>
 
@@ -33,10 +60,10 @@
             <div class="col-md-1"><span class="colored-span nutrition-color"></span></div><div class="col-md-1"><span>Nutrition</span></div>
             <div class="col-md-1"><span class="colored-span blooddrawing-color"></span></div><div class="col-md-1"><span>Blood Drawing</span></div>
             <div class="col-md-1"><span class="colored-span packagesale-color"></span></div><div class="col-md-1"><span>Package Sale</span></div>
-    </div> 
+    </div>
 
         <div id="profit_chart_div"></div>
-    </div>  
+    </div>
 
 </div>
 @stop
@@ -47,7 +74,7 @@
             //start visit chart
             var visit_chart;
             var visitChartData =<?php echo json_encode($patient_visits) ?> ;
-            console.log(visitChartData);
+            // console.log(visitChartData);
             var visit_chart = AmCharts.makeChart("visit_chart_div", {
                 "type": "serial",
                 "theme": "light",
@@ -199,11 +226,15 @@
                     "minorGridEnabled": true
                 },
                 "export": {
-                    "enabled": false
+                    "enabled": true,
+                    // "menu": [ {
+                    //     "class": "export-main",
+                    //     "menu": [ "PNG", "JPG",]
+                    //   } ]
                 },
                 "dataProvider": visitChartData
             });
-            
+
         });
     </script>
 
@@ -212,7 +243,7 @@
             //start visit chart
             var profit_chart;
             var profitChartData =<?php echo json_encode($profits) ?> ;
-            console.log(profitChartData);
+            // console.log(profitChartData);
             var profit_chart = AmCharts.makeChart("profit_chart_div", {
                 "type": "serial",
                 "theme": "light",
@@ -383,11 +414,14 @@
                     "minorGridEnabled": true
                 },
                 "export": {
-                    "enabled": false
+                    "enabled": true,
+                    // "menu": [ {
+                    //     "class": "export-main",
+                    //     "menu": [ "PNG", "JPG",]
+                    //   } ]
                 },
                 "dataProvider": profitChartData
             });
-            
         });
     </script>
 @endsection

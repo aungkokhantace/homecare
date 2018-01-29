@@ -1124,6 +1124,17 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         return $result;
     }
 
+    public function getEachVisitByYearAndMonth($year,$month,$service_id) {
+        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+            ->where('schedule_detail.service_id','=',$service_id)
+            ->where('schedules.status','=','complete')
+            ->whereYear('schedules.date','=',$year)
+            ->whereMonth('schedules.date','=',$month)
+            ->get();
+
+        return $result;
+    }
+
     public function getServiceIdByScheduleId($schedule_id){
         $result = DB::table('schedule_detail')->where('schedule_id','=',$schedule_id)->first();
         $service_id = $result->service_id;

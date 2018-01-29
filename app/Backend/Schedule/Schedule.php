@@ -38,7 +38,8 @@ class Schedule extends Model
 
     public function leader()
     {
-        return $this->belongsTo('App\Core\User\User','leader_id','id');
+        // return $this->belongsTo('App\Core\User\User','leader_id','id');
+        return $this->belongsTo('App\User','leader_id','id');
     }
 
     public function township()
