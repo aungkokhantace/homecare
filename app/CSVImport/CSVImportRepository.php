@@ -156,5 +156,24 @@ class CSVImportRepository implements CSVImportRepositoryInterface
         }
     }
 
+    public function createInvestigationLabs($data,$user_id,$today){
+        $returnedObj = array();
+        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+        try{
+
+            $values = $data."','".$user_id."','".$user_id."','".$today."','".$today;
+            // dd('val',$values);
+            DB::insert("INSERT INTO investigation_labs(id,service_name,description,routine_price,urgent_price,created_by,updated_by,created_at,updated_at) VALUES ('$values')");
+            // dd('here');
+            $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
+            return $returnedObj;
+
+        }catch (\Exception $e){
+            // dd('except',$e);
+            $returnedObj['aceplusStatusMessage'] = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
+            return $returnedObj;
+        }
+    }
+
 
 }

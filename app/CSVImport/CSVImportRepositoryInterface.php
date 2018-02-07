@@ -13,4 +13,5 @@ interface CSVImportRepositoryInterface
     public function createFamilyHistories($data,$user_id,$today);
     public function createMedicalHistory($data,$user_id,$today);
     public function createProvisionalDiagnosis($data,$user_id,$today);
+    public function createInvestigationLabs($data,$user_id,$today);
 }

@@ -58,6 +58,7 @@
                 <option value="medical_history">medical_history</option>
                 <option value="provisional_diagnosis">provisional_diagnosis</option>
                 <option value="allergies">allergies</option>
+                <option value="investigation_labs">investigation_labs</option>
 
             </select>
             <p class="text-danger">{{$errors->first('table_name')}}</p>

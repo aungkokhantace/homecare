@@ -155,8 +155,19 @@ class CSVImportController extends Controller
                     }
                 }
 
+                if($table_name == 'investigation_labs'){
+                    $result = $csvRepo->createInvestigationLabs($values,$user_id,$today);
+                    if($result['aceplusStatusCode'] !== ReturnMessage::OK){
+                        DB::rollback();
+                        alert()->error('Error Message', 'Sorry! There is some problem.')->persistent('Close');
+
+                        return redirect()->action('CSVImport\CSVImportController@import');
+                    }
+                }
+
                 $c = $c + 1;
             }
+
             DB::commit();
             alert()->success('Success Message', 'Table has imported successfully')->persistent('Close');
             return redirect()->action('CSVImport\CSVImportController@import');
