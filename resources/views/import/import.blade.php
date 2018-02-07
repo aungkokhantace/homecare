@@ -59,7 +59,10 @@
                 <option value="provisional_diagnosis">provisional_diagnosis</option>
                 <option value="allergies">allergies</option>
                 <option value="investigation_labs">investigation_labs</option>
-
+                <option value="townships">townships</option>
+                <option value="zones">zones</option>
+                <option value="zone_detail">zone_detail</option>
+                <option value="car_type_setup">car_type_setup</option>
             </select>
             <p class="text-danger">{{$errors->first('table_name')}}</p>
         </div>
