@@ -214,9 +214,9 @@ class CSVImportRepository implements CSVImportRepositoryInterface
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
 
-            $values = $data."','".$user_id."','".$user_id."','".$today."','".$today;
+            $values = $data;
 
-            DB::insert("INSERT INTO zone_detail (zone_id,township_id,created_by,updated_by,created_at,updated_at) VALUES ('$values')");
+            DB::insert("INSERT INTO zone_detail (zone_id,township_id) VALUES ('$values')");
 
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
             return $returnedObj;
