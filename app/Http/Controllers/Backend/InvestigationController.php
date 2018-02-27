@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use App\Backend\Investigation\Investigation;
 use App\Backend\Investigation\InvestigationRepositoryInterface;
+use App\Backend\InvestigationLab\InvestigationLab;
+use App\Backend\InvestigationLab\InvestigationLabRepositoryInterface;
 use App\Backend\Infrastructure\Forms\InvestigationEntryRequest;
 use App\Backend\Infrastructure\Forms\InvestigationEditRequest;
 use Auth;
@@ -21,7 +23,7 @@ class InvestigationController extends Controller
 {
     private $repo;
 
-    public function __construct(InvestigationRepositoryInterface $repo)
+    public function __construct(InvestigationLabRepositoryInterface $repo)
     {
         $this->repo = $repo;
     }
@@ -79,18 +81,33 @@ class InvestigationController extends Controller
     public function update(InvestigationEditRequest $request){
         $request->validate();
         $id = Input::get('id');
-        $name                 = Input::get('name');
-        $description          = Input::get('description');
-        $group_name           = Input::get('group_name');
-        $price                = Input::get('price');
+        // $name                 = Input::get('name');
+        // $description          = Input::get('description');
+        // $group_name           = Input::get('group_name');
+        // $price                = Input::get('price');
 
-        $paramObj = Investigation::find($id);
+        $service_name                 = Input::get('service_name');
+        $routine_request              = Input::get('routine_request');
+        $urgent_request               = Input::get('urgent_request');
+        $routine_price                = Input::get('routine_price');
+        $urgent_price                 = Input::get('urgent_price');
+        $description                  = Input::get('description');
+
+        // $paramObj = Investigation::find($id);
+        $paramObj = InvestigationLab::find($id);
         $old_price = $paramObj->price;
 
-        $paramObj->name = $name;
+        // $paramObj->name = $name;
+        // $paramObj->description = $description;
+        // $paramObj->group_name = $group_name;
+        // $paramObj->price = $price;
+
+        $paramObj->service_name = $service_name;
+        $paramObj->routine_request = $routine_request;
+        $paramObj->urgent_request = $urgent_request;
+        $paramObj->routine_price = $routine_price;
+        $paramObj->urgent_price = $urgent_price;
         $paramObj->description = $description;
-        $paramObj->group_name = $group_name;
-        $paramObj->price = $price;
 
         $result = $this->repo->update($paramObj,$old_price);
         if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
