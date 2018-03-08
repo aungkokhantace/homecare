@@ -18,6 +18,7 @@ use App\Session;
 use App\Core\User\UserRepository;
 use App\Core\SyncsTable\SyncsTable;
 use InterventionImage;
+use Mail;
 
 class Utility
 {
@@ -715,5 +716,13 @@ class Utility
             $tax_percent    = 0.0;
         }
         return $tax_percent;
+    }
+
+    public static function sendEmail($template,$emails,$subject){
+        Mail::send($template, [], function($message) use($emails,$subject)
+        {
+            $message->to($emails)
+                ->subject($subject);
+        });
     }
 }

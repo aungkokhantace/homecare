@@ -232,4 +232,15 @@ class TestController extends Controller
       alert()->success('Test Patient Data successfully cleared')->persistent('OK');
       return redirect()->action('Backend\PatientController@index');
     }
+
+    public function emailTest(){
+      $template = "welcome";
+      $email = ['aungkokhantace@gmail.com','aungkokhant@aceplussolutions.com'];
+      $subject = "Email Test";
+
+      Utility::sendEmail($template, $email, $subject);
+
+      alert('Email sent successfully!')->persistent('OK');
+      return redirect()->action('Core\DashboardController@dashboard');
+  }
 }

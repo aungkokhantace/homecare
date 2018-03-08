@@ -14,6 +14,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/unauthorize', array('as'=>'/unauthorize','uses'=>'Core\ErrorController@unauthorize'));
     Route::get('/unauthorize_patient', array('as'=>'/unauthorize_patient','uses'=>'Core\ErrorController@unauthorizePatient'));
 
+    //Email function test
+    Route::get('/email_test', 'Backend\TestController@emailTest');
+
     // Password Reset Routes...
     Route::get('password/reset/{token?}', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@showResetForm']);
     Route::post('password/email', ['as' => 'auth.password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
