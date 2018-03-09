@@ -516,7 +516,7 @@ class Utility
                             <td align="left" height="20">Contact:'.$companyPhone.'. E-mail:'.$companyEmail.'</td>
                         </tr>
                         <tr>
-                            <td align="center" height="18" bgcolor="#00c0f1" colspan="2" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>
+                            <td align="center" height="18" bgcolor="#00c0f1" colspan="2" style="color:white"></td>
                         </tr>
                         </table>';
         // $pdfHeader  = $logo.$letterHead;

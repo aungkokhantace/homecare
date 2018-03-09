@@ -384,12 +384,12 @@
         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-2 col-md-2 col-sm-2 col-xs-2">
             @if(isset($enquiry))
                 @if($enquiry->car_type == 3)
-                    <input type="radio" name="car_type" value="3" class="large_radio" id="hhcs_vehicle" checked> <label for="hhcs_vehicle">HHCS Vehicle</label>
+                    <input type="radio" name="car_type" value="3" class="large_radio" id="hhcs_vehicle" checked> <label for="hhcs_vehicle">Hospital Vehicle</label>
                 @else
-                    <input type="radio" name="car_type" class="large_radio" id="hhcs_vehicle" value="3"> <label for="hhcs_vehicle">HHCS Vehicle</label>
+                    <input type="radio" name="car_type" class="large_radio" id="hhcs_vehicle" value="3"> <label for="hhcs_vehicle">Hospital Vehicle</label>
                 @endif
             @else
-                <input type="radio" name="car_type" class="large_radio" id="hhcs_vehicle" value="3"> <label for="hhcs_vehicle">HHCS Vehicle</label>
+                <input type="radio" name="car_type" class="large_radio" id="hhcs_vehicle" value="3"> <label for="hhcs_vehicle">Hospital Vehicle</label>
             @endif
             <p class="text-danger">{{$errors->first('car_type')}}</p><br/>
         </div>
