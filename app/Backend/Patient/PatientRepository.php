@@ -48,7 +48,7 @@ class PatientRepository implements PatientRepositoryInterface
                 $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
 
                 DB::beginTransaction();
-                
+
                 $tempUserObj = Utility::addCreatedBy($userObj);
                 $tempObj = Utility::addCreatedBy($paramObj);
                 $logObj         = Utility::logCreatedBy($logObj);
@@ -98,7 +98,7 @@ class PatientRepository implements PatientRepositoryInterface
                     $userObj->password = $pwd;
                 }
                 else{
-                    $passwordString = "12345@parami";             //if password is null, "12345@parami" is set as default password
+                    $passwordString = "12345@patient";             //if password is null, "12345@patient" is set as default password
                     //encrypt password
                     $pwd = base64_encode($passwordString);  //encrypt default password
                     //bind to userObj
@@ -301,8 +301,8 @@ class PatientRepository implements PatientRepositoryInterface
 
         try{
             DB::beginTransaction();
-            
-            $tempObj     = Utility::addUpdatedBy($paramObj);            
+
+            $tempObj     = Utility::addUpdatedBy($paramObj);
             $tempUserObj = Utility::addUpdatedBy($userObj);
             $logObj      = Utility::logUpdatedby($logObj);
             //retrieve zone_id from township_id
@@ -332,7 +332,7 @@ class PatientRepository implements PatientRepositoryInterface
                 $email          = $tmp.'.'.$tempUserObj->staff_id."@gmail.com";
                 $tempObj->email = $email;
             }
-            
+
             if($tempObj->save()){
                 if($tempUserObj->save()) {
                     $patient_id = $tempObj->user_id;
@@ -357,10 +357,10 @@ class PatientRepository implements PatientRepositoryInterface
 
                     return $returnedObj;
                 }
-                
+
                 $logObj->patient_id = $tempObj->user_id;
                 $logObj->save();
-                
+
                 DB::commit();
 
                 //update info log
@@ -592,5 +592,5 @@ class PatientRepository implements PatientRepositoryInterface
         return $result;
     }
 
-    
+
 }
