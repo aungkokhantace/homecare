@@ -299,6 +299,7 @@ class SyncsController extends Controller{
                 $maxSchedulePatientChiefComplaint           = Utility::getMaxKey($prefix,'schedule_patient_chief_complaint','id');
                 $maxLogPatientCaseSummary                   = Utility::getMaxKey($prefix,'log_patient_case_summary','id');
                 $maxOtherServices                           = Utility::getMaxKey($prefix,'other_services','id');
+                $maxScheduleTracking                        = Utility::getMaxKey($prefix,'schedule_trackings','id');
 
                 $maxKey = array();
 
@@ -352,6 +353,8 @@ class SyncsController extends Controller{
                 $maxKey[23]['max_key_id'] = $maxLogPatientCaseSummary;
                 $maxKey[24]['table_name'] = "other_services";
                 $maxKey[24]['max_key_id'] = $maxOtherServices;
+                $maxKey[25]['table_name'] = "schedule_trackings";
+                $maxKey[25]['max_key_id'] = $maxScheduleTracking;
 
                 ////////////////////////////////////
 
