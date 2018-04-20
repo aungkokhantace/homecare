@@ -48,6 +48,7 @@ use App\Backend\Familymember\FamilymemberRepository;
 use App\Backend\Medicalhistory\MedicalhistoryRepository;
 use App\Backend\Patientmedicalhistory\PatientmedicalhistoryRepository;
 use App\Backend\Route\RouteRepository;
+use App\Core\Check;
 
 class PatientController extends Controller
 {
@@ -399,14 +400,42 @@ class PatientController extends Controller
 
         $id         = Input::get('selected_checkboxes');
         $new_string = explode(',', $id);
+        $delete_flag = true;
+
         foreach($new_string as $id){
+          $enquiry_restrict_status_array = ["new"];
+          $schedule_restrict_status_array = ["new","confirm","processing"];
+
+          $check_enquiry = Check::checkToDeleteWithVarcharID("enquiries", "patient_id", $id, $enquiry_restrict_status_array);
+          $check_schedule = Check::checkToDeleteWithVarcharID("schedules", "patient_id", $id, $schedule_restrict_status_array);
+
+          if(isset($check_enquiry) && count($check_enquiry)>0){
+              alert()->warning('This patient has enquiries and you cannot delete!')->persistent('OK');
+              $delete_flag = false;
+          }
+          elseif(isset($check_schedule) && count($check_schedule)>0){
+              alert()->warning('This patient has schedules and you cannot delete!')->persistent('OK');
+              $delete_flag = false;
+          }
+          else{
+            //free from all restrictions and delete successfully
             $logObj               = new LogPatientCaseSummary();
             $logObj->case_summary ="DELETE";
 
             $this->repo->delete($id,$logObj);
+          }
         }
-        return redirect()->action('Backend\PatientController@index')
-            ->withMessage(FormatGenerator::message('Success', 'Patient deleted ...'));
+
+        if($delete_flag){
+          return redirect()->action('Backend\PatientController@index')
+              ->withMessage(FormatGenerator::message('Success', 'Patient is deleted ...'));
+        }
+        else{
+          return redirect()->action('Backend\PatientController@index')
+              ->withMessage(FormatGenerator::message('Success', 'Patient is not deleted ...'));
+        }
+        // return redirect()->action('Backend\PatientController@index')
+        //     ->withMessage(FormatGenerator::message('Success', 'Patient deleted ...'));
     }
 
     public function checkZone($id){
@@ -967,7 +996,7 @@ class PatientController extends Controller
             }
 
             $treatment_procedures             = $schedule->getTreatmentProcedure($latest_schedule_id);
-            
+
             return view('backend.patient.detailvisit')->with('patient',$patient)
                 ->with('schedules',$schedule)
                 ->with('vitals',$vitals)

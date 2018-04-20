@@ -266,5 +266,13 @@ class Check
         return false;
     }
 
-
+    public static function checkToDeleteWithVarcharID($table, $column, $id, $status_array){
+      if(isset($status_array) && count($status_array) > 0){
+        $result = DB::select("SELECT * FROM $table WHERE $column = '$id' AND deleted_at IS NULL AND status IN ( '" . implode( "', '" , $status_array) . "' )");
+      }
+      else{
+        $result = DB::select("SELECT * FROM $table WHERE $column = '$id' AND deleted_at IS NULL");
+      }
+      return $result;
+    }
 }
