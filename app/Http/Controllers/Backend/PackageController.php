@@ -40,11 +40,14 @@ class PackageController extends Controller
 
                 foreach($packages as $package){
                     $servicesString = "";
-                    $packageServicesArray = "";
+                    // $packageServicesArray = "";
+                    $packageServicesArray = array();
                     $package_id = $package->id;
                     $packageDetails = $this->repo->getPackageDetails($package_id);
                     foreach($packageDetails as $packageDetail){
+                        // $packageServicesArray[] = $packageDetail->service->name;
                         $packageServicesArray[] = $packageDetail->service->name;
+                        // array_push($packageServicesArray,$packageDetail->service->name);
                     }
                     foreach($packageServicesArray as $service){
                         $servicesString .= $service.', ';

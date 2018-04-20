@@ -24,7 +24,8 @@ class SearchRepository implements  SearchRepositoryInterface
     public function getAutoCompletePatient(){
         $term = Input::get('term');
         $results = array();
-        $patients = DB::select("SELECT * FROM patients WHERE name like  '%$term%'");
+        // $patients = DB::select("SELECT * FROM patients WHERE name like  '%$term%'");
+        $patients = DB::select("SELECT * FROM patients WHERE name like  '%$term%' AND deleted_at IS NULL");
 
         foreach ($patients as $patient)
         {
