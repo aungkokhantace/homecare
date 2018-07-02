@@ -497,6 +497,12 @@
                     <input type="radio" name="car_type" value="3"> HHCS Vehicle
                 @endif
             @endif
+
+            @if(($is_edit !== 1) && ($is_enquiry_confirm !== 1))
+            <input type="radio" name="car_type" value="1"> Patient Owned Vehicles<br/>
+            <input type="radio" name="car_type" value="2"> Rental Vehicle<br/>
+            <input type="radio" name="car_type" value="3"> HHCS Vehicle
+            @endif
             <p class="text-danger">{{$errors->first('car_type')}}</p><br/>
 
         </div>
@@ -675,7 +681,7 @@
                 <p class="text-danger">{{$errors->first('remark')}}</p>
             </div>
         @endif
-        
+
     </div>
     <br/>
 
@@ -861,7 +867,8 @@
 
                     $('#township_id').val(patient.township_id);
                     $('#township_id_lbl').text(patient.township.name);
-                    $('#address').text(patient.address);
+                    // $('#address').text(patient.address);
+                    $('#address_lbl').text(patient.address);
 
                     $("#allergies_div").html("");
                     var allergies = patient.allergies;
@@ -904,7 +911,8 @@
                 $('#is_new_patient').val(0);
                 $('#township_id').val(0);
                 $('#township_id_lbl').text("");
-                $('#address').text("");
+                // $('#address').text("");
+                $('#address_lbl').text("");
                 $("#allergies_div").html("");
             }
 

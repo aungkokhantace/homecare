@@ -141,7 +141,12 @@ class TownshipRepository implements TownshipRepositoryInterface
     }
 
     public function checkToDelete($id){
-        $result = DB::select("SELECT * FROM zone_detail WHERE township_id = $id");
+        // $result = DB::select("SELECT * FROM zone_detail WHERE township_id = $id");
+        $result = DB::select("SELECT *
+                              FROM zone_detail
+                              LEFT JOIN zones ON zone_detail.zone_id = zones.id
+                              LEFT JOIN townships ON zone_detail.township_id = townships.id
+                              WHERE township_id = $id AND zones.deleted_at is null AND townships.deleted_at is null");
         return $result;
     }
 }

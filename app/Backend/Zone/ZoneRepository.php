@@ -150,7 +150,7 @@ class ZoneRepository implements ZoneRepositoryInterface
 
         $townshipRepo = new TownshipRepository();
         $townships      = $townshipRepo->getArrays();
-        
+
         if(isset($childArray) && count($childArray)>0){
 
             $tempTspArray = array();
@@ -247,7 +247,13 @@ class ZoneRepository implements ZoneRepositoryInterface
     }
 
     public function getUsedTownships(){
-        $result = DB::select("SELECT township_id FROM zone_detail");
+        // $result = DB::select("SELECT township_id FROM zone_detail");
+        $result = DB::select("SELECT township_id
+                              FROM zone_detail
+                              LEFT JOIN zones ON zone_detail.zone_id = zones.id
+                              LEFT JOIN townships ON zone_detail.township_id = townships.id
+                              WHERE zones.deleted_at is null AND townships.deleted_at is null");
+
         return $result;
     }
 
