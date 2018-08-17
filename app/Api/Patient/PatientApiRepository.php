@@ -873,17 +873,35 @@ class PatientApiRepository implements PatientApiRepositoryInterface
     public function getPatientDataWithLatestDate($latest_date)
     {
         if(isset($latest_date) && $latest_date !== "" && $latest_date !== null){
-          $result = DB::table('patients')
+          /*$result = DB::table('patients')
                           ->whereNull('deleted_at')
                           ->where(function ($query) use ($latest_date) {
                               $query->where('created_at','>',$latest_date)
                                     ->orWhere('updated_at','>',$latest_date);
                           })
+                          ->get(); */
+
+          $result = DB::table('patients')
+                          ->leftjoin('core_users', 'patients.user_id', '=', 'core_users.id')
+                          ->whereNull('core_users.deleted_at')
+                          ->whereNull('patients.deleted_at')
+                          ->where('core_users.active',1)
+                          ->where(function ($query) use ($latest_date) {
+                              $query->where('patients.created_at','>',$latest_date)
+                                    ->orWhere('patients.updated_at','>',$latest_date);
+                          })
                           ->get();
         }
         else{
+          /*$result = DB::table('patients')
+                          ->whereNull('patients.deleted_at')
+                          ->get(); */
+
           $result = DB::table('patients')
-                          ->whereNull('deleted_at')
+                          ->leftjoin('core_users', 'patients.user_id', '=', 'core_users.id')
+                          ->whereNull('core_users.deleted_at')
+                          ->where('core_users.active',1)
+                          ->whereNull('patients.deleted_at')
                           ->get();
         }
         return $result;
