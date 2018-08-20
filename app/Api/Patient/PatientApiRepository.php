@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Input;
 use App\Core\Utility;
 use App\Core\ReturnMessage;
 use App\Backend\Zone\ZoneRepository;
+use Carbon\Carbon;
 
 class PatientApiRepository implements PatientApiRepositoryInterface
 {
@@ -656,6 +657,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 }
 
                 $findAllergy    = DB::table('patient_allergy')->where('patient_id','=',$id)->get();
+
                 if(isset($findAllergy) && count($findAllergy) > 0){
                     $tempAllergyArr['date']     = $row->updated_at;
                     $allergyCreate              = "updated";
@@ -672,16 +674,17 @@ class PatientApiRepository implements PatientApiRepositoryInterface
 
                     $temp_current_updated_at = $findObj->updated_at;
                     $current_updated_at = $temp_current_updated_at;
-
                     $temp_input_updated_at = $row->updated_at;
-                    $input_updated_at = $temp_input_updated_at;
+                    // $input_updated_at = $temp_input_updated_at;
+                    $input_updated_at = Carbon::parse($temp_input_updated_at);
+
 
                     //Incoming record's updated_at is later than existing record's updated_at;
                     //So, the record incoming is updated later; So, database must be updated..
                     // if($row->user_id == "U0054"){
                     //     dd('compare',$input_updated_at,$current_updated_at);
                     // }
-
+                    
                     if($input_updated_at > $current_updated_at){
                         //clear patient_allergy data relating to input
                         DB::table('patient_allergy')
