@@ -684,7 +684,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     // if($row->user_id == "U0054"){
                     //     dd('compare',$input_updated_at,$current_updated_at);
                     // }
-                    
+
                     if($input_updated_at > $current_updated_at){
                         //clear patient_allergy data relating to input
                         DB::table('patient_allergy')
