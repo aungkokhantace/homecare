@@ -101,6 +101,10 @@ class UserApiRepository implements UserApiRepositoryInterface
                     //So, the record incoming is updated later; So, database must be updated..
                     if($input_updated_at > $current_updated_at){
                         //clear patients data relating to input
+                        DB::table('patient_allergy')
+                            ->where('patient_id', '=', $id)
+                            ->delete();
+
                         DB::table('patients')
                             ->where('user_id', '=', $id)
                             ->delete();
