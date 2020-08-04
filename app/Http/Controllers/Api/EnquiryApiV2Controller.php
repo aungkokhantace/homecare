@@ -34,6 +34,7 @@ class EnquiryApiV2Controller extends Controller
     }
 
     public function upload(){
+
         $temp                   = Input::All();
         $inputAll               = json_decode($temp['param_data']);
         $checkServerStatusArray = Check::checkCodes($inputAll);
@@ -83,6 +84,7 @@ class EnquiryApiV2Controller extends Controller
 
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK) {
             $prefix             = $checkServerStatusArray['tablet_id'];
+            $patient_prefix     = Utility::generatePatientPrefix($prefix);
 
             $enquiryV2Repo = new EnquiryApiV2Repository();
             $params = $checkServerStatusArray['data'][0];
@@ -108,6 +110,7 @@ class EnquiryApiV2Controller extends Controller
                         if($result['aceplusStatusCode'] != ReturnMessage::OK) {
                             DB::rollback();
                             $result['tablet_id'] = $tablet_id;
+                            $result['data'] = (object) array();
                             return \Response::json($result);
                         }
 
@@ -122,10 +125,19 @@ class EnquiryApiV2Controller extends Controller
                             if(array_key_exists('id',$core_user)) {
 
                                 if($core_user->id != null || $core_user->id != ""){
+
+                                
+                                
                                 $core_users = array();
                                 $core_users[0] = $core_user;
                                 $userRepo      = new UserApiRepository();
                                 $userResult    = $userRepo->createSingleUser($core_users);
+
+                                // //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
+                                // if($userResult['aceplusStatusCode'] == ReturnMessage::SKIPPED){
+                                //     //skip this row and continue to next loop
+                                //     continue;
+                                // }
 
                                 //if user insertion was successful
                                 if($userResult['aceplusStatusCode'] == ReturnMessage::OK){
@@ -135,6 +147,33 @@ class EnquiryApiV2Controller extends Controller
 
                                     if(isset($enquiry->patients) && count($enquiry->patients) > 0){
                                         $patient = $enquiry->patients;
+
+                                        //start log summary
+                                        // $findObj    = Patient::where('user_id','=',$id)->first();
+                                        $findObj    = Patient::find($patient->user_id);
+                                        
+                                        if(isset($findObj) && count($findObj) > 0){
+                                            //compare input and current case scenarios
+                                            $current_case_scenario  = $findObj->case_scenario;                            
+                                            $input_case_scenario    = $patient->case_scenario;
+
+                                            if($current_case_scenario !== $input_case_scenario){
+                                                //create log patient case summary
+                                                $prefix = Utility::getTerminalId();
+                                                $table = (new LogPatientCaseSummary())->getTable();
+                                                $col = "id";
+                                                $offset = 1;
+                                                $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                                                $logObj                         = new LogPatientCaseSummary();
+                                                $logObj->id                     = $generatedId;
+                                                $logObj->patient_id             = $patient->user_id;
+                                                $logObj->case_summary           = $input_case_scenario;
+                                                $logObj->created_at             = date("Y-m-d H:i:s");
+                                                $logObj->save();            //log obj insert is successful
+                                                //end creating log patient case summary
+                                            }    
+                                        }  
+                                        //end log summary
 
                                         if(array_key_exists('user_id',$patient)) {
                                             if ($patient->user_id != null && $patient->user_id != ""){
@@ -151,7 +190,9 @@ class EnquiryApiV2Controller extends Controller
                                                     continue;       //continue to next loop
                                                 } else {
                                                     DB::rollback();
+                                                    $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                                                     $returnedObj['aceplusStatusMessage'] = $patientResult['aceplusStatusMessage'];
+                                                    $returnedObj['data'] = (object) array();
                                                     return \Response::json($returnedObj);
                                                 }
                                             }
@@ -163,7 +204,9 @@ class EnquiryApiV2Controller extends Controller
                                 }
                                     else{
                                         DB::rollback();
+                                        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                                         $returnedObj['aceplusStatusMessage'] = $userResult['aceplusStatusMessage'];
+                                        $returnedObj['data'] = (object) array();
                                         return \Response::json($returnedObj);
                                     }
                                 }
@@ -231,15 +274,35 @@ class EnquiryApiV2Controller extends Controller
                                     $data[0]['enquiries'][$count]->patients->patient_allergy = $patientAllergy;
                                 }
 
+                                $logs = $patientApiRepo->getLog($enqData->patient_id);
+                                if (isset($logs) && count($logs) > 0) {
+                                    foreach($logs as $log){
+                                        if($log->created_at == null){
+                                            $log->created_at = "";
+                                        }
+                                        if($log->updated_at == null){
+                                            $log->updated_at = "";
+                                        }
+                                        if($log->deleted_at == null){
+                                            $log->deleted_at = "";
+                                        }
+                                    }
+                                    $data[0]["enquiries"][$count]->patients->log_patient_case_summary = $logs;
+                                }
+                                else {
+                                    $data[0]["enquiries"][$count]->patients->log_patient_case_summary = [];
+                                }
                             }
                             else{
                                 $data[0]['enquiries'][$count]->patients = new \stdClass();
                                 $data[0]['enquiries'][$count]->patients->patient_allergy = [];
+                                $data[0]['enquiries'][$count]->patients->log_patient_case_summary = [];
                             }
                         }
                         else{
                             $data[0]['enquiries'][$count]->patients = new \stdClass();
                             $data[0]['enquiries'][$count]->patients->patient_allergy = [];
+                            $data[0]['enquiries'][$count]->patients->log_patient_case_summary = [];
                         }
 
                         if(isset($enqData->patient_id) && $enqData->patient_id != null){
@@ -276,8 +339,10 @@ class EnquiryApiV2Controller extends Controller
                 }
 
                 $maxEnquiry  = Utility::getMaxKey($prefix,'enquiries','id');
-                $maxPatient  = Utility::getMaxKey($prefix,'patients','user_id');
-                $maxCoreUser = Utility::getMaxKey($prefix,'core_users','id');
+//                $maxPatient  = Utility::getMaxKey($prefix,'patients','user_id');
+                $maxPatient  = Utility::getMaxKey($patient_prefix,'patients','user_id');
+//                $maxCoreUser = Utility::getMaxKey($prefix,'core_users','id');
+                $maxCoreUser = Utility::getMaxKey($patient_prefix,'core_users','id');
 
                 $maxKey = array();
 
@@ -302,6 +367,73 @@ class EnquiryApiV2Controller extends Controller
                 $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                 $returnedObj['aceplusStatusMessage'] = $e->getMessage() . " ----- line " . $e->getLine() . " ----- " . $e->getFile();
                 $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
+                return \Response::json($returnedObj);
+            }
+        }
+        else{
+            return \Response::json($checkServerStatusArray);
+        }
+    }
+
+    //update enquiry status
+    public function uploadEnquiryStatus(){
+
+        $temp                   = Input::All();
+        $inputAll               = json_decode($temp['param_data']);
+        $checkServerStatusArray = Check::checkCodes($inputAll);
+        $prefix                 = "";
+        $user_id                = $inputAll->user_id;
+
+        if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK) {
+            $prefix             = $checkServerStatusArray['tablet_id'];
+            $enquiryV2Repo      = new EnquiryApiV2Repository();
+            $params             = $checkServerStatusArray['data'][0];
+            $tablet_id          = $checkServerStatusArray['tablet_id'];
+            $logArr             = array();
+
+            try {
+                DB::beginTransaction();
+
+                if (isset($params->enquiries) && count($params->enquiries) > 0) {
+
+                    $enquiryResult = $enquiryV2Repo->uploadEnquiryStatus($params->enquiries);
+                    if($enquiryResult['aceplusStatusCode'] != ReturnMessage::OK) {
+                        DB::rollback();
+                        $enquiryResult['tablet_id'] = $tablet_id;
+                        $enquiryResult['data'] = (object) array();
+                        return \Response::json($enquiryResult);
+                    }
+
+                    if(isset($enquiryResult['log']) && count($enquiryResult['log']) > 0){
+                        array_push($logArr,$enquiryResult['log']);
+                    }
+                }
+
+                //all operations were successful
+                DB::commit();
+
+                //create custom log file with created_at or updated_at
+                foreach($logArr as $logKey=>$logValue){
+                    foreach($logValue as $value){
+                        $date = $value['date'];
+                        $message = '['. $date .'] '. 'info User - '.$user_id .' '. $value['message'] .' with tablet_id - '.$tablet_id. PHP_EOL;
+                        LogCustom::create($date,$message);
+                    }
+                }
+
+                $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
+                $returnedObj['aceplusStatusMessage']    = "Request success !";
+                $returnedObj['tabletId']                = $tablet_id;
+
+                return \Response::json($returnedObj);
+            }
+            catch (\Exception $e) {
+                DB::rollback();
+                $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+                $returnedObj['aceplusStatusMessage'] = $e->getMessage() . " ----- line " . $e->getLine() . " ----- " . $e->getFile();
+                $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
                 return \Response::json($returnedObj);
             }
         }

@@ -14,7 +14,7 @@
 
     <div class="row">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-            <label for="type" class="text_bold_black">Types</label>
+            <label for="type" class="text_bold_black">Type</label>
         </div>
 
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -183,23 +183,23 @@
                         @foreach($invoices as $invoice)
                             <tr>
                                 <td>{{$invoice->date}}</td>
-                                <td>{{$invoice->package_price}}</td>
-                                <td>{{$invoice->total_car_amount}}</td>
-                                <td>{{$invoice->total_service_amount}}</td>
-                                <td>{{$invoice->total_medication_amount}}</td>
-                                <td>{{$invoice->total_investigation_amount}}</td>
-                                <td>{{$invoice->total}}</td>
+                                <td>{{number_format($invoice->package_price,2)}}</td>
+                                <td>{{number_format($invoice->total_car_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_service_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_medication_amount,2)}}</td>
+                                <td>{{number_format($invoice->total_investigation_amount,2)}}</td>
+                                <td>{{number_format($invoice->total,2)}}</td>
                             </tr>
                         @endforeach
                     </tbody>
                         <tr bgcolor="#1976d3" style = "color:white">
                             <td></td>
-                            <td>{{$totalArray['package']}}</td>
-                            <td>{{$totalArray['car']}}</td>
-                            <td>{{$totalArray['service']}}</td>
-                            <td>{{$totalArray['medication']}}</td>
-                            <td>{{$totalArray['investigation']}}</td>
-                            <td>{{$totalArray['total']}}</td>
+                            <td>{{number_format($totalArray['package'],2)}}</td>
+                            <td>{{number_format($totalArray['car'],2)}}</td>
+                            <td>{{number_format($totalArray['service'],2)}}</td>
+                            <td>{{number_format($totalArray['medication'],2)}}</td>
+                            <td>{{number_format($totalArray['investigation'],2)}}</td>
+                            <td>{{number_format($totalArray['total'],2)}}</td>
                         </tr>
                 </table>
             </div>
@@ -220,16 +220,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
-                "paging":   false,
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

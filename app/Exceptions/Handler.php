@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Core\Check;
 use App\Core\Utility;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -52,13 +53,16 @@ class Handler extends ExceptionHandler
     {
         if($e instanceof NotFoundHttpException)
         {
-            $role = Utility::getCurrentUser();
-
-            if($role == 1){
-                return response()->view('core.error.pagenotfound', [], 404);
+            if(Check::validSession()) {
+                $role = Utility::getCurrentUser();
+                if ($role == 1) {
+                    return response()->view('core.error.pagenotfound', [], 404);
+                } else {
+                    return response()->view('core.error.pagenotfound_patient', [], 404);
+                }
             }
-            else {
-                return response()->view('core.error.pagenotfound_patient', [], 404);
+            else{
+                return redirect('login');
             }
         }
         return parent::render($request, $e);

@@ -20,4 +20,5 @@ interface InvoiceRepositoryInterface
     public function getDetails($id);
     public function getInvoicesWithSchedules();
     public function getIncomeSummary($type, $from_date, $to_date);
+    public function getInvoiceByScheduleID($schedule_id);
 }

@@ -76,7 +76,10 @@ class SyncsController extends Controller{
         $result = array();
 
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK){
-            $prefix             = $checkServerStatusArray['tablet_id'];
+            $prefix              = $checkServerStatusArray['tablet_id'];
+            $patient_prefix      = Utility::generatePatientPrefix($prefix);
+            $invoice_prefix      = Utility::generateInvoicePrefix($prefix);
+
             $user_id             = $checkServerStatusArray['user_id'];
 
             $inputParametersRaw = $checkServerStatusArray['data'];
@@ -105,9 +108,12 @@ class SyncsController extends Controller{
                 $tempTableArray['created_by'] = $v->created_by;
                 $tempTableArray['updated_by'] = $v->updated_by;
                 $tempTableArray['deleted_by'] = $v->deleted_by;
-                $tempTableArray['created_at'] = $v->created_at;
-                $tempTableArray['updated_at'] = $v->updated_at;
-                $tempTableArray['deleted_at'] = $v->deleted_at;
+//                $tempTableArray['created_at'] = $v->created_at;
+//                $tempTableArray['updated_at'] = $v->updated_at;
+//                $tempTableArray['deleted_at'] = $v->deleted_at;
+                $tempTableArray['created_at'] = (isset($v->created_at) && $v->created_at != "") ? $v->created_at:null;
+                $tempTableArray['updated_at'] = (isset($v->updated_at) && $v->updated_at != "") ? $v->updated_at:null;
+                $tempTableArray['deleted_at'] = (isset($v->deleted_at) && $v->deleted_at != "") ? $v->deleted_at:null;
                 array_push($syncsTbVersionArray,$tempTableArray);
 
             }
@@ -117,7 +123,6 @@ class SyncsController extends Controller{
             if(isset($syncsTables) && count($syncsTables)>0){
 
                 foreach($inputParameters as $kparam => $vparam) {
-
                     $serverTbVersion = $syncsTables[$kparam];
 
                     if(array_key_exists($kparam,$syncsTables )){
@@ -126,7 +131,9 @@ class SyncsController extends Controller{
 
                         if ($kparam == "schedules") {
                             if($user_id != ""){
-                                $tempObj = DB::select("SELECT * FROM $kparam WHERE `deleted_at` is null AND `status` NOT IN ('complete','cancel') AND schedules.leader_id = '$user_id'");
+//                                $tempObj = DB::select("SELECT * FROM $kparam WHERE `deleted_at` is null AND `status` NOT IN ('complete','cancel') AND `date` >= CURDATE() AND schedules.leader_id = '$user_id'");
+//                                $tempObj = DB::select("SELECT * FROM $kparam WHERE `deleted_at` is null AND `status` NOT IN ('cancel') AND `date` >= CURDATE() AND schedules.leader_id = '$user_id'");
+                                $tempObj = DB::select("SELECT * FROM $kparam WHERE `deleted_at` is null AND `status` NOT IN ('cancel') AND `date` >= DATE_ADD(CURDATE(), INTERVAL -1 DAY) AND schedules.leader_id = '$user_id'");
                             }
                             else{
                                 $tempObj = [];
@@ -135,7 +142,9 @@ class SyncsController extends Controller{
                         }
                         else if ($kparam == "schedule_detail") {
                             if($user_id != ""){
-                                $tempSchedules = DB::select("SELECT `id` FROM schedules WHERE `deleted_at` is null AND `status` NOT IN ('complete','cancel') AND schedules.leader_id = '$user_id'");
+//                                $tempSchedules = DB::select("SELECT `id` FROM schedules WHERE `deleted_at` is null AND `status` NOT IN ('complete','cancel') AND `date` >= CURDATE() AND schedules.leader_id = '$user_id'");
+//                                $tempSchedules = DB::select("SELECT `id` FROM schedules WHERE `deleted_at` is null AND `status` NOT IN ('cancel') AND `date` >= CURDATE() AND schedules.leader_id = '$user_id'");
+                                $tempSchedules = DB::select("SELECT `id` FROM schedules WHERE `deleted_at` is null AND `status` NOT IN ('cancel') AND `date` >= DATE_ADD(CURDATE(), INTERVAL -1 DAY) AND schedules.leader_id = '$user_id'");
                             }
                             else{
                                 $tempSchedules = [];
@@ -150,8 +159,63 @@ class SyncsController extends Controller{
                             $result[$kparam] = $tempObj;
                         }
                         else if($clientTbVersion < $serverTbVersion) {
-                            $tempObj = DB::select("SELECT * FROM " . $kparam);
-                            $result[$kparam] = $tempObj;
+                            if($kparam == "zone_detail"){
+                                $tempZones = DB::select("SELECT `id` FROM zones WHERE `deleted_at` is null");
+                                $tempZoneIdArr = array();
+                                foreach($tempZones as $tempZone){
+                                    array_push($tempZoneIdArr,$tempZone->id);
+                                }
+                                $tempObj = DB::select("SELECT zone_detail.* FROM zone_detail WHERE `zone_id` IN ( '" . implode($tempZoneIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "enquiry_detail"){
+                                $tempEnquiries = DB::select("SELECT `id` FROM enquiries WHERE `deleted_at` is null");
+                                $tempEnquiryIdArr = array();
+                                foreach($tempEnquiries as $tempEnquiry){
+                                    array_push($tempEnquiryIdArr,$tempEnquiry->id);
+                                }
+                                $tempObj = DB::select("SELECT enquiry_detail.* FROM enquiry_detail WHERE `enquiry_id` IN ( '" . implode($tempEnquiryIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "other_services_detail"){
+                                $tempOtherServices = DB::select("SELECT `id` FROM other_services WHERE `deleted_at` is null");
+                                $tempOtherServiceIdArr = array();
+                                foreach($tempOtherServices as $tempOtherService){
+                                    array_push($tempOtherServiceIdArr,$tempOtherService->id);
+                                }
+                                $tempObj = DB::select("SELECT other_services_detail.* FROM other_services_detail WHERE `other_services_id` IN ( '" . implode($tempOtherServiceIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "patient_allergy"){
+                                $tempPatients = DB::select("SELECT `user_id` FROM patients WHERE `deleted_at` is null");
+                                $tempPatientIdArr = array();
+                                foreach($tempPatients as $tempPatient){
+                                    array_push($tempPatientIdArr,$tempPatient->user_id);
+                                }
+                                $tempObj = DB::select("SELECT patient_allergy.* FROM patient_allergy WHERE `patient_id` IN ( '" . implode($tempPatientIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "patient_package_detail"){
+                                $tempPatientPackages = DB::select("SELECT `id` FROM patient_package WHERE `deleted_at` is null");
+                                $tempPatientPackageIdArr = array();
+                                foreach($tempPatientPackages as $tempPatientPackage){
+                                    array_push($tempPatientPackageIdArr,$tempPatientPackage->id);
+                                }
+                                $tempObj = DB::select("SELECT patient_package_detail.* FROM patient_package_detail WHERE `patient_package_id` IN ( '" . implode($tempPatientPackageIdArr, "', '") . "' )");
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "package_promotions"){
+                                $tempObj = DB::select("SELECT * FROM " . $kparam);
+                                $result[$kparam] = $tempObj;
+                            }
+                            else if($kparam == "transaction_promotions"){
+                                $tempObj = DB::select("SELECT * FROM " . $kparam);
+                                $result[$kparam] = $tempObj;
+                            }
+                            else{
+                                $tempObj = DB::select("SELECT * FROM " . $kparam." WHERE `deleted_at` is null");
+                                $result[$kparam] = $tempObj;
+                            }
                         }
                         else{
                             $result[$kparam] = array();
@@ -207,8 +271,10 @@ class SyncsController extends Controller{
                 $result['core_syncs_tables'] = $syncsTbVersionArray;
 
                 ///////////////////////////////////
-                $maxPatient                                 = Utility::getMaxKey($prefix,'patients','user_id');
-                $maxCoreUser                                = Utility::getMaxKey($prefix,'core_users','id');
+//                $maxPatient                                 = Utility::getMaxKey($prefix,'patients','user_id');
+                $maxPatient                                 = Utility::getMaxKey($patient_prefix,'patients','user_id');
+//                $maxCoreUser                                = Utility::getMaxKey($prefix,'core_users','id');
+                $maxCoreUser                                = Utility::getMaxKey($patient_prefix,'core_users','id');
                 $maxSchedule                                = Utility::getMaxKey($prefix,'schedules','id');
                 $maxEnquiry                                 = Utility::getMaxKey($prefix,'enquiries','id');
                 $maxPatientFamilyHistory                    = Utility::getMaxKey($prefix,'patient_family_history','id');
@@ -217,7 +283,8 @@ class SyncsController extends Controller{
                 $maxScheduleTreatmentHistory                = Utility::getMaxKey($prefix,'schedule_treatment_histories','id');
                 $maxProduct                                 = Utility::getMaxKey($prefix,'products','id');
                 $maxRoute                                   = Utility::getMaxKey($prefix,'route','id');
-                $maxInvoice                                 = Utility::getMaxKey($prefix,'invoices','id');
+                // $maxInvoice                                 = Utility::getMaxKey($prefix,'invoices','id');
+                $maxInvoice                                 = Utility::getMaxKey($invoice_prefix,'invoices','id');
                 $maxSchedulePhysiotherapyMusculo            = Utility::getMaxKey($prefix,'schedule_physiotherapy_musculo','id');
                 $maxSchedulePhysiotherapyNeuro              = Utility::getMaxKey($prefix,'schedule_physiotherapy_neuro','id');
                 $maxSchedulePatientVitals                   = Utility::getMaxKey($prefix,'schedule_patient_vitals','id');
@@ -231,6 +298,7 @@ class SyncsController extends Controller{
                 $maxPatientPackage                          = Utility::getMaxKey($prefix,'patient_package','id');
                 $maxSchedulePatientChiefComplaint           = Utility::getMaxKey($prefix,'schedule_patient_chief_complaint','id');
                 $maxLogPatientCaseSummary                   = Utility::getMaxKey($prefix,'log_patient_case_summary','id');
+                $maxOtherServices                           = Utility::getMaxKey($prefix,'other_services','id');
 
                 $maxKey = array();
 
@@ -282,6 +350,8 @@ class SyncsController extends Controller{
                 $maxKey[22]['max_key_id'] = $maxSchedulePatientChiefComplaint;
                 $maxKey[23]['table_name'] = "log_patient_case_summary";
                 $maxKey[23]['max_key_id'] = $maxLogPatientCaseSummary;
+                $maxKey[24]['table_name'] = "other_services";
+                $maxKey[24]['max_key_id'] = $maxOtherServices;
 
                 ////////////////////////////////////
 
@@ -298,7 +368,7 @@ class SyncsController extends Controller{
 
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
             $returnedObj['aceplusStatusMessage'] = "There is no tables to syncs down!";
-            $returnedObj['data'] = "";
+            $returnedObj['data'] = (object) array();
             return \Response::json($returnedObj);
         }
         else{

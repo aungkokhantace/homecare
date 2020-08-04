@@ -114,17 +114,23 @@ class PatientCaseController extends Controller
 
             $registrationDate = Carbon::parse($patient->created_at)->format('d-m-Y');
 
-            $patient_allergies = "";
+            $patient_allergies = "No";
 
             foreach($patient['allergies']['food'] as $allergy){
                 if($allergy->selected == 1){
-                    $patient_allergies .= "[Food] - ". $allergy->name.'<br/>';
+                    $patient_allergies = "[Food] - ". $allergy->name.'<br/>';
                 }
             }
 
             foreach($patient['allergies']['drug'] as $allergy){
                 if($allergy->selected == 1){
-                    $patient_allergies .= "[Drug] - ". $allergy->name.'<br/>';
+                    $patient_allergies = "[Drug] - ". $allergy->name.'<br/>';
+                }
+            }
+
+            foreach($patient['allergies']['environment'] as $allergy){
+                if($allergy->selected == 1){
+                    $patient_allergies = "[Environment] - ". $allergy->name.'<br/>';
                 }
             }
 
@@ -142,7 +148,7 @@ class PatientCaseController extends Controller
                             <tr>
                                 <td height="20" width="20%">Age/Gender</td>
                                 <td height="20" width="5%">-</td>
-                                <td height="20" width="25%">'.$age.'/'.$patient_gender.'</td>
+                                <td height="20" width="25%">'.$age['value'].' '.$age['unit'].'/'.$patient_gender.'</td>
                                 <td height="20" width="20%">Patient Type</td>
                                 <td height="20" width="5%">-</td>
                                 <td height="20" width="25%">'.$patient_type.'</td>

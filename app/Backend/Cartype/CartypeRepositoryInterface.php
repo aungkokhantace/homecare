@@ -17,4 +17,5 @@ interface CartypeRepositoryInterface
     public function delete($id);
     public function getArraysByOrder();
     public function getCarTypeName($car_type_id);
+    public function checkToDelete($id);
 }

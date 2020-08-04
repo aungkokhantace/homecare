@@ -49,6 +49,7 @@ class ActivitiesController extends Controller
                     $logArray[$logDate] = $activities;
                 }
             }
+            krsort($logArray); //sort log array by date in descending order
             return view('log.activities')->with('logArray',$logArray);
         }
         return redirect('/');

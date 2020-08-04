@@ -44,4 +44,6 @@ class ReturnMessage {
     const GATEWAY_TIMEOUT = 504;
     const VERSION_NOT_SUPPORTED = 505;
 
+    const SKIPPED = 600;
+
 }

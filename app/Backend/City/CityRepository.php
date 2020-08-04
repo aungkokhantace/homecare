@@ -109,4 +109,8 @@ class CityRepository implements CityRepositoryInterface
         return $role;
     }
 
+    public function checkToDelete($id){
+        $result = DB::select("SELECT * FROM townships WHERE city_id = $id AND deleted_at IS NULL");
+        return $result;
+    }
 }

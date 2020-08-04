@@ -32,7 +32,7 @@
             filter: alpha(opacity=0);
         }
     </style>
-    <h1 class="page-header">{{ 'Price History' }}</h1>
+    <h1 class="page-header">{{ 'Single Price History' }}</h1>
     @if(count(Session::get('message')) != 0)
         <div>
         </div>
@@ -54,8 +54,9 @@
                 <option value="packages" @if($type == 'packages') selected @endif>Packages</option>
                 <option value="products" @if($type == 'products') selected @endif>Products</option>
                 <option value="car_type_setup" @if($type == 'car_type_setup') selected @endif>Car Type Setup</option>
-                <option value="investigations" @if($type == 'investigations') selected @endif>Investigations</option>
+                {{--<option value="investigations" @if($type == 'investigations') selected @endif>Investigations</option>--}}
                 <option value="investigations_imaging" @if($type == 'investigations_imaging') selected @endif>Investigations Imaging</option>
+                <option value="package_promotions" @if($type == 'package_promotions') selected @endif>Package Promotions</option>
 
             </select>
             <p class="text-danger">{{$errors->first('table_name')}}</p>
@@ -97,7 +98,7 @@
                         <th class="search-col" con-id="table_id">Type Name</th>
                         <th class="search-col" con-id="old_price">Old Price</th>
                         <th class="search-col" con-id="new_price">New Price</th>
-                        <th class="search-col" con-id="action">Actiion</th>
+                        <th class="search-col" con-id="action">Action</th>
                         <th class="search-col" con-id="created_by">Created by</th>
                         <th class="search-col" con-id="created_at">Created at</th>
                     </tr>
@@ -137,15 +138,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

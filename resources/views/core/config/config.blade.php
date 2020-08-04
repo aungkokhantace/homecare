@@ -23,6 +23,7 @@
         </div>
     </div>
 
+    @if(Auth::guard('User')->user()->role_id == '1')
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="SETTING_SITE_ACTIVATION_KEY" class="text_bold_black">Site Activation Key</label>
@@ -30,6 +31,57 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             <input type="text" required class="form-control" id="SETTING_SITE_ACTIVATION_KEY" name="SETTING_SITE_ACTIVATION_KEY" placeholder="Enter Site Activation Key" value="{{ isset($configs)? $configs['SETTING_SITE_ACTIVATION_KEY']:Request::old('SETTING_SITE_ACTIVATION_KEY') }}"/>
             <p class="text-danger">{{$errors->first('SETTING_SITE_ACTIVATION_KEY')}}</p>
+        </div>
+    </div>
+    @endif
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="TAX_RATE" class="text_bold_black">Tax Percent</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <input type="text" required class="form-control" id="TAX_RATE" name="TAX_RATE" placeholder="Enter Company Name" value="{{ isset($configs)? $configs['TAX_RATE']:Request::old('TAX_RATE') }}"/>
+            <p class="text-danger" id="error_lbl_TAX_RATE">{{$errors->first('TAX_RATE')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="MAX_DISCOUNT_TIME" class="text_bold_black">Maximum Package Discount Time</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <input type="text" required class="form-control" id="MAX_DISCOUNT_TIME" name="MAX_DISCOUNT_TIME" placeholder="Enter Company Name" value="{{ isset($configs)? $configs['MAX_DISCOUNT_TIME']:Request::old('MAX_DISCOUNT_TIME') }}"/>
+            <p class="text-danger" id="error_lbl_MAX_DISCOUNT_TIME">{{$errors->first('MAX_DISCOUNT_TIME')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="SETTING_ADDRESS" class="text_bold_black">Hospital Address</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <textarea autocomplete="off" class="form-control" id="SETTING_ADDRESS" name="SETTING_ADDRESS" placeholder="Enter Hospital Address" rows="5" cols="50">{{ isset($configs)? $configs['SETTING_ADDRESS']:Request::old('SETTING_ADDRESS') }}</textarea>
+            <p class="text-danger" id="error_SETTING_ADDRESS">{{$errors->first('SETTING_ADDRESS')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="SETTING_CONTACT_PHONE" class="text_bold_black">Hospital Phone</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <textarea autocomplete="off" class="form-control" id="SETTING_CONTACT_PHONE" name="SETTING_CONTACT_PHONE" placeholder="Enter Hospital Contact Phone" rows="5" cols="50">{{ isset($configs)? $configs['SETTING_CONTACT_PHONE']:Request::old('SETTING_CONTACT_PHONE') }}</textarea>
+            <p class="text-danger" id="error_SETTING_CONTACT_PHONE">{{$errors->first('SETTING_CONTACT_PHONE')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="SETTING_CONTACT_EMAIL" class="text_bold_black">Hospital Email</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <textarea autocomplete="off" class="form-control" id="SETTING_CONTACT_EMAIL" name="SETTING_CONTACT_EMAIL" placeholder="Enter Hospital Contact Email" rows="5" cols="50">{{ isset($configs)? $configs['SETTING_CONTACT_EMAIL']:Request::old('SETTING_CONTACT_EMAIL') }}</textarea>
+            <p class="text-danger" id="error_SETTING_CONTACT_EMAIL">{{$errors->first('SETTING_CONTACT_EMAIL')}}</p>
         </div>
     </div>
 
@@ -189,10 +241,19 @@
         //Start Validation for Config Form
         $('#configForm').validate({
             rules: {
-                SETTING_COMPANY_NAME         : 'required'
+                SETTING_COMPANY_NAME         : 'required',
+                TAX_RATE: {
+                    required: false,
+                    digits: true,
+                    max: 100
+                }
             },
             messages: {
-                SETTING_COMPANY_NAME         : 'Company Name is required'
+                SETTING_COMPANY_NAME         : 'Company Name is required',
+                TAX_RATE   : {
+                    digits      : "Tax Rate must be number only !",
+                    max         : "Tax Rate maximum is 100 !"
+                },
             }
         });
         //End Validation for Config Form
@@ -237,11 +298,11 @@
     });
 
     function saveConfig(action) {
-        var rate = $("#SETTING_TAXRATE").val();
-        $("#error_lbl_SETTING_TAXRATE").text("");
+        var rate = $("#TAX_RATE").val();
+        $("#error_lbl_TAX_RATE").text("");
         var errorCount = 0;
         if(isNaN(rate)){
-            $("#error_lbl_SETTING_TAXRATE").text("Invalid Tax Rate !. It allow Number only !");
+            $("#error_lbl_TAX_RATE").text("Invalid Tax Rate !. It allow Number only !");
             errorCount++;
         }
 
@@ -249,7 +310,7 @@
             return;
         }
         else{
-            $("#backend_posconfigs").submit();
+            $("#configForm").submit();
         }
     }
 

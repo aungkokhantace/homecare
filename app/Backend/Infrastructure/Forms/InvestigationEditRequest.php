@@ -24,18 +24,27 @@ class InvestigationEditRequest extends Request
     public function rules()
     {
         return [
-            "name" =>"required",
-            "group_name" =>"required",
-            "price" =>"required|numeric"
+            "service_name" =>"required",
+            "routine_request" =>"required|numeric",
+            "urgent_request" =>"required|numeric",
+            "routine_price" =>"required|numeric",
+            "urgent_price" =>"required|numeric",
+            "description" =>"required",
         ];
     }
 
     public function messages(){
         return [
-            "name.required" => "Investigation Name is required",
-            "group_name.required" => "Group Name is required",
-            "price.required" => "Investigation Price is required",
-            "price.numeric" => "Investigation Price must be numeric"
+            "service_name.required" => "Service Name is required",
+            "routine_request.required" => "Routine Request is required",
+            "routine_request.numeric" => "Routine Request must be numeric",
+            "urgent_request.required" => "Urgent Request is required",
+            "urgent_request.numeric" => "Urgent Request must be numeric",
+            "routine_price.required" => "Routine Price is required",
+            "routine_price.numeric" => "Routine Price must be numeric",
+            "urgent_price.required" => "Urgent Price is required",
+            "urgent_price.numeric" => "Urgent Price must be numeric",
+
         ];
     }
 }

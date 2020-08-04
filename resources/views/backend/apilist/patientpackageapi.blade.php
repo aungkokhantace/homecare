@@ -8,7 +8,7 @@
 ?>
 
 @extends('layouts.master')
-@section('title','Sync Down API Detail')
+@section('title','Patient Package API Detail')
 @section('content')
 
         <!-- begin #content -->
@@ -22,12 +22,14 @@
             <li><a href="/apilist/scheduleapi" class="api-tab">Schedule API</a></li>
             <li class="active"><a href="#" class="api-active-tab">Patient Package API</a></li>
             <li><a href="/apilist/waytrackingapi" class="api-tab">Way Tracking API</a></li>
+            <li><a href="/apilist/patientapi" class="api-tab">Patient API</a></li>
+            <li><a href="/apilist/companyinformationapi" class="api-tab">Company Information API</a></li>
         </ul>
     </div>
 
     <div class="row">
         <h4>URL</h4>
-        <p>http://localhost:8000/api/patient_package/upload</p>
+        <p><b>http://localhost:8000/api/patient_package/upload</b></p>
     </div>
     <hr>
     <div class="row">
@@ -156,6 +158,10 @@
             {
               "table_name": "patient_package",
               "max_key_id": 0
+            },
+            {
+                "table_name": "transaction_promotions",
+                "max_key_id": 0
             }
           ],
           "data": [
@@ -181,7 +187,31 @@
 
                   ]
                 }
-              ]
+              ],
+            "transaction_promotions": [
+                {
+                    "id": "U0011",
+                    "promotion_code": "U001_20170920140155_1",
+                    "reference_type": "package_sale",
+                    "reference_id": "U0012",
+                    "package_id": 2,
+                    "used": 0,
+                    "promo_group_code": "U001_20170920140155_1",
+                    "promo_group_code_order": 1,
+                    "remark": ""
+                },
+                {
+                    "id": "U0012",
+                    "promotion_code": "U001_20170920140458_2",
+                    "reference_type": "package_sale",
+                    "reference_id": "U0013",
+                    "package_id": 2,
+                    "used": 0,
+                    "promo_group_code": "U001_20170920140458_2",
+                    "promo_group_code_order": 1,
+                    "remark": ""
+                }
+            ]
             }
           ]
         }

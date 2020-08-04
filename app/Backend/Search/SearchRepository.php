@@ -47,7 +47,7 @@ class SearchRepository implements  SearchRepositoryInterface
                 }
             }
 
-            $results[] = [ 'id' => $patient->user_id, 'value' => $patient->name, 'nrc_no' => $patient->nrc_no, 'phone_no' => $patient->phone_no, 'patient_type_id' => $patient->patient_type_id, 'dob' => $patient->dob, 'patient_id' => $patient->user_id, 'gender' => $patient->gender, 'allergies' => $patientAllergies, 'packages' => $packages, 'staff_id' => $patient->user_id, 'having_allergy' => $patient->having_allergy ];
+            $results[] = [ 'id' => $patient->user_id, 'value' => $patient->name, 'nrc_no' => $patient->nrc_no, 'phone_no' => $patient->phone_no, 'patient_type_id' => $patient->patient_type_id, 'dob' => $patient->dob, 'address' => $patient->address, 'patient_id' => $patient->user_id, 'gender' => $patient->gender, 'allergies' => $patientAllergies, 'packages' => $packages, 'staff_id' => $patient->user_id, 'having_allergy' => $patient->having_allergy ];
         }
         return $results;
     }

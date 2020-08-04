@@ -39,7 +39,7 @@
         </div>
     </div>
     <br>
-
+    
     {{--Start Datepicker--}}
     <div class="row days" style="display:none;">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -163,6 +163,18 @@
         $(document).ready(function() {
 
             var chartData = <?php echo json_encode($chartData) ?>;
+            var date_type = document.getElementById('type').value;
+            var date_format;
+            if(date_type == "daily"){
+                date_format = "DD-MM-YYYY";
+            }
+            else if(date_type == "monthly"){
+                date_format = "MM-YYYY";
+            }
+            else{
+                date_format = "YYYY";
+            }
+            console.log('dateformat',date_format);
             var chart = AmCharts.makeChart("linechartdiv", {
                 "type": "serial",
                 "theme": "light",
@@ -170,7 +182,7 @@
                 "marginLeft": 40,
                 "autoMarginOffset": 20,
                 "mouseWheelZoomEnabled":true,
-                "dataDateFormat": "DD-MM-YYYY",
+                "dataDateFormat": date_format,
                 "valueAxes": [{
                     "id": "v1",
                     "axisAlpha": 0,

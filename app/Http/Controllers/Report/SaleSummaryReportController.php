@@ -55,6 +55,22 @@ class SaleSummaryReportController extends Controller
             $invoiceHeader = $this->repo->getInvoiceHeader($from_date, $to_date);
             $invoiceDetail = $this->repo->getInvoiceDetail();
 
+            //get patient age using invoice_id
+            $invoiceRepo = new InvoiceRepository();
+            foreach($invoiceHeader as $invoiceHead){
+                $invoice_id     = $invoiceHead->id;
+                $invoiceRaw     = $invoiceRepo->getObjByID($invoice_id);
+                $invoice        = $invoiceRaw["result"];
+
+                $patient_dob    = $invoice->patient->dob;
+                //calculate age from patient dob
+                $patient_age_raw= Utility::calculateAge($patient_dob);
+                $patient_age    = $patient_age_raw["value"]." ".$patient_age_raw["unit"];
+
+                //bind age to invoice obj
+                $invoiceHead->age = $patient_age;
+            }
+
             $saleSummary = array();
             if(isset($invoiceHeader) && count($invoiceHeader)>0){
                 foreach($invoiceHeader as $header){
@@ -69,14 +85,12 @@ class SaleSummaryReportController extends Controller
                     }
                 }
             }
-
             $grandTotal = 0;
             foreach($saleSummary as $sale){
                 $grandTotal += $sale->amount;   //calculating Grand Total
             }
 
             $grandTotal = number_format ($grandTotal, 2); // decimal format
-
 
             foreach($saleSummary as $summary){
                 $summary->date = Carbon::parse($summary->date)->format('d-m-Y'); //changing date format to show in view
@@ -130,17 +144,31 @@ class SaleSummaryReportController extends Controller
             $invoiceHeader = $this->repo->getInvoiceHeader($from_date, $to_date);
             $invoiceDetail = $this->repo->getInvoiceDetail();
 
+            //get patient age using invoice_id
+            $invoiceRepo = new InvoiceRepository();
+            foreach($invoiceHeader as $invoiceHead){
+                $invoice_id     = $invoiceHead->id;
+                $invoiceRaw     = $invoiceRepo->getObjByID($invoice_id);
+                $invoice        = $invoiceRaw["result"];
+
+                $patient_dob    = $invoice->patient->dob;
+                //calculate age from patient dob
+                $patient_age_raw= Utility::calculateAge($patient_dob);
+                $patient_age    = $patient_age_raw["value"]." ".$patient_age_raw["unit"];
+
+                //bind age to invoice obj
+                $invoiceHead->age = $patient_age;
+            }
+
             $saleSummary = array();
             if(isset($invoiceHeader) && count($invoiceHeader)>0){
                 foreach($invoiceHeader as $header){
+                    $saleSummary[$header->id] = $header;
+                    $saleSummary[$header->id]->car_type = null;
                     if(isset($invoiceDetail) && count($invoiceDetail)>0){
                         foreach($invoiceDetail as $detail){
-                            $saleSummary[$header->id] = $header;
                             if($header->id == $detail->invoice_id){
                                 $saleSummary[$header->id]->car_type = $detail->car_type;
-                            }
-                            else{
-                                $saleSummary[$header->id]->car_type = null;
                             }
                         }
                     }
@@ -209,18 +237,35 @@ class SaleSummaryReportController extends Controller
             $invoiceHeader = $this->repo->getInvoiceHeader($from_date, $to_date);
             $invoiceDetail = $this->repo->getInvoiceDetail();
 
+            //get patient age using invoice_id
+            $invoiceRepo = new InvoiceRepository();
+            foreach($invoiceHeader as $invoiceHead){
+                $invoice_id     = $invoiceHead->id;
+                $invoiceRaw     = $invoiceRepo->getObjByID($invoice_id);
+                $invoice        = $invoiceRaw["result"];
+
+                $patient_dob    = $invoice->patient->dob;
+                //calculate age from patient dob
+                $patient_age_raw= Utility::calculateAge($patient_dob);
+                $patient_age    = $patient_age_raw["value"]." ".$patient_age_raw["unit"];
+
+                //bind age to invoice obj
+                $invoiceHead->age = $patient_age;
+            }
+
             $saleSummary = array();
             if(isset($invoiceHeader) && count($invoiceHeader)>0){
                 foreach($invoiceHeader as $header){
+                    $saleSummary[$header->id] = $header;
+                    $saleSummary[$header->id]->car_type = null;
                     if(isset($invoiceDetail) && count($invoiceDetail)>0){
                         foreach($invoiceDetail as $detail){
-                            $saleSummary[$header->id] = $header;
                             if($header->id == $detail->invoice_id){
                                 $saleSummary[$header->id]->car_type = $detail->car_type;
                             }
-                            else{
-                                $saleSummary[$header->id]->car_type = null;
-                            }
+//                            else{
+//                                $saleSummary[$header->id]->car_type = null;
+//                            }
                         }
                     }
                 }
@@ -247,6 +292,7 @@ class SaleSummaryReportController extends Controller
                         $count++;
                         $displayArray[$value->id]["InvoiceID"] = $value->id;
                         $displayArray[$value->id]["Patient Name"] = $value->patient;
+                        $displayArray[$value->id]["Patient Age"] = $value->age;
                         $displayArray[$value->id]["Township"] = $value->township;
 
                         $carType = $value->car_type;
@@ -280,7 +326,7 @@ class SaleSummaryReportController extends Controller
                     }
                     else{
                         $count = $count +2;
-                        $sheet->cells('A1:F1', function($cells) {
+                        $sheet->cells('A1:G1', function($cells) {
                             $cells->setBackground('#1976d3');
                             $cells->setFontSize(13);
                         });
@@ -288,9 +334,9 @@ class SaleSummaryReportController extends Controller
                         $sheet->fromArray($displayArray);
 
                         $sheet->appendRow(array(
-                            'Grand Total','', '','','',$grandTotal
+                            'Grand Total','', '','','','',$grandTotal
                         ));
-                        $sheet->cells('A'.$count.':F'.$count, function($cells) {
+                        $sheet->cells('A'.$count.':G'.$count, function($cells) {
                             $cells->setBackground('#1976d3');
                             $cells->setFontSize(13);
                         });
@@ -358,12 +404,13 @@ class SaleSummaryReportController extends Controller
                         //for investigation_id
                         foreach($scheduleInvestigations as $scheduleInvestigation){
                             if($scheduleInvestigation->investigation_id != 0){
-                                $investigations = $invoiceRepo->getInvestigations($scheduleInvestigation->investigation_id);
+//                                $investigations = $invoiceRepo->getInvestigations($scheduleInvestigation->investigation_id);
+                                $investigationLabs = $invoiceRepo->getInvestigationLabs($scheduleInvestigation->investigation_id);
 
-                                if(isset($investigations) && count($investigations)>0){
-                                    foreach($investigations as $investigate){
-                                        $investigationArray[$investigationCounter]['name']= $investigate->name;
-                                        $investigationArray[$investigationCounter]['price']= $investigate->price;
+                                if(isset($investigationLabs) && count($investigationLabs)>0){
+                                    foreach($investigationLabs as $investigate){
+                                        $investigationArray[$investigationCounter]['name']= $investigate->service_name;
+                                        $investigationArray[$investigationCounter]['price']= $scheduleInvestigation->investigation_labs_price;
                                         $investigationCounter++;
                                     }
                                 }
@@ -462,6 +509,7 @@ class SaleSummaryReportController extends Controller
                     $expiryDate = strtotime(date("Y-m-d", strtotime($createdDate)) . " +" . $monthToAdd . "month");
                     $expiryDate = date("Y-m-d", $expiryDate);
                     //invoice type is "package", with expiry date
+
                     return view('report.invoicedetail')
                         ->with('invoice',$invoice)
                         ->with('invoiceDetails',$invoiceDetails)
@@ -471,6 +519,19 @@ class SaleSummaryReportController extends Controller
                         ->with('expiryDate',$expiryDate);
                 }
 
+                // start medication procedures
+                $treatmentProcedureArray = array();
+                $treatmentProcedureCounter = 0;
+                //to create medication procedure array
+                foreach($invoiceDetails as $invoiceDetail){
+                    if($invoiceDetail->type == "treatment"){
+                        $treatmentProcedureArray[$treatmentProcedureCounter]['name'] = $invoiceDetail->product->product_name;
+                        $treatmentProcedureArray[$treatmentProcedureCounter]['price'] = $invoiceDetail->product_amount;
+                        $treatmentProcedureCounter++;
+                    }
+                }
+                // end medication procedures
+
                 //invoice type is "invoice", without expiry date
                 return view('report.invoicedetail')
                     ->with('invoice',$invoice)
@@ -479,7 +540,8 @@ class SaleSummaryReportController extends Controller
                     ->with('age',$age)
                     ->with('patient_gender',$patient_gender)
                     ->with('investigationArray',$investigationArray)
-                    ->with('medicationArray',$medicationArray);
+                    ->with('medicationArray',$medicationArray)
+                    ->with('treatmentProcedureArray',$treatmentProcedureArray);
 
             }
             else{
@@ -526,17 +588,17 @@ class SaleSummaryReportController extends Controller
 
                     $patientData = '<table class="table" style="word-wrap: break-word; table-layout: fixed; font-size:9px;">
                             <tr>
-                                <td height="20" width="20%">Name</td>
+                                <td height="20" width="20%">Name / Reg No.</td>
                                 <td height="20" width="5%">-</td>
-                                <td height="20" width="25%">'.$invoice->patient->name.'</td>
+                                <td height="20" width="25%">'.$invoice->patient->name.' / '.$invoice->patient->user_id.'</td>
                                 <td height="20" width="20%">Voucher No.</td>
                                 <td height="20" width="5%">-</td>
                                 <td height="20" width="25%">'.$invoice->id.'</td>
                             </tr>
                             <tr>
-                                <td height="20" width="20%">Age/Sex</td>
+                                <td height="20" width="20%">DOB(Age) / Sex</td>
                                 <td height="20" width="5%">-</td>
-                                <td height="20" width="25%">'.$age.'/'.$patient_gender.'</td>
+                                <td height="20" width="25%">'.$invoice->patient->dob.'('.$age['value'].' '.$age['unit'].') / '.$patient_gender.'</td>
                                 <td height="20" width="20%">Date</td>
                                 <td height="20" width="5%">-</td>
                                 <td height="20" width="25%">'.$invoice->created_at->format("d-m-Y").'</td>
@@ -573,6 +635,12 @@ class SaleSummaryReportController extends Controller
                                     <td height="20">' . $expiryDate . '</td>
                                     <td height="20">' . $invoice->package->price . '</td>
                                 </tr>
+                                <tr>
+                                    <td height="20">2</td>
+                                    <td height="20">' . 'Transportation Price' . '</td>
+                                    <td height="20">' . '-' . '</td>
+                                    <td height="20">' . number_format($invoice->total_car_amount,2) . '</td>
+                                </tr>
                             </table>
                             <hr>';
                     }
@@ -605,12 +673,13 @@ class SaleSummaryReportController extends Controller
                                 //for investigation_id
                                 foreach($scheduleInvestigations as $scheduleInvestigation){
                                     if($scheduleInvestigation->investigation_id != 0){
-                                        $investigations = $invoiceRepo->getInvestigations($scheduleInvestigation->investigation_id);
+//                                        $investigations = $invoiceRepo->getInvestigations($scheduleInvestigation->investigation_id);
+                                        $investigationLabs = $invoiceRepo->getInvestigationLabs($scheduleInvestigation->investigation_id);
 
-                                        if(isset($investigations) && count($investigations)>0){
-                                            foreach($investigations as $investigate){
-                                                $investigationArray[$investigationCounter]['name']= $investigate->name;
-                                                $investigationArray[$investigationCounter]['price']= $investigate->price;
+                                        if(isset($investigationLabs) && count($investigationLabs)>0){
+                                            foreach($investigationLabs as $investigate){
+                                                $investigationArray[$investigationCounter]['name']= $investigate->service_name;
+                                                $investigationArray[$investigationCounter]['price']= $scheduleInvestigation->investigation_labs_price;
                                                 $investigationCounter++;
                                             }
                                         }
@@ -703,6 +772,19 @@ class SaleSummaryReportController extends Controller
                             }
                         }
 
+                        // start medication procedures
+                        $treatmentProcedureArray = array();
+                        $treatmentProcedureCounter = 0;
+                        //to create medication procedure array
+                        foreach($invoiceDetails as $invoiceDetail){
+                            if($invoiceDetail->type == "treatment"){
+                                $treatmentProcedureArray[$treatmentProcedureCounter]['name'] = $invoiceDetail->product->product_name;
+                                $treatmentProcedureArray[$treatmentProcedureCounter]['price'] = $invoiceDetail->product_amount;
+                                $treatmentProcedureCounter++;
+                            }
+                        }
+                        // end medication procedures
+
                         $saleData = '<table style="font-size:9px; word-wrap: break-word; table-layout: fixed;">
                                         <tr bgcolor="#cccccc">
                                             <th height="15" width="10%">Item</th>
@@ -712,15 +794,15 @@ class SaleSummaryReportController extends Controller
                                         <tr>
                                             <td height="20">1</td>
                                             <td height="20">Service Charges</td>
-                                            <td height="20" align="right">'.$invoice->total_service_amount.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_service_amount,2).'</td>
                                         </tr>
                                         <tr>
                                             <td height="20">2</td>
                                             <td height="20">Consulation Fees</td>
-                                            <td height="20" align="right">'.$invoice->total_consultant_fee.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_consultant_fee,2).'</td>
                                         </tr>
                                         <tr>
-                                            <td height="30">3</td>
+                                            <td height="30" rowspan="2">3</td>
                                             <td height="30">Medications
                                             <hr><br>';
                                                 $saleData.='<table style="font-size:9px; word-wrap: break-word; table-layout: fixed;">';
@@ -735,7 +817,21 @@ class SaleSummaryReportController extends Controller
                                                 $saleData.='</table><br>';
 
                                             $saleData.='</td>
-                                            <td height="20" align="right">'.$invoice->total_medication_amount.'</td>
+                                            <td height="20" align="right" rowspan="2">'.number_format($invoice->total_medication_amount,2).'</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="30">Treatment (Procedure)
+                                            <hr><br>';
+                                                $saleData.='<table style="font-size:9px; word-wrap: break-word; table-layout: fixed;">';
+                                                    foreach($treatmentProcedureArray as $treatmentProcedure){
+                                                        $saleData .= '<tr height="30">';
+                                                        $saleData .= '<td>'. $treatmentProcedure['name'] .'</td>';
+                                                        $saleData .= '<td>'. $treatmentProcedure['price'] .'</td>';
+                                                        $saleData .= '</tr><hr>';
+                                                    }
+                                                $saleData.='</table><br>';
+
+                                            $saleData.='</td>
                                         </tr>
                                          <tr>
                                             <td height="30">4</td>
@@ -751,17 +847,17 @@ class SaleSummaryReportController extends Controller
                                                 $saleData.='</table><br>';
 
                                             $saleData.='</td>
-                                            <td height="30" align="right">'.$invoice->total_investigation_amount.'</td>
+                                            <td height="30" align="right">'.number_format($invoice->total_investigation_amount,2).'</td>
                                         </tr>';
                                     $saleData.='<tr>
                                                     <td height="20" width="10%">5</td>
                                                     <td height="20" width="65%">Transportation Charges</td>
-                                                    <td height="20" align="right" width="25%">'.$invoice->total_car_amount.'</td>
+                                                    <td height="20" align="right" width="25%">'.number_format($invoice->total_car_amount,2).'</td>
                                                 </tr>
                                                 <tr>
                                                     <td height="20" width="10%">6</td>
                                                     <td height="20" width="65%">Others</td>
-                                                    <td height="20" width="25%" align="right">'.$invoice->total_other_service_amount.'</td>
+                                                    <td height="20" width="25%" align="right">'.number_format($invoice->total_other_service_amount,2).'</td>
                                                 </tr>
                                                 <tr>
                                                     <td height="20" width="10%">7</td>
@@ -786,26 +882,32 @@ class SaleSummaryReportController extends Controller
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Total</td>
-                                    <td height="20" align="right">'.$invoice->total_nett_amt_wo_disc.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_nett_amt_wo_disc,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Discount</td>
-                                    <td height="20" align="right">'.$invoice->total_disc_amt.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_disc_amt,2).'</td>
+                                </tr>
+                                <tr>
+                                    <td height="20"></td>
+                                    <td height="20"></td>
+                                    <td height="20">Tax Amount</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_tax_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Grand Total</td>
-                                    <td height="20" align="right">'.$invoice->total_payable_amt.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_payable_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20">Remark</td>
                                     <td height="20">'.$invoice->packagesale->remark.'</td>
                                 </tr>
                             </table>
-                            <hr><br>';
+                            <br>';
                     }
                     //type is invoice
                     else{
@@ -820,56 +922,63 @@ class SaleSummaryReportController extends Controller
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Total</td>
-                                    <td height="20" align="right">'.$invoice->total_nett_amt_wo_disc.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_nett_amt_wo_disc,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Discount</td>
-                                    <td height="20" align="right">'.$invoice->total_disc_amt.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_disc_amt,2).'</td>
+                                </tr>
+                                <tr>
+                                    <td height="20"></td>
+                                    <td height="20"></td>
+                                    <td height="20">Tax Amount</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_tax_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Grand Total</td>
-                                    <td height="20" align="right">'.$invoice->total_payable_amt.'</td>
+                                    <td height="20" align="right">'.number_format($invoice->total_payable_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20">Remark</td>
                                     <td height="20">'.$invoice->status.'</td>
                                 </tr>
                             </table>
-                            <hr><br>';
+                            <br>';
                     }
 
-                    $detailData = '<hr><br><br><table border="1" style="font-size:9px; word-wrap: break-word; table-layout: fixed;">
-                            <thead>
-                            <tr height="30">
-                                <th>Type</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th>Discount Amount</th>
-                                <th>Total Amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>';
-
-                    foreach($invoiceDetails as $invoiceDetail){
-                        $detailData .= '<tr height="30">';
-                        $detailData .= '<td> '. $invoiceDetail->type .'</td>';
-                        $detailData .= '<td>'. $invoiceDetail->product_qty .'</td>';
-                        $detailData .= '<td>'. $invoiceDetail->product_price .'</td>';
-                        $detailData .= '<td>'. $invoiceDetail->consultant_discount_amount .'</td>';
-                        $detailData .= '<td>'. $invoiceDetail->product_amount .'</td>';
-                        $detailData .= '</tr>';
-                    }
-
-                    $detailData .= '</tbody>
-                                </table>';
+//                    $detailData = '<hr><br><br><table border="1" style="font-size:9px; word-wrap: break-word; table-layout: fixed;">
+//                            <thead>
+//                            <tr height="30">
+//                                <th>Type</th>
+//                                <th>Qty</th>
+//                                <th>Price</th>
+//                                <th>Discount Amount</th>
+//                                <th>Total Amount</th>
+//                            </tr>
+//                            </thead>
+//                            <tbody>';
+//
+//                    foreach($invoiceDetails as $invoiceDetail){
+//                        $detailData .= '<tr height="30">';
+//                        $detailData .= '<td> '. $invoiceDetail->type .'</td>';
+//                        $detailData .= '<td>'. $invoiceDetail->product_qty .'</td>';
+//                        $detailData .= '<td>'. $invoiceDetail->product_price .'</td>';
+//                        $detailData .= '<td>'. $invoiceDetail->consultant_discount_amount .'</td>';
+//                        $detailData .= '<td>'. $invoiceDetail->product_amount .'</td>';
+//                        $detailData .= '</tr>';
+//                    }
+//
+//                    $detailData .= '</tbody>
+//                                </table>';
 
                     $signature = Utility::getSignature();
 
-                    $html = $pdfHeader.$patientData.'<br>'.$saleData.'<br>'.$summaryData.'<hr>'.$detailData.$signature;
+//                    $html = $pdfHeader.$patientData.'<br>'.$saleData.'<br>'.$summaryData.'<hr>'.$detailData.$signature;
+                    $html = $pdfHeader.$patientData.'<br>'.$saleData.'<br>'.$summaryData.$signature;
                 }
                 else{
                     $pdfHeader = Utility::getPDFHeader().'<br>'.'<br>';
@@ -886,7 +995,7 @@ class SaleSummaryReportController extends Controller
                             <tr>
                                 <td height="20" width="20%">Age/Sex</td>
                                 <td height="20" width="5%">-</td>
-                                <td height="20" width="25%">'.$age.'/'.$patient_gender.'</td>
+                                <td height="20" width="25%">'.$age['value'].' '.$age['unit'].'/'.$patient_gender.'</td>
                                 <td height="20" width="20%">Date</td>
                                 <td height="20" width="5%">-</td>
                                 <td height="20" width="25%">'.$invoice->created_at->format("d-m-Y").'</td>
@@ -922,6 +1031,12 @@ class SaleSummaryReportController extends Controller
                                     <td height="20">'.$invoice->package->package_name.'</td>
                                     <td height="20">'.$expiryDate.'</td>
                                     <td height="20">'.$invoice->package->price.'</td>
+                                </tr>
+                                <tr>
+                                    <td height="20">2</td>
+                                    <td height="20">'.'Transportation Price'.'</td>
+                                    <td height="20">'.'-'.'</td>
+                                    <td height="20">'.number_format($invoice->total_car_amount,2).'</td>
                                 </tr>
                             </table>
                             <hr>';
@@ -1062,12 +1177,12 @@ class SaleSummaryReportController extends Controller
                                         <tr>
                                             <td height="20">1</td>
                                             <td height="20">Service Charges</td>
-                                            <td height="20" align="right">'.$invoice->total_service_amount.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_service_amount,2).'</td>
                                         </tr>
                                         <tr>
                                             <td height="20">2</td>
                                             <td height="20">Consulation Fees</td>
-                                            <td height="20" align="right">'.$invoice->total_consultant_fee.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_consultant_fee,2).'</td>
                                         </tr>
                                         <tr>
                                             <td height="30">3</td>
@@ -1085,7 +1200,7 @@ class SaleSummaryReportController extends Controller
                             $saleData.='</table><br>';
 
                             $saleData.='</td>
-                                            <td height="20" align="right">'.$invoice->total_medication_amount.'</td>
+                                            <td height="20" align="right">'.number_format($invoice->total_medication_amount,2).'</td>
                                         </tr>
                                          <tr>
                                             <td height="30">4</td>
@@ -1101,13 +1216,13 @@ class SaleSummaryReportController extends Controller
                             $saleData.='</table><br>';
 
                             $saleData.='</td>
-                                            <td height="30" align="right">'.$invoice->total_investigation_amount.'</td>
+                                            <td height="30" align="right">'.number_format($invoice->total_investigation_amount,2).'</td>
                                         </tr>
                                     </table>';
                             $saleData.='<tr>
                                                     <td height="20" width="10%">5</td>
                                                     <td height="20" width="65%">Transportation Charges</td>
-                                                    <td height="20" align="right" width="24%">'.$invoice->total_car_amount.'</td>
+                                                    <td height="20" align="right" width="24%">'.number_format($invoice->total_car_amount,2).'</td>
                                                 </tr>
                                                 <tr>
                                                     <td height="20" width="10%">6</td>
@@ -1137,19 +1252,25 @@ class SaleSummaryReportController extends Controller
                                     <td height="20">Remark</td>
                                     <td height="20">'.$invoice->packagesale->remark.'</td>
                                     <td height="20">Total</td>
-                                    <td height="20">'.$invoice->total_nett_amt_wo_disc.'</td>
+                                    <td height="20">'.number_format($invoice->total_nett_amt_wo_disc,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Discount</td>
-                                    <td height="20">'.$invoice->total_disc_amt.'</td>
+                                    <td height="20">'.number_format($invoice->total_disc_amt,2).'</td>
+                                </tr>
+                                <tr>
+                                    <td height="20"></td>
+                                    <td height="20"></td>
+                                    <td height="20">Tax Amount</td>
+                                    <td height="20">'.number_format($invoice->total_tax_amt,2).'</td>
                                 </tr>
                                 <tr>
                                     <td height="20"></td>
                                     <td height="20"></td>
                                     <td height="20">Grand Total</td>
-                                    <td height="20">'.$invoice->total_payable_amt.'</td>
+                                    <td height="20">'.number_format($invoice->total_payable_amt,2).'</td>
                                 </tr>
                             </table>
                             <hr>';

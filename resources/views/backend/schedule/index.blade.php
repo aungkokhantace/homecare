@@ -99,8 +99,10 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Patient Name</th>
-                        <th>Phone No.</th>
-                        <th>Type</th>
+                        <th>Doctor</th>
+                        <th>Service</th>
+                        {{--<th>Phone No.</th>--}}
+                        {{--<th>Type</th>--}}
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -111,8 +113,10 @@
                         <th class="search-col" con-id="date">Date</th>
                         <th class="search-col" con-id="time">Time</th>
                         <th class="search-col" con-id="name">Patient Name</th>
-                        <th class="search-col" con-id="phone_no">Phone No.</th>
-                        <th class="search-col" con-id="patient_type_id">Patient Type</th>
+                        <th class="search-col" con-id="doctor">Doctor</th>
+                        <th class="search-col" con-id="service">Service</th>
+                        {{--<th class="search-col" con-id="phone_no">Phone No.</th>--}}
+                        {{--<th class="search-col" con-id="patient_type_id">Patient Type</th>--}}
                         <th class="search-col" con-id="status">Status</th>
                         <th></th>
                     </tr>
@@ -133,8 +137,10 @@
                             <td><a href="/schedule/edit/{{$schedule->id}}">{{$schedule->date}}</a></td>
                             <td>{{$schedule->time}}</td>
                             <td>{{$schedule->patient_name}}</td>
-                            <td>{{$schedule->phone_no}}</td>
-                            <td>{{$schedule->patient_type}}</td>
+                            <td>{{$schedule->leader}}</td>
+                            <td>{{$schedule->services}}</td>
+                            {{--<td>{{$schedule->phone_no}}</td>--}}
+                            {{--<td>{{$schedule->patient_type}}</td>--}}
                             <td>{{strtoupper($schedule->status)}}</td>
                             <td>
                                 @if($schedule->status == 'new')
@@ -169,15 +175,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

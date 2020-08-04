@@ -9,6 +9,7 @@ use App\Api\Schedule\ScheduleApiRepositoryInterface;
 use App\Api\Schedule\ScheduleApiV2Repository;
 use App\Api\Schedule\ScheduleApiV3Repository;
 use App\Api\User\UserApiRepository;
+use App\Backend\Test\TestRepository;
 use App\Core\Check;
 use App\Core\ReturnMessage;
 use App\Core\Utility;
@@ -49,6 +50,7 @@ class ScheduleApiV3Controller extends Controller
 
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK) {
             $prefix             = $checkServerStatusArray['tablet_id'];
+            $patient_prefix     = Utility::generatePatientPrefix($prefix);
 
             $enquiryV2Repo      = new EnquiryApiV2Repository();
             $params             = $checkServerStatusArray['data'][0];
@@ -66,6 +68,7 @@ class ScheduleApiV3Controller extends Controller
                         DB::rollback();
                         $scheduleResult['tablet_id'] = $tablet_id;
 //                        $scheduleResult['aceplusStatusMessage'] = $scheduleResult['aceplusStatusMessage'] ;
+                        $scheduleResult['data'] = (object) array();
                         return \Response::json($scheduleResult);
                     }
 
@@ -82,6 +85,7 @@ class ScheduleApiV3Controller extends Controller
                     if($enquiryResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $enquiryResult['tablet_id'] = $tablet_id;
+                        $enquiryResult['data'] = (object) array();
                         return \Response::json($enquiryResult);
                     }
                     if(isset($enquiryResult['log']) && count($enquiryResult['log']) > 0){
@@ -97,6 +101,7 @@ class ScheduleApiV3Controller extends Controller
                     if($patientResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $patientResult['tablet_id'] = $tablet_id;
+                        $patientResult['data'] = (object) array();
                         return \Response::json($patientResult);
                     }
                     if(isset($patientResult['log']) && count($patientResult['log']) > 0){
@@ -237,8 +242,10 @@ class ScheduleApiV3Controller extends Controller
 
                 $maxSchedule = Utility::getMaxKey($prefix,'schedules','id');
                 $maxEnquery  = Utility::getMaxKey($prefix,'enquiries','id');
-                $maxPatient  = Utility::getMaxKey($prefix,'patients','user_id');
-                $maxCoreUser = Utility::getMaxKey($prefix,'core_users','id');
+//                $maxPatient  = Utility::getMaxKey($prefix,'patients','user_id');
+                $maxPatient  = Utility::getMaxKey($patient_prefix,'patients','user_id');
+//                $maxCoreUser = Utility::getMaxKey($prefix,'core_users','id');
+                $maxCoreUser = Utility::getMaxKey($patient_prefix,'core_users','id');
 
                 $maxKey = array();
 
@@ -264,6 +271,72 @@ class ScheduleApiV3Controller extends Controller
                 $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                 $returnedObj['aceplusStatusMessage'] = $e->getMessage() . " ----- line " . $e->getLine() . " ----- " . $e->getFile();
                 $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
+                return \Response::json($returnedObj);
+            }
+        }
+        else{
+            return \Response::json($checkServerStatusArray);
+        }
+    }
+
+    public function uploadScheduleStatus(){
+        $temp                   = Input::All();
+        $inputAll               = json_decode($temp['param_data']);
+        $checkServerStatusArray = Check::checkCodes($inputAll);
+        $prefix                 = "";
+        $user_id                = $inputAll->user_id;
+
+        if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK) {
+            $prefix             = $checkServerStatusArray['tablet_id'];
+            $enquiryV2Repo      = new EnquiryApiV2Repository();
+            $params             = $checkServerStatusArray['data'][0];
+            $tablet_id          = $checkServerStatusArray['tablet_id'];
+            $logArr             = array();
+
+            try {
+                DB::beginTransaction();
+
+                if (isset($params->schedules) && count($params->schedules) > 0) {
+                    $scheduleRepo = new ScheduleApiV2Repository();
+
+                    $scheduleResult = $scheduleRepo->uploadScheduleStatus($params->schedules);
+                    if($scheduleResult['aceplusStatusCode'] != ReturnMessage::OK) {
+                        DB::rollback();
+                        $scheduleResult['tablet_id'] = $tablet_id;
+                        $scheduleResult['data'] = (object) array();
+                        return \Response::json($scheduleResult);
+                    }
+
+                    if(isset($scheduleResult['log']) && count($scheduleResult['log']) > 0){
+                        array_push($logArr,$scheduleResult['log']);
+                    }
+                }
+
+                //all operations were successful
+                DB::commit();
+
+                //create custom log file with created_at or updated_at
+                foreach($logArr as $logKey=>$logValue){
+                    foreach($logValue as $value){
+                        $date = $value['date'];
+                        $message = '['. $date .'] '. 'info User - '.$user_id .' '. $value['message'] .' with tablet_id - '.$tablet_id. PHP_EOL;
+                        LogCustom::create($date,$message);
+                    }
+                }
+
+                $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
+                $returnedObj['aceplusStatusMessage']    = "Request success !";
+                $returnedObj['tabletId']                = $tablet_id;
+
+                return \Response::json($returnedObj);
+            }
+            catch (\Exception $e) {
+                DB::rollback();
+                $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+                $returnedObj['aceplusStatusMessage'] = $e->getMessage() . " ----- line " . $e->getLine() . " ----- " . $e->getFile();
+                $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
                 return \Response::json($returnedObj);
             }
         }

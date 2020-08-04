@@ -54,6 +54,14 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                $patient_id = $row->patient_id;
+                //clear all existing data in patient_medical_history relating to input
+                DB::table('patient_medical_history')
+                    ->where('patient_id', '=', $patient_id)
+                    ->delete();
+            }
+
             $tempLogArr  = array();
 
             foreach($data as $row){
@@ -70,12 +78,12 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $tempArr['date'] = $row->created_at;
                     $create = "created";
                 }
-                //clear all existing data in patient_medical_history relating to input
-                DB::table('patient_medical_history')
-                    ->where('id','=',$id)
-                    ->where('patient_id', '=', $patient_id)
-                    ->where('medical_history_id','=',$medical_history_id)
-                    ->delete();
+//                //clear all existing data in patient_medical_history relating to input
+//                DB::table('patient_medical_history')
+////                    ->where('id','=',$id)
+//                    ->where('patient_id', '=', $patient_id)
+//                    ->where('medical_history_id','=',$medical_history_id)
+//                    ->delete();
 
                 //creating patient_medical_history object
                 $paramObj                        = new Patientmedicalhistory();
@@ -119,6 +127,14 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                $patient_id     = $row->patient_id;
+                //clear all existing data in patient_surgery_history relating to input
+                DB::table('patient_surgery_history')
+                    ->where('patient_id', '=', $patient_id)
+                    ->delete();
+            }
+
             $tempLogArr = array();
 
             foreach($data as $row){
@@ -136,11 +152,12 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_surgery_history relating to input
-                DB::table('patient_surgery_history')
-                    ->where('id','=',$id)
-                    ->where('patient_id', '=', $patient_id)
-                    ->delete();
+//                //clear all existing data in patient_surgery_history relating to input
+//                DB::table('patient_surgery_history')
+////                    ->where('id','=',$id)
+//                    ->where('patient_id', '=', $patient_id)
+//                    ->where('description', '=', $row->description)
+//                    ->delete();
 
                 //creating patient_surgery_history object
                 $paramObj                        = new Patientsurgeryhistory();
@@ -184,6 +201,15 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                $patient_id         = $row->patient_id;
+
+                //clear all existing data in patient_family_history relating to input
+                DB::table('patient_family_history')
+                    ->where('patient_id', '=', $patient_id)
+                    ->delete();
+            }
+
             $tempLogArr = array();
 
             foreach($data as $row){
@@ -201,13 +227,13 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $tempArr['date'] = $row->created_at;
                     $create = "created";
                 }
-                //clear all existing data in patient_family_history relating to input
-                DB::table('patient_family_history')
-                    ->where('id','=',$id)
-                    ->where('patient_id', '=', $patient_id)
-                    ->where('family_history_id','=',$family_history_id)
-                    ->where('family_member_id','=',$family_member_id)
-                    ->delete();
+//                //clear all existing data in patient_family_history relating to input
+//                DB::table('patient_family_history')
+////                    ->where('id','=',$id)
+//                    ->where('patient_id', '=', $patient_id)
+//                    ->where('family_history_id','=',$family_history_id)
+//                    ->where('family_member_id','=',$family_member_id)
+//                    ->delete();
 
                 //creating patient_family_history object
                 $paramObj                        = new Patientfamilyhistory();
@@ -325,6 +351,14 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         try{
 
             $tempLogArr = array();
+
+            foreach($data as $musculo1and2) {
+                //clear all existing data in patient_physiothreapy_musculo_1_and_2 relating to input
+                DB::table('patient_physiothreapy_musculo_1_and_2')
+                    ->where('patients_id', '=', $musculo1and2->patients_id)
+                    ->delete();
+            }
+
             foreach($data as $musculo1and2) {
 
                 //Check update or create for log date
@@ -338,10 +372,10 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_physiothreapy_musculo_1_and_2 relating to input
-                DB::table('patient_physiothreapy_musculo_1_and_2')
-                    ->where('patients_id', '=', $musculo1and2->patients_id)
-                    ->delete();
+//                //clear all existing data in patient_physiothreapy_musculo_1_and_2 relating to input
+//                DB::table('patient_physiothreapy_musculo_1_and_2')
+//                    ->where('patients_id', '=', $musculo1and2->patients_id)
+//                    ->delete();
                 //creating patient_physiothreapy_musculo_1_and_2 object
                 $paramObj = new PatientPhysiothreapyMusculo1and2();
                 $paramObj->cheif_comlaint_sensation_others          = $musculo1and2->cheif_comlaint_sensation_others;
@@ -415,6 +449,13 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
 
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_musculo_3_sitting relating to input
+                DB::table('patient_physiotherapy_musculo_3_sitting')
+                    ->where('patient_id', '=', $row->patient_id)
+                    ->delete();
+            }
+
             $tempLogArr         = array();
             foreach($data as $row){
 
@@ -429,10 +470,10 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_physiotherapy_musculo_3_sitting relating to input
-                DB::table('patient_physiotherapy_musculo_3_sitting')
-                    ->where('patient_id', '=', $row->patient_id)
-                    ->delete();
+//                //clear all existing data in patient_physiotherapy_musculo_3_sitting relating to input
+//                DB::table('patient_physiotherapy_musculo_3_sitting')
+//                    ->where('patient_id', '=', $row->patient_id)
+//                    ->delete();
                 //creating patient_physiotherapy_musculo_3_sitting object
                 $paramObj                                           = new PatientPhysiothreapyMusculo3Sitting();
                 $paramObj->patient_id                               = $row->patient_id;
@@ -510,6 +551,13 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_musculo_3_standing relating to input
+                DB::table('patient_physiotherapy_musculo_3_standing')
+                    ->where('patient_id', '=', $row->patient_id)
+                    ->delete();
+            }
+
             $tempLogArr = array();
             foreach($data as $row){
 
@@ -524,10 +572,10 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_physiotherapy_musculo_3_standing relating to input
-                DB::table('patient_physiotherapy_musculo_3_standing')
-                    ->where('patient_id', '=', $row->patient_id)
-                    ->delete();
+//                //clear all existing data in patient_physiotherapy_musculo_3_standing relating to input
+//                DB::table('patient_physiotherapy_musculo_3_standing')
+//                    ->where('patient_id', '=', $row->patient_id)
+//                    ->delete();
                 //creating patient_physiotherapy_musculo_3_standing object
                 $paramObj                                           = new PatientPhysiothreapyMusculo3Standing();
                 $paramObj->patient_id                               = $row->patient_id;
@@ -605,6 +653,13 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_musculo_4_1and2 relating to input
+                DB::table('patient_physiotherapy_musculo_4_1and2')
+                    ->where('patient_id', '=', $row->patient_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row){
                 //Check update or create for log date
@@ -617,11 +672,11 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $tempArr['date'] = $row->created_at;
                     $create = "created";
                 }
-
-                //clear all existing data in patient_physiotherapy_musculo_4_1and2 relating to input
-                DB::table('patient_physiotherapy_musculo_4_1and2')
-                    ->where('patient_id', '=', $row->patient_id)
-                    ->delete();
+//
+//                //clear all existing data in patient_physiotherapy_musculo_4_1and2 relating to input
+//                DB::table('patient_physiotherapy_musculo_4_1and2')
+//                    ->where('patient_id', '=', $row->patient_id)
+//                    ->delete();
                 //creating patient_physiotherapy_musculo_4_1and2 object
                 $paramObj                               =  new PatientPhysiothreapyMusculo4_1and2();
                 $paramObj->patient_id                   = $row->patient_id;
@@ -698,6 +753,13 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_musculo_4_3 relating to input
+                DB::table('patient_physiotherapy_musculo_4_3')
+                    ->where('patient_id', '=', $row->patient_id)
+                    ->delete();
+            }
+
             $tempLogArr = array();
             foreach($data as $row){
 
@@ -712,10 +774,10 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_physiotherapy_musculo_4_3 relating to input
-                DB::table('patient_physiotherapy_musculo_4_3')
-                    ->where('patient_id', '=', $row->patient_id)
-                    ->delete();
+//                //clear all existing data in patient_physiotherapy_musculo_4_3 relating to input
+//                DB::table('patient_physiotherapy_musculo_4_3')
+//                    ->where('patient_id', '=', $row->patient_id)
+//                    ->delete();
                 //creating patient_physiotherapy_musculo_4_3 object
                 $paramObj                               = new PatientPhysiothreapyMusculo4_3();
                 $paramObj->patient_id                   = $row->patient_id;
@@ -793,6 +855,12 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_musculo_4_4and5 relating to input
+                DB::table('patient_physiotherapy_musculo_4_4and5')
+                    ->where('patient_id', '=', $row->patient_id)
+                    ->delete();
+            }
 
             $tempLogArr     = array();
             foreach($data as $row){
@@ -808,10 +876,10 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_physiotherapy_musculo_4_4and5 relating to input
-                DB::table('patient_physiotherapy_musculo_4_4and5')
-                    ->where('patient_id', '=', $row->patient_id)
-                    ->delete();
+//                //clear all existing data in patient_physiotherapy_musculo_4_4and5 relating to input
+//                DB::table('patient_physiotherapy_musculo_4_4and5')
+//                    ->where('patient_id', '=', $row->patient_id)
+//                    ->delete();
                 //creating patient_physiotherapy_musculo_4_4and5 object
                 $paramObj                               = new PatientPhysiothreapyMusculo4_4and5();
                 $paramObj->patient_id                   = $row->patient_id;
@@ -928,6 +996,12 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_neuro_general relating to input
+                DB::table('patient_physiotherapy_neuro_general')
+                    ->where('patient_id', '=', $row->patient_id)
+                    ->delete();
+            }
 
             $tempLogArr     = array();
             foreach($data as $row){
@@ -942,10 +1016,10 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_physiotherapy_neuro_general relating to input
-                DB::table('patient_physiotherapy_neuro_general')
-                    ->where('patient_id', '=', $row->patient_id)
-                    ->delete();
+//                //clear all existing data in patient_physiotherapy_neuro_general relating to input
+//                DB::table('patient_physiotherapy_neuro_general')
+//                    ->where('patient_id', '=', $row->patient_id)
+//                    ->delete();
 
                 //creating patient_physiotherapy_neuro_general object
                 $paramObj                                       = new PatientPhysiotherapyNeuroGeneral();
@@ -959,6 +1033,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 $paramObj->pre_mobid_status_bed_bound           = $row->pre_mobid_status_bed_bound;
                 $paramObj->smoking_history_start                = $row->smoking_history_start;
                 $paramObj->smoking_history_stop                 = $row->smoking_history_stop;
+                $paramObj->smoking_history_status               = $row->smoking_history_status;
                 $paramObj->mental_status                        = $row->mental_status;
                 $paramObj->vision                               = $row->vision;
                 $paramObj->hearing                              = $row->hearing;
@@ -966,6 +1041,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 $paramObj->orientation_time                     = $row->orientation_time;
                 $paramObj->orientation_place                    = $row->orientation_place;
                 $paramObj->orientation_person                   = $row->orientation_person;
+                $paramObj->orientation_remark                   = $row->orientation_remark;
                 $paramObj->obey_ommands                         = $row->obey_ommands;
                 $paramObj->follow_gestures                      = $row->follow_gestures;
                 $paramObj->created_by                           = $row->created_by;
@@ -1005,6 +1081,13 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_neuro_limb relating to input
+                DB::table('patient_physiotherapy_neuro_limb')
+                    ->where('patients_id', '=', $row->patients_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row){
                 //Check update or create for log date
@@ -1018,10 +1101,10 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_physiotherapy_neuro_limb relating to input
-                DB::table('patient_physiotherapy_neuro_limb')
-                    ->where('patients_id', '=', $row->patients_id)
-                    ->delete();
+//                //clear all existing data in patient_physiotherapy_neuro_limb relating to input
+//                DB::table('patient_physiotherapy_neuro_limb')
+//                    ->where('patients_id', '=', $row->patients_id)
+//                    ->delete();
 
                 //creating patient_physiotherapy_neuro_limb object
                 $paramObj                                       = new PatientPhysiotherapyNeuroLimb();
@@ -1094,6 +1177,13 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_neuro_functional_performance1 relating to input
+                DB::table('patient_physiotherapy_neuro_functional_performance1')
+                    ->where('patient_id', '=', $row->patient_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row){
                 //Check update or create for log date
@@ -1107,10 +1197,10 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_physiotherapy_neuro_functional_performance1 relating to input
-                DB::table('patient_physiotherapy_neuro_functional_performance1')
-                    ->where('patient_id', '=', $row->patient_id)
-                    ->delete();
+//                //clear all existing data in patient_physiotherapy_neuro_functional_performance1 relating to input
+//                DB::table('patient_physiotherapy_neuro_functional_performance1')
+//                    ->where('patient_id', '=', $row->patient_id)
+//                    ->delete();
 
                 //creating patient_physiotherapy_neuro_functional_performance1 object
                 $paramObj                                       = new PatientPhysiotherapyNeuroFunctionalPerformance1();
@@ -1192,6 +1282,13 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_neuro_functional_performance2 relating to input
+                DB::table('patient_physiotherapy_neuro_functional_performance2')
+                    ->where('patient_id', '=', $row->patient_id)
+                    ->delete();
+            }
+
             $tempLogArr = array();
             foreach($data as $row){
                 //Check update or create for log date
@@ -1291,6 +1388,13 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row){
+                //clear all existing data in patient_physiotherapy_neuro_functional_performance3 relating to input
+                DB::table('patient_physiotherapy_neuro_functional_performance3')
+                    ->where('patient_id', '=', $row->patient_id)
+                    ->delete();
+            }
+
             $tempLogArr = array();
             foreach($data as $row){
                 //Check update or create for log date
@@ -1304,10 +1408,10 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //clear all existing data in patient_physiotherapy_neuro_functional_performance3 relating to input
-                DB::table('patient_physiotherapy_neuro_functional_performance3')
-                    ->where('patient_id', '=', $row->patient_id)
-                    ->delete();
+//                //clear all existing data in patient_physiotherapy_neuro_functional_performance3 relating to input
+//                DB::table('patient_physiotherapy_neuro_functional_performance3')
+//                    ->where('patient_id', '=', $row->patient_id)
+//                    ->delete();
 
                 //creating patient_physiotherapy_neuro_functional_performance3 object
                 $paramObj                               = new PatientPhysiotherapyNeuroFunctionalPerformance3();
@@ -1415,6 +1519,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 $paramObj->patient_id			= $row->patient_id;
                 $paramObj->package_id 			= $row->package_id;
                 $paramObj->package_price 		= $row->package_price;
+                $paramObj->transportation_price = $row->transportation_price;
                 $paramObj->package_usage_count 	= $row->package_usage_count;
                 $paramObj->package_used_count 	= $row->package_used_count;
                 $paramObj->sold_date 			= $row->sold_date;
@@ -1490,6 +1595,7 @@ class PatientApiV2Repository implements PatientApiV2RepositoryInterface
                 //clear all existing data in patient_family_member relating to input
                 DB::table('patient_family_member')
                     ->where('id', '=', $row->id)
+                    ->where('name', '=', $row->name)
                     ->delete();
 
                 //creating patient_family_member object

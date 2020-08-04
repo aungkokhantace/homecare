@@ -15,6 +15,8 @@ use App\Core\Utility;
 use App\Log\LogCustom;
 use Illuminate\Support\Facades\DB;
 use App\Backend\Invoice\Invoice;
+use App\Backend\Package\PackageRepository;
+use App\Backend\Cartypesetup\Cartypesetup;
 
 class PackageSaleRepository implements PackageSaleRepositoryInterface
 {
@@ -54,11 +56,13 @@ class PackageSaleRepository implements PackageSaleRepositoryInterface
             //end generating patient_package_id
 
             //start generating invoice_id
-            $prefix = Utility::getTerminalId();
+            $temp_prefix = Utility::getTerminalId();
+            // $prefix = Utility::getInvoicePrefix(); //get invoice prefix
+            $invoice_prefix = Utility::generateInvoicePrefix($prefix);
             $table = (new Invoice())->getTable();
             $col = "id";
             $offset = 1;
-            $invoiceId = Utility::generatedId($prefix,$table,$col,$offset);
+            $invoiceId = Utility::generatedId($invoice_prefix,$table,$col,$offset);
 
             $tempInvoiceObj->id = $invoiceId;
             //end generating invoice_id
@@ -198,5 +202,31 @@ class PackageSaleRepository implements PackageSaleRepositoryInterface
     {
         $arr = DB::select("SELECT * FROM patient_package_detail WHERE patient_package_id = '$patient_package_id'");
         return $arr;
+    }
+
+    public function getTransportationPrice($package_id,$zone_id){
+        $packageRepo = new PackageRepository();
+        $package = $packageRepo->getObjByID($package_id);
+        $result = array();
+
+        if($package->inclusive_transport_charge == 1){
+          $number_of_schedules = $package->schedule_no;
+
+          $car_price_obj = Cartypesetup::where('zone_id',$zone_id)->first();
+          $car_price = $car_price_obj->price;
+
+          $transportation_price = $car_price * $number_of_schedules;
+
+          $result['number_of_schedules'] = $number_of_schedules;
+          $result['car_price'] = $car_price;
+          $result['transportation_price'] = $transportation_price;
+        }
+        else{
+          $result['number_of_schedules'] = 0;
+          $result['car_price'] = 0.0;
+          $result['transportation_price'] = 0.0;
+        }
+
+        return $result;
     }
 }

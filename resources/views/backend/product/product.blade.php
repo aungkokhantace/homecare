@@ -39,23 +39,29 @@
             <label for="product_category_id" class="text_bold_black">Category<span class="require">*</span></label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            @if(isset($product))
+            @if(isset($category_edit_block_flag) && $category_edit_block_flag == 1)
                 <select class="form-control" name="product_category_id" id="product_category_id">
-                    @foreach($categories as $categories)
-                        @if($categories->id == $product->product_category_id)
-                            <option value="{{$product->product_category_id}}" selected>{{$product->productcategories->name}}</option>
-                        @else
-                            <option value="{{$categories->id}}">{{$categories->name}}</option>
-                        @endif
-                    @endforeach
+                    <option value="{{$product->product_category_id}}">{{$product->productcategories->name}}</option>
                 </select>
             @else
-                <select class="form-control" name="product_category_id" id="product_category_id">
-                    <option value="" selected disabled>Select Medication Category</option>
-                    @foreach($categories as $categories)
-                        <option value="{{$categories->id}}">{{$categories->name}}</option>
-                    @endforeach
-                </select>
+                @if(isset($product))
+                    <select class="form-control" name="product_category_id" id="product_category_id">
+                        @foreach($categories as $categories)
+                            @if($categories->id == $product->product_category_id)
+                                <option value="{{$product->product_category_id}}" selected>{{$product->productcategories->name}}</option>
+                            @else
+                                <option value="{{$categories->id}}">{{$categories->name}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                @else
+                    <select class="form-control" name="product_category_id" id="product_category_id">
+                        <option value="" selected disabled>Select Medication Category</option>
+                        @foreach($categories as $categories)
+                            <option value="{{$categories->id}}">{{$categories->name}}</option>
+                        @endforeach
+                    </select>
+                @endif
             @endif
             <p class="text-danger">{{$errors->first('product_category_id')}}</p>
         </div>
@@ -76,7 +82,11 @@
             <label for="description" class="text_bold_black">Description</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          @if(isset($category_edit_block_flag) && $category_edit_block_flag == 1)
+            <textarea disabled class="form-control" id="description" name="description" placeholder="Enter Medication Description" rows="5" cols="50">{{isset($product)? $product->description:Input::old('description')}}</textarea>
+          @else
             <textarea class="form-control" id="description" name="description" placeholder="Enter Medication Description" rows="5" cols="50">{{isset($product)? $product->description:Input::old('description')}}</textarea>
+          @endif
             <p class="text-danger">{{$errors->first('description')}}</p>
         </div>
     </div>

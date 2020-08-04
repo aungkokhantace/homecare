@@ -289,7 +289,8 @@
                 <div class="col-lg-1 col-lg-offset-2 col-md-1 col-md-offset-2 col-sm-1 col-sm-offset-2 col-xs-1 col-xs-offset-2">
                     <label for="code" class="text_bold_black">Photo</label>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+                <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1"> -->
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
                     @if(isset($patient))
                         <div class="add_image_div add_image_div_red" style="background-image: url({{'/images/users/'.$user ->display_image}});background-position:center;background-size:cover">
                         </div>
@@ -307,7 +308,8 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <label></label>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+                <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2"> -->
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
                     <input type="button" class="form-control image_remove_btn" value="Remove Image" id="removeImage" name="removeImage">
                 </div>
             </div>
@@ -381,6 +383,19 @@
                         @endif
 
                     </optgroup>
+                    <optgroup label="Environment Allergy">
+
+                        @if(isset($patient['allergies']['environment']))
+                            @foreach($patient['allergies']['environment'] as $allergy)
+                                @if($allergy->selected == 1)
+                                    <option value="{{$allergy->id}}" selected>{{$allergy->name}}</option>
+                                @else
+                                    <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                                @endif
+                            @endforeach
+                        @endif
+
+                    </optgroup>
                 </select>
             </div>
         @else
@@ -407,7 +422,14 @@
                             @endforeach
                         @endif
                     </optgroup>
+                    <optgroup label="Environment Allergy">
 
+                        @if(isset($allergies['environment']))
+                            @foreach($allergies['environment'] as $allergy)
+                                <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                            @endforeach
+                        @endif
+                    </optgroup>
                 </select>
             </div>
         @endif
@@ -767,6 +789,9 @@
             //End Validation for Patient Entry and Edit Form
 
             $(':checkbox').checkboxpicker();
+
+            //For selectbox with search function
+            $("#townships").select2();
         });
 
         function saveConfig(action) {

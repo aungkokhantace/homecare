@@ -48,17 +48,21 @@ class PatientRepository implements PatientRepositoryInterface
                 $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
 
                 DB::beginTransaction();
-
+                
                 $tempUserObj = Utility::addCreatedBy($userObj);
                 $tempObj = Utility::addCreatedBy($paramObj);
                 $logObj         = Utility::logCreatedBy($logObj);
 
                 //start generating id for userObj
                 $prefix = Utility::getTerminalId();
+//                $prefix = "P000";
+
+                $patient_prefix = Utility::generatePatientPrefix($prefix);
+
                 $table = (new User())->getTable();
                 $col = "id";
                 $offset = 1;
-                $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                $generatedId = Utility::generatedId($patient_prefix,$table,$col,$offset);
 
                 //end generating id for userObj
                 $tempUserObj->id = $generatedId;                                 //bind id to User obj
@@ -94,7 +98,7 @@ class PatientRepository implements PatientRepositoryInterface
                     $userObj->password = $pwd;
                 }
                 else{
-                    $passwordString = "123@parami";             //if password is null, "parami@123" is set as default password
+                    $passwordString = "12345@parami";             //if password is null, "12345@parami" is set as default password
                     //encrypt password
                     $pwd = base64_encode($passwordString);  //encrypt default password
                     //bind to userObj
@@ -167,11 +171,14 @@ class PatientRepository implements PatientRepositoryInterface
                 $logObj         = Utility::logCreatedBy($logObj);
 
                 //start generating id for userObj
-                $prefix = "U000";
+                $prefix = Utility::getTerminalId();
+//                $prefix = "P000";
+
+                $patient_prefix = Utility::generatePatientPrefix($prefix);
                 $table = (new User())->getTable();
                 $col = "id";
                 $offset = 1;
-                $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                $generatedId = Utility::generatedId($patient_prefix,$table,$col,$offset);
                 //end generating id for userObj
                 $tempUserObj->id = $generatedId;                                 //bind id to User obj
 
@@ -203,15 +210,22 @@ class PatientRepository implements PatientRepositoryInterface
                     //encrypt password
                     $pwd = base64_encode(Input::get('password'));
                     //bind to userObj
-                    $userObj->password = $pwd;
+                    // $userObj->password = $pwd;
+                    $tempUserObj->password = $pwd;
                 }
                 else{
-                    $passwordString = "123@parami";             //if password is null, "parami@123" is set as default password
+                    $passwordString = "12345@parami";             //if password is null, "12345@parami" is set as default password
                     //encrypt password
                     $pwd = base64_encode($passwordString);  //encrypt default password
                     //bind to userObj
-                    $userObj->password = $pwd;
+                    // $userObj->password = $pwd;
+                    $tempUserObj->password = $pwd;
                 }
+
+                //set display_image and mobile_image to empty
+                $tempUserObj->display_image = "";
+                $tempUserObj->mobile_image = "";
+                $tempUserObj->deleted_by = "";
 
                 if($tempUserObj->save()){                       //user obj insert is successful
                     $user_id = $tempUserObj->id;                //extract user_id after creating a row in core_users
@@ -287,7 +301,8 @@ class PatientRepository implements PatientRepositoryInterface
 
         try{
             DB::beginTransaction();
-            $tempObj     = Utility::addUpdatedBy($paramObj);
+            
+            $tempObj     = Utility::addUpdatedBy($paramObj);            
             $tempUserObj = Utility::addUpdatedBy($userObj);
             $logObj      = Utility::logUpdatedby($logObj);
             //retrieve zone_id from township_id
@@ -317,7 +332,7 @@ class PatientRepository implements PatientRepositoryInterface
                 $email          = $tmp.'.'.$tempUserObj->staff_id."@gmail.com";
                 $tempObj->email = $email;
             }
-
+            
             if($tempObj->save()){
                 if($tempUserObj->save()) {
                     $patient_id = $tempObj->user_id;
@@ -342,14 +357,14 @@ class PatientRepository implements PatientRepositoryInterface
 
                     return $returnedObj;
                 }
-
+                
                 $logObj->patient_id = $tempObj->user_id;
                 $logObj->save();
-
+                
                 DB::commit();
 
                 //update info log
-                $date = $tempObj->created_at;
+                $date = $tempObj->updated_at;
                 $message = '['. $date .'] '. 'info: ' . 'User '.$currentUser.' updated patient_id = '.$tempObj->user_id . PHP_EOL;
                 LogCustom::create($date,$message);
                 $message = '['. $date .'] '. 'info: ' . 'User '.$currentUser.' updated user_id = '.$tempUserObj->id . PHP_EOL;
@@ -436,6 +451,7 @@ class PatientRepository implements PatientRepositoryInterface
             $allergyRepo = new AllergyRepository();
             $allergyFood      = $allergyRepo->getArraysByType('food');
             $allergyDrug      = $allergyRepo->getArraysByType('drug');
+            $allergyEnvironment      = $allergyRepo->getArraysByType('environment');
             $tempAllergies    = array();
 
             if (isset($childArray) && count($childArray) > 0) {
@@ -498,6 +514,36 @@ class PatientRepository implements PatientRepositoryInterface
                 $tempAllergies['drug']=$allergyDrug;
             }
 
+            if (isset($childArray) && count($childArray) > 0) {
+                $tempSvcArray = array();
+                foreach ($childArray as $allergy) {
+                    $svcId = $allergy->allergy_id;
+                    array_push($tempSvcArray, $svcId);
+                }
+                if (isset($allergyEnvironment) && count($allergyEnvironment) > 0) {
+                    foreach($allergyEnvironment as $keyAlg => $alg){
+
+                        if (in_array($alg->id, $tempSvcArray)) {
+                            $allergyEnvironment[$keyAlg]->selected = 1;
+                        }
+                    }
+
+                    foreach($allergyEnvironment as $keyAlg2 => $alg2){
+
+                        if (!array_key_exists('selected', $alg2)) {
+                            $allergyEnvironment[$keyAlg2]->selected = 0;
+                        }
+                    }
+                }
+                $tempAllergies['environment']=$allergyEnvironment;
+            } else {
+
+                foreach ($allergyEnvironment as $keySvc3 => $svc3) {
+                    $allergyEnvironment[$keySvc3]->selected = 0;
+                }
+                $tempAllergies['environment']=$allergyEnvironment;
+            }
+
             $tempObj['allergies'] = $tempAllergies;
 
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
@@ -533,6 +579,17 @@ class PatientRepository implements PatientRepositoryInterface
         $tb_schedule = (new Schedule())->getTable();
         $schedules = DB::select("SELECT * FROM $tb_schedule WHERE patient_id = '$id'");
         return $schedules;
+    }
+
+    public function getPatientScheduleWithInvoice($id)
+    {
+        $result = Schedule::
+                leftjoin('invoices','schedules.id', '=', 'invoices.schedule_id')
+                ->select('schedules.*', 'invoices.total_payable_amt')
+                ->where('schedules.patient_id', '=', $id)
+                ->whereNull('schedules.deleted_at')
+                ->get();
+        return $result;
     }
 
     

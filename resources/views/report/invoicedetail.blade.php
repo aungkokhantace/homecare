@@ -14,17 +14,17 @@
             <div class="panel-body">
                 <table class="table" style="word-wrap: break-word; table-layout: fixed;">
                     <tr>
-                        <td height="20" width="20%">Name</td>
+                        <td height="20" width="20%">Name / Reg No.</td>
                         <td height="20" width="5%">-</td>
-                        <td height="20" width="25%">{{$invoice->patient->name}}</td>
+                        <td height="20" width="25%">{{$invoice->patient->name}} / {{$invoice->patient->user_id}}</td>
                         <td height="20" width="20%">Voucher No.</td>
                         <td height="20" width="5%">-</td>
                         <td height="20" width="25%">{{$invoice->id}}</td>
                     </tr>
                     <tr>
-                        <td height="20" width="20%">Age/Sex</td>
+                        <td height="20" width="20%">DOB(Age) / Sex</td>
                         <td height="20" width="5%">-</td>
-                        <td height="20" width="25%">{{$age}}/{{$patient_gender}}</td>
+                        <td height="20" width="25%">{{$invoice->patient->dob}}({{$age['value']." ".$age['unit']}}) / {{$patient_gender}}</td>
                         <td height="20" width="20%">Date</td>
                         <td height="20" width="5%">-</td>
                         <td height="20" width="25%">{{$invoice->created_at->format('d-m-Y')}}</td>
@@ -58,7 +58,13 @@
                             <td height="20">1</td>
                             <td height="20">{{$invoice->package->package_name}}</td>
                             <td height="20">{{$expiryDate}}</td>
-                            <td height="20" align="right">{{$invoice->package->price}}</td>
+                            <td height="20" align="right">{{number_format($invoice->package->price,2)}}</td>
+                        </tr>
+                        <tr>
+                            <td height="20">2</td>
+                            <td height="20">Transportation Price</td>
+                            <td height="20">-</td>
+                            <td height="20" align="right">{{number_format($invoice->total_car_amount,2)}}</td>
                         </tr>
                     </table>
 
@@ -73,19 +79,26 @@
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Total</td>
-                            <td height="20" align="right">{{$invoice->total_nett_amt_wo_disc}}</td>
+                            <!-- <td height="20" align="right">{{floor($invoice->total_nett_amt_wo_disc)}}</td> -->
+                            <td height="20" align="right">{{number_format(floor($invoice->total_nett_amt_wo_disc),2)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Discount</td>
-                            <td height="20" align="right">{{$invoice->total_disc_amt}}</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_disc_amt),2)}}</td>
+                        </tr>
+                        <tr>
+                            <td height="20"></td>
+                            <td height="20"></td>
+                            <td height="20">Total Tax Amount</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_tax_amt),2)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Grand Total</td>
-                            <td height="20" align="right">{{$invoice->total_payable_amt}}</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_payable_amt),2)}}</td>
                         </tr>
                         <tr>
                             <td height="20">Remark</td>
@@ -104,15 +117,15 @@
                         <tr>
                             <td height="20">1</td>
                             <td height="20">Service Charges</td>
-                            <td height="20" align="right">{{$invoice->total_service_amount}}</td>
+                            <td height="20" align="right">{{number_format($invoice->total_service_amount,2)}}</td>
                         </tr>
                         <tr>
                             <td height="20">2</td>
                             <td height="20">Consulation Fees</td>
-                            <td height="20" align="right">{{$invoice->total_consultant_fee}}</td>
+                            <td height="20" align="right">{{number_format($invoice->total_consultant_fee,2)}}</td>
                         </tr>
                         <tr>
-                            <td height="20">3</td>
+                            <td height="20" rowspan="2">3</td>
                             <td height="20">Medications
                                 <table class="table">
                                     @foreach($medicationArray as $medication)
@@ -125,7 +138,21 @@
                                     @endforeach
                                 </table>
                             </td>
-                            <td height="20" align="right">{{$invoice->total_medication_amount}}</td>
+                            <td height="20" align="right" rowspan="2">{{number_format($invoice->total_medication_amount,2)}}</td>
+                        </tr>
+                        <tr>
+                            <!-- <td height="20"></td> -->
+                            <td height="20">Treatment (Procedure)
+                                <table class="table" style="margin-top=none;">
+                                    @foreach($treatmentProcedureArray as $treatmentProcedure)
+                                        <tr>
+                                            <td>{{$treatmentProcedure['name']}}</td>
+                                            <td>{{$treatmentProcedure['price']}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </td>
+                            <!-- <td></td> -->
                         </tr>
                         <tr>
                             <td height="20">4</td>
@@ -139,17 +166,17 @@
                                     @endforeach
                                 </table>
                             </td>
-                            <td height="20" align="right">{{$invoice->total_investigation_amount}}</td>
+                            <td height="20" align="right">{{number_format($invoice->total_investigation_amount,2)}}</td>
                         </tr>
                         <tr>
                             <td height="20">5</td>
                             <td height="20">Transportation Charges</td>
-                            <td height="20" align="right">{{$invoice->total_car_amount}}</td>
+                            <td height="20" align="right">{{number_format($invoice->total_car_amount,2)}}</td>
                         </tr>
                         <tr>
                             <td height="20">6</td>
                             <td height="20">Others</td>
-                            <td height="20" align="right">{{$invoice->total_other_service_amount}}</td>
+                            <td height="20" align="right">{{number_format($invoice->total_other_service_amount,2)}}</td>
                         </tr>
                         <tr>
                             <td height="20">7</td>
@@ -174,19 +201,25 @@
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Total</td>
-                            <td height="20" align="right">{{$invoice->total_nett_amt_wo_disc}}</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_nett_amt_wo_disc),2)}}</td>
+                        </tr>
+                        <tr>
+                            <td height="20"></td>
+                            <td height="20"></td>
+                            <td height="20">Total Tax Amount</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_tax_amt),2)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Discount</td>
-                            <td height="20" align="right">{{$invoice->total_disc_amt}}</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_disc_amt),2)}}</td>
                         </tr>
                         <tr>
                             <td height="20"></td>
                             <td height="20"></td>
                             <td height="20">Grand Total</td>
-                            <td height="20" align="right">{{$invoice->total_payable_amt}}</td>
+                            <td height="20" align="right">{{number_format(floor($invoice->total_payable_amt),2)}}</td>
                         </tr>
                         <tr>
                             <td>Remark</td>
@@ -203,46 +236,46 @@
             <hr style="margin-bottom: 0px;">
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="listing">
-                <input type="hidden" id="pageSearchedValue" name="pageSearchedValue" value="">
-                <table class="table table-striped list-table" id="list-table" style="word-wrap: break-word; table-layout: fixed;">
-                    <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Qty</th>
-                        <th>Price</th>
-                        <th>Discount Amount</th>
-                        <th>Total Amount</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th class="search-col" con-id="type">Type</th>
-                        <th class="search-col" con-id="qty">Qty</th>
-                        <th class="search-col" con-id="price">Price</th>
-                        <th class="search-col" con-id="discount_amount">Discount Amount</th>
-                        <th class="search-col" con-id="total_amount">Total Amount</th>
-                    </tr>
-                    </tfoot>
-                    <tbody>
-                    @foreach($invoiceDetails as $invoiceDetail)
-                        @if($invoiceDetail->type != "")
-                        <tr>
-                            <td>{{$invoiceDetail->type}}</td>
-                            <td>{{$invoiceDetail->product_qty}}</td>
-                            <td>{{$invoiceDetail->product_price}}</td>
-                            <td>{{$invoiceDetail->consultant_discount_amount}}</td>
-                            <td>{{$invoiceDetail->product_amount}}</td>
-                        </tr>
-                        @endif
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    {{--<div class="row">--}}
+        {{--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">--}}
+            {{--<div class="listing">--}}
+                {{--<input type="hidden" id="pageSearchedValue" name="pageSearchedValue" value="">--}}
+                {{--<table class="table table-striped list-table" id="list-table" style="word-wrap: break-word; table-layout: fixed;">--}}
+                    {{--<thead>--}}
+                    {{--<tr>--}}
+                        {{--<th>Type</th>--}}
+                        {{--<th>Qty</th>--}}
+                        {{--<th>Price</th>--}}
+                        {{--<th>Discount Amount</th>--}}
+                        {{--<th>Total Amount</th>--}}
+                    {{--</tr>--}}
+                    {{--</thead>--}}
+                    {{--<tfoot>--}}
+                    {{--<tr>--}}
+                        {{--<th class="search-col" con-id="type">Type</th>--}}
+                        {{--<th class="search-col" con-id="qty">Qty</th>--}}
+                        {{--<th class="search-col" con-id="price">Price</th>--}}
+                        {{--<th class="search-col" con-id="discount_amount">Discount Amount</th>--}}
+                        {{--<th class="search-col" con-id="total_amount">Total Amount</th>--}}
+                    {{--</tr>--}}
+                    {{--</tfoot>--}}
+                    {{--<tbody>--}}
+                    {{--@foreach($invoiceDetails as $invoiceDetail)--}}
+                        {{--@if($invoiceDetail->type != "")--}}
+                        {{--<tr>--}}
+                            {{--<td>{{$invoiceDetail->type}}</td>--}}
+                            {{--<td>{{$invoiceDetail->product_qty}}</td>--}}
+                            {{--<td>{{$invoiceDetail->product_price}}</td>--}}
+                            {{--<td>{{$invoiceDetail->consultant_discount_amount}}</td>--}}
+                            {{--<td>{{$invoiceDetail->product_amount}}</td>--}}
+                        {{--</tr>--}}
+                        {{--@endif--}}
+                    {{--@endforeach--}}
+                    {{--</tbody>--}}
+                {{--</table>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
     <div class="row">
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
@@ -265,15 +298,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

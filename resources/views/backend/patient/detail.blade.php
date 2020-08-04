@@ -429,16 +429,18 @@
                                             <th>Time</th>
                                             <th>Car Type</th>
                                             <th>Status</th>
+                                            <th>Amount</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
                                             <th></th>
-                                            <th class="search-col" con-id="name">Schedule ID</th>
-                                            <th class="search-col" con-id="patient_type">Date</th>
-                                            <th class="search-col" con-id="gender">Time</th>
-                                            <th class="search-col" con-id="dob">Township</th>
+                                            <th class="search-col" con-id="schedule_id">Schedule ID</th>
+                                            <th class="search-col" con-id="date">Date</th>
+                                            <th class="search-col" con-id="time">Time</th>
+                                            <th class="search-col" con-id="car_type">Car Type</th>
                                             <th class="search-col" con-id="status">Status</th>
+                                            <th class="search-col" con-id="amount">Amount</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
@@ -459,6 +461,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{$schedule->status}}</td>
+                                                <td>{{$schedule->total_payable_amt}}</td>
                                             </tr>
 
                                         @endforeach
@@ -1606,7 +1609,7 @@
                                             @endif
                                         </div>
                                         <div class="col-md-3">
-                                            <input type="text" class="form-control" value="{{isset($musculo_1_2->cheif_comlaint_sensation_others)?$musculo_1_2->chief_complaint_others:''}}">
+                                            <input type="text" class="form-control" value="{{isset($musculo_1_2->cheif_comlaint_sensation_others)?$musculo_1_2->cheif_comlaint_sensation_others:''}}">
                                         </div>
                                     </div>
                                     <hr style="border-color: #0f0f0f;"/>
@@ -2726,15 +2729,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

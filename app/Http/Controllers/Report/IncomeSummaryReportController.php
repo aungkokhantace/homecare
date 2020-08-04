@@ -42,10 +42,11 @@ class IncomeSummaryReportController extends Controller
             $from_date = null;
             $to_date = null;
 
-            $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
+            // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
+            $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
 
             foreach($invoices as $invoice){
-                $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
+                // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
             }
 
@@ -96,10 +97,13 @@ class IncomeSummaryReportController extends Controller
                 $from_month = $from_date;
                 $to_month = $to_date;
             }
-            $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
-
+            
+            // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
+            $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
+            
             foreach($invoices as $invoice){
-                $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
+                // dd($invoice->date);
+                // $invoice->date = Carbon::parse($invoice->date)->format('m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
             }
 
@@ -148,10 +152,11 @@ class IncomeSummaryReportController extends Controller
             ob_end_clean();
             ob_start();
 
-            $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
+            // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
+            $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
 
             foreach($invoices as $invoice){
-                $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
+                // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
             }
 
@@ -240,9 +245,10 @@ class IncomeSummaryReportController extends Controller
             $type = null;
             $from_date = null;
             $to_date = null;
-
-            $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
-
+            
+            // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
+            $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
+            
             foreach($invoices as $invoice){
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
@@ -277,17 +283,18 @@ class IncomeSummaryReportController extends Controller
                 $from_month = $from_date;
                 $to_month = $to_date;
             }
-            $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
-
+            // $invoices = $this->repo->getIncomeSummary($type, $from_date, $to_date);
+            $invoices = $this->repo->getIncomeSummaryByType($type, $from_date, $to_date);
+            // dd('invoices',$invoices);
             foreach($invoices as $invoice){
-                $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
+                // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
             }
 
             $chartData = array();
             $count = 0;
             foreach($invoices as $invoice){
-                $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
+                // $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoice->total = $invoice->total_car_amount + $invoice->total_service_amount + $invoice->total_medication_amount + $invoice->total_investigation_amount+$invoice->package_price;
                 $chartData[$count]["date"] = $invoice->date;
                 $chartData[$count]["amount"] = $invoice->total;

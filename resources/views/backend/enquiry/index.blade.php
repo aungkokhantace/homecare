@@ -54,7 +54,7 @@
             <select class="form-control" name="enquiry_case_type" id="enquiry_case_type">
                 <option value="all" {{($enquiry_case_type == 'all')? 'selected' : ''}}>All statuses</option>
                 <option value="1" {{($enquiry_case_type == '1')? 'selected' : ''}}>Yes</option>
-                <option value="2" {{($enquiry_case_type == '2')? 'selected' : ''}}>No</option>
+                <option value="0" {{($enquiry_case_type == '0')? 'selected' : ''}}>No</option>
             </select>
         </div>
     </div>
@@ -112,9 +112,10 @@
                         <th>Created Date</th>
                         <th>Received By</th>
                         <th>Patient Name</th>
-                        <th>Phone No.</th>
-                        <th>Type</th>
-                        <th>Gender</th>
+                        <th>Service</th>
+                        {{--<th>Phone No.</th>--}}
+                        {{--<th>Type</th>--}}
+                        {{--<th>Gender</th>--}}
                         <th>Status</th>
                         <th></th>
                         <th></th>
@@ -126,9 +127,10 @@
                         <th class="search-col" con-id="date">Date</th>
                         <th class="search-col" con-id="name">Received By</th>
                         <th class="search-col" con-id="name">Patient Name</th>
-                        <th class="search-col" con-id="phone_no">Phone No.</th>
-                        <th class="search-col" con-id="patient_type_id">Patient Type</th>
-                        <th class="search-col" con-id="gender">Gender</th>
+                        <th class="search-col" con-id="service">Service</th>
+                        {{--<th class="search-col" con-id="phone_no">Phone No.</th>--}}
+                        {{--<th class="search-col" con-id="patient_type_id">Patient Type</th>--}}
+                        {{--<th class="search-col" con-id="gender">Gender</th>--}}
                         <th class="search-col" con-id="status">Status</th>
                         <th></th>
                         <th></th>
@@ -142,9 +144,10 @@
                             <td><a href="/enquiry/edit/{{$enquiry->id}}">{{$enquiry->created_at}}</a></td>
                             <td>{{$enquiry->received_by}}</td>
                             <td>{{$enquiry->name}}</td>
-                            <td>{{$enquiry->phone_no}}</td>
-                            <td>{{$enquiry->patient_type}}</td>
-                            <td>{{strtoupper($enquiry->gender)}}</td>
+                            <td>{{$enquiry->services}}</td>
+                            {{--<td>{{$enquiry->phone_no}}</td>--}}
+{{--                            <td>{{$enquiry->patient_type}}</td>--}}
+                            {{--<td>{{strtoupper($enquiry->gender)}}</td>--}}
                             <td>{{strtoupper($enquiry->status)}}</td>
                             <td>
                                 @if($enquiry->status == 'new')
@@ -190,15 +193,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

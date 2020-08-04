@@ -30,12 +30,13 @@
             <label for="name">Name<span class="require">*</span></label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <input readonly type="text" required class="form-control" id="name" name="name" placeholder="Enter Investigation Name" value="{{ isset($investigation)? $investigation->name:Request::old('name') }}"/>
-            <p class="text-danger">{{$errors->first('name')}}</p>
+            <!-- <input readonly type="text" required class="form-control" id="name" name="name" placeholder="Enter Investigation Name" value="{{ isset($investigation)? $investigation->name:Request::old('name') }}"/> -->
+            <input type="text" required class="form-control" id="service_name" name="service_name" placeholder="Enter Service Name" value="{{ isset($investigation)? $investigation->service_name:Request::old('service_name') }}"/>
+            <p class="text-danger">{{$errors->first('service_name')}}</p>
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="group_name">Group Name<span class="require">*</span></label>
         </div>
@@ -43,16 +44,48 @@
             <input readonly type="text" required class="form-control" id="group_name" name="group_name" placeholder="Enter Group Name" value="{{ isset($investigation)? $investigation->group_name:Request::old('group_name') }}"/>
             <p class="text-danger">{{$errors->first('group_name')}}</p>
         </div>
+    </div> -->
+
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="name">Routine Request<span class="require">*</span></label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <input type="text" required class="form-control" id="routine_request" name="routine_request" placeholder="Enter Routine Request" value="{{ isset($investigation)? $investigation->routine_request:Request::old('routine_request') }}"/>
+            <p class="text-danger">{{$errors->first('routine_request')}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="name">Urgent Request<span class="require">*</span></label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <input type="text" required class="form-control" id="urgent_request" name="urgent_request" placeholder="Enter Urgent Request" value="{{ isset($investigation)? $investigation->urgent_request:Request::old('urgent_request') }}"/>
+            <p class="text-danger">{{$errors->first('urgent_request')}}</p>
+        </div>
     </div>
 
 
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-            <label for="name">Price<span class="require">*</span></label>
+            <label for="name">Routine Price<span class="require">*</span></label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <input type="text" required class="form-control" id="price" name="price" placeholder="Enter Investigation Price" value="{{ isset($investigation)? $investigation->price:Request::old('price') }}"/>
-            <p class="text-danger">{{$errors->first('price')}}</p>
+            <input type="text" required class="form-control" id="routine_price" name="routine_price" placeholder="Enter Routine Price" value="{{ isset($investigation)? $investigation->routine_price:Request::old('routine_price') }}"/>
+            <p class="text-danger">{{$errors->first('routine_price')}}</p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <label for="name">Urgent Price<span class="require">*</span></label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <input type="text" required class="form-control" id="urgent_price" name="urgent_price" placeholder="Enter Urgent Price" value="{{ isset($investigation)? $investigation->urgent_price:Request::old('urgent_price') }}"/>
+            <p class="text-danger">{{$errors->first('urgent_price')}}</p>
         </div>
     </div>
 
@@ -86,20 +119,42 @@
             //Start Validation for Investigation Entry and Edit Form
             $('#investigationForm').validate({
                 rules: {
-                    name                  : 'required',
-                    group_name            : 'required',
-                    price                 : {
+                    service_name                  : 'required',
+                    routine_request                 : {
                         required          : true,
                         number            : true
-                    }
+                    },
+                    urgent_request                 : {
+                        required          : true,
+                        number            : true
+                    },
+                    routine_price                 : {
+                        required          : true,
+                        number            : true
+                    },
+                    urgent_price                 : {
+                        required          : true,
+                        number            : true
+                    },
                 },
                 messages: {
-                    name                  : 'Investigation Name is required',
-                    group_name            : 'Group Name is required',
-                    price                 : {
-                        required          : 'Investigation Price is required',
-                        number            : 'Investigation Price must be numeric'
-                    }
+                    service_name                  : 'Service Name is required',
+                    routine_request                 : {
+                        required          : 'Routine Request is required',
+                        number            : 'Routine Request must be numeric'
+                    },
+                    urgent_request                 : {
+                        required          : 'Urgent Request is required',
+                        number            : 'Urgent Request must be numeric'
+                    },
+                    routine_price                 : {
+                        required          : 'Routine Price is required',
+                        number            : 'Routine Price must be numeric'
+                    },
+                    urgent_price                 : {
+                        required          : 'Urgent Price is required',
+                        number            : 'Urgent Price must be numeric'
+                    },
                 },
                 submitHandler: function(form) {
                     $('input[type="submit"]').attr('disabled','disabled');

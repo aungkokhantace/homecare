@@ -68,9 +68,11 @@ class BookingRequestController extends Controller
             $allergyRepo    = new AllergyRepository();
             $allergyFood      = $allergyRepo->getArraysByType('food');
             $allergyDrug      = $allergyRepo->getArraysByType('drug');
+            $allergyEnvironment      = $allergyRepo->getArraysByType('environment');
             $allergies      = array();
             $allergies['food']      = $allergyFood;
             $allergies['drug']      = $allergyDrug;
+            $allergies['environment'] = $allergyEnvironment;
 
             $serviceRepo = new ServiceRepository();
             $services      = $serviceRepo->getObjs();

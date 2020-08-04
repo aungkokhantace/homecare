@@ -15,6 +15,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
+use App\Api\Transactionpromotion\TransactionpromotionApiRepository;
+
 class PatientPackageApiController extends Controller
 {
     public function __construct()
@@ -56,6 +58,7 @@ class PatientPackageApiController extends Controller
                     if($invoiceResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $invoiceResult['tablet_id'] = $tablet_id;
+                        $invoiceResult['data'] = (object) array();
                         return \Response::json($invoiceResult);
                     }
 
@@ -70,6 +73,7 @@ class PatientPackageApiController extends Controller
                     if($patient_packageResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $patient_packageResult['tablet_id'] = $tablet_id;
+                        $patient_packageResult['data'] = (object) array();
                         return \Response::json($patient_packageResult);
                     }
                     if(isset($patient_packageResult['log']) && count($patient_packageResult['log']) > 0){
@@ -91,15 +95,21 @@ class PatientPackageApiController extends Controller
                 //return max_key
                 $prefix                                 = $checkServerStatusArray['tablet_id'];
                 $maxPatientPackage                      = Utility::getMaxKey($prefix,'patient_package','id');
+                $maxTransactionPromotion                = Utility::getMaxKey($prefix,'transaction_promotions','id');
                 $maxKey                                 = array();
                 $maxKey[0]['table_name']                = "patient_package";
                 $maxKey[0]['max_key_id']                = $maxPatientPackage;
+                $maxKey[1]['table_name']                = "transaction_promotions";
+                $maxKey[1]['max_key_id']                = $maxTransactionPromotion;
 
                 //return patient_package
                 $data                                   = array();
                 $patient_packageArr                     = $patientRepo->getPatientPackageArray();
                 $data[0]['patient_package']             = $patient_packageArr;
 
+                $transactionPromotionApiRepo            = new TransactionpromotionApiRepository();
+                $transactionPromotionArr                = $transactionPromotionApiRepo->getArrays();
+                $data[0]['transaction_promotions']      = $transactionPromotionArr;
 
                 $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
                 $returnedObj['aceplusStatusMessage']    = "Request success !";
@@ -114,6 +124,7 @@ class PatientPackageApiController extends Controller
                 $returnedObj['aceplusStatusCode']       = ReturnMessage::INTERNAL_SERVER_ERROR;
                 $returnedObj['aceplusStatusMessage']    = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
                 $returnedObj['tabletId']                = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
                 return \Response::json($returnedObj);
             }
         }

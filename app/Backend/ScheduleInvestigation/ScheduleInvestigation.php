@@ -21,6 +21,8 @@ class ScheduleInvestigation extends Model
         'investigation_imaging_remark',
         'investigation_ecg_remark',
         'investigation_other_remark',
+        'investigation_labs_price',
+        'investigation_labs_type',
         'created_by',
         'updated_by',
         'deleted_by',

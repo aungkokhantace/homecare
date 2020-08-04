@@ -28,7 +28,9 @@ class ProductcategoryController extends Controller
     {
         try{
             if (Auth::guard('User')->check()) {
-                $productCategory      = $this->repo->getObjs();
+                // $productCategory      = $this->repo->getObjs();
+                $excluded_array = [10001, 10002]; //ids to be hidden from list (new_medication and treatment)
+                $productCategory      = $this->repo->getObjsByExcludedArray($excluded_array);
                 return view('backend.productcategory.index')->with('productCategory', $productCategory);
             }
             return redirect('/');
@@ -69,6 +71,9 @@ class ProductcategoryController extends Controller
 
     public function edit($id){
         if (Auth::guard('User')->check()) {
+          if (in_array($id, [10001, 10002])) {
+                return response()->view('core.error.pagenotfound', [], 404);
+            }
             $productCategory = $this->repo->getObjByID($id);
             return view('backend.productcategory.productcategory')->with('productCategory', $productCategory);
         }
@@ -100,13 +105,25 @@ class ProductcategoryController extends Controller
     public function destroy(){
         $id         = Input::get('selected_checkboxes');
         $new_string = explode(',', $id);
+        $delete_flag = true;
         foreach($new_string as $id){
-            $this->repo->delete($id);
+            $check = $this->repo->checkToDelete($id);
+            if(isset($check) && count($check)>0){
+                alert()->warning('There are products under this category_id = '.$id)->persistent('OK');
+                $delete_flag = false;
+            }
+            else{
+                $this->repo->delete($id);
+            }
         }
 
-        return redirect()->action('Backend\ProductcategoryController@index')
-            ->withMessage(FormatGenerator::message('Success', 'Medication Category deleted ...'));
-
+        if($delete_flag) {
+            return redirect()->action('Backend\ProductcategoryController@index')
+                ->withMessage(FormatGenerator::message('Success', 'Medication Category deleted ...'));
+        }
+        else{
+            return redirect()->action('Backend\ProductcategoryController@index')
+                ->withMessage(FormatGenerator::message('Fail', 'Medication Category did not delete ...'));
+        }
     }
-
 }

@@ -62,7 +62,7 @@ class PatientApiController extends Controller
             $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
             $returnedObj['data'] = $rawPatientTables;
             return \Response::json($returnedObj);
-           
+
         }
         else{
             return \Response::json($checkServerStatusArray);
@@ -74,7 +74,7 @@ class PatientApiController extends Controller
         $inputAll               = Input::All();
         $checkServerStatusArray = Check::checkSiteActivationCode($inputAll);
         $result                 = array();
-        
+
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK){
 
             $user_id                       = $checkServerStatusArray['data']['user_id'];
@@ -83,11 +83,11 @@ class PatientApiController extends Controller
 
             foreach($patient as $p)
             {
-                
+
                 if($user_id == $p->user_id){
 
                 $paramObj                   = Patient::find($user_id);
-                
+
                 $paramObj->name             = $checkServerStatusArray['data']['name'];
                 $paramObj->nrc_no           = $checkServerStatusArray['data']['nrc_no'];
                 $paramObj->staff_id         = $checkServerStatusArray['data']['staff_id'];
@@ -102,14 +102,14 @@ class PatientApiController extends Controller
                 $paramObj->remark           = $checkServerStatusArray['data']['remark'];
                 $paramObj->active           = $checkServerStatusArray['data']['active'];
                 $paramObj->case_scenario    = $checkServerStatusArray['data']['case_scenario'];
-              
+
                 $userObj                    = User::find($user_id);
                 $userObj->name         = $checkServerStatusArray['data']['name'];
-                
+
                 $userObj->role_id           = 5;
                 $userObj->address           = $checkServerStatusArray['data']['address'];
                 $userObj->active            = $checkServerStatusArray['data']['active'];
-                
+
                 if($checkServerStatusArray['data']['photo'])
                 {
                     $decode_image = $checkServerStatusArray['data']['photo'];
@@ -117,17 +117,17 @@ class PatientApiController extends Controller
                     $img            = str_replace(' ', '+', $img);
                     $data           = base64_decode($img);
                     $display_image  = 'UPLOAD'.uniqid().'.png';
-                    
+
                     $file = base_path() . "/public/images/users/" . $display_image;
-                    
+
                     $success = file_put_contents($file, $data);
-            
+
                     $userObj->display_image = $display_image;
                     $userObj->mobile_image  = $decode_image;
                 }else{
                     $display_image = "";
                 }
-               
+
                 $logObj                         = new LogPatientCaseSummary();
                 $logObj->case_summary           = $checkServerStatusArray['data']['case_scenario'];
 
@@ -137,7 +137,7 @@ class PatientApiController extends Controller
                 $familyObj->family_history_id   = $checkServerStatusArray['data']['family_history_id'];
                 $familyObj->family_member_id    = $checkServerStatusArray['data']['family_member_id'];
                 $familyObj->remark              = $checkServerStatusArray['data']['remark'];
-                
+
                 DB::table('patient_medical_history')->where('patient_id','=',$user_id)->delete();
                 $medicalObj                     = new Patientmedicalhistory();
                 $medicalObj->patient_id         = $user_id;
@@ -166,7 +166,7 @@ class PatientApiController extends Controller
                     $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
                     $returnedObj['data'] ="SUCCESS";
                     return \Response::json($returnedObj);
-           
+
                 }else{
                 return \Response::json($checkServerStatusArray);
                 }
@@ -189,11 +189,11 @@ class PatientApiController extends Controller
                     $img            = str_replace(' ', '+', $img);
                     $data           = base64_decode($img);
                     $display_image  = 'UPLOAD'.uniqid().'.png';
-                    
+
                     $file = base_path() . "/public/images/users/" . $display_image;
-                    
+
                     $success = file_put_contents($file, $data);
-            
+
                     $userObj->display_image = $display_image;
                     $userObj->mobile_image  = $decode_image;
                 }else{
@@ -206,7 +206,7 @@ class PatientApiController extends Controller
                 else{
                     $allergies = null;
                 }
-           
+
                 $paramObj                       = new Patient();
                 $paramObj->name                 = $checkServerStatusArray['data']['name'];
                 $paramObj->nrc_no               = $checkServerStatusArray['data']['nrc_no'];
@@ -222,7 +222,7 @@ class PatientApiController extends Controller
                 $paramObj->remark               = $checkServerStatusArray['data']['remark'];
                 $paramObj->active               = $checkServerStatusArray['data']['active'];
                 $paramObj->case_scenario        = $checkServerStatusArray['data']['case_scenario'];
-                
+
                 $logObj                         = new LogPatientCaseSummary();
                 $logObj->case_summary           = $checkServerStatusArray['data']['case_scenario'];
 
@@ -248,14 +248,14 @@ class PatientApiController extends Controller
                     $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
                     $returnedObj['data'] ="SUCCESS";
                     return \Response::json($returnedObj);
-           
+
                 }else{
                 return \Response::json($checkServerStatusArray);
                 }
             }
-        }    
         }
-        
+        }
+
     }*/
 
     //core user is under patient  //all are done in controller
@@ -263,11 +263,13 @@ class PatientApiController extends Controller
         $temp                   = Input::All();
         $inputAll               = json_decode($temp['param_data']);
         $user_id                = $inputAll->user_id;
+        $latest_date            = $inputAll->latest_date;
         $prefix                 = "";
         $checkServerStatusArray = Check::checkCodes($inputAll);
-
         if($checkServerStatusArray['aceplusStatusCode'] == ReturnMessage::OK){
             $prefix                     = $checkServerStatusArray['tablet_id'];
+            $patient_prefix             = Utility::generatePatientPrefix($prefix);
+
             $params                     = $checkServerStatusArray['data'][0];
             $tablet_id                  = $checkServerStatusArray['tablet_id'];
             $logArr                     = array();
@@ -277,9 +279,36 @@ class PatientApiController extends Controller
 
                 if(isset($params->patients) && count($params->patients)>0) {
                     foreach ($params->patients as $patient) {
+                        //start log summary
+                        $id = $patient->user_id;
+                        // $findObj    = Patient::where('user_id','=',$id)->first();
+                        $findObj    = Patient::find($id);
+
+                        if(isset($findObj) && count($findObj) > 0){
+                            //compare input and current case scenarios
+                            $current_case_scenario  = $findObj->case_scenario;
+                            $input_case_scenario    = $patient->case_scenario;
+
+                            if($current_case_scenario !== $input_case_scenario){
+                                //create log patient case summary
+                                $prefix = Utility::getTerminalId();
+                                $table = (new LogPatientCaseSummary())->getTable();
+                                $col = "id";
+                                $offset = 1;
+                                $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                                $logObj                         = new LogPatientCaseSummary();
+                                $logObj->id                     = $generatedId;
+                                $logObj->patient_id             = $patient->user_id;
+                                $logObj->case_summary           = $input_case_scenario;
+                                $logObj->created_at             = date("Y-m-d H:i:s");
+                                $logObj->save();            //log obj insert is successful
+                                //end creating log patient case summary
+                            }
+                        }
+                        //end log summary
+
                         if (isset($patient->core_users) && count($patient->core_users) > 0) {
                             $core_users = $patient->core_users;
-
                             if(array_key_exists('id',$core_users)) {
                                 if ($core_users->id != null && $core_users->id != ""){
                                     $userArr = array();
@@ -287,6 +316,13 @@ class PatientApiController extends Controller
 
                                     $userRepo = new UserApiRepository();
                                     $userResult = $userRepo->createSingleUser($userArr);
+
+                                    // //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
+                                    // if($userResult['aceplusStatusCode'] == ReturnMessage::SKIPPED){
+                                    //     //skip this row and continue to next loop
+                                    //     continue;
+                                    // }
+
                                     //if user insertion was successful
                                     if($userResult['aceplusStatusCode'] == ReturnMessage::OK){
                                         if(isset($userResult['log']) && count($userResult['log']) > 0){
@@ -307,7 +343,9 @@ class PatientApiController extends Controller
                                                     continue;       //continue to next loop
                                                 } else {
                                                     DB::rollback();
+                                                    $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                                                     $returnedObj['aceplusStatusMessage'] = $patientResult['aceplusStatusMessage'];
+                                                    $returnedObj['data'] = (object) array();
                                                     return \Response::json($returnedObj);
                                                 }
                                             }
@@ -317,7 +355,9 @@ class PatientApiController extends Controller
                                     }
                                     else{
                                         DB::rollback();
+                                        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                                         $returnedObj['aceplusStatusMessage'] = $userResult['aceplusStatusMessage'];
+                                        $returnedObj['data'] = (object) array();
                                         return \Response::json($returnedObj);
                                     }
                                 }
@@ -344,7 +384,11 @@ class PatientApiController extends Controller
                 $patientApiRepo = new PatientApiRepository();
                 $userApiRepo = new UserApiRepository();
 
-                $patients = $patientApiRepo->getPatientData();
+                // $patients = $patientApiRepo->getPatientData();
+
+                //get patients whose created_at or updated_at is greater than $latest_date
+                $patients = $patientApiRepo->getPatientDataWithLatestDate($latest_date);
+                
                 if(isset($patients) && count($patients) > 0) {
                     foreach ($patients as $patient) {
                         $allergies = $patientApiRepo->getPatientAllergy($patient->user_id);
@@ -361,12 +405,12 @@ class PatientApiController extends Controller
                             $patient->deleted_at = "";
                         }
 
-                        $data[$count] = $patient;
+                        $data[0]["patients"][$count] = $patient;
 
                         if (isset($allergies) && count($allergies) > 0) {
-                            $data[$count]->patient_allergy = $allergies;
+                            $data[0]["patients"][$count]->patient_allergy = $allergies;
                         } else {
-                            $data[$count]->patient_allergy = [];
+                            $data[0]["patients"][$count]->patient_allergy = [];
                         }
 
                         if (isset($core_user) && count($core_user) > 0) {
@@ -380,9 +424,9 @@ class PatientApiController extends Controller
                                 $core_user->deleted_at = "";
                             }
 
-                            $data[$count]->core_user = $core_user;
+                            $data[0]["patients"][$count]->core_users = $core_user;
                         } else {
-                            $data[$count]->core_user = new \stdClass();
+                            $data[0]["patients"][$count]->core_users = new \stdClass();
                         }
 
                         if (isset($logs) && count($logs) > 0) {
@@ -397,9 +441,9 @@ class PatientApiController extends Controller
                                     $log->deleted_at = "";
                                 }
                             }
-                            $data[$count]->log_patient_case_summary = $logs;
+                            $data[0]["patients"][$count]->log_patient_case_summary = $logs;
                         } else {
-                            $data[$count]->log = [];
+                            $data[0]["patients"][$count]->log_patient_case_summary = [];
                         }
 
                         $count++;
@@ -409,8 +453,8 @@ class PatientApiController extends Controller
                     $data = [];
                 }
 
-                $maxPatient  = Utility::getMaxKey($prefix,'patients','user_id');
-                $maxCoreUser = Utility::getMaxKey($prefix,'core_users','id');
+                $maxPatient  = Utility::getMaxKey($patient_prefix,'patients','user_id');
+                $maxCoreUser = Utility::getMaxKey($patient_prefix,'core_users','id');
                 $maxLog      = Utility::getMaxKey($prefix,'log_patient_case_summary','id');
 
                 $maxKey = array();
@@ -435,6 +479,7 @@ class PatientApiController extends Controller
                 $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
                 $returnedObj['aceplusStatusMessage'] = $e->getMessage() . " ----- line " . $e->getLine() . " ----- " . $e->getFile();
                 $returnedObj['tabletId'] = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data'] = (object) array();
                 return \Response::json($returnedObj);
             }
         }

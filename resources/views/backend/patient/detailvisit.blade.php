@@ -63,7 +63,7 @@
         </div>
 
         <!-- Start Vital Accordion -->
-        @if(isset($service_type) && ($service_type == 1 || $service_type == 0))
+        @if(isset($service_type) && ($service_type == 1 || $service_type == 0 || $service_type == 5))
         <div class="panel-group" id="accordion">
             <div class="panel panel-inverse">
                 <!-- Panel Heading -->
@@ -91,12 +91,14 @@
                                         <th>Blood Pressure</th>
                                         <th>SPO2</th>
                                         <th>Pulse Rate</th>
+                                        <th>Resp Rate</th>
                                         <th>Body Temperature</th>
                                         <th>Weight</th>
                                         <th>Height</th>
                                         <th>Blood Sugar</th>
                                     </tr>
                                     @foreach($vitals as $vital)
+                                        @if($vital->date !== "" && $vital->time !== "")
                                         <tr class="detail_visit_vital_row">
                                             <td>{{$vital->date}}</td>
                                             <td>{{$vital->time}}</td>
@@ -105,13 +107,19 @@
                                                 {{$vital->blood_pressure_dbp}}<br/>
                                                 {{$vital->blood_pressure_map}}
                                             </td>
-                                            <td>{{$vital->spo2 . '%'}}</td>
-                                            <td>{{$vital->pulse_rate . '/min'}}</td>
+                                            <td>{{$vital->spo2 . '%'}}<br>@if(isset($vital->spo2_comment)){{$vital->spo2_comment}}@endif</td>
+                                            <td>{{$vital->pulse_rate . '/min'}}<br>@if(isset($vital->pulse_rate_comment)){{$vital->pulse_rate_comment}}@endif</td>
+                                            @if($vital->resp_rate >= 20)
+                                                <td class="red_text">{{$vital->resp_rate . '/min'}}</td>
+                                            @else
+                                                <td>{{$vital->resp_rate . '/min'}}</td>
+                                            @endif
                                             <td>{{$vital->body_temperature_farenheit}}&#8457;</td>
                                             <td>{{$vital->weight_pound}}lb</td>
                                             <td>{{$vital->height_feet}}&#39;{{$vital->height_inches}}&#34;</td>
-                                            <td>{{$vital->blood_sugar . 'mg%'}}</td>
+                                            <td>{{$vital->blood_sugar . 'mg/dl'}}<br>@if(isset($vital->blood_sugar_comment)){{$vital->blood_sugar_comment}}@endif</td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                 </table>
 
@@ -159,10 +167,29 @@
                                         <th>Duration</th>
                                     </tr>
                                     @foreach($chief_complaints as $chief_complaint)
+                                        @if($chief_complaint->chief_complaint_comment !== "")
                                         <tr class="detail_visit_vital_row">
                                             <td>{{$chief_complaint->chief_complaint_comment}}</td>
-                                            <td>{{$chief_complaint->duration_days.'Days '.$chief_complaint->duration_months.'Months'}}</td>
+                                            <!-- <td>{{$chief_complaint->duration_days.'Days '.$chief_complaint->duration_months.'Months'}}</td> -->
+                                            <td>
+                                                @if(isset($chief_complaint->duration_days) && $chief_complaint->duration_days !== "")
+                                                    @if($chief_complaint->duration_days > 1)
+                                                        {{$chief_complaint->duration_days.'Days '}}
+                                                    @else
+                                                        {{$chief_complaint->duration_days.'Day '}}
+                                                    @endif
+                                                @endif
+
+                                                @if(isset($chief_complaint->duration_months) && $chief_complaint->duration_months !== "")
+                                                    @if($chief_complaint->duration_months > 1)
+                                                        {{$chief_complaint->duration_months.'Months'}}
+                                                    @else
+                                                        {{$chief_complaint->duration_months.'Month'}}
+                                                    @endif
+                                                @endif
+                                            </td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                 </table>
                                 <div class="row">
@@ -754,13 +781,24 @@
                             <div class="col-lg-12">
                                 <h3>Investigation Labs</h3><br/>
                                 @if(isset($investigations) && count($investigations)>0)
-                                    @foreach($investigations as $investigationKey => $investigationValue)
-                                        <h4 style="color: #418DD8;">{{$investigationKey}}</h4>
-                                        @foreach($investigationValue as $name)
-                                            <i class="fa fa-circle circle" aria-hidden="true"></i> {{$name}}<hr style="margin: 5px 0 5px 0;border-color: #5bc0de;"/>
-                                        @endforeach
+{{--                                    @foreach($investigations as $investigationKey => $investigationValue)--}}
+                                    @foreach($investigations as $investigationValue)
+                                        {{--<h4 style="color: #418DD8;">{{$investigationKey}}</h4>--}}
+                                        {{--@foreach($investigationValue as $name)--}}
+                                            {{--<i class="fa fa-circle circle" aria-hidden="true"></i> {{$name}}<hr style="margin: 5px 0 5px 0;border-color: #5bc0de;"/>--}}
+                                        {{--@endforeach--}}
+                                        <i class="fa fa-circle circle" aria-hidden="true"></i> {{$investigationValue}}<hr style="margin: 5px 0 5px 0;border-color: #5bc0de;"/>
                                     @endforeach
                                 @endif
+
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Remark
+                                    </div>
+                                    <div class="col-md-7">
+                                        <textarea class="form-control" id="remark" rows="3" cols="5"> @if(isset($investigation_lab_remark) && count($investigation_lab_remark) >0 ){{$investigation_lab_remark}}@endif</textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -811,6 +849,13 @@
                                     <div class="row">
                                         <div class="col-md-1"><label>{{'Others'}}</label></div>
                                         <div class="col-md-10"><b>:</b> {{$investigation_imaging['Others']}}</div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1"><label>Remark</label></div>
+                                        <div class="col-sm-4">
+                                            <textarea class="form-control" id="remark" rows="3" cols="5"> @if(isset($investigation_imaging_remark) && $investigation_imaging_remark != null){{$investigation_imaging_remark}}@endif</textarea>
+                                        </div>
                                     </div>
                                 @endif
                             </div>
@@ -913,7 +958,17 @@
                                         <i class="fa fa-circle circle" aria-hidden="true"></i> {{$provisional->name}}<hr style="margin: 5px 0 5px 0;border-color: #5bc0de;"/>
                                     @endforeach
                                 @endif
+
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Remark
+                                    </div>
+                                    <div class="col-md-7">
+                                        <textarea class="form-control" id="remark" rows="3" cols="5"> @if(isset($provisional_diagnosis_remark) && count($provisional_diagnosis_remark) >0 ){{$provisional_diagnosis_remark}}@endif</textarea>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -950,7 +1005,8 @@
                                         <th>Dosage</th>
                                         <th>Frequency</th>
                                         <th>Duration</th>
-                                        <th>Time</th>
+                                        <!-- <th>Time</th> -->
+                                        <th>Route</th>
                                         <th>Sold Qty.</th>
                                         <th>Price</th>
                                     </tr>
@@ -961,7 +1017,8 @@
                                                 <td>{{$treatment->total_dosage}}</td>
                                                 <td>{{$treatment->frequency}}</td>
                                                 <td>{{$treatment->days}}</td>
-                                                <td>{{$treatment->time}}</td>
+                                                <!-- <td>{{$treatment->time}}</td> -->
+                                                <td>{{$treatment->route_name}}</td>
                                                 <td>{{$treatment->sold_dosage}}</td>
                                                 <td style="text-align: right;">{{number_format($treatment->price * $treatment->sold_dosage)}}</td>
                                             </tr>
@@ -972,15 +1029,16 @@
                                             ?>
                                         @endforeach
                                         <tr class="detail_visit_vital_row">
+                                            <td></td>
+                                            <!-- <td><b>{{$totalDosage}}</b></td> -->
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td><b>Total</b></td>
-                                            <td><b>{{$totalDosage}}</b></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
                                             <td><b>{{$totalSold}}</b></td>
                                             <td style="text-align: right;"><b>{{number_format($totalPrice)}}</b></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td colspan="7">
                                                 <div class="row">
                                                     <div class="col-sm-1"><label>Remark</label></div>
@@ -989,9 +1047,42 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                 </table>
                                 @endif
+
+                                <!-- start treatment procedures -->
+                                <h3>Treatment (Procedure)</h3><br/>
+                                @if(isset($treatment_procedures) && count($treatment_procedures) > 0 )
+                                <table class="table table-condensed">
+                                    <tr class="detail_visit_vital">
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    @foreach($treatment_procedures as $treatment_procedure)
+                                        <tr class="detail_visit_vital_row">
+                                            <td>{{$treatment_procedure->product_name}}</td>
+                                            <td>{{$treatment_procedure->price}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                                @endif
+                                <!-- end treatment procedures -->
+
+                                <!-- start treatment remark -->
+                                <table class="table table-condensed">
+                                  <tr>
+                                      <td colspan="7">
+                                          <div class="row">
+                                              <div class="col-sm-1"><label>Remark</label></div>
+                                              <div class="col-sm-4">
+                                                  <textarea class="form-control" id="remark" rows="3" cols="5"> @if(isset($treatments) && count($treatments) >0 ){{$treatment->remark}}@endif</textarea>
+                                              </div>
+                                          </div>
+                                      </td>
+                                  </tr>
+                                </table>
+                                <!-- end treatment remark -->
                             </div>
                         </div>
                     </div>
@@ -1021,245 +1112,262 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h3>Neurological Treatment Record</h3><br/>
-                                @if(isset($neurological) && count($neurological)>0)
-                                    @foreach($neurological as $neuro)
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Resting <br> BP/HR/SP O2</label>
-                                            </div>
-                                            <div class="col-md-8">
+                               <h3>Neurological Treatment Record</h3><br/>
 
-                                                <div class="row">
-                                                    <div class="col-md-1">
-
-                                                        <?php
-                                                        if (strpos($neuro->resting_bp, ',') !== false){
-                                                            $bp = array();
-                                                            $bp = explode(',',$neuro->resting_bp);
-                                                            echo $bp[0].",<br/>".$bp[1]."<br/>".$bp[2];
-
-                                                            }
-                                                        else{
-                                                            $bp = $neuro->resting_bp;
-                                                            echo $bp.',';
-                                                        }
-
-                                                        ?>
-
-                                                    </div>
-                                                    <div class="col-md-1">{{$neuro->resting_hr}} ,</div>
-                                                    <div class="col-md-1">{{$neuro->resting_spo2}}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Passive ROM exercise <br> U/L & L/L</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->passive_rom_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Visual Exercise</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->visual_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Oral Motor Exercise</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->oral_motor_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Active Assisted ROM exercise <br/> U/L & L/L</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->active_assisted_rom_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Bridging/ Inner range of quadriceps/ dorsiflexion</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->bridging_inner_range == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Transfer bed &#8596; chair</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->transfer_bed == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Sitting balance</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->sitting_balance == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Sit to Stand</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->sit_to_stand == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Standing balance</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->standing_balance == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Stepping (10cm/15cm)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->stepping == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Single Leg balance</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->single_leg_balance == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>March on spot</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->march_on_spot == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Ambulation<br/>
-                                                <span style="line-height: 30px;">&#9679;Parallel Bar</span><br/>
-                                                <span style="line-height: 30px;">&#9679;Walk + ball throw + kick ball</span><br/>
-                                                <span style="line-height: 30px;">&#9679;Outdoor with walking aids</span><br/>
-                                                <span style="line-height: 30px;">&#9679;Tandem walk/ cross walk</span></label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <br/>
-                                                <span style="line-height: 30px;">@if($neuro->ambulation_parallel_bar == 1) <input type="checkbox" checked><br/>
-                                                @else <input type="checkbox"><br/>
-                                                @endif</span>
-                                                <span style="line-height: 30px;">@if($neuro->ambulation_walk == 1) <input type="checkbox" checked><br/>
-                                                @else <input type="checkbox"><br/>
-                                                @endif</span>
-                                                <span style="line-height: 30px;">@if($neuro->ambulation_outdoor == 1) <input type="checkbox" checked><br/>
-                                                @else <input type="checkbox"><br/>
-                                                @endif</span>
-                                                <span style="line-height: 30px;">@if($neuro->ambulation_tandem_walk == 1) <input type="checkbox" checked><br/>
-                                                @else <input type="checkbox"><br/>
-                                                @endif</span>
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Stair &#8595; &#8593;</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->stair == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Arm pedal/ Leg pedal</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->arm_pedal == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Treadmil (km/h, duration)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->treadmill == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label>Hand exercise (opposition/ fisting/ writing/ active assisted exercise)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                @if($neuro->hand_exercise == 1) <input type="checkbox" checked>
-                                                @else <input type="checkbox">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <hr style="margin: 5px 0 5px 0;"/>
-                                    @endforeach
-                                        <div class="row">
-                                            <div class="col-md-3"><label>Remark</label></div>
-                                            <div class="col-md-8"><textarea class="form-control" id="remark" rows="3" cols="5">@if(isset($neurological) && count($neurological)>0){{$neuro->remark}}@endif</textarea></div>
-                                        </div>
+                                @if(isset($neurological_by_date_array) && count($neurological_by_date_array)>0)
+                                    <table class="table full_width_table">
+                                        <tr>
+                                            <td><label><strong>Date</strong></label></td>
+                                            @foreach($neurological_by_date_array["date"] as $date)
+                                            <td><strong>{{$date}}</strong></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label><strong>Time</strong></label></td>
+                                            @foreach($neurological_by_date_array["time"] as $time)
+                                            <td><strong>{{$time}}</strong></td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="5"><label>Resting</label></td>
+                                            @foreach($neurological_by_date_array["sbp"] as $neurological_sbp)
+                                            <td><label>SBP = </label>{{$neurological_sbp}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            @foreach($neurological_by_date_array["dbp"] as $neurological_dbp)
+                                            <td><label>DBP = </label>{{$neurological_dbp}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            @foreach($neurological_by_date_array["map"] as $neurological_map)
+                                            <td><label>MAP = </label>{{$neurological_map}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            @foreach($neurological_by_date_array["resting_hr"] as $neurological_resting_hr)
+                                            <td><label>HR = </label>{{$neurological_resting_hr}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            @foreach($neurological_by_date_array["resting_spo2"] as $resting_spo2)
+                                            <td><label>SPO2 = </label>{{$resting_spo2}}</td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Passive ROM exercise <br>U/L & L/L</label></td>
+                                            @foreach($neurological_by_date_array["passive_rom_exercise"] as $passive_rom_exercise)
+                                            <td>
+                                            @if($passive_rom_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Visual Exercise</label></td>
+                                            @foreach($neurological_by_date_array["visual_exercise"] as $visual_exercise)
+                                            <td>
+                                            @if($visual_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Oral Motor Exercise</label></td>
+                                            @foreach($neurological_by_date_array["oral_motor_exercise"] as $oral_motor_exercise)
+                                            <td>
+                                            @if($oral_motor_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Active Assisted ROM exercise <br/> U/L & L/L</label></td>
+                                            @foreach($neurological_by_date_array["active_assisted_rom_exercise"] as $active_assisted_rom_exercise)
+                                            <td>
+                                            @if($active_assisted_rom_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Bridging/ Inner range of quadriceps/ dorsiflexion</label></td>
+                                            @foreach($neurological_by_date_array["bridging_inner_range"] as $bridging_inner_range)
+                                            <td>
+                                            @if($bridging_inner_range == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Transfer bed &#8596; chair</label></td>
+                                            @foreach($neurological_by_date_array["transfer_bed"] as $transfer_bed)
+                                            <td>
+                                            @if($transfer_bed == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Sitting balance</label></td>
+                                            @foreach($neurological_by_date_array["sitting_balance"] as $sitting_balance)
+                                            <td>
+                                            @if($sitting_balance == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Sit to Stand</label></td>
+                                            @foreach($neurological_by_date_array["sit_to_stand"] as $sit_to_stand)
+                                            <td>
+                                            @if($sit_to_stand == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Standing balance</label></td>
+                                            @foreach($neurological_by_date_array["standing_balance"] as $standing_balance)
+                                            <td>
+                                            @if($standing_balance == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Stepping (10cm/15cm)</label></td>
+                                            @foreach($neurological_by_date_array["stepping"] as $stepping)
+                                            <td>
+                                            @if($stepping == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Single Leg balance</label></td>
+                                            @foreach($neurological_by_date_array["single_leg_balance"] as $single_leg_balance)
+                                            <td>
+                                            @if($single_leg_balance == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>March on spot</label></td>
+                                            @foreach($neurological_by_date_array["march_on_spot"] as $march_on_spot)
+                                            <td>
+                                            @if($march_on_spot == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Ambulation</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>&#9679; Parallel Bar</label></td>
+                                            @foreach($neurological_by_date_array["ambulation_parallel_bar"] as $ambulation_parallel_bar)
+                                            <td>
+                                            @if($ambulation_parallel_bar == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>&#9679; Walk + ball throw + kick ball</label></td>
+                                            @foreach($neurological_by_date_array["ambulation_walk"] as $ambulation_walk)
+                                            <td>
+                                            @if($ambulation_walk == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>&#9679; Outdoor with walking aids</label></td>
+                                            @foreach($neurological_by_date_array["ambulation_outdoor"] as $ambulation_outdoor)
+                                            <td>
+                                            @if($ambulation_outdoor == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>&#9679; Tandem walk/ cross walk</label></td>
+                                            @foreach($neurological_by_date_array["ambulation_tandem_walk"] as $ambulation_tandem_walk)
+                                            <td>
+                                            @if($ambulation_tandem_walk == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Stair &#8595; &#8593;</label></td>
+                                            @foreach($neurological_by_date_array["stair"] as $stair)
+                                            <td>
+                                            @if($stair == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Arm pedal/ Leg pedal</label></td>
+                                            @foreach($neurological_by_date_array["arm_pedal"] as $arm_pedal)
+                                            <td>
+                                            @if($arm_pedal == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Treadmil (km/h, duration)</label></td>
+                                            @foreach($neurological_by_date_array["treadmill"] as $treadmill)
+                                            <td>
+                                            @if($treadmill == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><label>Hand exercise (opposition/ fisting/ writing/ active assisted exercise)</label></td>
+                                            @foreach($neurological_by_date_array["hand_exercise"] as $hand_exercise)
+                                            <td>
+                                            @if($hand_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr>
+                                        <!-- <tr>
+                                            <td><label>Hand exercise (opposition/ fisting/ writing/ active assisted exercise)</label></td>
+                                            @foreach($neurological_by_date_array["hand_exercise"] as $hand_exercise)
+                                            <td>
+                                            @if($hand_exercise == 1) <input type="checkbox" checked>
+                                            @else <input type="checkbox">
+                                            @endif
+                                            </td>
+                                            @endforeach
+                                        </tr> -->
+                                    </table>
                                 @endif
                             </div>
                         </div>
@@ -1554,90 +1662,197 @@
                                 <br/>
                                 <div class="row">
                                     <div class="col-md-1"><label>Other</label></div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-10">
                                         <textarea class="form-control" row="1" col="7">{{$nutrition->other}}</textarea>
                                     </div>
                                 </div>
+
+                                {{--Start Old Design--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-md-12">--}}
+                                        {{--<h6><b>Estimated Nutritional Needs</b></h6>--}}
+                                        {{--<h6>Male</h6>--}}
+                                        {{--<b>66+13.7 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field1}}" class="text_box">--}}
+                                        {{--<b>(wt/kg)+5 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field2}}" class="text_box">--}}
+                                        {{--<b>(ht/cm)+6.8 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field3}}" class="text_box">--}}
+                                        {{--<b>age</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_age}}" class="text_box">--}}
+                                        {{--<b>kcal X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field8}}" class="text_box">--}}
+                                        {{--<b>AF</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field5}}" class="text_box">--}}
+                                        {{--<b>XRF</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field6}}" class="text_box">--}}
+                                        {{--<b>Kcal</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->male_nutrition_field7}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<br/>--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-md-12">--}}
+                                        {{--<h6>Female</h6>--}}
+                                        {{--<b>665+9.6 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field1}}" class="text_box">--}}
+                                        {{--<b>(wt/kg)+1.8 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field2}}" class="text_box">--}}
+                                        {{--<b>(ht/cm)+4.7 X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field3}}" class="text_box">--}}
+                                        {{--<b>age</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_age}}" class="text_box">--}}
+                                        {{--<b>kcal X</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field8}}" class="text_box">--}}
+                                        {{--<b>AF</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field5}}" class="text_box">--}}
+                                        {{--<b>XRF</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field6}}" class="text_box">--}}
+                                        {{--<b>Kcal</b>--}}
+                                        {{--<input type="text" value="{{$nutrition->female_nutrition_field7}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<br/>--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-md-1"> <b>Protein</b> </div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<input type="text" value="{{$nutrition->protient_field1}}" class="text_box">--}}
+                                        {{--<b> Kg X </b>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-1">--}}
+                                        {{--<input type="text" value="{{$nutrition->protient_field2}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<b>gm/Kg (based on RF)</b>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<input type="text" value="{{$nutrition->protient_field3}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<br/>--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-md-1"><b>Fluid</b></div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field1}}" class="text_box">--}}
+                                        {{--<b> Kg X </b>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-1">--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field2}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<b> cc/Kg </b>--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field3}}" class="text_box">--}}
+                                        {{--<b> + </b>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-4">--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field4}}" class="text_box">--}}
+                                        {{--<b> (dehydration/N/V,diarrhea) </b>--}}
+                                        {{--<input type="text" value="{{$nutrition->fluid_field5}}" class="text_box">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                 {{--End Old Design   --}}
+
+                                <br>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <h6><b>Estimated Nutritional Needs</b></h6>
-                                        <h6>Male</h6>
-                                        <b>66+13.7 X</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field1}}" class="text_box">
-                                        <b>(wt/kg)+5 X</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field2}}" class="text_box">
-                                        <b>(ht/cm)+6.8 X</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field3}}" class="text_box">
-                                        <b>age</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_age}}" class="text_box">
-                                        <b>kcal X</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field8}}" class="text_box">
-                                        <b>AF</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field5}}" class="text_box">
-                                        <b>XRF</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field6}}" class="text_box">
-                                        <b>Kcal</b>
-                                        <input type="text" value="{{$nutrition->male_nutrition_field7}}" class="text_box">
+                                    <div class="col-md-3">
+                                        @if($nutrition->gender == "male")
+                                            <input type="radio" name="gender" value="male" checked> <b>Male</b>
+                                            <input type="radio" name="gender" value="female"> <b>Female</b>
+                                        @else
+                                            <input type="radio" name="gender" value="male"> Male
+                                            <input type="radio" name="gender" value="female" checked> Female
+                                        @endif
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <b>Weight</b>
+                                        <input type="text" value="@if($nutrition->weight > 0){{$nutrition->weight}} @endif" class="text_box">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <b>Height</b>
+                                        <input type="text" value="@if($nutrition->height > 0){{$nutrition->height}} @endif" class="text_box">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <b>Age</b>
+                                        <input type="text" value="@if($nutrition->age > 0) {{$nutrition->age}} @endif" class="text_box">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" value="@if($nutrition->calorie > 0) {{$nutrition->calorie}} @endif" class="text_box">
+                                        <b>KCal</b>
                                     </div>
                                 </div>
                                 <br/>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h6>Female</h6>
-                                        <b>665+9.6 X</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field1}}" class="text_box">
-                                        <b>(wt/kg)+1.8 X</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field2}}" class="text_box">
-                                        <b>(ht/cm)+4.7 X</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field3}}" class="text_box">
-                                        <b>age</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_age}}" class="text_box">
-                                        <b>kcal X</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field8}}" class="text_box">
-                                        <b>AF</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field5}}" class="text_box">
-                                        <b>XRF</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field6}}" class="text_box">
-                                        <b>Kcal</b>
-                                        <input type="text" value="{{$nutrition->female_nutrition_field7}}" class="text_box">
+                                        @if((isset($nutrition->activity_factor) && $nutrition->activity_factor > 0) || (isset($nutrition->totalCalorie) && $nutrition->totalCalorie > 0))
+                                            <input type="checkbox" checked> <b>Calculate Total Calorie</b>
+                                        @else <input type="checkbox"> <b>Calculate Total Calorie</b>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <b>Activity Factor</b>
+                                        <input type="text" value="@if($nutrition->activity_factor > 0) {{$nutrition->activity_factor}} @endif" class="text_box">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" value="@if($nutrition->totalCalorie > 0) {{$nutrition->totalCalorie}} @endif" class="text_box">
+                                        <b>KCal</b>
                                     </div>
                                 </div>
                                 <br/>
                                 <div class="row">
-                                    <div class="col-md-1"> <b>Protein</b> </div>
-                                    <div class="col-md-2">
-                                        <input type="text" value="{{$nutrition->protient_field1}}" class="text_box">
-                                        <b> Kg X </b>
+                                    <div class="col-md-12">
+                                        <b>Protein :</b>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <input type="text" value="@if($nutrition->protein_kg > 0) {{$nutrition->protein_kg}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->protient_field2}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->protein_gm > 0) {{$nutrition->protein_gm}} @endif" class="text_box">
                                     </div>
-                                    <div class="col-md-2">
-                                        <b>gm/Kg (based on RF)</b>
+                                    <div class="col-md-1">
+                                        <input type="text" value="@if($nutrition->protein_result > 0) {{$nutrition->protein_result}} @endif" class="text_box">
                                     </div>
-                                    <div class="col-md-2">
-                                        <input type="text" value="{{$nutrition->protient_field3}}" class="text_box">
+                                </div>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <b>Fluid :</b>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <input type="text" value="@if($nutrition->fluid_kg > 0) {{$nutrition->fluid_kg}} @endif" class="text_box">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" value="@if($nutrition->fluid_cm > 0) {{$nutrition->fluid_cm}} @endif" class="text_box">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" value="@if($nutrition->fluid_result > 0) {{$nutrition->fluid_result}} @endif" class="text_box">
                                     </div>
                                 </div>
                                 <br/>
                                 <div class="row">
-                                    <div class="col-md-1"><b>Fluid</b></div>
+                                    <div class="col-md-12">
+                                        @if((isset($nutrition->dehydration) && $nutrition->dehydration > 0) || (isset($nutrition->total_fluid) && $nutrition->total_fluid > 0))
+                                            <input type="checkbox" checked> <b>Add Dehydration</b>
+                                        @else <input type="checkbox"> <b>Add Dehydration</b>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-2">
-                                        <input type="text" value="{{$nutrition->fluid_field1}}" class="text_box">
-                                        <b> Kg X </b>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <input type="text" value="{{$nutrition->fluid_field2}}" class="text_box">
+                                        <b>Dehydration</b>
+                                        <input type="text" value="@if($nutrition->dehydration > 0) {{$nutrition->dehydration}} @endif" class="text_box">
                                     </div>
                                     <div class="col-md-2">
-                                        <b> cc/Kg </b>
-                                        <input type="text" value="{{$nutrition->fluid_field3}}" class="text_box">
-                                        <b> + </b>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" value="{{$nutrition->fluid_field4}}" class="text_box">
-                                        <b> (dehydration/N/V,diarrhea) </b>
-                                        <input type="text" value="{{$nutrition->fluid_field5}}" class="text_box">
+                                        <input type="text" value="@if($nutrition->total_fluid > 0) {{$nutrition->total_fluid}} @endif" class="text_box">
                                     </div>
                                 </div>
                                 <br/>
@@ -1671,7 +1886,196 @@
         </div>
         @endif
         <!-- End Nutrition Assesment Form -->
+
+        <!-- Start Blood Drawing Accordion -->
+        @if(isset($service_type) && ($service_type == 5 || $service_type == 0))
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-inverse">
+                    <!-- Panel Heading -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#blood_drawing">
+                                <i class="fa fa-plus-circle pull-right"></i>
+                                Blood Drawing
+                            </a>
+                        </h3>
+                    </div>
+                    <!-- End Panel Heading -->
+
+                    <!-- Start Panel Body -->
+                    <div id="blood_drawing" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>Blood Drawing</h3>
+                                    @if(isset($blood_drawings) && count($blood_drawings)>0)
+                                        <table class="table table-condensed">
+                                            <tr class="detail_visit_vital">
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Urgent Price</th>
+                                                <th>Routine Price</th>
+                                            </tr>
+                                            @foreach($blood_drawings as $blood_drawing)
+                                                <tr class="detail_visit_vital_row">
+                                                    <td>{{$blood_drawing->service_name}}</td>
+                                                    <td>{{$blood_drawing->description}}</td>
+                                                    <td>@if($blood_drawing->investigation_labs_type == "urgent"){{number_format($blood_drawing->investigation_labs_price,2)}}@else 0 @endif</td>
+                                                    <td>@if($blood_drawing->investigation_labs_type == "routine"){{number_format($blood_drawing->investigation_labs_price,2)}}@else 0 @endif</td>
+                                                </tr>
+                                            @endforeach
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-md-3"><label>Remark</label></div>
+                                            <div class="col-md-9"><textarea class="form-control" id="remark" rows="3" cols="5">@if(isset($blood_drawings_remark) && count($blood_drawings_remark)>0){{$blood_drawings_remark}}@endif</textarea></div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+        <!-- End Blood Drawing Accordion -->
+
+        <!-- Start Other Service -->
+        {{--@if(isset($other_services))--}}
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-inverse">
+                <!-- Panel Heading -->
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#other_services">
+                            <i class="fa fa-plus-circle pull-right"></i>
+                            Other Services
+                        </a>
+                    </h3>
+                </div>
+                <!-- End Panel Heading -->
+
+                <!-- Start Panel Body -->
+                <div id="other_services" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3>Other Services</h3><br/>
+                                @if(isset($other_services) && count($other_services) > 0 )
+                                    <table class="table table-condensed">
+                                        <tr class="detail_visit_vital">
+                                            <th>Name</th>
+                                            <th>Remark</th>
+                                        </tr>
+
+                                        @foreach($other_services as $other_service)
+                                            <tr class="detail_visit_vital_row">
+                                                <td>{{$other_service->name}}</td>
+                                                <td>{{$other_service->remark}}</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--@endif--}}
+        <!-- End Other Service -->
+
+        <!-- Start Doctor Comment Accordion -->
+        @if(isset($service_type) && ($service_type == 1 || $service_type == 0))
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-inverse">
+                    <!-- Panel Heading -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#doctor_comments">
+                                <i class="fa fa-plus-circle pull-right"></i>
+                                Doctor Comments
+                            </a>
+                        </h3>
+                    </div>
+                    <!-- End Panel Heading -->
+
+                    <!-- Start Panel Body -->
+                    <div id="doctor_comments" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>Doctor Comments</h3>
+                                    <div class="row">
+                                        <div class="col-sm-1"><label>Comment</label></div>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" id="comment" rows="5" cols="50"> {{$scheduleRaw->doctor_comments}} </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+            <!-- End Doctor Comment Accordion -->
+
+        {!! Form::open(array('url' => 'addendum/store', 'class'=> 'form-horizontal user-form-border', 'id' => 'addendumForm', 'files' => true)) !!}
+        {{--Start Addendum--}}
+        <h1 class="page-header">Addendum</h1>
+        <input type="hidden" name="patient_id" value="{{isset($patient)? $patient->user_id:''}}"/>
+        <input type="hidden" name="schedule_id" value="{{isset($schedule_id)? $schedule_id:''}}"/>
+        {{--Start Addendum List--}}
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="listing">
+                    <input type="hidden" id="pageSearchedValue" name="pageSearchedValue" value="">
+                    <table class="table table-striped list-table" id="list-table">
+
+                        <thead>
+                        <tr>
+                            <th>Addendum</th>
+                            <th>Added By</th>
+                            <th>Added At</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th class="search-col" con-id="addendum">Addendum</th>
+                            <th class="search-col" con-id="added_by">Added By</th>
+                            <th class="search-col" con-id="added_at">Added At</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        @foreach($addendums as $addendum)
+                            <tr>
+                                <td>{{$addendum->addendum_text}}</td>
+                                <td>{{$addendum->user->name}}</td>
+                                <td>{{$addendum->created_at}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{--End Addendum List--}}
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <label for="addendum" class="text_bold_black">Addendum</label>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <textarea autocomplete="off" class="form-control" id="addendum" name="addendum" placeholder="Enter addendum" rows="15" cols="50">{{Input::old('addendum')}}</textarea>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-1">
+                <input type="submit" name="add_addendum" id="add_addendum" value="ADD" class="form-control btn-primary">
+            </div>
+        </div>
+        {{--End Addendum--}}
     </div>
+    {!! Form::close() !!}
 @stop
 
 @section('page_script')
@@ -1685,15 +2089,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

@@ -36,6 +36,10 @@ class InvoiceController extends Controller
             $invoices = $this->repo->getInvoiceHeaderByPatientID($id);
 
             foreach($invoices as $invoice){
+                if($invoice->schedule_id == null && $invoice->type == "package"){
+                    $invoice->car_type = 0;
+                    $invoice->car_type_setup_id = 0;
+                }
                 $invoiceDetails = $this->repo->getDetails($invoice->id);
                 foreach($invoiceDetails as $invDetail){
                     $invoice->car_type = $invDetail->car_type;
@@ -43,7 +47,6 @@ class InvoiceController extends Controller
                 }
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
             }
-
             $carTypeRepo = new CartypeRepository();
 
             $carTypeSetupRepo = new CartypesetupRepository();
@@ -54,11 +57,11 @@ class InvoiceController extends Controller
                 if($carType == 1){
                     $carTypeArray[$inv->id] = "Patient Owned Vehicle";
                 }
-                if($carType == 2){
+                elseif($carType == 2){
                     $carTypeArray[$inv->id] = "Rental Vehicle";
                 }
 
-                if($carType == 3){
+                elseif($carType == 3){
                     if($inv->car_type_setup_id != 0){
                         $carTypeID = $carTypeSetupRepo->getCarType($inv->car_type_setup_id);
                         $carTypeArray[$inv->id] = $carTypeRepo->getCarTypeName($carTypeID);
@@ -66,6 +69,10 @@ class InvoiceController extends Controller
                     else{
                         $carTypeArray[$inv->id] = "HHCS Vehicle";
                     }
+                }
+
+                else{
+                    $carTypeArray[$inv->id] = null;
                 }
             }
 
@@ -84,7 +91,17 @@ class InvoiceController extends Controller
                 $grandTotalAmount = $invoice->total_nett_amt_wo_disc - $invoice->total_disc_amt;
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoiceDetails = $this->repo->getDetails($id);
-                return view('patient.invoice.invoicedetail')->with('invoice',$invoice)->with('invoiceDetails',$invoiceDetails)->with('grandTotalAmount',$grandTotalAmount);
+                if(isset($invoice->zone_id) && $invoice->zone_id !== 0){
+                    $zoneValue = $invoice->patient->zone->name;
+                }
+                else{
+                    $zoneValue = "";
+                }
+                return view('patient.invoice.invoicedetail')
+                    ->with('invoice',$invoice)
+                    ->with('zoneValue',$zoneValue)
+                    ->with('invoiceDetails',$invoiceDetails)
+                    ->with('grandTotalAmount',$grandTotalAmount);
             }
             else{
                 return redirect()->action('Patient\InvoiceController@index')
@@ -100,12 +117,21 @@ class InvoiceController extends Controller
             $result = $this->repo->getObjByID($id);
             if ($result['aceplusStatusCode'] == ReturnMessage::OK){
                 $invoice = $result['result'];
-                $grandTotalAmount = $invoice->total_amount_wo_discount - $invoice->total_consultant_discount_amount;
+                $grandTotalAmount = $invoice->total_nett_amt_wo_disc - $invoice->total_disc_amt;
                 $invoice->date = Carbon::parse($invoice->date)->format('d-m-Y');
                 $invoiceDetails = $this->repo->getDetails($id);
 
+                if(isset($invoice->zone_id) && $invoice->zone_id !== 0){
+                    $zoneValue = $invoice->patient->zone->name;;
+                }
+                else{
+                    $zoneValue = "";
+                }
+
+                $pdfHeader = Utility::getPDFHeader().'<br>'.'<br>';
+                $html = $pdfHeader;
                 if(isset($invoiceDetails) && count($invoiceDetails)>0){
-                    $html = '<h1>Invoice Detail</h1>
+                    $html .= '<h1>Invoice Detail</h1>
                         <table>
                             <tr>
                                 <td height="30" width="25%">Invoice ID</td>
@@ -135,7 +161,7 @@ class InvoiceController extends Controller
                              <tr>
                                 <td height="30" width="25%">Patient ID</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->patient->user_id.'</td>
+                                <td height="30">'.$invoice->patient_id.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Patient Name</td>
@@ -155,7 +181,7 @@ class InvoiceController extends Controller
                              <tr>
                                 <td height="30" width="25%">Zone</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->patient->zone->name.'</td>
+                                <td height="30">'.$zoneValue.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Total Amount</td>
@@ -199,7 +225,7 @@ class InvoiceController extends Controller
                                 </table>';
                 }
                 else{
-                    $html='<h1>Invoice Detail</h1>
+                    $html.='<h1>Invoice Detail</h1>
                         <table>
                             <tr>
                                 <td height="30" width="25%">Invoice ID</td>
@@ -229,7 +255,7 @@ class InvoiceController extends Controller
                              <tr>
                                 <td height="30" width="25%">Patient ID</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->patient->staff_id.'</td>
+                                <td height="30">'.$invoice->patient_id.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Patient Name</td>
@@ -249,17 +275,17 @@ class InvoiceController extends Controller
                              <tr>
                                 <td height="30" width="25%">Zone</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->patient->zone->name.'</td>
+                                <td height="30">'.$zoneValue.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Total Amount</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->total_amount_wo_discount.'</td>
+                                <td height="30">'.$invoice->total_nett_amt_wo_disc.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Discount Amount</td>
                                 <td height="30" width="10%">:</td>
-                                <td height="30">'.$invoice->total_consultant_discount_amount.'</td>
+                                <td height="30">'.$invoice->total_disc_amt.'</td>
                             </tr>
                              <tr>
                                 <td height="30" width="25%">Grand Total Amount</td>
@@ -268,6 +294,7 @@ class InvoiceController extends Controller
                             </tr>
                         </table>';
                 }
+
                 Utility::exportPDF($html);
 
             }

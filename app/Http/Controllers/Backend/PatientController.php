@@ -8,12 +8,16 @@
  */
 namespace App\Http\Controllers\Backend;
 
+use App\Backend\Addendum\Addendum;
+use App\Backend\Addendum\AddendumRepository;
 use App\Backend\Allergy\AllergyRepository;
 use App\Backend\Cartype\Cartype;
 use App\Backend\Investigation\Investigation;
 use App\Backend\LogPatientCaseSummary\LogPatientCaseSummary;
+use App\Backend\Patient\PatientRepository;
 use App\Backend\Schedule\Schedule;
 use App\Backend\Schedule\ScheduleRepository;
+use App\Backend\Invoice\InvoiceRepository;
 use App\Backend\Scheduledetail\Scheduledetail;
 use App\Backend\Service\Service;
 use App\Backend\Township\TownshipRepository;
@@ -41,8 +45,9 @@ use App\Backend\Patientsurgeryhistory\PatientsurgeryhistoryRepository;
 use App\Backend\Patientfamilyhistory\PatientfamilyhistoryRepository;
 use App\Backend\Familyhistory\FamilyhistoryRepository;
 use App\Backend\Familymember\FamilymemberRepository;
-use App\Backend\Medicalhistory\MedicalHistoryRepository;
+use App\Backend\Medicalhistory\MedicalhistoryRepository;
 use App\Backend\Patientmedicalhistory\PatientmedicalhistoryRepository;
+use App\Backend\Route\RouteRepository;
 
 class PatientController extends Controller
 {
@@ -82,14 +87,17 @@ class PatientController extends Controller
             $patientTypes = Utility::getSettingsByType("PATIENT_TYPE");
 
             $townshipRepo = new TownshipRepository();
-            $townships      = $townshipRepo->getObjs();
+//            $townships      = $townshipRepo->getObjs();
+            $townships      = $townshipRepo->getTownshipsFromZone();
 
             $allergyRepo    = new AllergyRepository();
             $allergyFood      = $allergyRepo->getArraysByType('food');
             $allergyDrug      = $allergyRepo->getArraysByType('drug');
+            $allergyEnvironment = $allergyRepo->getArraysByType('environment');
             $allergies      = array();
             $allergies['food']      = $allergyFood;
             $allergies['drug']      = $allergyDrug;
+            $allergies['environment'] = $allergyEnvironment;
 
             $zoneRepo = new zoneRepository();
             $zones      = $zoneRepo->getObjs();
@@ -140,7 +148,6 @@ class PatientController extends Controller
             $photo_ext      = Utility::getImageExt($photo);
             $photo_name     = uniqid() . "." . $photo_ext;
             $image          = Utility::resizeImage($photo,$photo_name,$path);
-
         }
         else{
             $photo_name = "";
@@ -183,7 +190,7 @@ class PatientController extends Controller
         $paramObj->case_scenario        = $case_scenario;
         $paramObj->remark               = $remark;
 
-        //create log patient case summery
+        //create log patient case summary
         $prefix = Utility::getTerminalId();
         $table = (new LogPatientCaseSummary())->getTable();
         $col = "id";
@@ -192,7 +199,7 @@ class PatientController extends Controller
         $logObj                         = new LogPatientCaseSummary();
         $logObj->id                     = $generatedId;
         $logObj->case_summary           = $case_scenario;
-        
+
         //save user obj and patient obj
         $result = $this->repo->create($flag = 1, $userObj,$paramObj,$allergies,$logObj); //$flag=1 is for including DB::beginTransaction() and 0 is not
 
@@ -232,9 +239,11 @@ class PatientController extends Controller
                 $allergyRepo    = new AllergyRepository();
                 $allergyFood      = $allergyRepo->getArraysByType('food');
                 $allergyDrug      = $allergyRepo->getArraysByType('drug');
+                $allergyEnvironment = $allergyRepo->getArraysByType('environment');
                 $allergies      = array();
                 $allergies['food']      = $allergyFood;
                 $allergies['drug']      = $allergyDrug;
+                $allergies['environment']      = $allergyEnvironment;
 
                 $zoneRepo = new zoneRepository();
                 $zones = $zoneRepo->getObjs();
@@ -449,7 +458,6 @@ class PatientController extends Controller
 
                 $patientmedicalhistoryRepo = new PatientmedicalhistoryRepository();
                 $patientmedicalhistories =   $patientmedicalhistoryRepo->getObjByPatientID($id);
-
                 foreach($patientmedicalhistories as $keyMed => $patientmedicalhistory){
                     $patientmedicalhistories[$keyMed]->medicalHistory = $medicalhistories[$patientmedicalhistory->medical_history_id]->name;
                 }
@@ -474,7 +482,8 @@ class PatientController extends Controller
                 $patientsurgeryhsitory = $surgeryRepo->getObjByPatientID($id);
 
                 //getting patient's schedules
-                $schedulesRaw = $this->repo->getPatientSchedule($id);
+//                $schedulesRaw = $this->repo->getPatientSchedule($id);
+                $schedulesRaw = $this->repo->getPatientScheduleWithInvoice($id); //to get total_payable_amt from invoices table
 
                 $schedules = array();
 
@@ -656,18 +665,20 @@ class PatientController extends Controller
     }
 
     public function detailvisit($id){
-        $schedule                   = Schedule::whereNull('deleted_at')->where('id','=',$id)->first();
-        $patient                    = Patient::whereNull('deleted_at')->where('user_id','=',$schedule->patient_id)->first();
+        $scheduleRaw                   = Schedule::whereNull('deleted_at')->where('id','=',$id)->first();
+        $patient                    = Patient::whereNull('deleted_at')->where('user_id','=',$scheduleRaw->patient_id)->first();
         $valid                      = 0;
         if(isset($patient) && count($patient) >0){
             $valid = 1;
         }
         if($valid == 1){
-            $vitals =$chief_complaints  = $gph = $hl = $aen = $investigations = $provisional_diagnosis = $treatments = null;
+            $vitals =$chief_complaints  = $gph = $hl = $aen = $investigations = $provisional_diagnosis = $treatments = $other_services = null;
             $neurological = $musculo_intercention = $investigation_imaging = $investigation_ecg = $investigation_other= $nutritions =null ;
-            if(isset($schedule) && count($schedule)>0){
-                $latest_schedule_id     = $schedule->id;
-                $patient_id             = $schedule->patient_id;
+            $provisional_diagnosis_remark = "";
+            $investigation_lab_remark = "";
+            if(isset($scheduleRaw) && count($scheduleRaw)>0){
+                $latest_schedule_id     = $scheduleRaw->id;
+                $patient_id             = $scheduleRaw->patient_id;
                 $schedule_detail        = DB::table('schedule_detail')->where('schedule_id',$latest_schedule_id)->get();
                 foreach($schedule_detail as $detail){
                     if($detail->type == 'service'){
@@ -679,97 +690,552 @@ class PatientController extends Controller
                 $vitals                 = $schedule->getScheduleVitals($latest_schedule_id);
                 $chief_complaints       = $schedule->getChiefComplaint($latest_schedule_id);
                 $gph                    = $schedule->getGeneralPupilHead($latest_schedule_id);
+
                 $hl                     = $schedule->getHeartLung($latest_schedule_id);
                 $aen                    = $schedule->getAbdomenExtreNeuro($latest_schedule_id);
                 $investigation_id       = $schedule->getInvestigationId($latest_schedule_id);
                 $group_name             = $schedule->getInvestigationGroupName($investigation_id);
-                $investigation_labs     = $schedule->getInvestigations($investigation_id);
+
+//                $investigation_labs     = $schedule->getInvestigations($investigation_id);
+                $investigation_labs     = $schedule->getInvestigationLabs($investigation_id);
                 $investigations         = array();
-                if(isset($group_name) && count($group_name)>0){
-                    foreach($group_name as $group){
+
+//                if(isset($group_name) && count($group_name)>0){
+//                    foreach($group_name as $group){
                         foreach($investigation_labs as $lab){
-                            if($group->group_name == $lab->group_name){
-                                if($lab->group_name == 'Haematology1' || $lab->group_name == 'Haematology2'){
-                                    $investigations['Haematology'][] = $lab->name;
-                                }
-                                else{
-                                    $investigations[$group->group_name][] = $lab->name;
-                                }
-                            }
+
+//                            if($group->group_name == $lab->group_name){
+//                                if($lab->group_name == 'Haematology1' || $lab->group_name == 'Haematology2'){
+//                                    $investigations['Haematology'][] = $lab->name;
+//                                }
+//                                else{
+//                                    $investigations[$group->group_name][] = $lab->name;
+//                                }
+                                array_push($investigations,$lab->service_name);
+//                            }
                         }
-                    }
-                }
+//                    }
+//                }
 
                 $provisional_id         = $schedule->getScheduleProvisionalDiagnosis($latest_schedule_id);
+
+                //get provisional_diagnosis_remark
+                if(isset($provisional_id) && count($provisional_id)>0){
+                    $provisional_diagnosis_remark_raw = $schedule->getScheduleProvisionalDiagnosisRemark($latest_schedule_id,$provisional_id[0]['provisional_id']);
+                    $provisional_diagnosis_remark     = $provisional_diagnosis_remark_raw["remark"][0];
+                }
+                else{
+                    $provisional_diagnosis_remark     = "";
+                }
+
                 $provisional_diagnosis  = $schedule->getProvisionalDiagnosis($provisional_id);
 
                 $treatments             = $schedule->getScheduleTreatment($latest_schedule_id);
 
-                $neurological           = $schedule->getNeurologicalRecords($latest_schedule_id);
+                //start other services
+                $type = "service";
+                $schedule_details = $schedule->getScheduleDetailServices($latest_schedule_id,$type);
+
+                $schedule_detail_services_array = array();
+
+                foreach($schedule_details as $sch_detail){
+                    array_push($schedule_detail_services_array,$sch_detail->service_id);
+                }
+
+                $other_services         = $schedule->getScheduleOtherServices($latest_schedule_id, $patient_id,$schedule_detail_services_array);
+                //end other services
+
+                // $neurological           = $schedule->getNeurologicalRecords($latest_schedule_id);
+                $neurological           = $schedule->getLastFourteenNeurologicalRecords($patient_id);
+
+                //build array of 14 schedule_physiotherapy_neuro records by date
+                $neurological_by_date_array = array();
+                foreach($neurological as $neuro_by_date){
+                    // $neuro_date = date('Y-m-d',strtotime($neuro_by_date->created_at));
+                    $neuro_date = $neuro_by_date->created_at;
+                    $neurological_by_date_array["date"][$neuro_date] = date('Y-m-d',strtotime($neuro_by_date->created_at));
+                    $neurological_by_date_array["time"][$neuro_date] = date('H:i:s',strtotime($neuro_by_date->created_at));
+                    if (strpos($neuro_by_date->resting_bp, ',') !== false){
+                        $bp = array();
+                        $bp = explode(',',$neuro_by_date->resting_bp);
+                        $neurological_by_date_array["sbp"][$neuro_date] = $bp[0];
+                        $neurological_by_date_array["dbp"][$neuro_date] = $bp[1];
+                        $neurological_by_date_array["map"][$neuro_date] = $bp[2];
+                    }
+                    else {
+                        $bp = $neuro_by_date->resting_bp; //$bp is null
+                        $neurological_by_date_array["sbp"][$neuro_date] = $bp;
+                        $neurological_by_date_array["dbp"][$neuro_date] = $bp;
+                        $neurological_by_date_array["map"][$neuro_date] = $bp;
+                    }
+
+                    $neurological_by_date_array["resting_hr"][$neuro_date] = $neuro_by_date->resting_hr;
+                    $neurological_by_date_array["resting_spo2"][$neuro_date] = $neuro_by_date->resting_spo2;
+                    $neurological_by_date_array["passive_rom_exercise"][$neuro_date] = $neuro_by_date->passive_rom_exercise;
+                    $neurological_by_date_array["visual_exercise"][$neuro_date] = $neuro_by_date->visual_exercise;
+                    $neurological_by_date_array["oral_motor_exercise"][$neuro_date] = $neuro_by_date->oral_motor_exercise;
+                    $neurological_by_date_array["active_assisted_rom_exercise"][$neuro_date] = $neuro_by_date->active_assisted_rom_exercise;
+                    $neurological_by_date_array["bridging_inner_range"][$neuro_date] = $neuro_by_date->bridging_inner_range;
+                    $neurological_by_date_array["transfer_bed"][$neuro_date] = $neuro_by_date->transfer_bed;
+                    $neurological_by_date_array["sitting_balance"][$neuro_date] = $neuro_by_date->sitting_balance;
+                    $neurological_by_date_array["sit_to_stand"][$neuro_date] = $neuro_by_date->sit_to_stand;
+                    $neurological_by_date_array["standing_balance"][$neuro_date] = $neuro_by_date->standing_balance;
+                    $neurological_by_date_array["stepping"][$neuro_date] = $neuro_by_date->stepping;
+                    $neurological_by_date_array["single_leg_balance"][$neuro_date] = $neuro_by_date->single_leg_balance;
+                    $neurological_by_date_array["march_on_spot"][$neuro_date] = $neuro_by_date->march_on_spot;
+                    $neurological_by_date_array["ambulation_parallel_bar"][$neuro_date] = $neuro_by_date->ambulation_parallel_bar;
+                    $neurological_by_date_array["ambulation_walk"][$neuro_date] = $neuro_by_date->ambulation_walk;
+                    $neurological_by_date_array["ambulation_outdoor"][$neuro_date] = $neuro_by_date->ambulation_outdoor;
+                    $neurological_by_date_array["ambulation_tandem_walk"][$neuro_date] = $neuro_by_date->ambulation_tandem_walk;
+                    $neurological_by_date_array["stair"][$neuro_date] = $neuro_by_date->stair;
+                    $neurological_by_date_array["arm_pedal"][$neuro_date] = $neuro_by_date->arm_pedal;
+                    $neurological_by_date_array["treadmill"][$neuro_date] = $neuro_by_date->treadmill;
+                    $neurological_by_date_array["hand_exercise"][$neuro_date] = $neuro_by_date->hand_exercise;
+                    $neurological_by_date_array["writing_assisted_exercise"][$neuro_date] = $neuro_by_date->writing_assisted_exercise;
+                    $neurological_by_date_array["signature_of_physiotherapist"][$neuro_date] = $neuro_by_date->signature_of_physiotherapist;
+                    $neurological_by_date_array["remark"][$neuro_date] = $neuro_by_date->remark;
+
+                }
 
                 $musculo_intercention   = $schedule->getMusculoIntercentionRecords($latest_schedule_id);
 
                 $nutritions             = $schedule->getNutrition($latest_schedule_id,$patient_id);
 
                 $schedule_investigation = $schedule->getScheduleInvestigation($latest_schedule_id);
+
                 $investigation_imaging_id = array();
+
+                $xray_id_count = $usg_id_count = $ct_id_count = $mri_id_count = $other_id_count = 0;
+
+                $investigation_ecg = $investigation_other = $investigation_imaging_remark = '';
+
                 foreach($schedule_investigation as $investigation){
-                    if($investigation->investigation_id == '' && $investigation->investigation_ecg_remark == '' && $investigation->investigation_other_remark == ''){
-                        $investigation_imaging_id['xray']   = $investigation->investigation_imaging_xray_id;
-                        $investigation_imaging_id['usg']    = $investigation->investigation_imaging_usg_id;
-                        $investigation_imaging_id['ct']     = $investigation->investigation_imaging_ct_id;
-                        $investigation_imaging_id['mri']    = $investigation->investigation_imaging_mri_id;
-                        $investigation_imaging_id['other']  = $investigation->investigation_imaging_other_id;
+//                    if($investigation->investigation_id == '' && $investigation->investigation_ecg_remark == '' && $investigation->investigation_other_remark == ''){
+                    if($investigation->investigation_id == 0 && $investigation->investigation_ecg_remark == '' && $investigation->investigation_other_remark == ''){
+                        if($investigation->investigation_imaging_xray_id != 0){
+                            $investigation_imaging_id['xray'][$xray_id_count]   = $investigation->investigation_imaging_xray_id;
+                            $xray_id_count++;
+                        }
+                        if($investigation->investigation_imaging_usg_id != 0){
+                            $investigation_imaging_id['usg'][$usg_id_count]   = $investigation->investigation_imaging_usg_id;
+                            $usg_id_count++;
+                        }
+                        if($investigation->investigation_imaging_ct_id != 0){
+                            $investigation_imaging_id['ct'][$ct_id_count]   = $investigation->investigation_imaging_ct_id;
+                            $ct_id_count++;
+                        }
+                        if($investigation->investigation_imaging_mri_id != 0){
+                            $investigation_imaging_id['mri'][$mri_id_count]   = $investigation->investigation_imaging_mri_id;
+                            $mri_id_count++;
+                        }
+                        if($investigation->investigation_imaging_other_id != 0){
+                            $investigation_imaging_id['other'][$other_id_count]   = $investigation->investigation_imaging_other_id;
+                            $other_id_count++;
+                        }
                     }
+
                     if($investigation->investigation_ecg_remark != ''){
                         $investigation_ecg  = $investigation->investigation_ecg_remark;
                     }
+
                     if($investigation->investigation_other_remark != ''){
                         $investigation_other = $investigation->investigation_other_remark;
                     }
+
+                    if($investigation->investigation_imaging_remark != ''){
+                        $investigation_imaging_remark = $investigation->investigation_imaging_remark;
+                    }
+                    //get investigation labs remark
+                    if($investigation->investigation_lab_remark != ''){
+                        $investigation_lab_remark = $investigation->investigation_lab_remark;
+                    }
                 }
 
-                $investigation_imagings     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id)->get();
-                $investigation_imaging      = array();
-
-                foreach($investigation_imagings as $imaging){
-                    if($imaging->id ==  $investigation_imaging_id['xray']){
-                        $investigation_imaging['X-RAY'] = $imaging->service_name;
-                    }
-                    elseif($imaging->id == $investigation_imaging_id['usg']){
-                        $investigation_imaging['USG'] = $imaging->service_name;
-                    }
-                    elseif($imaging->id == $investigation_imaging_id['ct']){
-                        $investigation_imaging['CT'] = $imaging->service_name;
-                    }
-                    elseif($imaging->id == $investigation_imaging_id['mri']){
-                        $investigation_imaging['MRI'] = $imaging->service_name;
+//                $investigation_imagings     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id)->get();
+                if(isset($investigation_imaging_id) && count($investigation_imaging_id)>0){
+                    if(isset($investigation_imaging_id['xray'])){
+                        $investigation_imagings['xray']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['xray'])->get();
                     }
                     else{
-                        $investigation_imaging['Others'] = $imaging->service_name;
+                        $investigation_imagings['xray']      = [];
                     }
+
+                    if(isset($investigation_imaging_id['usg'])){
+                        $investigation_imagings['usg']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['usg'])->get();
+                    }
+                    else{
+                        $investigation_imagings['usg']      = [];
+                    }
+
+                    if(isset($investigation_imaging_id['ct'])){
+                        $investigation_imagings['ct']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['ct'])->get();
+                    }
+                    else{
+                        $investigation_imagings['ct']      = [];
+                    }
+
+                    if(isset($investigation_imaging_id['mri'])){
+                        $investigation_imagings['mri']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['mri'])->get();
+                    }
+                    else{
+                        $investigation_imagings['mri']      = [];
+                    }
+
+                    if(isset($investigation_imaging_id['other'])){
+                        $investigation_imagings['other']      = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['other'])->get();
+                    }
+                    else{
+                        $investigation_imagings['other']      = [];
+                    }
+
+//                    $investigation_imagings['xray']    = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['xray'])->get();
+//                    $investigation_imagings['']     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['usg'])->get();
+
+//                    $investigation_imagings['']     = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['mri'])->get();
+//                    $investigation_imagings['']   = DB::table('investigations_imaging')->whereIn('id',$investigation_imaging_id['other'])->get();
+
+                $investigation_imaging      = array();
+
+                $xray_service_name = $usg_service_name = $ct_service_name = $mri_service_name = $other_service_name = "";
+
+                foreach($investigation_imagings['xray'] as $imaging_xray){
+                    $xray_service_name .= $imaging_xray->service_name .", ";
+                }
+                foreach($investigation_imagings['usg'] as $imaging_usg){
+                    $usg_service_name .= $imaging_usg->service_name .", ";
+                }
+                foreach($investigation_imagings['ct'] as $imaging_ct){
+                    $ct_service_name .= $imaging_ct->service_name .", ";
+                }
+                foreach($investigation_imagings['mri'] as $imaging_mri){
+                    $mri_service_name .= $imaging_mri->service_name .", ";
+                }
+                foreach($investigation_imagings['other'] as $imaging_other){
+                    $other_service_name .= $imaging_other->service_name .", ";
                 }
 
+                $xray_service_name = rtrim($xray_service_name,', ');
+                $usg_service_name = rtrim($usg_service_name,', ');
+                $ct_service_name = rtrim($ct_service_name,', ');
+                $mri_service_name = rtrim($mri_service_name,', ');
+                $other_service_name = rtrim($other_service_name,', ');
+
+                $investigation_imaging['X-RAY'] = $xray_service_name;
+                $investigation_imaging['USG'] = $usg_service_name;
+                $investigation_imaging['CT'] = $ct_service_name;
+                $investigation_imaging['MRI'] = $mri_service_name;
+                $investigation_imaging['Others'] = $other_service_name;
+                }
+
+                //start blood drawing
+                $blood_drawings             = $schedule->getBloodDrawing($latest_schedule_id,$patient_id);
+                $blood_drawings_remark      = $schedule->getBloodDrawingRemark($latest_schedule_id,$patient_id);
+                //end blood drawing
+
+                if(isset($investigation_imaging) && count($investigation_imaging)>0){
+                    if (!array_key_exists("X-RAY",$investigation_imaging)){
+                        $investigation_imaging['X-RAY'] = "";
+                    }
+                    if (!array_key_exists("USG",$investigation_imaging)){
+                        $investigation_imaging['USG'] = "";
+                    }
+                    if (!array_key_exists("CT",$investigation_imaging)){
+                        $investigation_imaging['CT'] = "";
+                    }
+                    if (!array_key_exists("MRI",$investigation_imaging)){
+                        $investigation_imaging['MRI'] = "";
+                    }
+                    if (!array_key_exists("Others",$investigation_imaging)){
+                        $investigation_imaging['Others'] = "";
+                    }
+                }
             }
 
+            //start addendum
+            $addendumRepo = new AddendumRepository();
+
+            // $addendums    = $addendumRepo->getObjs();
+            $addendums    = $addendumRepo->getObjsByPatientAndScheduleID($patient->user_id,$id);
+            //end addendum
+
+            $routeRepo = new RouteRepository();
+
+            foreach($treatments as $treatment){
+                $route = $routeRepo->getObjByID($treatment->time);
+                $route_name = $route->name;
+                $treatment->route_name = $route_name;
+            }
+
+            $treatment_procedures             = $schedule->getTreatmentProcedure($latest_schedule_id);
+            
             return view('backend.patient.detailvisit')->with('patient',$patient)
                 ->with('schedules',$schedule)
                 ->with('vitals',$vitals)
                 ->with('chief_complaints',$chief_complaints)
                 ->with('gph',$gph)->with('hl',$hl)->with('aen',$aen)
                 ->with('investigations',$investigations)
+                ->with('investigation_lab_remark',$investigation_lab_remark)
                 ->with('provisional_diagnosis',$provisional_diagnosis)
+                ->with('provisional_diagnosis_remark',$provisional_diagnosis_remark)
                 ->with('treatments',$treatments)->with('neurological',$neurological)
                 ->with('musculo_intercention',$musculo_intercention)
                 ->with('nutritions',$nutritions)
                 ->with('investigation_imaging',$investigation_imaging)
+                ->with('investigation_imaging_remark',$investigation_imaging_remark)
                 ->with('investigation_ecg',$investigation_ecg)
                 ->with('investigation_other',$investigation_other)
-                ->with('service_type',$service_type);
+                ->with('blood_drawings',$blood_drawings)
+                ->with('blood_drawings_remark',$blood_drawings_remark)
+                ->with('service_type',$service_type)
+                ->with('schedule_id',$latest_schedule_id)
+                ->with('other_services',$other_services)
+                ->with('addendums',$addendums)
+                ->with('scheduleRaw',$scheduleRaw)
+                ->with('neurological_by_date_array',$neurological_by_date_array)
+                ->with('treatment_procedures',$treatment_procedures);
         }
         else{
             return view('backend.patient.invalidpatient');
         }
 
+    }
+
+    public function addAddendum(Request $request){
+        $schedule_id            = (Input::has('schedule_id')) ? Input::get('schedule_id') : "";
+        $patient_id             = (Input::has('patient_id')) ? Input::get('patient_id') : "";
+        $addendum_text          = (Input::has('addendum')) ? Input::get('addendum') : "";
+
+        //create patient object
+        $paramObj                       = new Addendum();
+        $paramObj->schedule_id          = $schedule_id;
+        $paramObj->patient_id           = $patient_id;
+        $paramObj->addendum_text        = $addendum_text;
+
+        $addendumRepo = new AddendumRepository();
+        $result = $addendumRepo->create($paramObj);
+        if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
+            return redirect()->action('Backend\PatientController@detailvisit', ['id' => $schedule_id])
+                ->withMessage(FormatGenerator::message('Success', 'Addendum added ...'));
+        }
+        else{
+            return redirect()->action('Backend\PatientController@detailvisit', ['id' => $schedule_id])
+                ->withMessage(FormatGenerator::message('Fail', 'Addendum did not add ...'));
+        }
+    }
+
+    public function patientDetail($id)
+    {
+        //start patient info
+        $patientRepo  = new PatientRepository();
+        $patientTemp  = $patientRepo->getObjByID($id);
+        $patient      = $patientTemp["result"];
+        $valid = 0; //whether patient is valid or not
+
+        if(isset($patient) && count($patient) >0){
+            $valid = 1;
+        }
+        if($valid == 1){
+            //calculate patient age and bind to patient obj
+            $age = Utility::calculateAge($patient->dob);
+            $patient->age = $age;
+
+            //get patient type by value
+            $patient_type = Utility::getPatientTypeByValue($patient->patient_type_id);
+            $patient->patient_type = $patient_type;
+            //end patient info
+
+            //start patient medical histories
+            $medicalhistoryRepo = new MedicalhistoryRepository();
+            $medicalhistories =   $medicalhistoryRepo->getArraysByOrder();
+
+            $patientmedicalhistoryRepo = new PatientmedicalhistoryRepository();
+            $patientmedicalhistories =   $patientmedicalhistoryRepo->getObjByPatientID($id);
+            foreach($patientmedicalhistories as $keyMed => $patientmedicalhistory){
+                $patientmedicalhistories[$keyMed]->medicalHistory = $medicalhistories[$patientmedicalhistory->medical_history_id]->name;
+            }
+            //end patient medical histories
+
+            //start patient surgery histories
+            $surgeryRepo = new PatientsurgeryhistoryRepository();
+            $patientsurgeryhistories = $surgeryRepo->getObjByPatientID($id);
+            //end patient surgery histories
+
+            //start patient family histories
+            $patientfamilyhistoryRepo = new PatientfamilyhistoryRepository();
+            $patientfamilyhistories = $patientfamilyhistoryRepo->getObjByPatientID($id);
+
+            $familymemberRepo = new FamilymemberRepository();
+            $familymembers = $familymemberRepo->getArraysByOrder();
+
+            $familyhistoryRepo = new FamilyhistoryRepository();
+            $familyhistories = $familyhistoryRepo->getArraysByOrder();
+
+            foreach($patientfamilyhistories as $keyFam => $patientfamilyhistory){
+                $patientfamilyhistories[$keyFam]->familyMember = $familymembers[$patientfamilyhistory->family_member_id]->name;
+                $patientfamilyhistories[$keyFam]->familyHistory = $familyhistories[$patientfamilyhistory->family_history_id]->name;
+            }
+            //end patient family histories
+
+            //start Neuro Accessment
+            $neuro  = array();
+            $neuro_general  = DB::table('patient_physiotherapy_neuro_general')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($neuro_general) && count($neuro_general) > 0){
+                foreach($neuro_general as $general){
+                    $neuro['general'][] = $general;
+                }
+            }
+
+            $neuro_limb     = DB::table('patient_physiotherapy_neuro_limb')->whereNull('deleted_at')->where('patients_id','=',$id)->get();
+            if(isset($neuro_limb) && count($neuro_limb) > 0){
+                foreach($neuro_limb as $limb){
+                    $neuro['limb'][]  = $limb;
+                }
+            }
+
+            $neuro_functional1 = DB::table('patient_physiotherapy_neuro_functional_performance1')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($neuro_functional1) && count($neuro_functional1) > 0){
+                foreach($neuro_functional1 as $functional1){
+                    $neuro['functional1'][] = $functional1;
+                }
+            }
+
+            $neuro_functional2 = DB::table('patient_physiotherapy_neuro_functional_performance2')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($neuro_functional2) && count($neuro_functional2) > 0){
+                foreach($neuro_functional2 as $functional2){
+                    $neuro['functional2'][] = $functional2;
+                }
+            }
+
+            $neuro_functional3 = DB::table('patient_physiotherapy_neuro_functional_performance3')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($neuro_functional3) && count($neuro_functional3)>0){
+                foreach($neuro_functional3 as $functional3){
+                    $neuro['functional3'][] = $functional3;
+                }
+            }
+            //end Neuro Accessment
+
+            //start Musculo Accessment
+            $musculo    = array();
+            $patient_musculo_1_2 = DB::table('patient_physiothreapy_musculo_1_and_2')->whereNull('deleted_at')->where('patients_id','=',$id)->get();
+            if(isset($patient_musculo_1_2) && count($patient_musculo_1_2)>0){
+                foreach($patient_musculo_1_2 as $musculo_1_2){
+                    $musculo['musculo_1_2'][] = $musculo_1_2;
+                }
+            }
+
+            $patient_musculo_3_sitting  = DB::table('patient_physiotherapy_musculo_3_sitting')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_3_sitting) && count($patient_musculo_3_sitting)>0){
+                foreach($patient_musculo_3_sitting as $sitting){
+                    $musculo['musculo_3_sitting'][] = $sitting;
+                }
+            }
+
+            $patient_musculo_3_standing = DB::table('patient_physiotherapy_musculo_3_standing')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_3_standing) && count($patient_musculo_3_standing) > 0){
+                foreach($patient_musculo_3_standing as $standing){
+                    $musculo['musculo_3_standing'][] = $standing;
+                }
+            }
+
+            $patient_musculo_4_1_2 = DB::table('patient_physiotherapy_musculo_4_1and2')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_4_1_2) && count($patient_musculo_4_1_2)>0){
+                foreach($patient_musculo_4_1_2 as $musculo4) {
+                    $musculo['musculo_4_1_2'][] = $musculo4;
+                }
+            }
+
+            $patient_musculo_4_3 = DB::table('patient_physiotherapy_musculo_4_3')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_4_3) && count($patient_musculo_4_3)>0){
+                foreach($patient_musculo_4_3 as $musculo_4_3){
+                    $musculo['musculo_4_3'][] = $musculo_4_3;
+                }
+            }
+
+            $patient_musculo_4_4_5 = DB::table('patient_physiotherapy_musculo_4_4and5')->whereNull('deleted_at')->where('patient_id','=',$id)->get();
+            if(isset($patient_musculo_4_4_5) && count($patient_musculo_4_4_5)>0){
+                foreach($patient_musculo_4_4_5 as $musculo_4_4_5){
+                    $musculo['musculo_4_4_5'][] = $musculo_4_4_5;
+                }
+            }
+            //end Musculo Accessment
+
+
+            //start patient visit records
+            $schedules          = Schedule::whereNull('deleted_at')->where('patient_id',$id)->where('status','complete')->get();
+            $schedule_id_arr    = array();
+
+            foreach($schedules as $sch){
+                array_push($schedule_id_arr,$sch->id);
+            }
+
+            // $schedule_detail    = Scheduledetail::whereIn('schedule_id',$schedule_id_arr)->where('type','=','service')->get();
+
+            $users              = User::whereNull('deleted_at')->get();
+            $car_types          = Cartype::whereNull('deleted_at')->get();
+            $services           = Service::whereNull('deleted_at')->get();
+            $patientSchedules   = array();
+
+            foreach($schedules as $schedule){
+                $patient_schedules  = array();  //reset the array
+
+                $patient_schedules['id']   = $schedule->id;
+                $patient_schedules['date'] = $schedule->date;
+                $patient_schedules['time'] = $schedule->time;
+                if($schedule->car_type == 1) $patient_schedules['car_type'] = "Patient Own Vehicle";
+                if($schedule->car_type == 2) $patient_schedules['car_type'] = "Rental Vehicle";
+                if($schedule->car_type == 3){
+                    foreach($car_types as $car){
+                        if($car->id == $schedule->car_type_id){
+                            $patient_schedules['car_type'] = "HHCS Vehicle - ".$car->name;
+                        }
+                    }
+                }
+                foreach($users as $leader){
+                    if($leader->id == $schedule->leader_id){
+                        $patient_schedules['leader'] = $leader->name;
+                    }
+                }
+
+                $schedule_detail    = Scheduledetail::where('schedule_id',$schedule->id)->where('type','=','service')->get();
+
+                foreach($schedule_detail as $detail){
+                    if($schedule->id == $detail->schedule_id){
+                        // $patient_schedules['service']=$detail->service->name;
+
+                        if(array_key_exists('service',$patient_schedules)){
+                            $patient_schedules['service'] .= ','.$detail->service->name;
+                        }
+                        else{
+                            $patient_schedules['service'] = $detail->service->name;
+                        }
+                    }
+                }
+
+                //start invoice id
+                $invoiceRepo = new InvoiceRepository();
+                $invoice = $invoiceRepo->getInvoiceByScheduleID($schedule->id);
+                $invoice_id = $invoice->id;
+                $patient_schedules['invoice_id'] = $invoice_id;
+                //end invoice id
+
+                array_push($patientSchedules,$patient_schedules);
+            }
+            //end patient visit records
+
+            //sort patient schedules by date and time
+           array_multisort(array_column($patientSchedules, 'date'),  SORT_DESC, array_column($patientSchedules, 'time'), SORT_DESC, $patientSchedules);
+
+            return view('backend.patient.patientdetail')
+                ->with('patient',$patient)
+                ->with('patientmedicalhistories',$patientmedicalhistories)
+                ->with('patientsurgeryhistories',$patientsurgeryhistories)
+                ->with('patientfamilyhistories',$patientfamilyhistories)
+                ->with('musculo',$musculo)
+                ->with('neuro',$neuro)
+                ->with('patientSchedules',$patientSchedules);
+        }
+        else{
+            return view('backend.patient.invalidpatient');
+        }
     }
 }

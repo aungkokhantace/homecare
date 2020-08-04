@@ -66,6 +66,8 @@ class AddScheduleTables extends Migration
             $table->text('investigation_imaging_remark');
             $table->text('investigation_ecg_remark');
             $table->text('investigation_other_remark');
+            $table->double('investigation_labs_price');
+            $table->string('investigation_labs_type');
 
            // Common to all table ----------------------------------------------
             $table->string('created_by',100)->nullable();

@@ -120,7 +120,7 @@ $companyLogo = \App\Core\Check::companyLogo();
         <div class="container-fluid">
             <!-- begin mobile sidebar expand / collapse button -->
             <div class="navbar-header center">
-                <a href="#" class="navbar-brand overflow-hidden"><img src="{{$companyLogo}}" class="pull-left height-full m-r-5">{{$companyName}}</a>
+                <a href="/dashboard" class="navbar-brand overflow-hidden"><img src="{{$companyLogo}}" class="pull-left height-full m-r-5">{{$companyName}}</a>
                 <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>

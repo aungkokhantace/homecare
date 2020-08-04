@@ -52,7 +52,8 @@
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                     <label for="code" class="text_bold_black">Photo</label>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
+                <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3"> -->
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
                     @if(isset($user))
                         <div class="add_image_div add_image_div_red" style="background-image: url({{'/images/users/'.$user->display_image}});background-position:center;background-size:cover">
                         </div>
@@ -70,7 +71,8 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <label></label>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+                <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2"> -->
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
                     <input type="button" class="form-control image_remove_btn" value="Remove Image" id="removeImage" name="removeImage">
                 </div>
             </div>
@@ -350,6 +352,28 @@
         </div>
     @endif
 
+    @if(isset($user) && ($user->role_id == 6 || $user->role_id == 7))
+    <div class="row doctor_license_number">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 doctor_license_number">
+            <label for="doctor_license_number" class="text_bold_black">Doctor License Number<span class="require">*</span> (SAMA-)</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 doctor_license_number">
+            <input type="text" class="form-control" id="doctor_license_number" name="doctor_license_number" placeholder="Enter Doctor License Number" value="{{ isset($user)? $user->doctor_license_number:Request::old('doctor_license_number') }}"/>
+            <p class="text-danger">{{$errors->first('doctor_license_number')}}</p>
+        </div>
+    </div>
+    @else
+    <div class="row doctor_license_number">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 doctor_license_number" style="display:none;">
+            <label for="doctor_license_number" class="text_bold_black">Doctor License Number<span class="require">*</span> (SAMA-)</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 doctor_license_number" style="display:none;">
+            <input type="text" class="form-control" id="doctor_license_number" name="doctor_license_number" placeholder="Enter Doctor License Number" value="{{ isset($user)? $user->doctor_license_number:Request::old('doctor_license_number') }}"/>
+            <p class="text-danger">{{$errors->first('doctor_license_number')}}</p>
+        </div>
+    </div>
+    @endif
+
     @if(isset($user) && $user->role_id == 7)
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fees_div">
@@ -516,6 +540,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $(".password").hide();
+            // $(".doctor_license_number").hide();
 
             //Start fileupload js
             $(".add_image_div").click(function(){
@@ -583,7 +608,8 @@
                         equalTo   : "#password"
                     },
                     role_id       : 'required',
-                    fees          : 'required'
+                    fees          : 'required',
+                    doctor_license_number : 'required'
                 },
                 messages: {
                     name          : 'Name is required',
@@ -601,7 +627,8 @@
                         equalTo   : "Password and Confirm Password must match"
                     },
                     role_id       : "Role is required",
-                    fees          : "Fees is required"
+                    fees          : "Fees is required",
+                    doctor_license_number          : "Doctor License Number is required"
                 },
                 submitHandler: function(form) {
                     $('input[type="submit"]').attr('disabled','disabled');
@@ -614,10 +641,23 @@
             $('#role_id').change(function(){
                 if($('#role_id').val()== 7){
                     var data = $('#role_id').val();
+                    $('.doctor_license_number').show();
                     $('.fees_div').show();
+                }
+                // else{
+                //     var data = $('#role_id').val();
+                //     $('.doctor_license_number').hide();
+                //     $('.fees_div').hide();
+                // }
+
+                else if($('#role_id').val()== 6){
+                    var data = $('#role_id').val();
+                    $('.doctor_license_number').show();
+                    $('.fees_div').hide();
                 }
                 else{
                     var data = $('#role_id').val();
+                    $('.doctor_license_number').hide();
                     $('.fees_div').hide();
                 }
             });

@@ -26,7 +26,7 @@ class PackageHistoryController extends Controller
     public function index(){
         if (Auth::guard('User')->check()) {
             $id = Auth::guard('User')->user()->id;
-            $packages = $this->repo->getPackageHistory($id);
+            $packages = $this->repo->getPackageHistoryV2($id);
             return view('patient.packagehistory.packagehistory')->with('packages',$packages);
         }
         return redirect('/');

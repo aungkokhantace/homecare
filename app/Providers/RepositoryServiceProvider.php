@@ -76,5 +76,15 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind('App\Api\Waytracking\WaytrackingApiRepositoryInterface','App\Api\Waytracking\WaytrackingApiRepository');
 
         $this->app->bind('App\Api\Schedule\ScheduleApiV2RepositoryInterface','App\Api\Schedule\ScheduleApiV2Repository');
+
+        $this->app->bind('App\Log\TabletIssues\TabletIssuesRepositoryInterface','App\Log\TabletIssues\TabletIssuesRepository');
+        $this->app->bind('App\Api\TabletIssues\TabletIssuesApiRepositoryInterface','App\Api\TabletIssues\TabletIssuesApiRepository');
+        $this->app->bind('App\Backend\InvestigationImaging\InvestigationImagingRepositoryInterface','App\Backend\InvestigationImaging\InvestigationImagingRepository');
+        $this->app->bind('App\Api\Transactionpromotion\TransactionpromotionApiRepositoryInterface','App\Api\Transactionpromotion\TransactionpromotionApiRepository');
+        $this->app->bind('App\Api\CompanyInformation\CompanyInformationApiRepositoryInterface','App\Api\CompanyInformation\CompanyInformationApiRepository');
+
+        $this->app->bind('App\Backend\Scheduletracking\ScheduleTrackingRepositoryInterface','App\Backend\Scheduletracking\ScheduletrackingRepository');
+
+        $this->app->bind('App\Backend\InvestigationLab\InvestigationLabRepositoryInterface','App\Backend\InvestigationLab\InvestigationLabRepository');
     }
 }

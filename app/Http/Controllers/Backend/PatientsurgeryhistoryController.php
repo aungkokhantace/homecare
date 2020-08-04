@@ -8,6 +8,9 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Backend\Medicalhistory\MedicalhistoryRepository;
+use App\Backend\Patientmedicalhistory\PatientmedicalhistoryRepository;
+use App\Backend\Patientsurgeryhistory\PatientsurgeryhistoryRepository;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Backend\Infrastructure\Forms\PatientsurgeryhistoryEntryRequest;
@@ -32,8 +35,16 @@ class PatientsurgeryhistoryController extends Controller
         $this->patientsurgeryhistoryRepository = $patientsurgeryhistoryRepository;
     }
 
-    public function index(Request $request)
+    public function index($patient_id)
     {
+        if (Auth::guard('User')->check()) {
+            $surgeryRepo = new PatientsurgeryhistoryRepository();
+            $patientsurgeryhistories = $surgeryRepo->getObjByPatientID($patient_id);
+
+            return view('backend.patientsurgeryhistory.index')
+                ->with('patient_id',$patient_id)
+                ->with('patientsurgeryhistories',$patientsurgeryhistories);
+        }
         return redirect('/');
     }
 
@@ -75,13 +86,22 @@ class PatientsurgeryhistoryController extends Controller
         $paramObj->description  = $description;
 
         $result = $this->patientsurgeryhistoryRepository->create($paramObj);
+//
+//        if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
+//            return redirect('/patient/detail/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Success', 'Patient surgery history created ...'));
+//        }
+//        else{
+//            return redirect('/patientsurgeryhistory/create/' . $patient_id)
+//                ->withMessage(FormatGenerator::message('Fail', 'Patient surgery history did not create ...'));
+//        }
 
         if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
-            return redirect('/patient/detail/' . $patient_id)
+            return redirect('/patientsurgeryhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Success', 'Patient surgery history created ...'));
         }
         else{
-            return redirect('/patientmedicalhistory/create/' . $patient_id)
+            return redirect('/patientsurgeryhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Fail', 'Patient surgery history did not create ...'));
         }
     }
@@ -108,6 +128,7 @@ class PatientsurgeryhistoryController extends Controller
         return redirect('/');
     }
 
+
     public function update(PatientsurgeryhistoryEditRequest $request){
 
         $id = Input::get('id');
@@ -121,17 +142,16 @@ class PatientsurgeryhistoryController extends Controller
         $result = $this->patientsurgeryhistoryRepository->update($paramObj);
 
         if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
-            return redirect('/patient/detail/' . $patient_id)
+            return redirect('/patientsurgeryhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Success', 'Patient Surgery history updated ...'));
         }
         else{
-            return redirect('/patientsurgeryhistory/edit/' . $id)
+            return redirect('/patientsurgeryhistory/' . $patient_id)
                 ->withMessage(FormatGenerator::message('Fail', 'Patient Surgery history did not update ...'));
         }
     }
 
     public function destroy(){
-
         $id         = Input::get('patientsurgeryhistory_selected_checkboxes');
         $new_string = explode(',', $id);
         $patient_id = 0;
@@ -144,7 +164,9 @@ class PatientsurgeryhistoryController extends Controller
 
         }
 
-        return redirect('/patient/detail/' . $patient_id)
+//        return redirect('/patient/detail/' . $patient_id)
+//            ->withMessage(FormatGenerator::message('Success', 'Patientsurgeryhistory deleted ...'));
+        return redirect('/patientsurgeryhistory/' . $patient_id)
             ->withMessage(FormatGenerator::message('Success', 'Patientsurgeryhistory deleted ...'));
 
     }

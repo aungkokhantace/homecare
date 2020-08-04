@@ -255,4 +255,9 @@ class ZoneRepository implements ZoneRepositoryInterface
         $result = DB::select("SELECT township_id FROM zone_detail where zone_id != $zone_id");
         return $result;
     }
+
+    public function checkToDelete($id){
+        $result = DB::select("SELECT * FROM car_type_setup WHERE zone_id = $id AND deleted_at IS NULL");
+        return $result;
+    }
 }

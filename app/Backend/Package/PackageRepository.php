@@ -232,4 +232,14 @@ class PackageRepository implements PackageRepositoryInterface
         $result = Packagedetail::where('package_id', $package_id)->get();
         return $result;
     }
+
+    public function getPromotions($package_id){
+        $result = DB::table('package_promotions')->where('package_id', $package_id)->get();
+        return $result;
+    }
+
+    public function getPromotionPrice($package_id, $promotion_order){
+        $result = DB::table('package_promotions')->where('package_id', $package_id)->where('promotion_order', $promotion_order)->value('price');
+        return $result;
+    }
 }

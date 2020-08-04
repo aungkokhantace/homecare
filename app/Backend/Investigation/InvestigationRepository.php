@@ -8,6 +8,7 @@
 
 namespace App\Backend\Investigation;
 
+use App\Log\LogCustom;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use App\Core\Utility;
@@ -56,10 +57,19 @@ class InvestigationRepository implements InvestigationRepositoryInterface
                 Utility::savePriceTracking('investigations',$tempObj->id,'integer','update',$old_price,$tempObj->price,$currentUser,$tempObj->updated_at);
             }
 
+            //update info log
+            $date = $tempObj->updated_at;
+            $message = '['. $date .'] '. 'info: ' . 'User '.$currentUser.' updated investigation_id = '.$tempObj->id . PHP_EOL;
+            LogCustom::create($date,$message);
+
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
             return $returnedObj;
         }
         catch(\Exception $e){
+            //update error log
+            $date    = date("Y-m-d H:i:s");
+            $message = '['. $date .'] '. 'error: ' . 'User '.$currentUser.' updated investigation_id = ' .$tempObj->id. ' and got error -------'.$e->getMessage(). ' ----- line ' .$e->getLine(). ' ----- ' .$e->getFile(). PHP_EOL;
+            LogCustom::create($date,$message);
 
             $returnedObj['aceplusStatusMessage'] = $e->getMessage();
             return $returnedObj;

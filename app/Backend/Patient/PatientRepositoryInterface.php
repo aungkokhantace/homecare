@@ -21,4 +21,5 @@ interface PatientRepositoryInterface
     public function getTownshipId($patient_id);
     public function getArrays();
     public function getPatientSchedule($id);
+    public function getPatientScheduleWithInvoice($id);
 }

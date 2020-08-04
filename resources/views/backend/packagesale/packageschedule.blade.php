@@ -102,9 +102,9 @@
             <form id="frm_package_schedule_create" method="post" action="/schedule/create">
                 {{ csrf_field() }}
                 <input type="hidden" id="patient_package_id" name="patient_package_id"  value="{{$patient_package->id}}">
-                @if($displayFlag == 1)
+                <!-- @if($displayFlag == 1)
                 <a href="#"><input  onclick="package_schedule_create();" type="button" value="Create New Schedule" class="form-control btn-primary" style="padding:0px;"></a>
-                @endif
+                @endif -->
             </form>
         </div>
     </div>

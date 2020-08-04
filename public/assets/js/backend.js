@@ -339,6 +339,7 @@ function visit_report_search(){
 
 function report_search_with_type(module){
     var type = $("#type").val();
+
     if(type == "yearly"){           //type is yearly
         var from_year = $("#from_year").val();
         var to_year = $("#to_year").val();
@@ -423,7 +424,7 @@ function report_search_with_type(module){
             }
         }
     }
-
+    // alert(form_action);
     window.location = form_action;
 }
 
@@ -574,4 +575,70 @@ function check_to_redirect_to_list_without_type(){
     else{
         report_search_by_date('carusagereport');
     }
+}
+
+function enable_user(id) {
+    swal({
+            title: "Are you sure?",
+            text: "Do you want to enable this user?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55 ",
+            confirmButtonText: "Confirm",
+            cancelButtonText: "Cancel",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                $("#frm_enable_user_" + id).submit();
+            } else {
+                return;
+            }
+        });
+
+}
+
+function search_dashboard_by_year(){
+    var year = $("#year").val();
+
+    if(year == ""){
+        sweetAlert("Oops...", "Please Choose the year !");
+        return;
+    }
+    else{
+        var form_action = "/dashboard/" + year;
+    }
+    window.location = form_action;
+}
+
+function schedule_tracking_report_search(){
+    var type = $("#type").val();
+    var from_date = $("#from_date").val();
+    var to_date = $("#to_date").val();
+
+    if(from_date == "" && to_date == ""){
+        var form_action = "/scheduletrackingreport/search/" + type;
+    }
+    else if(from_date == "" && to_date != "") {
+        sweetAlert("Oops...", "Please Choose the date !");
+        return;
+    }
+    else if(from_date != "" && to_date == "") {
+        sweetAlert("Oops...", "Please Choose the date !");
+        return;
+    }
+    else{
+        var dateComparison = check_date(from_date, to_date);
+
+        if(dateComparison){
+            var form_action = "/scheduletrackingreport/search/" + type + "/" + from_date + "/" + to_date;
+        }
+        else{
+            sweetAlert("Oops...", "Please Choose the valid date !");
+            return;
+        }
+    }
+
+    window.location = form_action;
 }

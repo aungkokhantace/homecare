@@ -8,139 +8,214 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use App\Backend\Invoice\InvoiceRepository;
+use App\Backend\Schedule\ScheduleRepository;
+use App\Backend\Packagesale\PackageSaleRepository;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function dashboard()
+    public function dashboard($year = null)
     {
         if (Auth::guard('User')->check()) {
-            $users = DB::select("SELECT count(id) as userCount FROM core_users WHERE deleted_at IS  NULL AND role_id != 5");
-            $user_count = 0;
-            if (isset($users) && count($users) > 0) {
-                $user_count = $users[0]->userCount;
+            //start visit graph data
+
+            $current_year = date('Y');
+
+            if($year == null || $year == ""){
+              $year = date('Y');
             }
 
-            $patient_count = 0;
-            $patients = DB::select("SELECT count(user_id) as patientCount FROM patients WHERE deleted_at IS  NULL");
-            if(isset($patients) && count($patients) > 0){
-                $patient_count = $patients[0]->patientCount;
+            $invoiceRepo = new InvoiceRepository();
+            $invoicesWithSchedules = $invoiceRepo->getInvoicesWithSchedules();
+            $schedulesArray = array();
+            foreach($invoicesWithSchedules as $invoice){
+                //check whether invoice created year is current year
+                if(date("Y",strtotime($invoice->created_at)) == $year){
+                  $schedulesArray[] = $invoice->schedule_id;
+                }
             }
 
-            $family_member_count = 0;
-            $familyMembers = DB::select("SELECT count(id) as familyMemberCount FROM patient_family_member WHERE deleted_at IS  NULL");
-            if(isset($familyMembers) && count($familyMembers) > 0){
-                $family_member_count = $familyMembers[0]->familyMemberCount;
+            $scheduleRepo = new ScheduleRepository();
+
+            $schedulesWithServices = $scheduleRepo->getSchedulesWithService($schedulesArray);
+
+            $patient_visits_array = array();
+
+
+            foreach($schedulesWithServices as $schedule_with_service){
+                $date = $schedule_with_service->date;
+                $month = date("m", strtotime($date)); //get only month from schedule date //to display data according to month
+
+                // $mo_visits              = count($scheduleRepo->getEachVisitByMonth($month,1)); // service_id=1 is for MO
+                // $musculo_visits         = count($scheduleRepo->getEachVisitByMonth($month,2)); // service_id=2 is for Musculo
+                // $neuro_visits           = count($scheduleRepo->getEachVisitByMonth($month,3)); // service_id=3 is for Neuro
+                // $nutrition_visits       = count($scheduleRepo->getEachVisitByMonth($month,4)); // service_id=4 is for Nutrition
+                // $blood_drawing_visits   = count($scheduleRepo->getEachVisitByMonth($month,5)); // service_id=5 is for Blood Drawing
+
+                $mo_visits              = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,1)); // service_id=1 is for MO
+                $musculo_visits         = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,2)); // service_id=2 is for Musculo
+                $neuro_visits           = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,3)); // service_id=3 is for Neuro
+                $nutrition_visits       = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,4)); // service_id=4 is for Nutrition
+                $blood_drawing_visits   = count($scheduleRepo->getEachVisitByYearAndMonth($year,$month,5)); // service_id=5 is for Blood Drawing
+
+                //add result to array
+                $patient_visits_array[$month]["date"]                       = date("$year-$month");  //to send to graph in ('YYYY-MM') format
+                $patient_visits_array[$month]["mo_visits"]                  = $mo_visits;
+                $patient_visits_array[$month]["mo_visits_color"]            = "#F0D122";    //yellow
+                $patient_visits_array[$month]["musculo_visits"]             = $musculo_visits;
+                $patient_visits_array[$month]["musculo_visits_color"]       = "#52F23B";    //green
+                $patient_visits_array[$month]["neuro_visits"]               = $neuro_visits;
+                $patient_visits_array[$month]["neuro_visits_color"]         = "#F72B0B";    //red
+                $patient_visits_array[$month]["nutrition_visits"]           = $nutrition_visits;
+                $patient_visits_array[$month]["nutrition_visits_color"]     = "#0B53F7";    //blue
+                $patient_visits_array[$month]["blood_drawing_visits"]       = $blood_drawing_visits;
+                $patient_visits_array[$month]["blood_drawing_visits_color"] = "#EC0BF7";    //violet
+
             }
 
-            $schedule_count = 0;
-            $schedules = DB::select("SELECT count(id) as scheduleCount FROM schedules WHERE deleted_at IS  NULL");
-            if(isset($schedules) && count($schedules) > 0){
-                $schedule_count = $schedules[0]->scheduleCount;
+            $patient_visits = array_values($patient_visits_array);
+            //reverse the array to sort by date in ascending order
+            $ordered_patient_visits = array_reverse($patient_visits);
+            //end visit graph data
+
+            //start profit graph data
+            $profit_array = array();
+            //start getting service profits
+            $invoiceRepo = new InvoiceRepository();
+            foreach($invoicesWithSchedules as $invoice_with_schedule){
+                if(date("Y",strtotime($invoice_with_schedule->created_at)) == $year){
+                $invoice_id = $invoice_with_schedule->id;
+
+                //get service id
+                $schedule_id    = $invoice_with_schedule->schedule_id;
+                // $service_id     = $scheduleRepo->getServiceIdByScheduleId($schedule_id);
+
+                //get month
+                $schedule       = $scheduleRepo->getObjByID($schedule_id);
+                $schedule_date  = $schedule['result']->date;
+                $month = date("m", strtotime($schedule_date)); //get only month from schedule date //to display data according to month
+
+                // $mo_profits             = $invoiceRepo->getEachServiceProfitByMonth($month,1);      // service_id=1 is for MO
+                // $musculo_profits        = $invoiceRepo->getEachServiceProfitByMonth($month,2);      // service_id=2 is for Musculo
+                // $neuro_profits          = $invoiceRepo->getEachServiceProfitByMonth($month,3);      // service_id=3 is for Neuro
+                // $nutrition_profits      = $invoiceRepo->getEachServiceProfitByMonth($month,4);      // service_id=4 is for Nutrition
+                // $blood_drawing_profits  = $invoiceRepo->getEachServiceProfitByMonth($month,5);      // service_id=5 is for Blood Drawing
+
+                $mo_profits             = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,1);      // service_id=1 is for MO
+                $musculo_profits        = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,2);      // service_id=2 is for Musculo
+                $neuro_profits          = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,3);      // service_id=3 is for Neuro
+                $nutrition_profits      = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,4);      // service_id=4 is for Nutrition
+                $blood_drawing_profits  = $invoiceRepo->getEachServiceProfitByYearAndMonth($year,$month,5);      // service_id=5 is for Blood Drawing
+
+                //add result to array
+                $profit_array[$month]["date"]                        = date("$year-$month");    //to send to graph in ('YYYY-MM') format
+                //start adding mo_profits data to array
+                if($mo_profits != null){
+                    $profit_array[$month]["mo_profits"]              = $mo_profits;
+                }
+                else{
+                    $profit_array[$month]["mo_profits"]              = 0.0;
+                }
+                $profit_array[$month]["mo_profits_color"]            = "#F0D122";               //yellow
+                //end adding mo_profits data to array
+
+                //start adding musculo_profits data to array
+                if($musculo_profits != null){
+                    $profit_array[$month]["musculo_profits"]         = $musculo_profits;
+                }
+                else{
+                    $profit_array[$month]["musculo_profits"]         = 0.0;
+                }
+                $profit_array[$month]["musculo_profits_color"]       = "#52F23B";               //green
+                //end adding musculo_profits data to array
+
+                //start adding neuro_profits data to array
+                if($neuro_profits != null){
+                    $profit_array[$month]["neuro_profits"]           = $neuro_profits;
+                }
+                else{
+                    $profit_array[$month]["neuro_profits"]           = 0.0;
+                }
+                $profit_array[$month]["neuro_profits_color"]         = "#F72B0B";               //red
+                //end adding neuro_profits data to array
+
+                //start adding nutrition_profits data to array
+                if($nutrition_profits != null){
+                    $profit_array[$month]["nutrition_profits"]       = $nutrition_profits;
+                }
+                else{
+                    $profit_array[$month]["nutrition_profits"]       = 0.0;
+                }
+                $profit_array[$month]["nutrition_profits_color"]     = "#0B53F7";               //blue
+                //end adding nutrition_profits data to array
+
+                //start adding blood_drawing_profits data to array
+                if($blood_drawing_profits != null){
+                    $profit_array[$month]["blood_drawing_profits"]   = $blood_drawing_profits;
+                }
+                else{
+                    $profit_array[$month]["blood_drawing_profits"]   = 0.0;
+                }
+                $profit_array[$month]["blood_drawing_profits_color"] = "#EC0BF7";               //violet
+                //end adding blood_drawing_profits data to array
+              }
+            }
+            //end getting service profits
+
+            //start getting package sale profits
+            $packageSaleRepo    = new PackageSaleRepository();
+            $packageSales       = $packageSaleRepo->getObjs();
+
+            foreach($packageSales as $packageSale){
+                $sold_date = $packageSale->sold_date;
+                if(date("Y",strtotime($sold_date)) == $year){
+                $month = date("m", strtotime($sold_date)); //get only month from sold date //to display data according to month
+
+                $package_sale_profits = $invoiceRepo->getPackageSaleProfitByMonth($month);
+
+                if(array_key_exists($month,$profit_array)){
+                    $profit_array[$month]["package_sale_profits"]       = $package_sale_profits;
+                    $profit_array[$month]["package_sale_profits_color"] = "#2E2E2E";               //black
+                }
+                else{
+                    $profit_array[$month]["date"]                       = date("$year-$month");    //to send to graph in ('YYYY-MM') format
+                    $profit_array[$month]["mo_profits"]                 = 0.0;
+                    $profit_array[$month]["mo_profits_color"]           = "#F0D122";               //yellow
+                    $profit_array[$month]["musculo_profits"]            = 0.0;
+                    $profit_array[$month]["musculo_profits_color"]      = "#52F23B";               //green
+                    $profit_array[$month]["neuro_profits"]              = 0.0;
+                    $profit_array[$month]["neuro_profits_color"]        = "#F72B0B";               //red
+                    $profit_array[$month]["nutrition_profits"]          = 0.0;
+                    $profit_array[$month]["nutrition_profits_color"]    = "#0B53F7";               //blue
+                    $profit_array[$month]["blood_drawing_profits"]      = 0.0;
+                    $profit_array[$month]["blood_drawing_profits_color"]= "#EC0BF7";               //violet
+                    $profit_array[$month]["package_sale_profits"]       = $package_sale_profits;
+                    $profit_array[$month]["package_sale_profits_color"] = "#2E2E2E";               //black
+                }
+              }
+            }
+            //end getting package sale profits
+
+
+            foreach($profit_array as $key=>$each_profit){
+                if(!array_key_exists('package_sale_profits',$each_profit)){
+                    $profit_array[$key]['package_sale_profits'] = 0.0;
+                }
+                if(!array_key_exists('package_sale_profits_color',$each_profit)){
+                    $profit_array[$key]['package_sale_profits_color'] = "#2E2E2E";
+                }
             }
 
-            $enquiry_count = 0;
-            $enquiries = DB::select("SELECT count(id) as enquiryCount FROM enquiries WHERE deleted_at IS  NULL");
-            if(isset($enquiries) && count($enquiries) > 0){
-                $enquiry_count = $enquiries[0]->enquiryCount;
-            }
-
-            $route_count = 0;
-            $routes = DB::select("SELECT count(id) as routeCount FROM route WHERE deleted_at IS  NULL");
-            if(isset($routes) && count($routes) > 0){
-                $route_count = $routes[0]->routeCount;
-            }
-
-            $city_count = 0;
-            $cities = DB::select("SELECT count(id) as cityCount FROM cities WHERE deleted_at IS  NULL");
-            if(isset($cities) && count($cities) > 0){
-                $city_count = $cities[0]->cityCount;
-            }
-
-            $township_count = 0;
-            $townships = DB::select("SELECT count(id) as townshipCount FROM townships WHERE deleted_at IS  NULL");
-            if(isset($townships) && count($townships) > 0){
-                $township_count = $townships[0]->townshipCount;
-            }
-
-            $zone_count = 0;
-            $zones = DB::select("SELECT count(id) as zoneCount FROM zones WHERE deleted_at IS  NULL");
-            if(isset($zones) && count($zones) > 0){
-                $zone_count = $zones[0]->zoneCount;
-            }
-
-            $car_type_count = 0;
-            $carTypes = DB::select("SELECT count(id) as carTypeCount FROM car_types WHERE deleted_at IS  NULL");
-            if(isset($carTypes) && count($carTypes) > 0){
-                $car_type_count = $carTypes[0]->carTypeCount;
-            }
-
-            $medication_category_count = 0;
-            $medicationCategories = DB::select("SELECT count(id) as medicationCategoryCount FROM zones WHERE deleted_at IS  NULL");
-            if(isset($medicationCategories) && count($medicationCategories) > 0){
-                $medication_category_count = $medicationCategories[0]->medicationCategoryCount;
-            }
-
-            $medication_count = 0;
-            $medications = DB::select("SELECT count(id) as medicationCount FROM products WHERE deleted_at IS  NULL");
-            if(isset($medications) && count($medications) > 0){
-                $medication_count = $medications[0]->medicationCount;
-            }
-
-            $allergy_count = 0;
-            $allergies = DB::select("SELECT count(id) as allergyCount FROM allergies WHERE deleted_at IS  NULL");
-            if(isset($allergies) && count($allergies) > 0){
-                $allergy_count = $allergies[0]->allergyCount;
-            }
-
-            $service_count = 0;
-            $services = DB::select("SELECT count(id) as serviceCount FROM services WHERE deleted_at IS  NULL");
-            if(isset($services) && count($services) > 0){
-                $service_count = $services[0]->serviceCount;
-            }
-
-            $package_count = 0;
-            $packages = DB::select("SELECT count(id) as packageCount FROM packages WHERE deleted_at IS  NULL");
-            if(isset($packages) && count($packages) > 0){
-                $package_count = $packages[0]->packageCount;
-            }
-
-            $family_history_count = 0;
-            $familyHistories = DB::select("SELECT count(id) as familyHistoryCount FROM family_histories WHERE deleted_at IS  NULL");
-            if(isset($familyHistories) && count($familyHistories) > 0){
-                $family_history_count = $familyHistories[0]->familyHistoryCount;
-            }
-
-            $medical_history_count = 0;
-            $medicalHistories = DB::select("SELECT count(id) as medicalHistoryCount FROM medical_history WHERE deleted_at IS  NULL");
-            if(isset($medicalHistories) && count($medicalHistories) > 0){
-                $medical_history_count = $medicalHistories[0]->medicalHistoryCount;
-            }
-
-            $provisional_diagnosis_count = 0;
-            $provisionalDiagnosis = DB::select("SELECT count(id) as provisionalDiagnosisCount FROM provisional_diagnosis WHERE deleted_at IS  NULL");
-            if(isset($provisionalDiagnosis) && count($provisionalDiagnosis) > 0){
-                $provisional_diagnosis_count = $provisionalDiagnosis[0]->provisionalDiagnosisCount;
-            }
+            ksort($profit_array);
+            $profits = array_values($profit_array);
+            //end profit graph data
 
             return view('core.dashboard.dashboard')
-                ->with('userCount', $user_count)
-                ->with('patientCount',$patient_count)
-                ->with('familyMemberCount',$family_member_count)
-                ->with('scheduleCount',$schedule_count)
-                ->with('enquiryCount',$enquiry_count)
-                ->with('routeCount',$route_count)
-                ->with('cityCount',$city_count)
-                ->with('townshipCount',$township_count)
-                ->with('zoneCount',$zone_count)
-                ->with('carTypeCount',$car_type_count)
-                ->with('medicationCategoryCount',$medication_category_count)
-                ->with('medicationCount',$medication_count)
-                ->with('allergyCount',$allergy_count)
-                ->with('serviceCount',$service_count)
-                ->with('packageCount',$package_count)
-                ->with('familyHistoryCount',$family_history_count)
-                ->with('medicalHistoryCount',$medical_history_count)
-                ->with('provisionalDiagnosisCount',$provisional_diagnosis_count);
+                ->with('patient_visits',$ordered_patient_visits)
+                ->with('profits',$profits)
+                ->with('year',$year)
+                ->with('current_year',$current_year);
         }
         return redirect('/login');
     }

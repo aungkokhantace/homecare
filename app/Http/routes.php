@@ -7,11 +7,15 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('login', array('as'=>'login','uses'=>'Auth\AuthController@doLogin'));
     Route::get('logout', array('as'=>'logout','uses'=>'Auth\AuthController@doLogout'));
     Route::get('dashboard', array('as'=>'dashboard','uses'=>'Core\DashboardController@dashboard'));
+    Route::get('dashboard/{year?}', array('as'=>'dashboard','uses'=>'Core\DashboardController@dashboard'));
     Route::get('patient/dashboard', array('as'=>'patient/dashboard','uses'=>'Patient\PatientDashboardController@dashboard'));
     Route::get('/errors/{errorId}', array('as'=>'/errors/{errorId}','uses'=>'Core\ErrorController@index'));
     Route::get('/error/{errorId}/{module}', array('as'=>'/error/{errorId}','uses'=>'Core\ErrorController@error'));
     Route::get('/unauthorize', array('as'=>'/unauthorize','uses'=>'Core\ErrorController@unauthorize'));
     Route::get('/unauthorize_patient', array('as'=>'/unauthorize_patient','uses'=>'Core\ErrorController@unauthorizePatient'));
+
+    //Email function test
+    Route::get('/email_test', 'Backend\TestController@emailTest');
 
     // Password Reset Routes...
     Route::get('password/reset/{token?}', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@showResetForm']);
@@ -34,6 +38,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('user/destroy', array('as'=>'user/destroy','uses'=>'Core\UserController@destroy'));
         Route::get('user/profile/{id}', array('as'=>'user/profile','uses'=>'Core\UserController@profile'));
         Route::get('userAuth', array('as'=>'userAuth','uses'=>'Core\UserController@getAuthUser'));
+        Route::post('user/disable', array('as'=>'user/disable','uses'=>'Core\UserController@disable'));
+        Route::post('user/enable', array('as'=>'user/enable','uses'=>'Core\UserController@enable'));
 
         //Role
         Route::get('role', array('as'=>'role','uses'=>'Core\RoleController@index'));
@@ -136,6 +142,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('package/edit/{id}', array('as'=>'package/edit','uses'=>'Backend\PackageController@edit'));
         Route::post('package/update', array('as'=>'package/update','uses'=>'Backend\PackageController@update'));
         Route::post('package/destroy', array('as'=>'package/destroy','uses'=>'Backend\PackageController@destroy'));
+        Route::get('package/promotion/{id}', array('as'=>'package/promotion','uses'=>'Backend\PackageController@editPromotion'));
+        Route::post('package/createPromotion', array('as'=>'package/createPromotion','uses'=>'Backend\PackageController@createPromotion'));
+        Route::post('package/updatePromotion', array('as'=>'package/updatePromotion','uses'=>'Backend\PackageController@updatePromotion'));
 
         //Service
         Route::get('service', array('as'=>'service','uses'=>'Backend\ServiceController@index'));
@@ -173,6 +182,12 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('patient/detail/{id}', array('as'=>'patient/detail','uses'=>'Backend\PatientController@detail'));
         Route::get('patient/patientSchedule/{id}', array('as'=>'patient/detail','uses'=>'Backend\PatientController@patientSchedules'));
         Route::get('patient/detailvisit/{id}', array('as'=>'patient/detail','uses'=>'Backend\PatientController@detailvisit'));
+        //newly added patient detail design
+        Route::get('patient/patient_detail/{id}', array('as'=>'patient/patient_detail','uses'=>'Backend\PatientController@patientDetail'));
+        Route::get('patient/invoice/{id}', array('as'=>'salesummaryreport/invoicedetail/{id}','uses'=>'Report\SaleSummaryReportController@invoicedetail'));
+
+        //Addendum
+        Route::post('addendum/store', array('as'=>'addendum/store','uses'=>'Backend\PatientController@addAddendum'));
 
         //Patient Profile
         Route::get('patient/profile', array('as'=>'patient/profile','uses'=>'Patient\PatientProfileController@edit'));
@@ -200,8 +215,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('packagesale', array('as'=>'packagesale','uses'=>'Backend\PackageSaleController@index'));
         Route::get('packagesale/create', array('as'=>'packagesale/create','uses'=>'Backend\PackageSaleController@create'));
         Route::post('packagesale/store', array('as'=>'packagesale/store','uses'=>'Backend\PackageSaleController@store'));
-        Route::get('packagesale/invoice/{id}', array('as'=>'packagesale/invoice','uses'=>'Backend\PackageSaleController@invoice'));
-        Route::get('packagesale/export/{id}', array('as'=>'packagesale/export','uses'=>'Backend\PackageSaleController@export'));
+        Route::get('packagesale/invoice/{id}/{couponcode}', array('as'=>'packagesale/invoice','uses'=>'Backend\PackageSaleController@invoice'));
+        Route::get('packagesale/export/{id}/{couponcode}', array('as'=>'packagesale/export','uses'=>'Backend\PackageSaleController@export'));
         Route::get('packagesale/schedule/{id}', array('as'=>'packagesale/schedule','uses'=>'Backend\PackageSaleController@schedule'));
 
         //Family History
@@ -221,7 +236,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('familymember/destroy', array('as'=>'familymember/destroy','uses'=>'Backend\FamilymemberController@destroy'));
 
         //Patient Family History
-        Route::get('patientfamilyhistory', array('as'=>'patientfamilyhistory','uses'=>'Backend\PatientfamilyhistoryController@index'));
+//        Route::get('patientfamilyhistory', array('as'=>'patientfamilyhistory','uses'=>'Backend\PatientfamilyhistoryController@index'));
+        Route::get('patientfamilyhistory/{patient_id}', array('as'=>'patientfamilyhistory','uses'=>'Backend\PatientfamilyhistoryController@index'));
         Route::get('patientfamilyhistory/create/{patient_id}', array('as'=>'patientfamilyhistory/create','uses'=>'Backend\PatientfamilyhistoryController@create'));
         Route::post('patientfamilyhistory/store', array('as'=>'patientfamilyhistory/store','uses'=>'Backend\PatientfamilyhistoryController@store'));
         Route::get('patientfamilyhistory/edit/{id}', array('as'=>'patientfamilyhistory/edit','uses'=>'Backend\PatientfamilyhistoryController@edit'));
@@ -237,7 +253,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('medicalhistory/destroy', array('as'=>'medicalhistory/destroy','uses'=>'Backend\MedicalhistoryController@destroy'));
 
         //Patient Medical History
-        Route::get('patientmedicalhistory', array('as'=>'patientmedicalhistory','uses'=>'Backend\PatientmedicalhistoryController@index'));
+//        Route::get('patientmedicalhistory', array('as'=>'patientmedicalhistory','uses'=>'Backend\PatientmedicalhistoryController@index'));
+        Route::get('patientmedicalhistory/{patient_id}', array('as'=>'patientmedicalhistory','uses'=>'Backend\PatientmedicalhistoryController@index'));
         Route::get('patientmedicalhistory/create/{patient_id}', array('as'=>'patientmedicalhistory/create','uses'=>'Backend\PatientmedicalhistoryController@create'));
         Route::post('patientmedicalhistory/store', array('as'=>'patientmedicalhistory/store','uses'=>'Backend\PatientmedicalhistoryController@store'));
         Route::get('patientmedicalhistory/edit/{id}', array('as'=>'patientmedicalhistory/edit','uses'=>'Backend\PatientmedicalhistoryController@edit'));
@@ -245,7 +262,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('patientmedicalhistory/destroy', array('as'=>'patientmedicalhistory/destroy','uses'=>'Backend\PatientmedicalhistoryController@destroy'));
 
         //Patient Surgery History
-        Route::get('patientsurgeryhistory', array('as'=>'patientsurgeryhistory','uses'=>'Backend\PatientsurgeryhistoryController@index'));
+//        Route::get('patientsurgeryhistory', array('as'=>'patientsurgeryhistory','uses'=>'Backend\PatientsurgeryhistoryController@index'));
+        Route::get('patientsurgeryhistory/{patient_id}', array('as'=>'patientsurgeryhistory','uses'=>'Backend\PatientsurgeryhistoryController@index'));
         Route::get('patientsurgeryhistory/create/{patient_id}', array('as'=>'patientsurgeryhistory/create','uses'=>'Backend\PatientsurgeryhistoryController@create'));
         Route::post('patientsurgeryhistory/store', array('as'=>'patientsurgeryhistory/store','uses'=>'Backend\PatientsurgeryhistoryController@store'));
         Route::get('patientsurgeryhistory/edit/{id}', array('as'=>'patientsurgeryhistory/edit','uses'=>'Backend\PatientsurgeryhistoryController@edit'));
@@ -306,6 +324,17 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('visitreport/search/{type?}/{from_date?}/{to_date?}', array('as'=>'visitreport/search/{type?}/{from_date?}/{to_date?}','uses'=>'Report\VisitReportController@search'));
         Route::get('visitreport/exportexcel/{type?}/{from_date?}/{to_date?}', array('as'=>'visitreport/exportexcel/{type?}/{from_date?}/{to_date?}','uses'=>'Report\VisitReportController@excel'));
 
+        //Patient Visit Report
+        Route::get('patientvisitreport', array('as'=>'patientvisitreport','uses'=>'Report\PatientVisitReportController@index'));
+        Route::get('patientvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientVisitReportController@search'));
+        Route::get('patientvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientVisitReportController@excel'));
+        Route::get('patientvisitreportdetail/{type}/{date}', array('as'=>'patientvisitreportdetail','uses'=>'Report\PatientVisitReportController@patientVisitDetail'));
+
+        //Patient Daily Visit Report
+        Route::get('patientdailyvisitreport', array('as'=>'patientdailyvisitreport','uses'=>'Report\PatientDailyVisitReportController@index'));
+        Route::get('patientdailyvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientdailyvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientDailyVisitReportController@search'));
+        Route::get('patientdailyvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'patientdailyvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\PatientDailyVisitReportController@excel'));
+
         //Schedule Status Report
         Route::get('schedulestatusreport', array('as'=>'schedulestatusreport','uses'=>'Report\ScheduleStatusReportController@index'));
         Route::get('schedulestatusreport/search/{from_date?}/{to_date?}', array('as'=>'schedulestatusreport/search/{from_date?}/{to_date?}','uses'=>'Report\ScheduleStatusReportController@search'));
@@ -324,8 +353,27 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('incomesummaryreportbygraph', array('as'=>'incomesummaryreportbygraph','uses'=>'Report\IncomeSummaryReportController@graph'));
         Route::get('incomesummaryreportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'incomesummaryreportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\IncomeSummaryReportController@graphsearch'));
 
+        //New Sale Income Report
+        Route::get('saleincomereport', array('as'=>'saleincomereport','uses'=>'Report\SaleIncomeReportController@index'));
+        Route::get('saleincomereport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'saleincomereport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\SaleIncomeReportController@search'));
+        Route::get('saleincomereport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'saleincomereport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\SaleIncomeReportController@excel'));
+        Route::get('saleincomereport/invoicelist/{date?}/{type?}', array('as'=>'saleincomereport/invoicelist/{date?}/{type?}','uses'=>'Report\SaleIncomeReportController@invoiceList'));
+        Route::get('saleincomereport/invoice/{id}', array('as'=>'salesummaryreport/invoicedetail/{id}','uses'=>'Report\SaleSummaryReportController@invoicedetail'));
+        // Route::get('saleincomereportbygraph', array('as'=>'saleincomereportbygraph','uses'=>'Report\SaleIncomeReportController@graph'));
+        // Route::get('saleincomereportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'saleincomereportbygraph/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\SaleIncomeReportController@graphsearch'));
+
+        //Schedule Tracking Report
+        Route::get('scheduletrackingreport', array('as'=>'scheduletrackingreport','uses'=>'Report\ScheduleTrackingReportController@index'));
+        Route::get('scheduletrackingreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'scheduletrackingreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\ScheduleTrackingReportController@search'));
+        Route::get('scheduletrackingreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}', array('as'=>'scheduletrackingreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}','uses'=>'Report\ScheduleTrackingReportController@excel'));
+        Route::get('scheduletrackingreport/schedule_detail/{id}', array('as'=>'scheduletrackingreport/schedule_detail/{id}','uses'=>'Report\ScheduleTrackingReportController@scheduleDetail'));
+
         //Activities
         Route::get('activities', array('as'=>'activities','uses'=>'Backend\ActivitiesController@index'));
+
+        //Patient Test Data
+        Route::get('insert_patient/{count}', array('as'=>'activities','uses'=>'Backend\TestController@insert_patient_test_data'));
+        Route::get('delete_patient', array('as'=>'activities','uses'=>'Backend\TestController@delete_patient_test_data'));
 
         //Import CSV
         Route::get('import', array('as'=>'import','uses'=>'CSVImport\CSVImportController@import'));
@@ -335,11 +383,27 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('apilist/syncdownapi', array('as'=>'apilist/syncdownapi','uses'=>'Backend\ApiListController@syncdownapi'));
         Route::get('apilist/invoiceapi', array('as'=>'apilist/invoiceapi','uses'=>'Backend\ApiListController@invoiceapi'));
         Route::get('apilist/enquiryapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@enquiryapi'));
-        Route::get('apilist/scheduleapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@scheduleapi'));
-        Route::get('apilist/patientpackageapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@patientpackageapi'));
-        Route::get('apilist/waytrackingapi', array('as'=>'apilist/enquiryapi','uses'=>'Backend\ApiListController@waytrackingapi'));
+        Route::get('apilist/scheduleapi', array('as'=>'apilist/scheduleapi','uses'=>'Backend\ApiListController@scheduleapi'));
+        Route::get('apilist/patientpackageapi', array('as'=>'apilist/patientpackageapi','uses'=>'Backend\ApiListController@patientpackageapi'));
+        Route::get('apilist/waytrackingapi', array('as'=>'apilist/waytrackingapi','uses'=>'Backend\ApiListController@waytrackingapi'));
+        Route::get('apilist/patientapi', array('as'=>'apilist/patientapi','uses'=>'Backend\ApiListController@patientapi'));
+        Route::get('apilist/companyinformationapi', array('as'=>'apilist/companyinformationapi','uses'=>'Backend\ApiListController@companyinformationapi'));
 
+        //Price history
         Route::get('pricehistory/{type?}/{id?}', array('as'=>'pricehistory/{type?}/{id?}','uses'=>'Log\PriceHistoryController@search'));
+        Route::get('multiplepricehistory/{type?}/{id?}', array('as'=>'multiplepricehistory/{type?}/{id?}','uses'=>'Log\PriceHistoryController@multiplesearch'));
+
+        //Tablet Issues
+        Route::get('tabletissues/{type?}', array('as'=>'tabletissues/{type?}','uses'=>'Log\TabletIssuesController@search'));
+
+        //Investigation Imaging
+        Route::get('investigationimaging', array('as'=>'investigationimaging','uses'=>'Backend\InvestigationImagingController@index'));
+        Route::get('investigationimaging/create', array('as'=>'investigationimaging/create','uses'=>'Backend\InvestigationImagingController@create'));
+        Route::post('investigationimaging/store', array('as'=>'investigationimaging/store','uses'=>'Backend\InvestigationImagingController@store'));
+        Route::get('investigationimaging/edit/{id}', array('as'=>'investigationimaging/edit','uses'=>'Backend\InvestigationImagingController@edit'));
+        Route::post('investigationimaging/update', array('as'=>'investigationimaging/update','uses'=>'Backend\InvestigationImagingController@update'));
+        Route::post('investigationimaging/destroy', array('as'=>'investigationimaging/destroy','uses'=>'Backend\InvestigationImagingController@destroy'));
+
     });
 
     Route::get('enquiry/autocompletepatient', array('as'=>'enquiry/autocompletepatient','uses'=>'Backend\SearchController@autoCompletePatient'));
@@ -349,6 +413,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('patient/profile/{id}', array('as'=>'patient/profile/{id}','uses'=>'Backend\PatientController@profile'));
     Route::get('packagesale/autofill/{id}', array('as'=>'packagesale/autofill','uses'=>'Backend\PackageSaleController@autofill'));
     Route::get('patient/checkzone/{id}', array('as'=>'patient/destroy','uses'=>'Backend\PatientController@checkZone'));
+    Route::get('packagesale/checkcouponcode/{package}/{code}', array('as'=>'packagesale/checkcouponcode','uses'=>'Backend\PackageSaleController@checkCouponCode'));
+    Route::get('packagesale/getoriginalprice/{package}', array('as'=>'packagesale/getoriginalprice','uses'=>'Backend\PackageSaleController@getOriginalPrice'));
+    Route::get('packagesale/get_original_and_transportation_price/{package_id}/{zone_id}', array('as'=>'packagesale/getoriginalprice','uses'=>'Backend\PackageSaleController@getOriginalAndTransportationPrice'));
 
 });
 
@@ -399,7 +466,7 @@ Route::group(['prefix' => 'api'], function () {
 
     //enquiry api version 2
     Route::post('enquiry/upload/v2', array('as'=>'enquiry/upload/v2','uses'=>'Api\EnquiryApiV2Controller@upload'));
-    Route::post('enquiry/uploadEnquiry/v2', array('as'=>'enquiry/upload/v2','uses'=>'Api\EnquiryApiV2Controller@uploadEnquiry'));
+    Route::post('enquiry/uploadEnquiry/v2', array('as'=>'enquiry/uploadEnquiry/v2','uses'=>'Api\EnquiryApiV2Controller@uploadEnquiry'));
 
     //schedule api version 2
     Route::post('schedule/upload/v2', array('as'=>'schedule/upload/v2','uses'=>'Api\ScheduleApiV2Controller@uploadSchedule'));
@@ -416,13 +483,19 @@ Route::group(['prefix' => 'api'], function () {
     //schedule api version 3...//schedule api group
     Route::post('schedule/upload/v3', array('as'=>'schedule/upload/v3','uses'=>'Api\ScheduleApiV3Controller@uploadScheduleGroup'));
 
+    //schedule status update api ...//only for schedule status
+    Route::post('schedule/upload/status', array('as'=>'schedule/upload/status','uses'=>'Api\ScheduleApiV3Controller@uploadScheduleStatus'));
+
+    //enquiry status update api ...//only for enquiry status
+    Route::post('enquiry/upload/status', array('as'=>'enquiry/upload/status','uses'=>'Api\EnquiryApiV2Controller@uploadEnquiryStatus'));
+
     //patient_physiotherapy_musculo
     Route::post('patient_physiothreapy_musculo/upload', array('as'=>'patient_physiothreapy_musculo/upload','uses'=>'Api\PatientApiV2Controller@uploadPatientPhysiothreapyMusculo'));
 
-    //patient api(patient and core_user come in the same level)
+    //patient api(patient and core_user come in the same level)//(for whole enquiry api case)
     Route::post('patient/uploadsinglepatient/',array('as'=>'patient/uploadsinglepatient','uses'=>'Api\PatientApiController@uploadSinglePatient'));
 
-    //user api(patient and core_user come in the same level)
+    //user api(patient and core_user come in the same level)//(for whole enquiry api case)
     Route::post('user/uploadsingleuser/',array('as'=>'patient/uploadsingleuser','uses'=>'Api\UserApiController@uploadSingleUser'));
 
     //Upload API for Physiotherapy_Musculo
@@ -438,6 +511,13 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('invoice/upload/v3', array('as'=>'invoice/upload/v3','uses'=>'Api\InvoiceApiV3Controller@upload'));
     //patient_package upload api
     Route::post('patient_package/upload', array('as'=>'patient_package/upload','uses'=>'Api\PatientPackageApiController@upload'));
+
+    //tablet_issues upload api
+    Route::post('tablet_issues/upload', array('as'=>'tablet_issues/upload','uses'=>'Api\TabletIssuesApiController@upload'));
+
+    //transaction_promotions upload api
+    Route::post('transaction_promotions/upload', array('as'=>'transaction_promotions/upload','uses'=>'Api\TransactionpromotionApiController@upload'));
+
+    //company information download api
+    Route::post('download/company_information', array('as'=>'download/company_information','uses'=>'Api\CompanyInformationApiController@download'));
 });
-
-

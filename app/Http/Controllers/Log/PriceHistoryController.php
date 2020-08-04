@@ -35,12 +35,22 @@ class PriceHistoryController extends Controller
 
     public function search($type = 'all', $id = 0){
         if (Auth::guard('User')->check()) {
-
             $priceHistories = array();
             $priceHistoryRepositoryRepo = new PriceHistoryRepository();
             $priceHistories = $priceHistoryRepositoryRepo->getPriceHistory($type,$id);
-
             return view('log.price_history')
+                ->with('type',$type)
+                ->with('priceHistories',$priceHistories);
+        }
+        return redirect('/');
+    }
+
+    public function multiplesearch($type = 'all', $id = 0){
+        if (Auth::guard('User')->check()) {
+            $priceHistories = array();
+            $priceHistoryRepositoryRepo = new PriceHistoryRepository();
+            $priceHistories = $priceHistoryRepositoryRepo->getMultiplePriceHistory($type,$id);
+            return view('log.multiple_price_history')
                 ->with('type',$type)
                 ->with('priceHistories',$priceHistories);
         }

@@ -21,7 +21,7 @@ class Default_UserSeeder extends Seeder
     $roles = array(
 //        ['id'=>'U0001', 'name'=>'super-admin', 'password' =>'$2y$10$NLS2i1NpEUuQgoLgYk0QSOxsKxk6u1PFdeYJkpCraq2rS6polwYI6', 'phone' =>'09123456789','email' =>'waiyanaung@aceplussolutions.com','fees' =>'', 'role_id' =>'1','address'=>'Building 5, Room 10, MICT Park, Hlaing Township, Yangon, Myanmar'],
         ['id'=>'U0001', 'name'=>'super-admin', 'password' =>'YWNlcGx1c0AxMjM=', 'phone' =>'09123456789','email' =>'waiyanaung@aceplussolutions.com','fees' =>'', 'role_id' =>'1','address'=>'Building 5, Room 10, MICT Park, Hlaing Township, Yangon, Myanmar'],
-        ['id'=>'U0002', 'name'=>'test', 'password' =>'YWNlcGx1c0AxMjM=', 'phone' =>'09123456789','email' =>'test@aceplussolutions.com','fees' =>'', 'role_id' =>'2','address'=>'Building 5, Room 10, MICT Park, Hlaing Township, Yangon, Myanmar']
+        ['id'=>'U0002', 'name'=>'admin', 'password' =>'MTIzQHBhcmFtaQ==', 'phone' =>'09123456789','email' =>'test@aceplussolutions.com','fees' =>'', 'role_id' =>'2','address'=>'Building 5, Room 10, MICT Park, Hlaing Township, Yangon, Myanmar']
 
     );
 

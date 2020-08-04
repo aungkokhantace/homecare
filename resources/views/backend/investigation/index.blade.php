@@ -43,8 +43,8 @@
                         <th><input type='checkbox' name='check' id='check_all'/></th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Group Name</th>
-                        <th>Price</th>
+                        <th>Routine Price</th>
+                        <th>Urgent Price</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -52,18 +52,18 @@
                         <th></th>
                         <th class="search-col" con-id="name">Name</th>
                         <th class="search-col" con-id="description">Description</th>
-                        <th class="search-col" con-id="group_name">Group Name</th>
-                        <th class="search-col" con-id="price">Price</th>
+                        <th class="search-col" con-id="group_name">Routine Price</th>
+                        <th class="search-col" con-id="price">Urgent Price</th>
                     </tr>
                     </tfoot>
                     <tbody>
                     @foreach($investigation as $investigation)
                         <tr>
                             <td><input type="checkbox" class="check_source" name="edit_check" value="{{ $investigation->id }}" id="all"></td>
-                            <td><a href="/investigation/edit/{{$investigation->id}}">{{$investigation->name}}</a></td>
+                            <td><a href="/investigation/edit/{{$investigation->id}}">{{$investigation->service_name}}</a></td>
                             <td>{{$investigation->description}}</td>
-                            <td>{{$investigation->group_name}}</td>
-                            <td>{{$investigation->price}}</td>
+                            <td>{{$investigation->routine_price}}</td>
+                            <td>{{$investigation->urgent_price}}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -87,15 +87,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

@@ -42,6 +42,7 @@
             <select class="form-control" id="type" name="type">
                 <option value="food" @if(isset($allergy) && $allergy->type == 'food')? selected @endif>FOOD</option>
                 <option value="drug" @if(isset($allergy) && $allergy->type == 'drug')? selected @endif>DRUG</option>
+                <option value="environment" @if(isset($allergy) && $allergy->type == 'environment')? selected @endif>ENVIRONMENT</option>
             </select>
             <p class="text-danger">{{$errors->first('type')}}</p>
         </div>

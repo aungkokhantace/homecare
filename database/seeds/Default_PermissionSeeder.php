@@ -39,6 +39,8 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>15,'module'=>'User','name'=>'Destroy','description'=>'User Destroy','url'=>'user/destroy'],
             ['id'=>16,'module'=>'User','name'=>'Auth','description'=>'Getting Auth User','url'=>'userAuth'],
             ['id'=>17,'module'=>'User','name'=>'Profile','description'=>'User Profile','url'=>'user/profile'],
+            ['id'=>18,'module'=>'User','name'=>'Disable','description'=>'User Disable','url'=>'user/disable'],
+            ['id'=>19,'module'=>'User','name'=>'Enable','description'=>'User Enable','url'=>'user/enable'],
 
             // Permissions
             ['id'=>20,'module'=>'Permission','name'=>'Listing','description'=>'Permission Listing','url'=>'permission'],
@@ -114,6 +116,9 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>103,'module'=>'Package','name'=>'Edit','description'=>'Package Edit','url'=>'package/edit'],
             ['id'=>104,'module'=>'Package','name'=>'Update','description'=>'Package Update','url'=>'package/update'],
             ['id'=>105,'module'=>'Package','name'=>'Destroy','description'=>'Package Destroy','url'=>'package/destroy'],
+            ['id'=>106,'module'=>'Package','name'=>'Edit Promotion','description'=>'Package Promotion Edit','url'=>'package/promotion'],
+            ['id'=>107,'module'=>'Package','name'=>'Create Promotion','description'=>'Package Promotion Create','url'=>'package/createPromotion'],
+            ['id'=>108,'module'=>'Package','name'=>'Update Promotion','description'=>'Package Promotion Update','url'=>'package/updatePromotion'],
 
             // Investigation
             ['id'=>110,'module'=>'Investigation','name'=>'Listing','description'=>'Investigation Listing','url'=>'investigation'],
@@ -167,6 +172,7 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>165,'module'=>'Patient','name'=>'Destroy','description'=>'Patient Destroy','url'=>'patient/destroy'],
             ['id'=>166,'module'=>'Patient','name'=>'Check Zone','description'=>'Patient Check Zone','url'=>'patient/checkzone'],
             ['id'=>167,'module'=>'Patient','name'=>'Detail','description'=>'Patient Detail','url'=>'patient/detail'],
+            ['id'=>168,'module'=>'Patient','name'=>'Patient Detail','description'=>'Patient Detail','url'=>'patient/patient_detail'],
 
             // Patient
             ['id'=>170,'module'=>'Patient','name'=>'Profile','description'=>'Patient Profile','url'=>'patient/profile'],
@@ -306,6 +312,9 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>1022,'module'=>'Report','name'=>'Car Usage Report Graph','description'=>'Car Usage Report Graph','url'=>'carusagereportbygraph'],
             ['id'=>1023,'module'=>'Report','name'=>'Car Usage Report Graph Search','description'=>'Car Usage Report Graph Search','url'=>'carusagereportbygraph/search/{from_date?}/{to_date?}'],
 
+            //Patient Detail New
+            ['id'=>1024,'module'=>'Patient','name'=>'Patient Detail','description'=>'Patient Detail','url'=>'patient/patient_detail'],
+
             //Log Activities
             ['id'=>300,'module'=>'Log','name'=>'Activities','description'=>'Activities','url'=>'activities'],
 
@@ -313,16 +322,58 @@ class Default_PermissionSeeder extends Seeder
             ['id'=>306,'module'=>'Import','name'=>'New','description'=>'CSV Import New','url'=>'import'],
             ['id'=>307,'module'=>'Import','name'=>'Store','description'=>'CSV Import Store','url'=>'import/store'],
 
+            //Price History
+            ['id'=>311,'module'=>'Price History','name'=>'Single Price History','description'=>'Single Price History List Page','url'=>'pricehistory/{type?}/{id?}'],
+            ['id'=>312,'module'=>'Price History','name'=>'Multiple Price History','description'=>'Multiple Price History List Page','url'=>'multiplepricehistory/{type?}/{id?}'],
 
-            ['id'=>311,'module'=>'Price History','name'=>'List','description'=>'Price History List Page','url'=>'pricehistory/{type?}/{id?}'],
-
+            //Api List
             ['id'=>321,'module'=>'Api List','name'=>'Sync Down Api Detail','description'=>'Sync Down Api Detail','url'=>'apilist/syncdownapi'],
             ['id'=>322,'module'=>'Api List','name'=>'Invoice Api Detail','description'=>'Invoice Api Detail','url'=>'apilist/invoiceapi'],
             ['id'=>323,'module'=>'Api List','name'=>'Enquiry Api Detail','description'=>'Enquiry Api Detail','url'=>'apilist/enquiryapi'],
             ['id'=>324,'module'=>'Api List','name'=>'Schedule Api Detail','description'=>'Schedule Api Detail','url'=>'apilist/scheduleapi'],
             ['id'=>325,'module'=>'Api List','name'=>'Patientpackage Api Detail','description'=>'Patientpackage Api Detail','url'=>'apilist/patientpackageapi'],
             ['id'=>326,'module'=>'Api List','name'=>'Waytracking Api Detail','description'=>'Waytracking Api Detail','url'=>'apilist/waytrackingapi'],
+            ['id'=>327,'module'=>'Api List','name'=>'Patient Api Detail','description'=>'Patient Api Detail','url'=>'apilist/patientapi'],
+            ['id'=>328,'module'=>'Api List','name'=>'Company Information Api Detail','description'=>'Company Information Api Detail','url'=>'apilist/companyinformationapi'],
 
+            //Tablet Issues
+            ['id'=>330,'module'=>'Tablet Issues','name'=>'Tablet Issues','description'=>'Tablet Issues','url'=>'tabletissues/{type?}'],
+
+            //Investigation Imaging
+            ['id'=>340,'module'=>'Investigation Imaging','name'=>'List','description'=>'Investigation Imaging List','url'=>'investigationimaging'],
+            ['id'=>341,'module'=>'Investigation Imaging','name'=>'New','description'=>'Investigation Imaging Entry','url'=>'investigationimaging/create'],
+            ['id'=>342,'module'=>'Investigation Imaging','name'=>'Store','description'=>'Investigation Imaging Store','url'=>'investigationimaging/store'],
+            ['id'=>343,'module'=>'Investigation Imaging','name'=>'Edit','description'=>'Investigation Imaging Edit','url'=>'investigationimaging/edit'],
+            ['id'=>344,'module'=>'Investigation Imaging','name'=>'Update','description'=>'Investigation Imaging Update','url'=>'investigationimaging/update'],
+            ['id'=>345,'module'=>'Investigation Imaging','name'=>'Destroy','description'=>'Investigation Imaging Destroy','url'=>'investigationimaging/destroy'],
+
+            //Addendum
+            ['id'=>346,'module'=>'Addendum','name'=>'Store','description'=>'Addendum Store','url'=>'addendum/store'],
+
+            //Patient Visit Report
+            ['id'=>1030,'module'=>'Report','name'=>'Patient Visit Report','description'=>'Patient Visit Report Listing','url'=>'patientvisitreport'],
+            ['id'=>1031,'module'=>'Report','name'=>'Patient Visit Report Search','description'=>'Patient Visit Report Search','url'=>'patientvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1032,'module'=>'Report','name'=>'Patient Visit Report Export Excel','description'=>'Patient Visit Report Export Excel','url'=>'patientvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+
+            //Patient Daily Visit Report
+            ['id'=>1040,'module'=>'Report','name'=>'Patient Daily Visit Report','description'=>'Patient Daily Visit Report Listing','url'=>'patientdailyvisitreport'],
+            ['id'=>1041,'module'=>'Report','name'=>'Patient Daily Visit Report Search','description'=>'Patient Daily Visit Report Search','url'=>'patientdailyvisitreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1042,'module'=>'Report','name'=>'Patient Daily Visit Report Export Excel','description'=>'Patient Daily Visit Report Export Excel','url'=>'patientdailyvisitreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1043,'module'=>'Report','name'=>'Patient Daily Visit Report Detail','description'=>'Patient Daily Visit Report Detail','url'=>'patientvisitreportdetail'],
+
+            //New Sale Income Report
+            ['id'=>1050,'module'=>'Report','name'=>'Sale Income Report','description'=>'Sale Income Report Listing','url'=>'saleincomereport'],
+            ['id'=>1051,'module'=>'Report','name'=>'Sale Income Report Search','description'=>'Sale Income Report Search','url'=>'saleincomereport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1052,'module'=>'Report','name'=>'Sale Income Report Export Excel','description'=>'Sale Income Report Export Excel','url'=>'saleincomereport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1053,'module'=>'Report','name'=>'Sale Income Report InvoiceList','description'=>'Sale Income Report InvoiceList','url'=>'saleincomereport/invoicelist/{date?}/{type?}'],
+            // ['id'=>1054,'module'=>'Report','name'=>'Sale Income Report Graph','description'=>'Sale Income Report Graph','url'=>'saleincomereport'],
+            // ['id'=>1055,'module'=>'Report','name'=>'Sale Income Report Graph Search','description'=>'Sale Income Report Graph Search','url'=>'saleincomereport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+
+            //Schedule Tracking Report
+            ['id'=>1060,'module'=>'Report','name'=>'Schedule Tracking Report','description'=>'Schedule Tracking Report Listing','url'=>'scheduletrackingreport'],
+            ['id'=>1061,'module'=>'Report','name'=>'Schedule Tracking Report Search','description'=>'Schedule Tracking Report Search','url'=>'scheduletrackingreport/search/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1062,'module'=>'Report','name'=>'Schedule Tracking Report Export','description'=>'Schedule Tracking Report Export','url'=>'scheduletrackingreport/exportexcel/{type?}/{from_date?}/{to_date?}/{from_month?}/{to_month?}/{from_year?}/{to_year?}'],
+            ['id'=>1063,'module'=>'Report','name'=>'Schedule Tracking Report Detail','description'=>'Schedule Tracking Report Detail','url'=>'scheduletrackingreport/schedule_detail/{id}'],
         );
 
 
@@ -353,7 +404,7 @@ class Default_PermissionSeeder extends Seeder
         else{
             DB::table('core_permissions')->insert($permissions);
         }
-        
+
         echo "\n";
         echo "*****************************************************";
         echo "\n";

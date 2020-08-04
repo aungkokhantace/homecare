@@ -12,220 +12,57 @@
 
     <h1 class="page-header">Dashboard</h1>
 
+    <!-- Start filter -->
     <div class="row">
-            <div class="col-md-3">
-                <div class="info-box" onclick="redirect_to_list('user');">
-                    <span class="info-box-icon bg-light-blue"><i class="ion ion-android-person"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Total Staff</span>
-                        <span class="info-box-number">{{ $userCount }}</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-            </div>
-            <div class="col-md-offset-1 col-md-3">
-                <div class="info-box" onclick="redirect_to_list('patient');">
-                    <span class="info-box-icon bg-red"><i class="ion ion-android-person"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Total Patient</span>
-                        <span class="info-box-number">{{ $patientCount }}</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-            </div>
-            <div class="col-md-offset-1 col-md-3">
-                <div class="info-box" onclick="redirect_to_list('familymember');">
-                    <span class="info-box-icon bg-orange"><i class="ion ion-android-person"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Total Family Member</span>
-                        <span class="info-box-number">{{ $familyMemberCount }}</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-            </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="info-box" onclick="redirect_to_list('schedule');">
-                <span class="info-box-icon bg-light-blue"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Schedule</span>
-                    <span class="info-box-number">{{ $scheduleCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <label for="year" class="text_bold_black">Year</label>
         </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('enquiry');">
-                <span class="info-box-icon bg-red"><i class="ion ion-folder"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Enquiry</span>
-                    <span class="info-box-number">{{ $enquiryCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <select class="form-control" name="year" id="year">
+              @for($i = $current_year; $i >= $current_year -50; $i--)
+                  @if($year == $i)
+                  <option value="{{$i}}" selected>{{$i}}</option>
+                  @else
+                  <option value="{{$i}}">{{$i}}</option>
+                  @endif
+              @endfor
+            </select>
+            <p class="text-danger">{{$errors->first('type')}}</p>
         </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('route');">
-                <span class="info-box-icon bg-orange"><i class="ion ion-folder"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Route</span>
-                    <span class="info-box-number">{{ $routeCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <button type="button" onclick="search_dashboard_by_year();" class="form-control btn-primary">Search</button>
         </div>
     </div>
     <br>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="info-box" onclick="redirect_to_list('city');">
-                <span class="info-box-icon bg-light-blue"><i class="ion ion-folder"></i></span>
+    <!-- End filter -->
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Total City</span>
-                    <span class="info-box-number">{{ $cityCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
+    <h3 class="center_aligned">Monthly Visit Graph</h3>
+    <div class="col-md-12">
+         <div class="row">
+            <div class="col-md-1"><span class="colored-span mo-color"></span></div><div class="col-md-1"><span>MO</span></div>
+            <div class="col-md-1"><span class="colored-span musculo-color"></span></div><div class="col-md-1"><span>Musculo</span></div>
+            <div class="col-md-1"><span class="colored-span neuro-color"></span></div><div class="col-md-1"><span>Neuro</span></div>
+            <div class="col-md-1"><span class="colored-span nutrition-color"></span></div><div class="col-md-1"><span>Nutrition</span></div>
+            <div class="col-md-1"><span class="colored-span blooddrawing-color"></span></div><div class="col-md-2"><span>Blood Drawing</span></div>
         </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('township');">
-                <span class="info-box-icon bg-red"><i class="ion ion-folder"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Township</span>
-                    <span class="info-box-number">{{ $townshipCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('zone');">
-                <span class="info-box-icon bg-orange"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Zone</span>
-                    <span class="info-box-number">{{ $zoneCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
+        <div id="visit_chart_div"></div><br><br><hr><br>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="info-box" onclick="redirect_to_list('cartype');">
-                <span class="info-box-icon bg-light-blue"><i class="ion ion-folder"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Car Type</span>
-                    <span class="info-box-number">{{ $carTypeCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('productcategory');">
-                <span class="info-box-icon bg-red"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Medication Category</span>
-                    <span class="info-box-number">{{ $medicationCategoryCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('product');">
-                <span class="info-box-icon bg-orange"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Medication</span>
-                    <span class="info-box-number">{{ $medicationCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
+    <h3 class="center_aligned">Monthly Gross Profit Graph</h3>
+      <div class="col-md-12">
+      <div class="row">
+            <div class="col-md-1"><span class="colored-span mo-color"></span></div><div class="col-md-1"><span>MO</span></div>
+            <div class="col-md-1"><span class="colored-span musculo-color"></span></div><div class="col-md-1"><span>Musculo</span></div>
+            <div class="col-md-1"><span class="colored-span neuro-color"></span></div><div class="col-md-1"><span>Neuro</span></div>
+            <div class="col-md-1"><span class="colored-span nutrition-color"></span></div><div class="col-md-1"><span>Nutrition</span></div>
+            <div class="col-md-1"><span class="colored-span blooddrawing-color"></span></div><div class="col-md-1"><span>Blood Drawing</span></div>
+            <div class="col-md-1"><span class="colored-span packagesale-color"></span></div><div class="col-md-1"><span>Package Sale</span></div>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="info-box" onclick="redirect_to_list('allergy');">
-                <span class="info-box-icon bg-light-blue"><i class="ion ion-folder"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Allergy</span>
-                    <span class="info-box-number">{{ $allergyCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('service');">
-                <span class="info-box-icon bg-red"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Service</span>
-                    <span class="info-box-number">{{ $serviceCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('package');">
-                <span class="info-box-icon bg-orange"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Package</span>
-                    <span class="info-box-number">{{ $packageCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="info-box" onclick="redirect_to_list('familyhistory');">
-                <span class="info-box-icon bg-light-blue"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Family History</span>
-                    <span class="info-box-number">{{ $familyHistoryCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('medicalhistory');">
-                <span class="info-box-icon bg-red"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Medical History</span>
-                    <span class="info-box-number">{{ $medicalHistoryCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
-        <div class="col-md-offset-1 col-md-3">
-            <div class="info-box" onclick="redirect_to_list('provisionaldiagnosis');">
-                <span class="info-box-icon bg-orange"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Provisional Diagnosis</span>
-                    <span class="info-box-number">{{ $provisionalDiagnosisCount }}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
+        <div id="profit_chart_div"></div>
     </div>
 
 </div>
@@ -233,11 +70,358 @@
 
 @section('page_script')
     <script type="text/javascript" language="javascript" class="init">
-        function redirect_to_list(type){
-            window.location = type;
-        }
         $(document).ready(function() {
+            //start visit chart
+            var visit_chart;
+            var visitChartData =<?php echo json_encode($patient_visits) ?> ;
+            // console.log(visitChartData);
+            var visit_chart = AmCharts.makeChart("visit_chart_div", {
+                "type": "serial",
+                "theme": "light",
+                "marginRight": 40,
+                "marginLeft": 40,
+                "autoMarginOffset": 20,
+                "mouseWheelZoomEnabled":true,
+                // "dataDateFormat": "YYYY-MM-DD",
+                "dataDateFormat": "YYYY-MM",
+                "valueAxes": [{
+                    "id": "v1",
+                    "axisAlpha": 0,
+                    "position": "left",
+                    "ignoreAxisWidth":true
+                }],
+                "balloon": {
+                    "borderThickness": 1,
+                    "shadowAlpha": 0
+                },
+                "graphs": [{
+                    "id": "g1",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 3,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "MO Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "mo_visits",
+                    "lineColorField": "mo_visits_color",
+                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                },
+                {
+                    "id": "g2",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Musculo Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "musculo_visits",
+                    "lineColorField": "musculo_visits_color",
+                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                },
+                {
+                    "id": "g3",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Neuro Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "neuro_visits",
+                    "lineColorField": "neuro_visits_color",
+                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                },
+                {
+                    "id": "g4",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Nutrition Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "nutrition_visits",
+                    "lineColorField": "nutrition_visits_color",
+                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                },
+                {
+                    "id": "g5",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Blood Drawing Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "blood_drawing_visits",
+                    "lineColorField": "blood_drawing_visits_color",
+                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                }],
+                "chartScrollbar": {
+                    "graph": "g1",
+                    "oppositeAxis":false,
+                    "offset":30,
+                    "scrollbarHeight": 80,
+                    "backgroundAlpha": 0,
+                    "selectedBackgroundAlpha": 0.1,
+                    "selectedBackgroundColor": "#888888",
+                    "graphFillAlpha": 0,
+                    "graphLineAlpha": 0.5,
+                    "selectedGraphFillAlpha": 0,
+                    "selectedGraphLineAlpha": 1,
+                    "autoGridCount":true,
+                    "color":"#AAAAAA"
+                },
+                "chartCursor": {
+                    "pan": true,
+                    "valueLineEnabled": true,
+                    "valueLineBalloonEnabled": true,
+                    "cursorAlpha":1,
+                    "cursorColor":"#258cbb",
+                    "limitToGraph":"g1",
+                    "valueLineAlpha":0.2,
+                    "valueZoomable":true
+                },
+                "valueScrollbar":{
+                "oppositeAxis":false,
+                "offset":50,
+                "scrollbarHeight":10
+                },
+                "categoryField": "date",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "dashLength": 1,
+                    "minorGridEnabled": true
+                },
+                "export": {
+                    "enabled": true,
+                    // "menu": [ {
+                    //     "class": "export-main",
+                    //     "menu": [ "PNG", "JPG",]
+                    //   } ]
+                },
+                "dataProvider": visitChartData
+            });
 
+        });
+    </script>
+
+    <script type="text/javascript" language="javascript" class="init">
+        $(document).ready(function() {
+            //start visit chart
+            var profit_chart;
+            var profitChartData =<?php echo json_encode($profits) ?> ;
+            // console.log(profitChartData);
+            var profit_chart = AmCharts.makeChart("profit_chart_div", {
+                "type": "serial",
+                "theme": "light",
+                "marginRight": 40,
+                "marginLeft": 40,
+                "autoMarginOffset": 20,
+                "mouseWheelZoomEnabled":true,
+                // "dataDateFormat": "YYYY-MM-DD",
+                "dataDateFormat": "YYYY-MM",
+                "valueAxes": [{
+                    "id": "v1",
+                    "axisAlpha": 0,
+                    "position": "left",
+                    "ignoreAxisWidth":true
+                }],
+                "balloon": {
+                    "borderThickness": 1,
+                    "shadowAlpha": 0
+                },
+                "graphs": [{
+                    "id": "g1",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 3,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "MO Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "mo_profits",
+                    "lineColorField": "mo_profits_color",
+                    "balloonText": "<span style='font-size:11px; color:#000000'>[[value]]</span>"
+                },
+                {
+                    "id": "g2",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Musculo Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "musculo_profits",
+                    "lineColorField": "musculo_profits_color",
+                    "balloonText": "<span style='font-size:11px; color:#08088A'>[[value]]</span>"
+                },
+                {
+                    "id": "g3",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Neuro Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "neuro_profits",
+                    "lineColorField": "neuro_profits_color",
+                    "balloonText": "<span style='font-size:11px; color:#FFFF00'>[[value]]</span>"
+                },
+                {
+                    "id": "g4",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Nutrition Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "nutrition_profits",
+                    "lineColorField": "nutrition_profits_color",
+                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                },
+                {
+                    "id": "g5",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Blood Drawing Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "blood_drawing_profits",
+                    "lineColorField": "blood_drawing_profits_color",
+                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                },
+                {
+                    "id": "g6",
+                    "balloon":{
+                    "drop":true,
+                    "adjustBorderColor":false,
+                    "color":"#ffffff"
+                    },
+                    "bullet": "round",
+                    "bulletBorderAlpha": 1,
+                    "bulletColor": "#FFFFFF",
+                    "bulletSize": 5,
+                    "hideBulletsCount": 50,
+                    "lineThickness": 2,
+                    "title": "Blood Drawing Visits",
+                    "useLineColorForBulletBorder": true,
+                    "valueField": "package_sale_profits",
+                    "lineColorField": "package_sale_profits_color",
+                    "balloonText": "<span style='font-size:11px;'>[[value]]</span>"
+                }],
+                "chartScrollbar": {
+                    "graph": "g1",
+                    "oppositeAxis":false,
+                    "offset":30,
+                    "scrollbarHeight": 80,
+                    "backgroundAlpha": 0,
+                    "selectedBackgroundAlpha": 0.1,
+                    "selectedBackgroundColor": "#888888",
+                    "graphFillAlpha": 0,
+                    "graphLineAlpha": 0.5,
+                    "selectedGraphFillAlpha": 0,
+                    "selectedGraphLineAlpha": 1,
+                    "autoGridCount":true,
+                    "color":"#AAAAAA"
+                },
+                "chartCursor": {
+                    "pan": true,
+                    "valueLineEnabled": true,
+                    "valueLineBalloonEnabled": true,
+                    "cursorAlpha":1,
+                    "cursorColor":"#258cbb",
+                    "limitToGraph":"g1",
+                    "valueLineAlpha":0.2,
+                    "valueZoomable":true
+                },
+                "valueScrollbar":{
+                "oppositeAxis":false,
+                "offset":50,
+                "scrollbarHeight":10
+                },
+                "categoryField": "date",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "dashLength": 1,
+                    "minorGridEnabled": true
+                },
+                "export": {
+                    "enabled": true,
+                    // "menu": [ {
+                    //     "class": "export-main",
+                    //     "menu": [ "PNG", "JPG",]
+                    //   } ]
+                },
+                "dataProvider": profitChartData
+            });
         });
     </script>
 @endsection

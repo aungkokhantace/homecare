@@ -88,13 +88,13 @@ class PatientmedicalhistoryRepository implements PatientmedicalhistoryRepository
 
             $patient_id = $paramObj->patient_id;
             $medical_history_id = $paramObj->medical_history_id;
-            $date = $paramObj->date;
+//            $date = $paramObj->date;
 
             $updateUserId = Utility::getCurrentLoginUserId();
             $updateDate = date('Y-m-d H:m:i');
             $result = Patientmedicalhistory::where('patient_id', $patient_id)
                 ->where('medical_history_id', $medical_history_id)
-                ->update(['date'=> $date, 'updated_by' => $updateUserId,'updated_at' => $updateDate]);
+                ->update(['updated_by' => $updateUserId,'updated_at' => $updateDate]);
 
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
             return $returnedObj;

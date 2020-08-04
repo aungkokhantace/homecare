@@ -155,8 +155,59 @@ class CSVImportController extends Controller
                     }
                 }
 
+                if($table_name == 'investigation_labs'){
+                    $result = $csvRepo->createInvestigationLabs($values,$user_id,$today);
+                    if($result['aceplusStatusCode'] !== ReturnMessage::OK){
+                        DB::rollback();
+                        alert()->error('Error Message', 'Sorry! There is some problem.')->persistent('Close');
+
+                        return redirect()->action('CSVImport\CSVImportController@import');
+                    }
+                }
+
+                if($table_name == 'townships'){
+                    $result = $csvRepo->createTownships($values,$user_id,$today);
+                    if($result['aceplusStatusCode'] !== ReturnMessage::OK){
+                        DB::rollback();
+                        alert()->error('Error Message', 'Sorry! There is some problem.')->persistent('Close');
+
+                        return redirect()->action('CSVImport\CSVImportController@import');
+                    }
+                }
+
+                if($table_name == 'zones'){
+                    $result = $csvRepo->createZones($values,$user_id,$today);
+                    if($result['aceplusStatusCode'] !== ReturnMessage::OK){
+                        DB::rollback();
+                        alert()->error('Error Message', 'Sorry! There is some problem.')->persistent('Close');
+
+                        return redirect()->action('CSVImport\CSVImportController@import');
+                    }
+                }
+
+                if($table_name == 'zone_detail'){
+                    $result = $csvRepo->createZoneDetail($values,$user_id,$today);
+                    if($result['aceplusStatusCode'] !== ReturnMessage::OK){
+                        DB::rollback();
+                        alert()->error('Error Message', 'Sorry! There is some problem.')->persistent('Close');
+
+                        return redirect()->action('CSVImport\CSVImportController@import');
+                    }
+                }
+
+                if($table_name == 'car_type_setup'){
+                    $result = $csvRepo->createCarTypeSetup($values,$user_id,$today);
+                    if($result['aceplusStatusCode'] !== ReturnMessage::OK){
+                        DB::rollback();
+                        alert()->error('Error Message', 'Sorry! There is some problem.')->persistent('Close');
+
+                        return redirect()->action('CSVImport\CSVImportController@import');
+                    }
+                }
+
                 $c = $c + 1;
             }
+
             DB::commit();
             alert()->success('Success Message', 'Table has imported successfully')->persistent('Close');
             return redirect()->action('CSVImport\CSVImportController@import');

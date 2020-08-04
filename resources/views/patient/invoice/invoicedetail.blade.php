@@ -81,7 +81,7 @@
             <label>:</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <label>{{$invoice->patient->staff_id}}</label>
+            <label>{{$invoice->patient_id}}</label>
         </div>
     </div>
     <br>
@@ -129,7 +129,7 @@
             <label>:</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <label>{{$invoice->patient->zone->name}}</label>
+            <label>{{$zoneValue}}</label>
         </div>
     </div>
     <br>
@@ -234,15 +234,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

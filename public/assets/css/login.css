@@ -152,3 +152,7 @@ body {
     padding-left: 30px;
 }
 /*end password reset page*/
+
+.login-company-name{
+    text-align: center;
+}

@@ -368,7 +368,7 @@
             @if($is_enquiry_confirm == 1)
                 @if(isset($enquiry))
                     <select id="services" name="services[]" class="form-control">
-                        <option>Select Service</option>
+                        {{--<option>Select Service</option>--}}
                         @foreach($enquiry->services as $enqService)
                             @if($enqService->selected == 1)
                                 <option value="{{$enqService->id}}" selected>{{$enqService->name}}</option>
@@ -380,7 +380,7 @@
                 @endif
             @elseif($is_edit == 1)
                 <select id="services" name="services[]" class="form-control">
-                    <option>Select Service</option>
+                    {{--<option>Select Service</option>--}}
                     @foreach($schedule['services'] as $service)
                         @if($service->selected == 1)
                             <option value="{{$service->id}}" selected>{{$service->name}}</option>
@@ -392,7 +392,7 @@
 
             @elseif($is_schedule_package == 1)
                 <select id="services" name="services[]" class="form-control">
-                    <option>Select Service</option>
+                    {{--<option>Select Service</option>--}}
                     @foreach($servicesArray as $key=>$service)
                         <option value="{{$key}}">{{$service}}</option>
                     @endforeach
@@ -400,7 +400,7 @@
 
             @else
                 <select id="services" name="services[]" class="form-control">
-                    <option>Select Service</option>
+                    {{--<option>Select Service</option>--}}
                     @foreach($services as $service)
                         <option value="{{$service->id}}">{{$service->name}}</option>
                     @endforeach
@@ -443,37 +443,59 @@
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             @if($is_edit == 1)
-                @if($schedule->car_type == 1)
+                @if($is_edit == 1)
+                    @if($schedule->car_type == 1)
+                        <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
+                    @else
+                        <input type="radio" name="car_type" value="1"> Patient Owned Vehicle
+                    @endif
+                @else
+                    <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
+                @endif
+
+                <br/>
+
+                @if($is_edit == 1)
+                    @if($schedule->car_type == 2)
+                        <input type="radio" name="car_type" value="2" checked> Rental Vehicle
+                    @else
+                        <input type="radio" name="car_type" value="2"> Rental Vehicle
+                    @endif
+                @else
+                    <input type="radio" name="car_type" value="2"> Rental Vehicle
+                @endif
+
+                <br />
+
+                @if($is_edit == 1)
+                    @if($schedule->car_type == 3)
+                        <input type="radio" name="car_type" value="3" checked> HHCS Vehicle
+                    @else
+                        <input type="radio" name="car_type" value="3"> HHCS Vehicle
+                    @endif
+                @else
+                    <input type="radio" name="car_type" value="3"> HHCS Vehicle
+                @endif
+            @endif
+
+            @if($is_enquiry_confirm == 1)
+                @if($enquiry->car_type == 1)
                     <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
                 @else
                     <input type="radio" name="car_type" value="1"> Patient Owned Vehicle
                 @endif
-            @else
-                <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
-            @endif
-
-            <br/>
-
-            @if($is_edit == 1)
-                @if($schedule->car_type == 2)
+                <br/>
+                @if($enquiry->car_type == 2)
                     <input type="radio" name="car_type" value="2" checked> Rental Vehicle
                 @else
                     <input type="radio" name="car_type" value="2"> Rental Vehicle
                 @endif
-            @else
-                <input type="radio" name="car_type" value="2"> Rental Vehicle
-            @endif
-
-            <br />
-
-            @if($is_edit == 1)
-                @if($schedule->car_type == 3)
+                <br/>
+                @if($enquiry->car_type == 3)
                     <input type="radio" name="car_type" value="3" checked> HHCS Vehicle
                 @else
                     <input type="radio" name="car_type" value="3"> HHCS Vehicle
                 @endif
-            @else
-                <input type="radio" name="car_type" value="3"> HHCS Vehicle
             @endif
             <p class="text-danger">{{$errors->first('car_type')}}</p><br/>
 
@@ -492,6 +514,8 @@
                             <label class="text_big_blue">[Food] - {{$enqAllergy->name}}</label><br/>
                         @elseif($enqAllergy->selected == 1 && $enqAllergy->type == 'drug')
                             <label class="text_big_blue">[Drug] - {{$enqAllergy->name}}</label><br/>
+                        @elseif($enqAllergy->selected == 1 && $enqAllergy->type == 'environment')
+                            <label class="text_big_blue">[Environment] - {{$enqAllergy->name}}</label><br/>
                         @endif
                     @endforeach
                 @endif
@@ -512,6 +536,14 @@
                     @endforeach
                 @endif
 
+                    @if(isset($patient->allergies))
+                        @foreach($patient->allergies['environment'] as $allergyEnvironment)
+                            @if($allergyEnvironment->selected == 1 && $allergyEnvironment->type == 'environment')
+                                <label id="{{$allergyEnvironment->id}}" name="{{$allergyEnvironment->id}}" class="text_big_blue">[Environment] - {{$allergyEnvironment->name}}</label><br/>
+                            @endif
+                        @endforeach
+                    @endif
+
             @elseif($is_schedule_package == 1)
                 @if($patient->having_allergy == 1)
                     @foreach($patient['allergies']['food'] as $allergy)
@@ -523,6 +555,12 @@
                     @foreach($patient['allergies']['drug'] as $allergy)
                         @if($allergy->selected == 1)
                             <label for="allergy" class="text_big_blue">[Drug] - {{$allergy->name}}</label><br/>
+                        @endif
+                    @endforeach
+
+                    @foreach($patient['allergies']['environment'] as $allergy)
+                        @if($allergy->selected == 1)
+                            <label for="allergy" class="text_big_blue">[Environment] - {{$allergy->name}}</label><br/>
                         @endif
                     @endforeach
                 @endif
@@ -625,12 +663,19 @@
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <label for="remark" class="text_bold_black">Remark</label>
         </div>
-
-        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-        <textarea class="form-control" id="remark" name="remark" placeholder="Enter Remark" rows="7" cols="40">{{isset($schedule)?
-        $schedule->remark:Input::old('remark')}}</textarea>
-            <p class="text-danger">{{$errors->first('remark')}}</p>
-        </div>
+        @if($is_enquiry_confirm == 1)
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <textarea class="form-control" id="remark" name="remark" placeholder="Enter Remark" rows="7" cols="40">{{$enquiry->remark}}</textarea>
+                <p class="text-danger">{{$errors->first('remark')}}</p>
+            </div>
+        @else
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <textarea class="form-control" id="remark" name="remark" placeholder="Enter Remark" rows="7" cols="40">{{isset($schedule)?
+            $schedule->remark:Input::old('remark')}}</textarea>
+                <p class="text-danger">{{$errors->first('remark')}}</p>
+            </div>
+        @endif
+        
     </div>
     <br/>
 
@@ -640,7 +685,7 @@
 
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
             @if(isset($schedule))
-                @if($schedule->status != 'cancel')
+                @if($schedule->status != 'cancel' && $schedule->status != 'complete' && $schedule->status != 'processing')
                 <input type="submit" name="submit" value="UPDATE" class="form-control btn-primary">
                 @endif
             @else
@@ -758,6 +803,11 @@
             });
             //End Validation for Schedule Entry and Edit Form
 
+            //For selectbox with search function
+            $("#name").select2();
+
+            //For selectbox with search function
+            $("#leader_id").select2();
         });
 
         //Ajax Method
@@ -828,6 +878,13 @@
                     $.each(allergies['drug'],function(i,item){
                         if(item.selected ==1){
                             var allergyType = "[Drug] - ";
+                            strAllergies += "<label class='text_big_blue'>"  + allergyType + " " + item.name + "</label><br/>";
+                        }
+                    });
+
+                    $.each(allergies['environment'],function(i,item){
+                        if(item.selected ==1){
+                            var allergyType = "[Environment] - ";
                             strAllergies += "<label class='text_big_blue'>"  + allergyType + " " + item.name + "</label><br/>";
                         }
                     });

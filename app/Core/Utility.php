@@ -18,6 +18,7 @@ use App\Session;
 use App\Core\User\UserRepository;
 use App\Core\SyncsTable\SyncsTable;
 use InterventionImage;
+use Mail;
 
 class Utility
 {
@@ -132,7 +133,38 @@ class Utility
 
             $syncTable->version = $version++;
             $syncTable->save();
+        }
 
+        // Function call (tableName);
+        Utility::updateSyncsTable_detail($table_name);
+    }
+
+    public static function updateSyncsTable_detail($table_name)
+    {
+        $table_array = array("enquiries"=>"enquiry_detail", "schedules"=>"schedule_detail", "invoices"=>"invoice_detail", "packages"=>"package_detail", "patient_package"=>"patient_package_detail", "zones"=>"zone_detail");
+        if(array_key_exists($table_name,$table_array)){
+            $detail_table_name = $table_array[$table_name];
+            $tempSyncTable = new SyncsTable();
+            $syncTableName = $tempSyncTable->getTable();
+
+            $syncTableObj = DB::table($syncTableName)
+                ->select('*')
+                ->where('table_name', '=', $detail_table_name)
+                ->first();
+
+            if (isset($syncTableObj) && count($syncTableObj) > 0) {
+                $id = $syncTableObj->id;
+                $version = $syncTableObj->version + 1;
+                $syncTable = SyncsTable::find($id);
+                $sessionObj = session('user');
+                if (isset($sessionObj)) {
+                    $userSession = session('user');
+                    $loginUserId = $userSession['id'];
+                    $syncTable->updated_by = $loginUserId;
+                }
+                $syncTable->version = $version++;
+                $syncTable->save();
+            }
         }
     }
 
@@ -317,14 +349,14 @@ class Utility
     }
 
     public static function mobileUploadImage($photo){
-        
+
         //$path       = base_path().'/public/images/users/';
         //$png_url    = "perfil-".time().".jpg";
-        
+
         //$img        = substr($photo, strpos($photo, ",")+1);
-       
+
         //$png_url    = $photo.time().".jpg";
-       
+
         $path       = base_path() . "/public/images/users/" ;
         $success    = file_put_contents($path, $photo);
         return "success";
@@ -424,26 +456,72 @@ class Utility
 
     public static function getPDFHeader(){
         $companyLogo = \App\Core\Check::companyLogo();
-        $image = '<img style="width:80px;height:50px;" src="'.$companyLogo.'" alt="Parami HomeCare Logo"><br>';
-        $logo = '<table>
-                        <tr>
-                            <td align="center" width="33%" height="20"></td>
-                            <td align="center" width="33%" height="20">'.$image.'</td>
-                            <td align="center" width="33%" height="20"></td>
-                        </tr>
-                        </table>';
+        // $image = '<img style="width:80px;height:50px;" src="'.$companyLogo.'" alt="Parami HomeCare Logo"><br>';
+        $image = '<img style="width:65px;height:35px;" src="'.$companyLogo.'" alt="Parami HomeCare Logo"><br>';
+        // $logo = '<table>
+        //                 <tr>
+        //                     <td align="center" width="33%" height="20"></td>
+        //                     <td align="center" width="33%" height="20">'.$image.'</td>
+        //                     <td align="center" width="33%" height="20"></td>
+        //                 </tr>
+        //                 </table>';
+
+        //get company address from core_config
+        $companyAddressRaw      = DB::table('core_configs')->where('code','=','SETTING_ADDRESS')->first();
+        if(isset($companyAddressRaw) && count($companyAddressRaw) > 0){
+            $companyAddress     = $companyAddressRaw->value;
+        }
+        else{
+            //set as default
+            $companyAddress     = "No.(60/A), G-1, New Parami Road, Mayangone Township, Yangon, Myanmar";
+        }
+
+        //get company contact phone from core_config
+        $companyPhoneRaw        = DB::table('core_configs')->where('code','=','SETTING_CONTACT_PHONE')->first();
+        if(isset($companyPhoneRaw) && count($companyPhoneRaw) > 0){
+            $companyPhone       = $companyPhoneRaw->value;
+        }
+        else{
+            //set as default
+            $companyPhone       = "(+95-9) 979909996, 9754013459";
+        }
+
+        //get company contact email from core_config
+        $companyEmailRaw        = DB::table('core_configs')->where('code','=','SETTING_CONTACT_EMAIL')->first();
+        if(isset($companyEmailRaw) && count($companyEmailRaw) > 0){
+            $companyEmail       = $companyEmailRaw->value;
+        }
+        else{
+            //set as default
+            $companyEmail       = "gzp.hhcs@gmail.com";
+        }
+
+        // $letterHead = '<br><table style="font-size:11px;">
+        //                 <tr>
+        //                     <td align="center" height="20">'.$companyAddress.'</td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td align="center" height="20">Contact:'.$companyPhone.'. E-mail:'.$companyEmail.'</td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td align="center" height="18" bgcolor="#00c0f1" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>
+        //                 </tr>
+        //                 </table>';
+
         $letterHead = '<br><table style="font-size:11px;">
                         <tr>
-                            <td align="center" height="20">No.(60/A), G-1, New Parami Road, Mayangone Township, Yangon, Myanmar</td>
+                            <td width="20%" height="20" rowspan="2" valign="middle">'.$image.'</td>
+                            <td width="80%" align="left" height="20">'.$companyAddress.'</td>
                         </tr>
                         <tr>
-                            <td align="center" height="20">Contact:(+95-1) 661694, 657228. E-mail:shwezaneka@gmail.com, gzp.hhcs@gmail.com</td>
+                            <td align="left" height="20">Contact:'.$companyPhone.'. E-mail:'.$companyEmail.'</td>
                         </tr>
                         <tr>
-                            <td align="center" height="18" bgcolor="#00c0f1" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>
+                            <td align="center" height="18" bgcolor="#00c0f1" colspan="2" style="color:white">Parami Home Health Care Services @ Parami General Hospital - Yangon</td>
                         </tr>
                         </table>';
-        $pdfHeader  = $logo.$letterHead;
+        // $pdfHeader  = $logo.$letterHead;
+        $pdfHeader  = $letterHead;
         return $pdfHeader;
     }
 
@@ -533,5 +611,118 @@ class Utility
             ['table_name'=>$table_name, 'table_id'=>$table_id, 'table_id_type'=>$table_id_type,
                 'action'=>$action, 'old_price'=> $old_price , 'new_price'=>$new_price, 'created_by'=>$created_by, 'created_at'=>$created_at]
         ]);
+    }
+
+
+    public static function getTaxRate()
+    {
+        $tempArrays = DB::select("SELECT * FROM core_settings WHERE type = 'TAX_RATE'");
+        if (isset($tempArrays) && count($tempArrays) > 0) {
+            return $tempArrays[0]->value;
+        }
+
+        return 7;
+    }
+
+    //for generating package sale coupon codes
+    public static function generateCouponCode($prefix,$table,$col,$offset)
+    {
+        $timestamp = date("_YmdHis_");
+
+        $idStringArray  = DB::select("SELECT `$col` as id FROM `$table` WHERE id LIKE '$prefix%'");
+        if(!empty($idStringArray)){
+            $idIntArray = array();
+            foreach($idStringArray as $id){
+                $numberpart     = str_replace($prefix,"",$id->id);  //remove prefix
+                $idInt          = intval($numberpart);                 //change to integer
+                $idIntArray[]   = $idInt;
+            }
+            $newId = 1;
+            if($idIntArray[0] != null) {
+                $max    = max($idIntArray);
+                $newId  = $max + $offset;
+            }
+        }
+        else{
+            $newId = 1;
+        }
+        return sprintf("%s%s%s",$prefix,$timestamp,$newId);          //bind prefix and newId
+    }
+
+    public static function getMaxDiscountTime()
+    {
+        $tempArrays = DB::select("SELECT * FROM core_settings WHERE type = 'MAX_DISCOUNT_TIME' and code = 'MAX_DISCOUNT_TIME'");
+        if (isset($tempArrays) && count($tempArrays) > 0) {
+            return $tempArrays[0]->value;
+        }
+        //2 by default
+        return 2;
+    }
+
+    public static function generatePatientPrefix($prefix) {
+        // $tempArray = DB::select("SELECT * FROM core_configs WHERE code = 'PATIENT_ID_PREFIX' and type = 'PREFIX'");
+        $tempArray = DB::select("SELECT * FROM core_settings WHERE code = 'PATIENT_ID_PREFIX' and type = 'PREFIX'");
+        if (isset($tempArray) && count($tempArray) > 0) {
+            $temp_patient_prefix = $tempArray[0]->value;
+        }
+        else{
+            $temp_patient_prefix    = "P";
+        }
+        $patient_prefix         = str_replace('U',$temp_patient_prefix,$prefix);
+        return $patient_prefix;
+    }
+
+    public static function getPatientTypeByValue($value){
+        $tempArrays = DB::select("SELECT * FROM core_settings WHERE value = '$value'");
+        $result = $tempArrays[0]->code;
+        return $result;
+    }
+
+    public static function getCurrentUserRole(){
+        $role = Auth::guard('User')->user()->role_id;
+        return $role;
+    }
+
+    // public static function getInvoicePrefix()
+    // {
+    //     $terminal    = DB::table('terminals')->where('tablet_id','=','backend_invoice')->first();
+    //     if(isset($terminal) && count($terminal)>0){
+    //         return $terminal->id;
+    //     }
+    //     else{
+    //         return "I000";
+    //     }
+    // }
+
+    public static function generateInvoicePrefix($prefix) {
+        $tempArray = DB::select("SELECT * FROM core_settings WHERE code = 'INVOICE_ID_PREFIX' and type = 'PREFIX'");
+        if (isset($tempArray) && count($tempArray) > 0) {
+            $temp_invoice_prefix = $tempArray[0]->value;
+        }
+        else{
+            $temp_invoice_prefix    = "I";
+        }
+        $invoice_prefix         = str_replace('U',$temp_invoice_prefix,$prefix);
+        return $invoice_prefix;
+    }
+
+    public static function getTaxPercent() {
+        $tempArray = DB::select("SELECT * FROM core_settings WHERE code = 'TAX_RATE' and type = 'TAX_RATE'");
+
+        if (isset($tempArray) && count($tempArray) > 0) {
+            $tax_percent = $tempArray[0]->value;
+        }
+        else{
+            $tax_percent    = 0.0;
+        }
+        return $tax_percent;
+    }
+
+    public static function sendEmail($template,$emails,$subject){
+        Mail::send($template, [], function($message) use($emails,$subject)
+        {
+            $message->to($emails)
+                ->subject($subject);
+        });
     }
 }

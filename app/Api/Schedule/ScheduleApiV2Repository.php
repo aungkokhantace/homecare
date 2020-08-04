@@ -29,6 +29,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
 {
     public function createSingleRow($paramObj)
     {
+
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
 
@@ -55,8 +56,8 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
             $tempLogArr = array();
             foreach($data as $row) {
                 $id = $row->id;
-                $enquiry_id = $row->enquiry_id;
-                $patient_id = $row->patient_id;
+//                $enquiry_id = $row->enquiry_id;
+//                $patient_id = $row->patient_id;
 
                 //Check update or create for log date
                 $findObj    = Schedule::find($id);
@@ -69,18 +70,37 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //start clearing all existing data relating to input data
-                //delete existing schedule_detail data which is the same as input data
-                DB::table('schedule_detail')
-                    ->where('schedule_id', '=', $id)
-                    ->delete();
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
 
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
 
-                //delete existing schedules data which is the same as input data
-                DB::table('schedules')
-                    ->where('id', '=', $id)
-                    ->delete();
-                //end clearing all existing data relating to input data
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
+
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        //start clearing all existing data relating to input data
+                        //delete existing schedule_detail data which is the same as input data
+                        DB::table('schedule_detail')
+                        ->where('schedule_id', '=', $id)
+                        ->delete();
+
+                        //delete existing schedules data which is the same as input data
+                        DB::table('schedules')
+                            ->where('id', '=', $id)
+                            ->delete();
+                        //end clearing all existing data relating to input data
+                    }
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        continue;
+                    }
+                }
 
                 //creating schedule object
                 $paramObj                        = new Schedule();
@@ -98,6 +118,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->status                = strtolower($row->status);
                 $paramObj->remark                = isset($row->remark)?$row->remark:"";
                 $paramObj->leader_id             = $row->leader_id;
+                $paramObj->doctor_comments       = isset($row->doctor_comments)?$row->doctor_comments:"";
 
                 if($row->car_type != 3) {
                     $paramObj->car_type_id       = 0;
@@ -115,7 +136,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
 
                 //saving schedule obj
                 $result = $this->createSingleRow($paramObj);
-                
+
                 //check whether schedule insertion was successful or not
                 if ($result['aceplusStatusCode'] == ReturnMessage::OK) {
                     //if schedule insertion was successful, continue to child objects and do next loop
@@ -160,6 +181,17 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $patient_id = $row->patient_id;
+                $schedule_id = $row->schedule_id;
+
+                //delete existing schedules_patient_vitals data which is the same as input data
+                DB::table('schedule_patient_vitals')
+                    ->where('patient_id', '=', $patient_id)
+                    ->where('schedule_id', '=', $schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row) {
                 $id = $row->id;
@@ -177,14 +209,14 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //start clearing all existing data relating to input data
-                //delete existing schedules_patient_vitals data which is the same as input data
-                DB::table('schedule_patient_vitals')
-                    ->where('id', '=', $id)
-                    ->where('patient_id', '=', $patient_id)
-                    ->where('schedule_id', '=', $schedule_id)
-                    ->delete();
-                //end clearing all existing data relating to input data
+//                //start clearing all existing data relating to input data
+//                //delete existing schedules_patient_vitals data which is the same as input data
+//                DB::table('schedule_patient_vitals')
+////                    ->where('id', '=', $id)
+//                    ->where('patient_id', '=', $patient_id)
+//                    ->where('schedule_id', '=', $schedule_id)
+//                    ->delete();
+//                //end clearing all existing data relating to input data
 
                 //creating schedule_patient_vitals object
                 $paramObj = new Schedulepatientvital();
@@ -206,12 +238,13 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->height_feet                  = $row->height_feet;
                 $paramObj->height_inches                = $row->height_inches;
                 $paramObj->height_cm                    = $row->height_cm;
-                $paramObj->blood_sugar                  = $row->blood_sugar;
-                $paramObj->spo2_comment                 = $row->spo2_comment;
+                $paramObj->blood_sugar                  = isset($row->blood_sugar)?$row->blood_sugar:"";
+                $paramObj->spo2_comment                 = isset($row->spo2_comment)?$row->spo2_comment:"";
                 $paramObj->pulse_rate_comment           = isset($row->pulse_rate_comment)?$row->pulse_rate_comment:"";
                 $paramObj->blood_sugar_comment          = isset($row->blood_sugar_comment)?$row->blood_sugar_comment:"";
                 $paramObj->bmi                          = $row->bmi;
                 $paramObj->remark                       = isset($row->remark)?$row->remark:"";
+                $paramObj->resp_rate                    = $row->resp_rate;
                 $paramObj->created_by                   = $row->created_by;
                 $paramObj->updated_by                   = $row->updated_by;
                 $paramObj->deleted_by                   = $row->deleted_by;
@@ -250,11 +283,23 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $schedule_id = $row->schedule_id;
+                $patient_id = $row->patient_id;
+
+                //delete existing schedule_patient_chief_complaint data which is the same as input data
+                DB::table('schedule_patient_chief_complaint')
+                    ->where('schedule_id', '=', $schedule_id)
+                    ->where('patient_id', '=', $patient_id)
+                    ->delete();
+            }
+
             $tempLogArr = array();
             foreach($data as $row) {
                 $id = $row->id;
                 $schedule_id = $row->schedule_id;
                 $patient_id = $row->patient_id;
+                $chief_complaint_comment = $row->chief_complaint_comment;
 
                 //Check update or create for log date
                 $findObj    = Schedulepatientchiefcomplaint::find($id);
@@ -267,14 +312,15 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //start clearing all existing data relating to input data
-                //delete existing schedule_patient_chief_complaint data which is the same as input data
-                DB::table('schedule_patient_chief_complaint')
-                    ->where('id', '=', $id)
-                    ->where('schedule_id', '=', $schedule_id)
-                    ->where('patient_id', '=', $patient_id)
-                    ->delete();
-                //end clearing all existing data relating to input data
+//                //start clearing all existing data relating to input data
+//                //delete existing schedule_patient_chief_complaint data which is the same as input data
+//                DB::table('schedule_patient_chief_complaint')
+////                    ->where('id', '=', $id)
+//                    ->where('schedule_id', '=', $schedule_id)
+//                    ->where('patient_id', '=', $patient_id)
+//                    ->where('chief_complaint_comment', '=', $chief_complaint_comment)
+//                    ->delete();
+//                //end clearing all existing data relating to input data
 
                 //creating schedule_patient_chief_complaint object
                 $paramObj = new Schedulepatientchiefcomplaint();
@@ -323,6 +369,17 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $patient_id     = $row->patient_id;
+                $schedule_id    = $row->schedule_id;
+
+                //delete existing schedule_treatment_histories data which is the same as input data
+                DB::table('schedule_treatment_histories')
+                    ->where('patient_id', '=', $patient_id)
+                    ->where('schedule_id', '=', $schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr         = array();
             foreach($data as $row) {
                 $id             = $row->id;
@@ -341,13 +398,13 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 }
 
                 //start clearing all existing data relating to input data
-                //delete existing schedule_treatment_histories data which is the same as input data
-                DB::table('schedule_treatment_histories')
-                    ->where('id','=',$id)
-                    ->where('patient_id', '=', $patient_id)
-                    ->where('product_id', '=', $product_id)
-                    ->where('schedule_id', '=', $schedule_id)
-                    ->delete();
+//                //delete existing schedule_treatment_histories data which is the same as input data
+//                DB::table('schedule_treatment_histories')
+////                    ->where('id','=',$id)
+//                    ->where('patient_id', '=', $patient_id)
+////                    ->where('product_id', '=', $product_id)
+//                    ->where('schedule_id', '=', $schedule_id)
+//                    ->delete();
                 //end clearing all existing data relating to input data
 
                 //creating schedule_treatment_histories object
@@ -364,6 +421,7 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->sold_dosage                  = $row->sold_dosage;
                 $paramObj->unsold_dosage                = $row->unsold_dosage;
                 $paramObj->time                         = $row->time;
+                $paramObj->flag                         = $row->flag;
                 $paramObj->created_by                   = $row->created_by;
                 $paramObj->updated_by                   = $row->updated_by;
                 $paramObj->deleted_by                   = $row->deleted_by;
@@ -402,6 +460,17 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $patient_id     = $row->patient_id;
+                $schedule_id    = $row->schedule_id;
+
+                //delete existing schedule_provisional_diagnosis data which is the same as input data
+                DB::table('schedule_provisional_diagnosis')
+                    ->where('patient_id', '=', $patient_id)
+                    ->where('schedule_id', '=', $schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row) {
                 $patient_id     = $row->patient_id;
@@ -421,12 +490,12 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
                 //start clearing all existing data relating to input data
-                //delete existing schedule_provisional_diagnosis data which is the same as input data
-                DB::table('schedule_provisional_diagnosis')
-                    ->where('patient_id', '=', $patient_id)
-                    ->where('provisional_id', '=', $provisional_id)
-                    ->where('schedule_id', '=', $schedule_id)
-                    ->delete();
+//                //delete existing schedule_provisional_diagnosis data which is the same as input data
+//                DB::table('schedule_provisional_diagnosis')
+//                    ->where('patient_id', '=', $patient_id)
+////                    ->where('provisional_id', '=', $provisional_id)
+//                    ->where('schedule_id', '=', $schedule_id)
+//                    ->delete();
                 //end clearing all existing data relating to input data
 
                 //creating schedule_provisional_diagnosis object
@@ -474,6 +543,17 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $patient_id     = $row->patient_id;
+                $schedule_id    = $row->schedules_id;
+
+                //delete existing schedule_physiotherapy_musculo data which is the same as input data
+                DB::table('schedule_physiotherapy_musculo')
+                    ->where('patient_id', '=', $patient_id)
+                    ->where('schedules_id', '=', $schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row) {
                 $id             = $row->id;
@@ -491,14 +571,14 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //start clearing all existing data relating to input data
-                //delete existing schedule_physiotherapy_musculo data which is the same as input data
-                DB::table('schedule_physiotherapy_musculo')
-                    ->where('id','=',$id)
+//                //start clearing all existing data relating to input data
+//                //delete existing schedule_physiotherapy_musculo data which is the same as input data
+//                DB::table('schedule_physiotherapy_musculo')
+////                    ->where('id','=',$id)
 //                    ->where('patient_id', '=', $patient_id)
 //                    ->where('schedules_id', '=', $schedule_id)
-                    ->delete();
-                //end clearing all existing data relating to input data
+//                    ->delete();
+//                //end clearing all existing data relating to input data
 
                 //creating schedule_physiotherapy_musculo object
                 $paramObj = new SchedulePhysiotherapyMusculo();
@@ -556,6 +636,16 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $patient_id     = $row->patient_id;
+                $schedule_id    = $row->schedules_id;
+                //delete existing schedule_physiotherapy_neuro data which is the same as input data
+                DB::table('schedule_physiotherapy_neuro')
+                    ->where('patient_id', '=', $patient_id)
+                    ->where('schedules_id', '=', $schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row) {
                 $id             = $row->id;
@@ -573,14 +663,14 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //start clearing all existing data relating to input data
-                //delete existing schedule_physiotherapy_neuro data which is the same as input data
-                DB::table('schedule_physiotherapy_neuro')
-                    ->where('id','=',$id)
+//                //start clearing all existing data relating to input data
+//                //delete existing schedule_physiotherapy_neuro data which is the same as input data
+//                DB::table('schedule_physiotherapy_neuro')
+////                    ->where('id','=',$id)
 //                    ->where('patient_id', '=', $patient_id)
 //                    ->where('schedules_id', '=', $schedule_id)
-                    ->delete();
-                //end clearing all existing data relating to input data
+//                    ->delete();
+//                //end clearing all existing data relating to input data
 
                 //creating schedule_physiotherapy_neuro object
                 $paramObj                                   = new SchedulePhysiotherapyNeuro();
@@ -652,6 +742,15 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $schedule_id    = $row->schedule_id;
+
+                //delete existing schedule_trackings data which is the same as input data
+                DB::table('schedule_trackings')
+                    ->where('schedule_id', '=', $schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row) {
                 $id             = $row->id;
@@ -669,12 +768,12 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
                 //start clearing all existing data relating to input data
-                //delete existing schedule_trackings data which is the same as input data
-                DB::table('schedule_trackings')
-                    ->where('id','=',$id)
-                    ->where('enquiry_id', '=', $enquiry_id)
-                    ->where('schedule_id', '=', $schedule_id)
-                    ->delete();
+//                //delete existing schedule_trackings data which is the same as input data
+//                DB::table('schedule_trackings')
+////                    ->where('id','=',$id)
+////                    ->where('enquiry_id', '=', $enquiry_id)
+//                    ->where('schedule_id', '=', $schedule_id)
+//                    ->delete();
                 //end clearing all existing data relating to input data
 
                 //creating schedule_trackings object
@@ -724,6 +823,17 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $patient_id     = $row->patient_id;
+                $schedule_id    = $row->schedule_id;
+
+                //delete existing schedule_physical_exams_general_pupils_head data which is the same as input data
+                DB::table('schedule_physical_exams_general_pupils_head')
+                    ->where('patient_id', '=', $patient_id)
+                    ->where('schedule_id', '=', $schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr  = array();
             foreach($data as $row) {
                 $id             = $row->id;
@@ -741,14 +851,14 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //start clearing all existing data relating to input data
-                //delete existing schedule_physical_exams_general_pupils_head data which is the same as input data
-                DB::table('schedule_physical_exams_general_pupils_head')
-                    ->where('id','=',$id)
-                    ->where('patient_id', '=', $patient_id)
-                    ->where('schedule_id', '=', $schedule_id)
-                    ->delete();
-                //end clearing all existing data relating to input data
+//                //start clearing all existing data relating to input data
+//                //delete existing schedule_physical_exams_general_pupils_head data which is the same as input data
+//                DB::table('schedule_physical_exams_general_pupils_head')
+////                    ->where('id','=',$id)
+//                    ->where('patient_id', '=', $patient_id)
+//                    ->where('schedule_id', '=', $schedule_id)
+//                    ->delete();
+//                //end clearing all existing data relating to input data
 
                 //creating schedule_physical_exams_general_pupils_head object
                 $paramObj = new Schedulephysicalexamsgeneralpupilshead();
@@ -813,9 +923,21 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $patient_id    = $row->patient_id;
+                $schedule_id    = $row->schedule_id;
+
+//                delete existing schedule_physical_exams_heart_lungs data which is the same as input data
+                DB::table('schedule_physical_exams_heart_lungs')
+                    ->where('patient_id', '=', $patient_id)
+                    ->where('schedule_id', '=', $schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row) {
                 $id             = $row->id;
+                $patient_id    = $row->patient_id;
                 $schedule_id    = $row->schedule_id;
 
                 //Check update or create for log date
@@ -829,13 +951,14 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //start clearing all existing data relating to input data
-                //delete existing schedule_physical_exams_heart_lungs data which is the same as input data
-                DB::table('schedule_physical_exams_heart_lungs')
-                    ->where('id','=',$id)
-                    ->where('schedule_id', '=', $schedule_id)
-                    ->delete();
-                //end clearing all existing data relating to input data
+//                //start clearing all existing data relating to input data
+//                //delete existing schedule_physical_exams_heart_lungs data which is the same as input data
+//                DB::table('schedule_physical_exams_heart_lungs')
+////                    ->where('id','=',$id)
+//                    ->where('patient_id', '=', $patient_id)
+//                    ->where('schedule_id', '=', $schedule_id)
+//                    ->delete();
+//                //end clearing all existing data relating to input data
 
                 //creating schedule_physical_exams_heart_lungs object
                 $paramObj                           = new Schedulephysicalexamsheartlungs();
@@ -907,10 +1030,22 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
         $returnedObj = array();
         $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
         try{
+            foreach($data as $row) {
+                $schedule_id    = $row->schedule_id;
+                $patient_id    = $row->patient_id;
+
+                //delete existing schedule_physical_exams_abdomen_extre_neuro data which is the same as input data
+                DB::table('schedule_physical_exams_abdomen_extre_neuro')
+                    ->where('patient_id', '=', $patient_id)
+                    ->where('schedule_id', '=', $schedule_id)
+                    ->delete();
+            }
+
             $tempLogArr     = array();
             foreach($data as $row) {
                 $id             = $row->id;
                 $schedule_id    = $row->schedule_id;
+                $patient_id    = $row->patient_id;
 
                 //Check update or create for log date
                 $findObj    = Schedulephysicalabdomenextreneuro::find($id);
@@ -923,13 +1058,14 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                     $create = "created";
                 }
 
-                //start clearing all existing data relating to input data
-                //delete existing schedule_physical_exams_abdomen_extre_neuro data which is the same as input data
-                DB::table('schedule_physical_exams_abdomen_extre_neuro')
-                    ->where('id','=',$id)
-                    ->where('schedule_id', '=', $schedule_id)
-                    ->delete();
-                //end clearing all existing data relating to input data
+//                //start clearing all existing data relating to input data
+//                //delete existing schedule_physical_exams_abdomen_extre_neuro data which is the same as input data
+//                DB::table('schedule_physical_exams_abdomen_extre_neuro')
+////                    ->where('id','=',$id)
+//                    ->where('patient_id', '=', $patient_id)
+//                    ->where('schedule_id', '=', $schedule_id)
+//                    ->delete();
+//                //end clearing all existing data relating to input data
 
                 //creating schedule_physical_exams_abdomen_extre_neuro object
                 $paramObj = new Schedulephysicalabdomenextreneuro();
@@ -1044,6 +1180,8 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
                 $paramObj->investigation_imaging_remark 	= isset($row->investigation_imaging_remark)?$row->investigation_imaging_remark:"";
                 $paramObj->investigation_ecg_remark 		= isset($row->investigation_ecg_remark)?$row->investigation_ecg_remark:"";
                 $paramObj->investigation_other_remark 		= isset($row->investigation_other_remark)?$row->investigation_other_remark:"";
+                $paramObj->investigation_labs_price 		= $row->investigation_labs_price;
+                $paramObj->investigation_labs_type 		    = $row->investigation_labs_type;
                 $paramObj->created_by 						= $row->created_by;
                 $paramObj->updated_by 						= $row->updated_by;
                 $paramObj->deleted_by 						= $row->deleted_by;
@@ -1084,7 +1222,9 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
     public function getScheduleArray($idArr){
         $arr  = implode("','",$idArr);
 
-        $scheduleArr     = DB::select("SELECT * from `schedules` WHERE `deleted_at` is null AND `patient_id` IN ('$arr')");
+//        $scheduleArr     = DB::select("SELECT * from `schedules` WHERE `deleted_at` is null AND `patient_id` IN ('$arr') AND `status` NOT IN ('complete','cancel') AND `date` >= CURDATE()");
+//        $scheduleArr     = DB::select("SELECT * from `schedules` WHERE `deleted_at` is null AND `patient_id` IN ('$arr') AND `status` NOT IN ('cancel') AND `date` >= CURDATE()");
+        $scheduleArr     = DB::select("SELECT * from `schedules` WHERE `deleted_at` is null AND `patient_id` IN ('$arr') AND `status` NOT IN ('cancel') AND `date` >= DATE_ADD(CURDATE(), INTERVAL -1 DAY)");
         $schedule_detailArr = DB::select("SELECT * FROM schedule_detail");
         if(isset($scheduleArr) && count($scheduleArr) > 0){
             foreach ($scheduleArr as $rawKey=>$rawValue) {
@@ -1136,4 +1276,89 @@ class ScheduleApiV2Repository implements ScheduleApiV2RepositoryInterface
 
         return $schedule_treatmentArr;
     }
+
+    public function uploadScheduleStatus($data){
+        $returnedObj = array();
+        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+
+        try{
+            $tempLogArr = array();
+            foreach($data as $row) {
+                $id = $row->id;
+
+                //Check update or create for log date
+                $findObj    = Schedule::find($id);
+                if(isset($findObj) && count($findObj) > 0){
+                    $tempArr['date'] = $row->updated_at;
+                }
+                else{
+                    $tempArr['date'] = date("Y-m-d H:i:s");
+                }
+                $create = "updated";
+
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
+
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
+
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
+
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        $findObj->status        = $row->status;
+                        $findObj->updated_at    = (isset($row->updated_at) && $row->updated_at != "") ? $row->updated_at:null;
+
+                        //saving schedule obj
+                        $result = $this->createSingleRow($findObj);
+                    }
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        continue;
+                    }
+                }
+
+
+                //check whether schedule insertion was successful or not
+                if ($result['aceplusStatusCode'] == ReturnMessage::OK) {
+                    //if insertion was successful, then create date and message for log
+                    $tempArr['message'] = $create.' schedule_id = '.$findObj->id;
+                    array_push($tempLogArr,$tempArr);
+                    continue;       //continue to next loop(i.e. next row of schedule data)
+
+                } else {
+                    //if schedule insertion was not successful
+                    $returnedObj['aceplusStatusMessage'] = $result['aceplusStatusMessage'];
+                    return $returnedObj;
+                }
+            }
+
+            $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
+            $returnedObj['aceplusStatusMessage'] = "Schedule status successfully updated";
+            $returnedObj['log']                  = $tempLogArr;
+            return $returnedObj;
+        }
+        catch(\Exception $e){
+            $returnedObj['aceplusStatusMessage'] = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
+            return $returnedObj;
+        }
+    }
+
+    public function getEnquiryIdFromScheduleId($schedule_id){
+        $scheduleObj = Schedule::find($schedule_id);
+        if(isset($scheduleObj->enquiry_id) && count($scheduleObj->enquiry_id) > 0){
+            $enquiry_id = $scheduleObj->enquiry_id;
+        }
+        else{
+            $enquiry_id = null;
+        }
+
+        return $enquiry_id;
+    }
+// }
+
 }

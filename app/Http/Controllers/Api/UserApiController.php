@@ -58,6 +58,12 @@ class UserApiController extends Controller
             $params                     = $checkServerStatusArray['data'][0];
 
             $result                     = $userRepo->createSingleUser($params->core_users);
+            
+            // //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
+            // if($result['aceplusStatusCode'] == ReturnMessage::SKIPPED){
+            //     //skip this row and continue to next loop
+            //     continue;
+            // }
 
             if($result['aceplusStatusCode'] == ReturnMessage::OK){
 

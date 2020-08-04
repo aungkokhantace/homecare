@@ -36,7 +36,8 @@ class Default_Syncs_TablesSeeder extends Seeder
             ['table_name'=>'products', 'version' =>'1'],
             ['table_name'=>'packages', 'version' =>'1'],
             ['table_name'=>'package_detail', 'version' =>'1'],
-            ['table_name'=>'investigations', 'version' =>'1'],
+            ['table_name'=>'investigations_imaging', 'version' =>'1'],
+            ['table_name'=>'investigation_labs', 'version' =>'1'],
             ['table_name'=>'physical_exams', 'version' =>'1'],
             ['table_name'=>'services', 'version' =>'1'],
             ['table_name'=>'allergies', 'version' =>'1'],
@@ -69,7 +70,22 @@ class Default_Syncs_TablesSeeder extends Seeder
             ['table_name'=>'patient_physiotherapy_musculo_4_3', 'version' =>'1'],
             ['table_name'=>'patient_physiotherapy_musculo_4_4and5', 'version' =>'1'],
 
+            ['table_name'=>'package_promotions', 'version' =>'1'],
+            ['table_name'=>'transaction_promotions', 'version' =>'1'],
 
+            ['table_name'=>'other_services', 'version' =>'1'],
+            ['table_name'=>'other_services_detail', 'version' =>'1'],
+
+            ['table_name'=>'schedule_investigations', 'version' =>'1'],
+            ['table_name'=>'schedule_patient_chief_complaint', 'version' =>'1'],
+            ['table_name'=>'schedule_patient_vitals', 'version' =>'1'],
+            ['table_name'=>'schedule_patient_vitals_remark', 'version' =>'1'],
+            ['table_name'=>'schedule_physical_exams_abdomen_extre_neuro', 'version' =>'1'],
+            ['table_name'=>'schedule_physical_exams_general_pupils_head', 'version' =>'1'],
+            ['table_name'=>'schedule_physical_exams_heart_lungs', 'version' =>'1'],
+            ['table_name'=>'schedule_physiotherapy_musculo', 'version' =>'1'],
+            ['table_name'=>'schedule_physiotherapy_neuro', 'version' =>'1'],
+            ['table_name'=>'schedule_provisional_diagnosis', 'version' =>'1'],
 
         );
 

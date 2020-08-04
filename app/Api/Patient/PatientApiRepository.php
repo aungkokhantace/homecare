@@ -21,11 +21,11 @@ use App\Backend\Zone\ZoneRepository;
 
 class PatientApiRepository implements PatientApiRepositoryInterface
 {
-    
+
     public function getArrays()
     {
     	$columns = 'id,name,password,phone,email,fees,display_image,mobile_image,role_id,address,active,created_by,updated_by,deleted_by,created_at,updated_at,deleted_at';
-        
+
         $tempObj = DB::select("SELECT * FROM patients WHERE deleted_at is null");
 
         $userObj = DB::select("SELECT $columns FROM core_users WHERE deleted_at is null");
@@ -130,7 +130,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
 //                    $patient_id = $tempObj->id;
                     if(isset($childArray) && count($childArray)>0){
                         foreach($childArray as $allergy_id){
-                        	
+
                             DB::table('patient_allergy')->insert([
                                 ['patient_id' => $user_id, 'allergy_id' => $allergy_id]
                             ]);
@@ -310,7 +310,7 @@ class PatientApiRepository implements PatientApiRepositoryInterface
             $logObj->save();
 
 
-                
+
             DB::commit();
             $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
             return $returnedObj;
@@ -364,7 +364,35 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 $email = $data->email;
 
                 //Check update or create for log date
-                $findPatientObj    = Patient::where('user_id','=',$id)->get();
+                $findPatientObj    = Patient::where('user_id','=',$id)->first();
+
+                //start log summary
+                // $findObj    = Patient::where('user_id','=',$id)->first();
+                $findObj    = $findPatientObj;
+
+                if(isset($findObj) && count($findObj) > 0){
+                    //compare input and current case scenarios
+                    $current_case_scenario  = $findObj->case_scenario;
+                    $input_case_scenario    = $data->case_scenario;
+
+                    if($current_case_scenario !== $input_case_scenario){
+                        //create log patient case summary
+                        $prefix = Utility::getTerminalId();
+                        $table = (new LogPatientCaseSummary())->getTable();
+                        $col = "id";
+                        $offset = 1;
+                        $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                        $logObj                         = new LogPatientCaseSummary();
+                        $logObj->id                     = $generatedId;
+                        $logObj->patient_id             = $data->user_id;
+                        $logObj->case_summary           = $input_case_scenario;
+                        $logObj->created_at             = date("Y-m-d H:i:s");
+                        $logObj->save();            //log obj insert is successful
+                        //end creating log patient case summary
+                    }
+                }
+                //end log summary
+
                 if(isset($findPatientObj) && count($findPatientObj) > 0){
                     $tempPatientArr['date']               = $data->updated_at;
                     $patientCreate                        = "updated";
@@ -396,27 +424,55 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     $userCreate                        = "created";
                 }
 
-                //clear patient_allergy data relating to input
-                DB::table('patient_allergy')
-                    ->where('patient_id', '=', $id)
-                    ->delete();
+                ////////////////////
+                if(isset($findPatientObj) && count($findPatientObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
 
-                //clear patients data relating to input
-                DB::table('patients')
-                    ->where('user_id', '=', $id)
-                    ->where('email', '=', $email)
-                    ->delete();
+                    $temp_current_updated_at = $findPatientObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
 
-                //clear users data relating to input
-                DB::table('core_users')
-                    ->where('id', '=', $id)
-                    ->where('email', '=', $email)
-                    ->delete();
+                    $temp_input_updated_at = $data->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
 
-                //clear patient log data relating to input
-                DB::table('log_patient_case_summary')
-                    ->where('patient_id', '=', $id)
-                    ->delete();
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        //clear patient_allergy data relating to input
+                            DB::table('patient_allergy')
+                            ->where('patient_id', '=', $id)
+                            ->delete();
+
+                            //clear patients data relating to input
+                            DB::table('patients')
+                                ->where('user_id', '=', $id)
+                                // ->where('email', '=', $email)
+                                ->delete();
+
+                            //clear users data relating to input
+                            DB::table('core_users')
+                                ->where('id', '=', $id)
+                                // ->where('email', '=', $email)
+                                ->delete();
+
+                            // //clear patient log data relating to input
+                            // DB::table('log_patient_case_summary')
+                            //     ->where('patient_id', '=', $id)
+                            //     ->delete();
+                    }
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        // $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
+                        // $returnedObj['aceplusStatusMessage']    = "User data doesn't need to be updated!";
+                        // $returnedObj['log']                     = $tempLogArr;
+                        // return $returnedObj;
+                        continue;
+                    }
+                }
+                ////////////////////
+
+
 
                 if (isset($data->core_users) && count($data->core_users) > 0) {
 
@@ -427,6 +483,12 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                             $userArray = array();
                             $userArray[0] = $core_user;
                             $userResult = $userRepo->createSingleUser($userArray);
+
+                            //  //input record's updated_at is earlier than latest data in DB, so input record is skipped and not being updated
+                            // if($userResult['aceplusStatusCode'] == ReturnMessage::SKIPPED){
+                            //     //skip this row and continue to next loop
+                            //     continue;
+                            // }
 
                             if ($userResult['aceplusStatusCode'] == ReturnMessage::OK) {
 
@@ -582,7 +644,8 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 $email = $row->email;
 
                 //Check update or create for log date
-                $findObj    = Patient::where('user_id','=',$id)->get();
+                $findObj    = Patient::where('user_id','=',$id)->first();
+
                 if(isset($findObj) && count($findObj) > 0){
                     $tempPatientArr['date']     = $row->updated_at;
                     $patientCreate              = "updated";
@@ -603,16 +666,59 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                 }
                 $tempLogPatientArr['date']      = $row->created_at;
 
-                //clear patient_allergy data relating to input
-                DB::table('patient_allergy')
-                    ->where('patient_id', '=', $id)
-                    ->delete();
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
 
-                //clear patients data relating to input
-                DB::table('patients')
-                    ->where('user_id', '=', $id)
-                    ->where('email', '=', $email)
-                    ->delete();
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
+
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
+
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    // if($row->user_id == "U0054"){
+                    //     dd('compare',$input_updated_at,$current_updated_at);
+                    // }
+
+                    if($input_updated_at > $current_updated_at){
+                        //clear patient_allergy data relating to input
+                        DB::table('patient_allergy')
+                        ->where('patient_id', '=', $id)
+                        ->delete();
+
+                        //clear patients data relating to input
+                        DB::table('patients')
+                            ->where('user_id', '=', $id)
+                            ->where('email', '=', $email)
+                            ->delete();
+                    }
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        // $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
+                        // $returnedObj['aceplusStatusMessage']    = "Patient data doesn't need to be updated!";
+                        // $returnedObj['log']                     = $tempLogArr;
+                        // return $returnedObj;
+                        continue;
+                    }
+                }
+                // else{
+                //     //create log patient case summary
+                //     $prefix = Utility::getTerminalId();
+                //     $table = (new LogPatientCaseSummary())->getTable();
+                //     $col = "id";
+                //     $offset = 1;
+                //     $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                //     $logObj                         = new LogPatientCaseSummary();
+                //     $logObj->id                     = $generatedId;
+                //     $logObj->patient_id             = $row->user_id;
+                //     $logObj->case_summary           = $row->case_scenario;
+                //     $logObj->created_at             = date("Y-m-d H:i:s");
+                //     $logObj->save();            //log obj insert is successful
+                //     //end creating log patient case summary
+                // }
 
                 //create patient object
                 $paramObj = new Patient();
@@ -663,36 +769,69 @@ class PatientApiRepository implements PatientApiRepositoryInterface
                     }
                     //end insertion of patient_allergy
 
-                    //start insertion of log_patient_case_summary
-                    if (isset($row->log_patient_case_summary) && count($row->log_patient_case_summary) > 0) {
-                        foreach ($row->log_patient_case_summary as $log) {
-                            //create log obj
-                            $logObj                         = new LogPatientCaseSummary();
-                            $logObj->id                     = $log->id;
-                            $logObj->patient_id             = $log->patient_id;
-                            $logObj->case_summary           = $log->case_summary;
-                            $logObj->created_by             = $log->created_by;
-                            $logObj->updated_by             = $log->updated_by;
-                            $logObj->deleted_by             = $log->deleted_by;
-                            $logObj->created_at             = $log->created_at;
-                            $logObj->updated_at             = $log->updated_at;
-                            $logObj->deleted_at             = (isset($log->deleted_at)&& $log->deleted_at != "")?$log->deleted_at:null;
+                    // //start insertion of log_patient_case_summary
+                    // if (isset($row->log_patient_case_summary) && count($row->log_patient_case_summary) > 0 && $row->log_patient_case_summary != null && $row->log_patient_case_summary != "") {
+                    //     foreach ($row->log_patient_case_summary as $log) {
+                    //         //create log obj
+                    //         $logObj                         = new LogPatientCaseSummary();
+                    //         $logObj->id                     = $log->id;
+                    //         $logObj->patient_id             = $log->patient_id;
+                    //         $logObj->case_summary           = $log->case_summary;
+                    //         $logObj->created_by             = $log->created_by;
+                    //         $logObj->updated_by             = $log->updated_by;
+                    //         $logObj->deleted_by             = $log->deleted_by;
+                    //         $logObj->created_at             = $log->created_at;
+                    //         $logObj->updated_at             = $log->updated_at;
+                    //         $logObj->deleted_at             = (isset($log->deleted_at)&& $log->deleted_at != "")?$log->deleted_at:null;
 
-                            $logResult = $this->createSingleObj($logObj);
+                    //         $logResult = $this->createSingleObj($logObj);
 
-                            if ($logResult['aceplusStatusCode'] == ReturnMessage::OK) {
-                                //if insertion was successful, then create date and message for log_apatient_case summary's log
-                                $tempLogPatientArr['message'] = $patientCreate.' log_patient_case_summary_id ='.$logObj->id . ' for patient_id = '.$logObj->patient_id;
-                                array_push($tempLogArr,$tempLogPatientArr);
-                                continue; //log insertion was successful, continue to next loop
-                            }
-                            else{
-                                $returnedObj['aceplusStatusMessage'] = $logResult['aceplusStatusMessage'];
-                                return $returnedObj;
-                            }
-                        }
-                    }
-                    //end insertion of log_patient_case_summary
+                    //         if ($logResult['aceplusStatusCode'] == ReturnMessage::OK) {
+                    //             //if insertion was successful, then create date and message for log_apatient_case summary's log
+                    //             $tempLogPatientArr['message'] = $patientCreate.' log_patient_case_summary_id ='.$logObj->id . ' for patient_id = '.$logObj->patient_id;
+                    //             array_push($tempLogArr,$tempLogPatientArr);
+                    //             continue; //log insertion was successful, continue to next loop
+                    //         }
+                    //         else{
+                    //             $returnedObj['aceplusStatusMessage'] = $logResult['aceplusStatusMessage'];
+                    //             return $returnedObj;
+                    //         }
+                    //     }
+                    // }
+                    // //end insertion of log_patient_case_summary
+
+                    // if(isset($findObj) && count($findObj) > 0){
+                        // $current_updated_at = "";
+                        // $input_updated_at = "";
+
+                        // $temp_current_updated_at = $findObj->updated_at;
+                        // $current_updated_at = $temp_current_updated_at;
+
+                        // $temp_input_updated_at = $row->updated_at;
+                        // $input_updated_at = $temp_input_updated_at;
+
+                        // if($input_updated_at > $current_updated_at){
+                            // $current_case_scenario  = $findObj->case_scenario;
+                            // $input_case_scenario    = $row->case_scenario;
+
+                            // if($current_case_scenario !== $input_case_scenario){
+                            //     //create log patient case summary
+                            //     $prefix = Utility::getTerminalId();
+                            //     $table = (new LogPatientCaseSummary())->getTable();
+                            //     $col = "id";
+                            //     $offset = 1;
+                            //     $generatedId = Utility::generatedId($prefix,$table,$col,$offset);
+                            //     $logObj                         = new LogPatientCaseSummary();
+                            //     $logObj->id                     = $generatedId;
+                            //     $logObj->patient_id             = $row->user_id;
+                            //     $logObj->case_summary           = $input_case_scenario;
+                            //     $logObj->created_at             = date("Y-m-d H:i:s");
+                            //     $logObj->save();            //log obj insert is successful
+                            //     //end creating log patient case summary
+                            // }
+                        // }
+                    // }
+
 
                     continue;       //continue to next loop(i.e. next row of patient data)
 
@@ -728,6 +867,26 @@ class PatientApiRepository implements PatientApiRepositoryInterface
     {
         $tempObj = DB::select("SELECT * FROM patients WHERE deleted_at is null");
         return $tempObj;
+    }
+
+    //get patients whose created_at or updated_at is greater than $latest_date
+    public function getPatientDataWithLatestDate($latest_date)
+    {
+        if(isset($latest_date) && $latest_date !== "" && $latest_date !== null){
+          $result = DB::table('patients')
+                          ->whereNull('deleted_at')
+                          ->where(function ($query) use ($latest_date) {
+                              $query->where('created_at','>',$latest_date)
+                                    ->orWhere('updated_at','>',$latest_date);
+                          })
+                          ->get();
+        }
+        else{
+          $result = DB::table('patients')
+                          ->whereNull('deleted_at')
+                          ->get();
+        }
+        return $result;
     }
 
     public function getCoreUser($user_id)

@@ -77,7 +77,7 @@ function cancel_setup(type) {
     window.location.href = '/' + type;
 }
 
-function cancel_profile() {
+function cancel_to_dashboard() {
     window.location.href = '/patient/dashboard';
 }
 
@@ -156,6 +156,44 @@ function delete_setup_with_params(type) {
                     //route path to do deletion in controller
                     $("#" + type +"_selected_checkboxes").val(data);
                     $("#frm_" + type).submit();
+                } else {
+                    return;
+                }
+            });
+    }
+}
+
+function disable_setup(type) {
+    var data = [];
+    $("input[name='edit_check']:checked").each(function () {
+        data.push($(this).val());
+    });
+    var d = typeof(data);
+    if (data[0] == null) {
+        sweetAlert("Oops...", "Please select at least one item to disable !", "error");
+    }
+    //else if (data[1] != null) {
+    //    sweetAlert("Oops...", "Please select only one item to delete !", "error");
+    //
+    //}
+    else {
+        swal({
+                title: "Are you sure?",
+                text: "Do you want to disable this user(s)?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55 ",
+                confirmButtonText: "Confirm",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    //window.location = "/" + type + "/destroy/" + data;
+                    //route path to do disable action in controller
+                    $("#selected_checkboxes").val(data);
+                    $("#frm_disable_" + type).submit();
                 } else {
                     return;
                 }

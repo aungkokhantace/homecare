@@ -20,4 +20,5 @@ interface ZoneRepositoryInterface
     public function getZonePrice($zone_id);
     public function getUsedTownships();
     public function getUsedTownshipsInOtherZones($zone_id);
+    public function checkToDelete($id);
 }

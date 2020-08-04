@@ -124,4 +124,9 @@ class AllergyRepository implements AllergyRepositoryInterface
         return $arr;
     }
 
+    public function checkToDelete($id){
+        $result = DB::select("SELECT * FROM patient_allergy WHERE allergy_id = $id");
+        return $result;
+    }
+
 }

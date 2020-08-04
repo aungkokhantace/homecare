@@ -27,6 +27,7 @@ interface ScheduleRepositoryInterface
     public function servicesForEachSchedule($scheduleID);
     public function getServiceHistory($id);
     public function getPackageHistory($id);
+    public function getPackageHistoryV2($id);
     public function getScheduleCount($id);
     public function getScheduleStatus();
     public function getScheduleStatusByDate();
@@ -52,5 +53,13 @@ interface ScheduleRepositoryInterface
     public function getScheduleInvestigation($latest_schedule_id);
     public function getInvoiceHeader($from_date, $to_date);
     public function getInvoiceDetail();
+    public function getBloodDrawing($latest_schedule_id, $patient_id);
+    public function getBloodDrawingRemark($latest_schedule_id, $patient_id);
+    public function getSchedulesWithService($type, $from_date, $to_date,$schedulesArray);
+    public function getEachVisitByDate($type,$date,$service_id);
+    public function getScheduleOtherServices($latest_schedule_id, $patient_id,$servicesArray);
+    public function getEachVisitByMonth($month,$service_id);
+    // public function getEachProfitByMonth($month,$service_id);
+    public function getServiceIdByScheduleId($schedule_id);
 }
 

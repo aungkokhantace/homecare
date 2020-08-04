@@ -41,6 +41,14 @@ class UserController extends Controller
                 $roles      = $this->userRepository->getRoles();
                 $cur_time   = Carbon::now();
                 //Log::info('TESTING LOG');
+                foreach($users as $user){
+                    if($user->active == 1){
+                        $user->status = "Active";
+                    }
+                    else{
+                        $user->status = "Inactive";
+                    }
+                }
                 return view('core.user.index')->with('users', $users)->with('roles', $roles)->with('cur_time',$cur_time);
                 //}
             }
@@ -115,6 +123,8 @@ class UserController extends Controller
         $password           = base64_encode(Input::get('password'));
         $roleId             = Input::get('role_id');
         $fees               = Input::get('fees');
+        $temp_doctor_license_number = Input::get('doctor_license_number');
+        $doctor_license_number = 'SAMA-'.$temp_doctor_license_number; //bind sama prefix
         $address            = trim(Input::get('address'));
 
         $userObj            = new User();
@@ -129,6 +139,7 @@ class UserController extends Controller
         $userObj->password  = $password;
         $userObj->role_id   = $roleId;
         $userObj->fees      = $fees;
+        $userObj->doctor_license_number      = $doctor_license_number;
         $userObj->address   = $address;
 
         $result = $this->userRepository->create($userObj);
@@ -161,6 +172,10 @@ class UserController extends Controller
                 else{
                     $normalUser = true;
                 }
+
+                //remove sama prefix to show in edit form
+                $user->doctor_license_number = ltrim($user->doctor_license_number,"SAMA-");
+
                 return view('core.user.user')
                     ->with('user', $user)
                     ->with('roles', $roles)
@@ -211,16 +226,25 @@ class UserController extends Controller
         if(isset($roleId) && $roleId == 7){
             $fees           = Input::get('fees');
         }
-        else{
-            $fees           = null;
+        if(isset($roleId) && ($roleId == 6 || $roleId == 7)){
+          $temp_doctor_license_number = Input::get('doctor_license_number');
+          $doctor_license_number = 'SAMA-'.$temp_doctor_license_number; //bind sama prefix
         }
+        // else{
+        //     $fees           = null;
+        // }
 
         $userObj            = User::find($id);
         $userObj->name      = $name;
         $userObj->phone     = $phone;
         $userObj->email     = $email;
         $userObj->role_id   = $roleId;
-        $userObj->fees      = $fees;
+        if(isset($roleId) && $roleId == 7){
+          $userObj->fees      = $fees;
+        }
+        if(isset($roleId) && ($roleId == 6 || $roleId == 7)){
+          $userObj->doctor_license_number      = $doctor_license_number;
+        }
         $userObj->address   = $address;
         $password           = Input::get('password');
 
@@ -233,6 +257,7 @@ class UserController extends Controller
             $pwd    = base64_encode(Input::get('password'));
             $userObj->password = $pwd;
         }
+
         $result = $this->userRepository->update($userObj);
 
         if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
@@ -327,5 +352,30 @@ class UserController extends Controller
                 return redirect('/');
             }
         }
+    }
+
+    public function disable(){
+        if (Auth::guard('User')->check()) {
+            $id = Input::get('selected_checkboxes');
+            $new_string = explode(',', $id);
+            foreach ($new_string as $id) {
+                $this->userRepository->disable_user($id);
+            }
+            return redirect()->action('Core\UserController@index')
+                ->withMessage(FormatGenerator::message('Success', 'User disabled ...'));
+        }
+        return redirect('/');
+    }
+
+    public function enable(){
+        if (Auth::guard('User')->check()) {
+            $id = Input::get('enable_user_id');
+
+            $this->userRepository->enable_user($id);
+
+            return redirect()->action('Core\UserController@index')
+                ->withMessage(FormatGenerator::message('Success', 'User enabled ...'));
+        }
+        return redirect('/');
     }
 }

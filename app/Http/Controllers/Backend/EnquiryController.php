@@ -25,7 +25,7 @@ use App\Core\Utility;
 use App\Backend\Township\TownshipRepository;
 use App\Backend\Service\ServiceRepository;
 use App\Backend\Allergy\AllergyRepository;
-use App\Backend\CarType\CartypeRepository;
+use App\Backend\Cartype\CartypeRepository;
 use App\Core\User;
 use Mockery\CountValidator\Exception;
 
@@ -57,14 +57,34 @@ class EnquiryController extends Controller
                     $users[$user->id] = $user;
                 }
 
+                $servicesArray = array();
+                $serviceRepo = new ServiceRepository();
+                $servicesRaw = $serviceRepo->getArrays();
+                foreach($servicesRaw as $key=>$service) {
+                    $servicesArray[$service->id] = $service;
+                }
 
                 //$enquiries      = $this->enquiryRepository->getObjs($enquiry_status, $enquiry_case_type, $from_date, $to_date);
                 $enquiries      = $this->enquiryRepository->getArrays($enquiry_status, $enquiry_case_type, $from_date, $to_date);
-
                 if(isset($enquiries) && count($enquiries)>0) {
                     foreach($enquiries as $key=>$enquiry){
                         $enquiries[$key]->patient_type = $patientTypes[$enquiry->patient_type_id];
                         $enquiries[$key]->received_by  = $users[$enquiry->created_by]->name;
+
+                        //get service from enquiry_detail
+                        $enquiry_id = $enquiry->id;
+                        $type = "service";
+
+                        $enquiry_details = $this->enquiryRepository->getEnquiryDetail($enquiry_id,$type);
+                        foreach($enquiry_details as $detail){
+                            $service_id = $detail->service_id;
+                            if(array_key_exists('services',$enquiries[$key])){
+                                $enquiries[$key]->services  .= ','.$servicesArray[$service_id]->name;
+                            }
+                            else{
+                                $enquiries[$key]->services  = $servicesArray[$service_id]->name;
+                            }
+                        }
                     }
                 }
 
@@ -96,9 +116,11 @@ class EnquiryController extends Controller
             $allergyRepo    = new AllergyRepository();
             $allergyFood      = $allergyRepo->getArraysByType('food');
             $allergyDrug      = $allergyRepo->getArraysByType('drug');
+            $allergyEnvironment = $allergyRepo->getArraysByType('environment');
             $allergies      = array();
             $allergies['food']      = $allergyFood;
             $allergies['drug']      = $allergyDrug;
+            $allergies['environment']      = $allergyEnvironment;
 
             $carTypeRepo        = new CartypeRepository();
             $carTypesRaws        = $carTypeRepo->getArrays();
@@ -125,6 +147,7 @@ class EnquiryController extends Controller
         $request->validate();
         $is_new_patient             = Input::get('is_new_patient');
         $name                       = Input::get('name');
+        $uppercase_name             = strtoupper($name);
 
         $patient_id                 = (Input::has('patient_id')) ? Input::get('patient_id') : "";
 
@@ -159,7 +182,8 @@ class EnquiryController extends Controller
         $current_date               = Carbon::parse($current)->format('Y-m-d');
         $current_time               = Carbon::parse($current)->format('H:i:s');
         $paramObj                   = new Enquiry();
-        $paramObj->name             = $name;
+//        $paramObj->name             = $name;
+        $paramObj->name             = $uppercase_name;
         $paramObj->is_new_patient   = $is_new_patient;
         $paramObj->patient_id       = $patient_id;
         $paramObj->nrc_no           = $nrc_no;
@@ -200,6 +224,14 @@ class EnquiryController extends Controller
 
             //calculate age
             $dob = $enquiry->dob;
+            // $dob = Carbon::parse($enquiry->dob)->format('d-m-Y');
+
+            if($dob == "30-11--0001" || $dob == "0000-00-00" || $dob == "00-00-0000"){
+                $dob = "01-01-1970";
+                $enquiry->dob = "01-01-1970";
+            }
+
+
             $age = Utility::calculateAge($dob);
 
             $patientTypes       = Utility::getSettingsByType("PATIENT_TYPE");
@@ -234,6 +266,8 @@ class EnquiryController extends Controller
         $id                         = Input::get('id');
         $is_new_patient             = Input::get('is_new_patient');
         $name                       = Input::get('name');
+        $uppercase_name             = strtoupper($name);
+
         $patient_id                 = Input::get('patient_id');
         $nrc_no                     = Input::get('nrc_no');
         $township_id                = Input::get('township_id');
@@ -264,7 +298,8 @@ class EnquiryController extends Controller
         $remark                     = Input::get('remark');
 
         $paramObj                   = Enquiry::where('id',$id)->first();
-        $paramObj->name             = $name;
+//        $paramObj->name             = $name;
+        $paramObj->name             = $uppercase_name;
         $paramObj->is_new_patient   = $is_new_patient;
         $paramObj->patient_id       = $patient_id;
         $paramObj->nrc_no           = $nrc_no;
@@ -362,6 +397,14 @@ class EnquiryController extends Controller
                 $users[$user->id] = $user;
             }
 
+
+            $servicesArray = array();
+            $serviceRepo = new ServiceRepository();
+            $servicesRaw = $serviceRepo->getArrays();
+            foreach($servicesRaw as $key=>$service) {
+                $servicesArray[$service->id] = $service;
+            }
+
             //$enquiries      = $this->enquiryRepository->getArrays($enquiry_status, $enquiry_case_type, $from_date, $to_date);
             $enquiries      = $this->enquiryRepository->getObjs($enquiry_status, $enquiry_case_type, $from_date, $to_date);
 
@@ -369,9 +412,24 @@ class EnquiryController extends Controller
                 foreach($enquiries as $key=>$enquiry){
                     $enquiries[$key]->patient_type = $patientTypes[$enquiry->patient_type_id];
                     $enquiries[$key]->received_by  = $users[$enquiry->created_by]->name;
+
+                    //get service from enquiry_detail
+                    $enquiry_id = $enquiry->id;
+                    $type = "service";
+
+                    $enquiry_details = $this->enquiryRepository->getEnquiryDetail($enquiry_id,$type);
+                    foreach($enquiry_details as $detail){
+                        $service_id = $detail->service_id;
+                        if(array_key_exists('services',$enquiries[$key])){
+                            $enquiries[$key]->services  .= ','.$servicesArray[$service_id]->name;
+                        }
+                        else{
+                            $enquiries[$key]->services  = $servicesArray[$service_id]->name;
+                        }
+                    }
                 }
             }
-
+            
             return view('backend.enquiry.index')
                 ->with('enquiries', $enquiries)
                 ->with('enquiry_status', $enquiry_status)

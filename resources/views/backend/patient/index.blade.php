@@ -44,14 +44,13 @@
                         <th><input type='checkbox' name='check' id='check_all'/></th>
                         <th>Patient ID</th>
                         <th>Patient Name</th>
-                        <th>Patient Type</th>
-                        <th>Gender</th>
+                        {{--<th>Patient Type</th>--}}
+                        {{--<th>Gender</th>--}}
                         <th>Dob</th>
                         <th>Township</th>
-                        <th>Zone</th>
-                        <th>Status</th>
+                        {{--<th>Zone</th>--}}
                         <th></th>
-                        <th></th>
+                        <!-- <th></th> -->
                     </tr>
                     </thead>
                     <tfoot>
@@ -59,14 +58,13 @@
                         <th></th>
                         <th class="search-col" con-id="user_id">Patient ID</th>
                         <th class="search-col" con-id="name">Patient Name</th>
-                        <th class="search-col" con-id="patient_type">Patient Type</th>
-                        <th class="search-col" con-id="gender">Gender</th>
+                        {{--<th class="search-col" con-id="patient_type">Patient Type</th>--}}
+                        {{--<th class="search-col" con-id="gender">Gender</th>--}}
                         <th class="search-col" con-id="dob">Dob</th>
                         <th class="search-col" con-id="township">Township</th>
-                        <th class="search-col" con-id="zone">Zone</th>
-                        <th class="search-col" con-id="status">Status</th>
+                        {{--<th class="search-col" con-id="zone">Zone</th>--}}
                         <th class="search-col" con-id="status"></th>
-                        <th class="search-col" con-id="status"></th>
+                        <!-- <th class="search-col" con-id="status"></th> -->
                     </tr>
                     </tfoot>
                     <tbody>
@@ -76,23 +74,19 @@
                             <td><input type="checkbox" class="check_source" name="edit_check" value="{{ $patient->user_id }}" id="all"></td>
                             <td><a href="/patient/edit/{{$patient->user_id}}">{{$patient->user_id}}</a></td>
                             <td><a href="/patient/edit/{{$patient->user_id}}">{{$patient->name}}</a></td>
-                            <td>{{$patientTypes[$patient->patient_type_id]}}</td>
-                            @if($patient->gender == "male")
-                                <td>Male</td>
-                            @else
-                                <td>Female</td>
-                            @endif
+                            {{--<td>{{$patientTypes[$patient->patient_type_id]}}</td>--}}
+                            {{--@if($patient->gender == "male")--}}
+                                {{--<td>Male</td>--}}
+                            {{--@else--}}
+                                {{--<td>Female</td>--}}
+                            {{--@endif--}}
                             <td>{{$patient->dob}}</td>
                             <td>{{$patient->township->name}}</td>
-                            <td>{{$patient->zone['name']}}</td>
-                            @if($patient->active == 1)
-                                <td>Active</td>
-                             @else
-                                <td>Inactive</td>
-                            @endif
-                            <td><a href="/patient/detail/{{$patient->user_id}}">Detail</a></td>
-                            {{--<td><a href="/patient/detailvisit/{{$patient->user_id}}">Detail Visit</a></td>--}}
-                            <td><a href="/patient/patientSchedule/{{$patient->user_id}}">Detail Visit</a></td>
+                            <!-- <td>{{$patient->zone['name']}}</td> -->
+                            <!-- <td><a href="/patient/detail/{{$patient->user_id}}">Detail</a></td> -->
+                            <td><a href="/patient/patient_detail/{{$patient->user_id}}">Visit / Invoice</a></td>
+                            <!-- <td><a href="/patient/detailvisit/{{$patient->user_id}}">Detail Visit</a></td> -->
+                            <!-- <td><a href="/patient/patientSchedule/{{$patient->user_id}}">Detail Visit</a></td> -->
                         </tr>
 
                     @endforeach
@@ -117,15 +111,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

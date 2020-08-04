@@ -7,6 +7,8 @@ use App\Api\Familyhistory\FamilyhistoryApiV2Repository;
 use App\Api\Invoice\InvoiceApiV2Repository;
 use App\Api\Medicalhistory\MedicalhistoryApiV2Repository;
 use App\Api\Nutrition\NutritionApiRepository;
+use App\Api\Otherservice\OtherServiceApiRepository;
+use App\Api\Patient\PatientApiRepository;
 use App\Api\Patient\PatientApiV2Repository;
 use App\Api\Product\ProductApiV2Repository;
 use App\Api\Route\RouteApiRepository;
@@ -16,6 +18,7 @@ use App\Core\ReturnMessage;
 use App\Core\Utility;
 use App\Log\LogCustom;
 use Illuminate\Http\Request;
+use App\Backend\Enquiry\Enquiry;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -62,6 +65,7 @@ class InvoiceApiV3Controller extends Controller
                 $medical_historyRepo    = new MedicalhistoryApiV2Repository();
                 $family_historyRepo     = new FamilyhistoryApiV2Repository();
                 $nutritionRepo          = new NutritionApiRepository();
+                $otherServiceRepo       = new OtherServiceApiRepository();
 
                 $logArr                 = array();
 
@@ -71,6 +75,7 @@ class InvoiceApiV3Controller extends Controller
                     if($physio_musculo_1and2Result['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $physio_musculo_1and2Result['tablet_id'] = $tablet_id;
+                        $physio_musculo_1and2Result['data']      = (object) array();
                         return \Response::json($physio_musculo_1and2Result);
                     }
                     if(isset($physio_musculo_1and2Result['log']) && count($physio_musculo_1and2Result['log']) > 0){
@@ -84,6 +89,7 @@ class InvoiceApiV3Controller extends Controller
                     if($physio_musculo_3sittingResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $physio_musculo_3sittingResult['tablet_id'] = $tablet_id;
+                        $physio_musculo_3sittingResult['data']                        = (object) array();
                         return \Response::json($physio_musculo_3sittingResult);
                     }
                     if(isset($physio_musculo_3sittingResult['log']) && count($physio_musculo_3sittingResult['log']) > 0){
@@ -97,6 +103,7 @@ class InvoiceApiV3Controller extends Controller
                     if($physio_musculo_3standingResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $physio_musculo_3standingResult['tablet_id'] = $tablet_id;
+                        $physio_musculo_3standingResult['data']      = (object) array();
                         return \Response::json($physio_musculo_3standingResult);
                     }
                     if(isset($physio_musculo_3standingResult['log']) && count($physio_musculo_3standingResult['log']) > 0){
@@ -111,6 +118,7 @@ class InvoiceApiV3Controller extends Controller
                     if($physio_musculo_4_1and2Result['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $physio_musculo_4_1and2Result['tablet_id'] = $tablet_id;
+                        $physio_musculo_4_1and2Result['data']                    = (object) array();
                         return \Response::json($physio_musculo_4_1and2Result);
                     }
                     if(isset($physio_musculo_4_1and2Result['log']) && count($physio_musculo_4_1and2Result['log']) > 0){
@@ -124,6 +132,7 @@ class InvoiceApiV3Controller extends Controller
                     if($physio_musculo_4_3Result['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $physio_musculo_4_3Result['tablet_id'] = $tablet_id;
+                        $physio_musculo_4_3Result['data']      = (object) array();
                         return \Response::json($physio_musculo_4_3Result);
                     }
                     if(isset($physio_musculo_4_3Result['log']) && count($physio_musculo_4_3Result['log']) > 0){
@@ -137,6 +146,7 @@ class InvoiceApiV3Controller extends Controller
                     if($physio_musculo_4_4and5Result['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $physio_musculo_4_4and5Result['tablet_id'] = $tablet_id;
+                        $physio_musculo_4_4and5Result['data']      = (object) array();
                         return \Response::json($physio_musculo_4_4and5Result);
                     }
                     if(isset($physio_musculo_4_4and5Result['log']) && count($physio_musculo_4_4and5Result['log']) > 0){
@@ -150,6 +160,7 @@ class InvoiceApiV3Controller extends Controller
                     if($neuro_generalResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $neuro_generalResult['tablet_id'] = $tablet_id;
+                        $neuro_generalResult['data']      = (object) array();
                         return \Response::json($neuro_generalResult);
                     }
 
@@ -164,6 +175,7 @@ class InvoiceApiV3Controller extends Controller
                     if($neuro_limbResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $neuro_limbResult['tablet_id'] = $tablet_id;
+                        $neuro_limbResult['data']      = (object) array();
                         return \Response::json($neuro_limbResult);
                     }
                     if(isset($neuro_limbResult['log']) && count($neuro_limbResult['log']) > 0){
@@ -177,6 +189,7 @@ class InvoiceApiV3Controller extends Controller
                     if($performance1Result['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $performance1Result['tablet_id'] = $tablet_id;
+                        $performance1Result['data']      = (object) array();
                         return \Response::json($performance1Result);
                     }
                     if(isset($performance1Result['log']) && count($performance1Result['log']) > 0){
@@ -190,6 +203,7 @@ class InvoiceApiV3Controller extends Controller
                     if($performance2Result['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $performance2Result['tablet_id'] = $tablet_id;
+                        $performance2Result['data']      = (object) array();
                         return \Response::json($performance2Result);
                     }
                     if(isset($performance2Result['log']) && count($performance2Result['log']) > 0){
@@ -200,9 +214,10 @@ class InvoiceApiV3Controller extends Controller
                 if(isset($params->patient_physiotherapy_neuro_functional_performance3) && count($params->patient_physiotherapy_neuro_functional_performance3) > 0){
                     $performance3       = $params->patient_physiotherapy_neuro_functional_performance3;
                     $performance3Result = $patientRepo->createPatientPhysiothreapyNeuroFunctionalPerformance3($performance3);
-                    if($performance2Result['aceplusStatusCode'] != ReturnMessage::OK){
+                    if($performance3Result['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $performance3Result['tablet_id'] = $tablet_id;
+                        $performance3Result['data']      = (object) array();
                         return \Response::json($performance3Result);
                     }
                     if(isset($performance3Result['log']) && count($performance3Result['log']) > 0){
@@ -216,6 +231,7 @@ class InvoiceApiV3Controller extends Controller
                     if($patient_family_historyResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $patient_family_historyResult['tablet_id'] = $tablet_id;
+                        $patient_family_historyResult['data']      = (object) array();
                         return \Response::json($patient_family_historyResult);
                     }
                     if(isset($patient_family_historyResult['log']) && count($patient_family_historyResult['log']) > 0){
@@ -229,6 +245,7 @@ class InvoiceApiV3Controller extends Controller
                     if($patient_medical_historyResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $patient_medical_historyResult['tablet_id'] = $tablet_id;
+                        $patient_medical_historyResult['data']      = (object) array();
                         return \Response::json($patient_medical_historyResult);
                     }
                     if(isset($patient_medical_historyResult['log']) && count($patient_medical_historyResult['log']) > 0){
@@ -242,6 +259,7 @@ class InvoiceApiV3Controller extends Controller
                     if($patient_family_memberResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $patient_family_memberResult['tablet_id'] = $tablet_id;
+                        $patient_family_memberResult['data']      = (object) array();
                         return \Response::json($patient_family_memberResult);
                     }
                     if(isset($patient_family_memberResult['log']) && count($patient_family_memberResult['log']) > 0){
@@ -255,6 +273,7 @@ class InvoiceApiV3Controller extends Controller
                     if($patient_surgery_historyResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $patient_surgery_historyResult['tablet_id'] = $tablet_id;
+                        $patient_surgery_historyResult['data']      = (object) array();
                         return \Response::json($patient_surgery_historyResult);
                     }
 
@@ -270,6 +289,7 @@ class InvoiceApiV3Controller extends Controller
                     if($schedulePhysioNeuroResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $schedulePhysioNeuroResult['tablet_id'] = $tablet_id;
+                        $schedulePhysioNeuroResult['data']      = (object) array();
                         return \Response::json($schedulePhysioNeuroResult);
                     }
                     if(isset($schedulePhysioNeuroResult['log']) && count($schedulePhysioNeuroResult['log']) > 0){
@@ -284,6 +304,7 @@ class InvoiceApiV3Controller extends Controller
                     if($chief_complaintResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $chief_complaintResult['tablet_id'] = $tablet_id;
+                        $chief_complaintResult['data']      = (object) array();
                         return \Response::json($chief_complaintResult);
                     }
                     if(isset($chief_complaintResult['log']) && count($chief_complaintResult['log']) > 0){
@@ -298,6 +319,7 @@ class InvoiceApiV3Controller extends Controller
                     if($vitalResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $vitalResult['tablet_id'] = $tablet_id;
+                        $vitalResult['data']      = (object) array();
                         return \Response::json($vitalResult);
                     }
                     if(isset($vitalResult['log']) && count($vitalResult['log']) > 0){
@@ -312,6 +334,7 @@ class InvoiceApiV3Controller extends Controller
                     if($extre_neuroResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $extre_neuroResult['tablet_id'] = $tablet_id;
+                        $extre_neuroResult['data']      = (object) array();
                         return \Response::json($extre_neuroResult);
                     }
 
@@ -327,6 +350,7 @@ class InvoiceApiV3Controller extends Controller
                     if($pupils_headResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $pupils_headResult['tablet_id'] = $tablet_id;
+                        $pupils_headResult['data']      = (object) array();
                         return \Response::json($pupils_headResult);
                     }
                     if(isset($pupils_headResult['log']) && count($pupils_headResult['log']) > 0){
@@ -341,6 +365,7 @@ class InvoiceApiV3Controller extends Controller
                     if($heart_lungsResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $heart_lungsResult['tablet_id'] = $tablet_id;
+                        $heart_lungsResult['data']      = (object) array();
                         return \Response::json($heart_lungsResult);
                     }
                     if(isset($heart_lungsResult['log']) && count($heart_lungsResult['log']) > 0){
@@ -355,6 +380,7 @@ class InvoiceApiV3Controller extends Controller
                     if($schedulePhysioMusculoResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $schedulePhysioMusculoResult['tablet_id'] = $tablet_id;
+                        $schedulePhysioMusculoResult['data']      = (object) array();
                         return \Response::json($schedulePhysioMusculoResult);
                     }
                     if(isset($schedulePhysioMusculoResult['log']) && count($schedulePhysioMusculoResult['log']) > 0){
@@ -368,6 +394,7 @@ class InvoiceApiV3Controller extends Controller
                     if($provisional_diagnosisResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $provisional_diagnosisResult['tablet_id'] = $tablet_id;
+                        $provisional_diagnosisResult['data']      = (object) array();
                         return \Response::json($provisional_diagnosisResult);
                     }
                     if(isset($provisional_diagnosisResult['log']) && count($provisional_diagnosisResult['log']) > 0){
@@ -378,9 +405,11 @@ class InvoiceApiV3Controller extends Controller
                 if(isset($params->schedule_trackings) && count($params->schedule_trackings) > 0){
                     $scheduleTrackings          = $params->schedule_trackings;
                     $scheduleTrackingResult     = $scheduleRepo->scheduleTrackings($scheduleTrackings);
+
                     if($scheduleTrackingResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $scheduleTrackingResult['tablet_id'] = $tablet_id;
+                        $scheduleTrackingResult['data']      = (object) array();
                         return \Response::json($scheduleTrackingResult);
                     }
                     if(isset($scheduleTrackingResult['log']) && count($scheduleTrackingResult['log']) > 0){
@@ -394,6 +423,7 @@ class InvoiceApiV3Controller extends Controller
                     if($scheduleTreatmentResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $scheduleTreatmentResult['tablet_id'] = $tablet_id;
+                        $scheduleTreatmentResult['data']      = (object) array();
                         return \Response::json($scheduleTreatmentResult);
                     }
                     if(isset($scheduleTreatmentResult['log']) && count($scheduleTreatmentResult['log']) > 0){
@@ -407,6 +437,7 @@ class InvoiceApiV3Controller extends Controller
                     if($schedule_investigationResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $schedule_investigationResult['tablet_id'] = $tablet_id;
+                        $schedule_investigationResult['data']      = (object) array();
                         return \Response::json($schedule_investigationResult);
                     }
                     if(isset($schedule_investigationResult['log']) && count($schedule_investigationResult['log']) > 0){
@@ -421,6 +452,7 @@ class InvoiceApiV3Controller extends Controller
                     if($nutritionResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $nutritionResult['tablet_id'] = $tablet_id;
+                        $nutritionResult['data']      = (object) array();
                         return \Response::json($nutritionResult);
                     }
                     if(isset($nutritionResult['log']) && count($nutritionResult['log']) > 0){
@@ -434,6 +466,7 @@ class InvoiceApiV3Controller extends Controller
                     if($enquiryResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $enquiryResult['tablet_id'] = $tablet_id;
+                        $enquiryResult['data']      = (object) array();
                         return \Response::json($enquiryResult);
                     }
                     if(isset($enquiryResult['log']) && count($enquiryResult['log']) > 0){
@@ -448,6 +481,7 @@ class InvoiceApiV3Controller extends Controller
                     if($scheduleResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $scheduleResult['tablet_id'] = $tablet_id;
+                        $scheduleResult['data']      = (object) array();
                         return \Response::json($scheduleResult);
                     }
                     if(isset($scheduleResult['log']) && count($scheduleResult['log']) > 0){
@@ -461,6 +495,7 @@ class InvoiceApiV3Controller extends Controller
                     if($productResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $productResult['tablet_id'] = $tablet_id;
+                        $productResult['data']      = (object) array();
                         return \Response::json($productResult);
                     }
                     if(isset($productResult['log']) && count($productResult['log']) > 0){
@@ -474,6 +509,7 @@ class InvoiceApiV3Controller extends Controller
                     if($routeResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $routeResult['tablet_id'] = $tablet_id;
+                        $routeResult['data']      = (object) array();
                         return \Response::json($routeResult);
                     }
 
@@ -488,6 +524,7 @@ class InvoiceApiV3Controller extends Controller
                     if($medical_historyResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $medical_historyResult['tablet_id'] = $tablet_id;
+                        $medical_historyResult['data']      = (object) array();
                         return \Response::json($medical_historyResult);
                     }
 
@@ -502,6 +539,7 @@ class InvoiceApiV3Controller extends Controller
                     if($family_historyResult['aceplusStatusCode'] != ReturnMessage::OK){
                         DB::rollback();
                         $family_historyResult['tablet_id'] = $tablet_id;
+                        $family_historyResult['data']      = (object) array();
                         return \Response::json($family_historyResult);
                     }
                     if(isset($family_historyResult['log']) && count($family_historyResult['log']) > 0){
@@ -516,12 +554,82 @@ class InvoiceApiV3Controller extends Controller
                     if($invoiceResult['aceplusStatusCode'] != ReturnMessage::OK) {
                         DB::rollback();
                         $invoiceResult['tablet_id'] = $tablet_id;
+                        $invoiceResult['data']      = (object) array();
                         return \Response::json($invoiceResult);
                     }
 
                     if(isset($invoiceResult['log']) && count($invoiceResult['log']) > 0){
                         array_push($logArr,$invoiceResult['log']);
                     }
+                }
+
+                if (isset($params->patients) && count($params->patients) > 0) {
+                    $patientRepository = new PatientApiRepository();
+
+                    $patientResult = $patientRepository->createPatient($params->patients);
+
+                    if($patientResult['aceplusStatusCode'] != ReturnMessage::OK) {
+                        DB::rollback();
+                        $patientResult['tablet_id'] = $tablet_id;
+                        $patientResult['data'] = (object) array();
+                        return \Response::json($patientResult);
+                    }
+                    if(isset($patientResult['log']) && count($patientResult['log']) > 0){
+                        array_push($logArr,$patientResult['log']);
+                    }
+                }
+
+                if(isset($params->other_services) && count($params->other_services) > 0){
+                    $other_services          = $params->other_services;
+                    $otherServicesResult     = $otherServiceRepo->otherservice($other_services);
+
+                    if($otherServicesResult['aceplusStatusCode'] != ReturnMessage::OK){
+                        DB::rollback();
+                        $routeResult['tablet_id'] = $tablet_id;
+                        $routeResult['data']      = (object) array();
+                        return \Response::json($otherServicesResult);
+                    }
+
+                    if(isset($otherServicesResult['log']) && count($otherServicesResult['log']) > 0){
+                        array_push($logArr,$otherServicesResult['log']);
+                    }
+                }
+
+
+                    // $invoiceResult  = $invoiceRepo->invoices($invoices);
+
+                    // if($invoiceResult['aceplusStatusCode'] != ReturnMessage::OK) {
+                    //     DB::rollback();
+                    //     $invoiceResult['tablet_id'] = $tablet_id;
+                    //     $invoiceResult['data']      = (object) array();
+                    //     return \Response::json($invoiceResult);
+                    // }
+
+                    // if(isset($invoiceResult['log']) && count($invoiceResult['log']) > 0){
+                    //     array_push($logArr,$invoiceResult['log']);
+                    // }
+
+
+                    //for updating enquiry status to "complete"
+                    if(isset($params->invoices) && count($params->invoices) > 0){
+                        $invoices       = $params->invoices;
+                        $temp_sche_id_array = array();
+
+                        //loop through invoices that has a schedule_id and get enquiry_id from each schedule
+                        foreach($invoices as $sch_in_invoice){
+                            //get schedule_id of invoice and get enquiry_id from that schedule
+                            if(isset($sch_in_invoice->schedule_id) && count($sch_in_invoice->schedule_id) > 0){
+                                $enquiry_id = $scheduleRepo->getEnquiryIdFromScheduleId($sch_in_invoice->schedule_id);
+                                if(isset($enquiry_id) && count($enquiry_id) > 0){
+                                    $enquiry = Enquiry::find($enquiry_id);
+                                    //update status to "complete"
+                                    if(isset($enquiry) && count($enquiry)>0){
+                                        $enquiry->status = "complete";
+                                        $enquiry->save();
+                                    }
+                                }
+                            }
+                        }
                 }
 
                 //all insertions were successful
@@ -551,7 +659,6 @@ class InvoiceApiV3Controller extends Controller
                 $data[0]['family_histories']                = $family_historyArr;
 
                 if(isset($params->schedules) && count($params->schedules) > 0){
-
                     foreach($params->schedules as $schedules){
                         array_push($patientIdArray,$schedules->patient_id);
                     }
@@ -594,8 +701,11 @@ class InvoiceApiV3Controller extends Controller
                 }
 
                 $prefix                             = $checkServerStatusArray['tablet_id'];
+                $patient_prefix                     = Utility::generatePatientPrefix($prefix);
+                $invoice_prefix                     = Utility::generateInvoicePrefix($prefix);
 
-                $maxInvoice                         = Utility::getMaxKey($prefix,'invoices','id');
+                // $maxInvoice                         = Utility::getMaxKey($prefix,'invoices','id');
+                $maxInvoice                         = Utility::getMaxKey($invoice_prefix,'invoices','id');
                 $maxMedicalHistory                  = Utility::getMaxKey($prefix,'medical_history','id');
                 $maxFamilyHistory                   = Utility::getMaxKey($prefix,'family_histories','id');
                 $maxPatientFamilyHistory            = Utility::getMaxKey($prefix,'patient_family_history','id');
@@ -615,6 +725,9 @@ class InvoiceApiV3Controller extends Controller
                 $maxSchedule                        = Utility::getMaxKey($prefix,'schedules','id');
                 $maxEnquiry                         = Utility::getMaxKey($prefix,'enquiries','id');
                 $maxRoute                           = Utility::getMaxKey($prefix,'route','id');
+                $maxPatient                         = Utility::getMaxKey($patient_prefix,'patients','user_id');
+                $maxCoreUser                        = Utility::getMaxKey($patient_prefix,'core_users','id');
+                $maxOtherService                    = Utility::getMaxKey($prefix,'other_services','id');
 
                 $maxKey = array();
 
@@ -658,6 +771,12 @@ class InvoiceApiV3Controller extends Controller
                 $maxKey[18]['max_key_id']  = $maxEnquiry;
                 $maxKey[19]['table_name']  = "route";
                 $maxKey[19]['max_key_id']  = $maxRoute;
+                $maxKey[20]['table_name']  = "patients";
+                $maxKey[20]['max_key_id']  = $maxPatient;
+                $maxKey[21]['table_name']  = "core_users";
+                $maxKey[21]['max_key_id']  = $maxCoreUser;
+                $maxKey[22]['table_name']  = "other_services";
+                $maxKey[22]['max_key_id']  = $maxOtherService;
 
 
                 $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
@@ -675,6 +794,7 @@ class InvoiceApiV3Controller extends Controller
                 $returnedObj['aceplusStatusCode']       = ReturnMessage::INTERNAL_SERVER_ERROR;
                 $returnedObj['aceplusStatusMessage']    = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
                 $returnedObj['tabletId']                = $checkServerStatusArray['tablet_id'];
+                $returnedObj['data']                    = (object) array();
                 return \Response::json($returnedObj);
             }
         }

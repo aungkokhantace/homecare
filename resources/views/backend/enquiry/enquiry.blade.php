@@ -23,7 +23,7 @@
             <label for="name" class="text_bold_black">Name<span class="require">*</span></label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Enquiry Name" value="{{ isset
+            <input type="text" required class="form-control uppercase_text_box" id="name" name="name" placeholder="Enter Enquiry Name" value="{{ isset
 ($enquiry)? $enquiry->name:Request::old('name') }}"/>
             <p class="text-danger">{{$errors->first('name')}}</p>
         </div>
@@ -73,26 +73,26 @@
         @if(isset($enquiry))
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                 @if(isset($enquiry) && $enquiry->gender == 'male')
-                    <input type="radio" name="gender" id="gender_male" value="male" checked> Male
+                    <input type="radio" name="gender" id="gender_male" class="large_radio" value="male" checked> <label for="gender_male">Male</label>
                 @else
-                    <input type="radio" name="gender" id="gender_male" value="male"> Male
+                    <input type="radio" name="gender" id="gender_male" class="large_radio" value="male"> <label for="gender_male">Male</label>
                 @endif
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                 @if(isset($enquiry) && $enquiry->gender == 'female')
-                    <input type="radio" name="gender" id="gender_female"  value="female" checked> Female
+                    <input type="radio" name="gender" id="gender_female" class="large_radio"  value="female" checked> <label for="gender_female">Female</label>
                 @else
-                    <input type="radio" name="gender" id="gender_female"  value="female"> Female
+                    <input type="radio" name="gender" id="gender_female" class="large_radio"  value="female"> <label for="gender_female">Female</label>
                 @endif
             </div>
         @endif
 
         @if(!isset($enquiry))
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <input type="radio" name="gender" id="gender_male" value="male" checked> Male
+                <input type="radio" name="gender" id="gender_male" class="large_radio" value="male" checked> <label for="gender_male">Male</label>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <input type="radio" name="gender" id="gender_female"  value="female"> Female
+                <input type="radio" name="gender" id="gender_female" class="large_radio"  value="female"> <label for="gender_female">Female</label>
             </div>
         @endif
 
@@ -115,27 +115,27 @@
         @if(isset($enquiry))
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                 @if(isset($enquiry) && $enquiry->having_allergy == 1)
-                    <input type="radio" name="having_allergy" value="1" id="having_allergy_yes" checked> Yes
+                    <input type="radio" name="having_allergy" value="1" id="having_allergy_yes" class="large_radio" checked> <label for="having_allergy_yes">Yes</label>
                 @else
-                    <input type="radio" name="having_allergy" id="having_allergy_yes" value="1"> Yes
+                    <input type="radio" name="having_allergy" id="having_allergy_yes" class="large_radio" value="1"> <label for="having_allergy_yes">Yes</label>
                 @endif
             </div>
 
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                 @if(isset($enquiry) && $enquiry->having_allergy == 0)
-                    <input type="radio" name="having_allergy" value="0" id="having_allergy_no" checked> No
+                    <input type="radio" name="having_allergy" value="0" id="having_allergy_no" class="large_radio" checked> <label for="having_allergy_no">No</label>
                 @else
-                    <input type="radio" name="having_allergy" value="0" id="having_allergy_no"> No
+                    <input type="radio" name="having_allergy" value="0" id="having_allergy_no" class="large_radio"> <label for="having_allergy_no">No</label>
                 @endif
             </div>
         @endif
 
         @if(!isset($enquiry))
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <input type="radio" name="having_allergy" value="1" id="having_allergy_yes" checked> Yes
+                <input type="radio" name="having_allergy" value="1" id="having_allergy_yes" class="large_radio" checked> <label for="having_allergy_yes">Yes</label>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <input type="radio" name="having_allergy" value="0" id="having_allergy_no"> No
+                <input type="radio" name="having_allergy" value="0" class="large_radio" id="having_allergy_no"> <label for="having_allergy_no">No</label>
             </div>
         @endif
     </div>
@@ -180,6 +180,18 @@
                         @endif
                     </optgroup>
 
+                    <optgroup label="Environment Allergy" class="text_bold_black">
+                        @if(isset($enquiry['allergies']['environment']))
+                            @foreach($enquiry['allergies']['environment'] as $allergy)
+                                @if($allergy->selected == 1)
+                                    <option value="{{$allergy->id}}" selected>{{$allergy->name}}</option>
+                                @else
+                                    <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                                @endif
+                            @endforeach
+                        @endif
+                    </optgroup>
+
                 </select>
             @else
                 <select id="allergies" name="allergies[]" multiple="multiple" class="form-control">
@@ -196,6 +208,14 @@
 
                         @if(isset($allergies['drug']))
                             @foreach($allergies['drug'] as $allergy)
+                                <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                            @endforeach
+                        @endif
+                    </optgroup>
+                    <optgroup label="Environment Allergy" class="text_bold_black">
+
+                        @if(isset($allergies['environment']))
+                            @foreach($allergies['environment'] as $allergy)
                                 <option value="{{$allergy->id}}">{{$allergy->name}}</option>
                             @endforeach
                         @endif
@@ -232,12 +252,12 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             @if(isset($enquiry))
                 @if($enquiry->car_type == 1)
-                    <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
+                    <input type="radio" name="car_type" value="1" class="large_radio" id="patient_owned_vehicle" checked> <label for="patient_owned_vehicle">Patient Owned Vehicle</label>
                 @else
-                    <input type="radio" name="car_type" value="1"> Patient Owned Vehicle
+                    <input type="radio" name="car_type" class="large_radio" id="patient_owned_vehicle" value="1"> <label for="patient_owned_vehicle">Patient Owned Vehicle</label>
                 @endif
             @else
-                <input type="radio" name="car_type" value="1" checked> Patient Owned Vehicle
+                <input type="radio" name="car_type" value="1" class="large_radio" id="patient_owned_vehicle" checked> <label for="patient_owned_vehicle">Patient Owned Vehicle</label>
             @endif
         </div>
 
@@ -276,12 +296,12 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             @if(isset($enquiry))
                 @if($enquiry->car_type == 2)
-                    <input type="radio" name="car_type" value="2" checked> Rental Vehicle
+                    <input type="radio" name="car_type" value="2" class="large_radio" id="rental_vehicle" checked> <label for="rental_vehicle">Rental Vehicle</label>
                 @else
-                    <input type="radio" name="car_type" value="2"> Rental Vehicle
+                    <input type="radio" name="car_type" value="2" class="large_radio" id="rental_vehicle"> <label for="rental_vehicle">Rental Vehicle</label>
                 @endif
             @else
-                <input type="radio" name="car_type" value="2"> Rental Vehicle
+                <input type="radio" name="car_type" value="2" class="large_radio" id="rental_vehicle"> <label for="rental_vehicle">Rental Vehicle</label>
             @endif
         </div>
     </div>
@@ -364,12 +384,12 @@
         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-2 col-md-2 col-sm-2 col-xs-2">
             @if(isset($enquiry))
                 @if($enquiry->car_type == 3)
-                    <input type="radio" name="car_type" value="3" checked> HHCS Vehicle
+                    <input type="radio" name="car_type" value="3" class="large_radio" id="hhcs_vehicle" checked> <label for="hhcs_vehicle">HHCS Vehicle</label>
                 @else
-                    <input type="radio" name="car_type" value="3"> HHCS Vehicle
+                    <input type="radio" name="car_type" class="large_radio" id="hhcs_vehicle" value="3"> <label for="hhcs_vehicle">HHCS Vehicle</label>
                 @endif
             @else
-                <input type="radio" name="car_type" value="3"> HHCS Vehicle
+                <input type="radio" name="car_type" class="large_radio" id="hhcs_vehicle" value="3"> <label for="hhcs_vehicle">HHCS Vehicle</label>
             @endif
             <p class="text-danger">{{$errors->first('car_type')}}</p><br/>
         </div>
@@ -452,7 +472,7 @@
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <textarea required class="form-control" id="address" name="address" placeholder="Enter Detail Address" rows="10" cols="40">{{isset($enquiry)? $enquiry->address:Input::old('address')}}</textarea>
+            <textarea required class="form-control uppercase_text_box" id="address" name="address" placeholder="Enter Detail Address" rows="10" cols="40">{{isset($enquiry)? $enquiry->address:Input::old('address')}}</textarea>
             <p class="text-danger">{{$errors->first('address')}}</p>
         </div>
 
@@ -543,6 +563,8 @@
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
             @if(isset($enquiry))
                 @if($enquiry->status == 'confirm')
+
+                @elseif($enquiry->status == 'complete')
 
                 @else
                     <input type="submit" name="submit" value="UPDATE" class="form-control btn-primary">
@@ -806,6 +828,7 @@
                     $('#is_new_patient').val(0);
                     $('#patient_id').val(ui.item.patient_id);
                     $('#packages').html(ui.item.packages);
+                    $('#address').html(ui.item.address);
 
                     var dob         = new Date(ui.item.dob);
                     var dob_year    = dob.getFullYear();
@@ -890,6 +913,7 @@
                     $("#allergies").css({"background-color": "skyblue"});
                     $("#packages").css({"background-color": "skyblue"});
                     $("#age").css({"background-color": "skyblue"});
+                    $("#address").css({"background-color": "skyblue"});
 
                     $('#staff_id').text(ui.item.staff_id);
                     $("#div_staff_id").css({"background-color": "skyblue"});
@@ -973,6 +997,9 @@
 //                        return Number(value) > 0;
 //                    }, 'Enter a positive number.');
             //End Validation for Enquiry Entry Form
+
+            //For selectbox with search function
+            $("#township_id").select2();
 
         });
     </script>

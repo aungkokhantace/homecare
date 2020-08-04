@@ -1,7 +1,6 @@
 <?php
 /**
  * Created by PhpStorm.
-<<<<<<< HEAD
  * Author: Wai Yan Aung
  * Date: 8/9/2016
  * Time: 4:50 PM
@@ -11,6 +10,7 @@ namespace App\Backend\Schedule;
 use App\Backend\Enquiry\EnquiryRepository;
 use App\Backend\Investigation\Investigation;
 use App\Backend\Invoice\Invoice;
+use App\Backend\Packagesale\Packagesale;
 use App\Backend\Provisionaldiagnosis\Provisionaldiagnosis;
 use App\Backend\Scheduledetail\Scheduledetail;
 use App\Log\LogCustom;
@@ -26,25 +26,50 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
 {
     public function getObjs($schedule_status = null, $from_date = null, $to_date = null)
     {
+        // $query = Schedule::query();
+        // if(isset($schedule_status) && $schedule_status != null && $schedule_status <> 'all'){
+        //     $query = $query->where('status', $schedule_status);
+        // }
+        // if(isset($from_date) && $from_date != null){
+        //     $tempFromDate = date("Y-m-d", strtotime($from_date));
+        //     $query = $query->where('date', '>=' , $tempFromDate);
+        // }
+        // if(isset($to_date) && $to_date != null){
+        //     $tempToDate = date("Y-m-d", strtotime($to_date));
+        //     $query = $query->where('date', '<=', $tempToDate);
+        // }
+        // $query = $query->whereNull('deleted_at');
+        // $objs = $query->get();
+        // return $objs;
+
         $query = Schedule::query();
+        $query = $query->leftjoin('patients', 'patients.user_id', '=', 'schedules.patient_id');
         if(isset($schedule_status) && $schedule_status != null && $schedule_status <> 'all'){
-            $query = $query->where('status', $schedule_status);
+            $query = $query->where('schedules.status', $schedule_status);
         }
         if(isset($from_date) && $from_date != null){
             $tempFromDate = date("Y-m-d", strtotime($from_date));
-            $query = $query->where('date', '>=' , $tempFromDate);
+            $query = $query->where('schedules.date', '>=' , $tempFromDate);
         }
         if(isset($to_date) && $to_date != null){
             $tempToDate = date("Y-m-d", strtotime($to_date));
-            $query = $query->where('date', '<=', $tempToDate);
+            $query = $query->where('schedules.date', '<=', $tempToDate);
         }
-        $query = $query->whereNull('deleted_at');
+        $query = $query->whereNull('schedules.deleted_at');
+        $query = $query->whereNull('patients.deleted_at');
         $objs = $query->get();
+
         return $objs;
     }
 
     public function getArrays(){
-        $tempObj = DB::select("SELECT * FROM schedules WHERE deleted_at is null");
+        // $tempObj = DB::select("SELECT * FROM schedules WHERE deleted_at is null ORDER BY date DESC");
+        $tempObj = DB::select("SELECT * FROM schedules
+                                LEFT JOIN
+                                patients ON schedules.patient_id = patients.user_id
+                                WHERE schedules.deleted_at is null
+                                AND patients.deleted_at is null
+                                ORDER BY schedules.date DESC");
         return $tempObj;
     }
 
@@ -513,7 +538,9 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
 
     public function getHHCSPersonal()
     {
-        $tempObj = DB::select("SELECT * FROM core_users WHERE deleted_at is null AND role_id NOT IN (1,2,5)");
+        // $tempObj = DB::select("SELECT * FROM core_users WHERE deleted_at is null AND role_id NOT IN (1,2,5)");
+        //get only active users
+        $tempObj = DB::select("SELECT * FROM core_users WHERE deleted_at is null AND role_id NOT IN (1,2,5) AND active = 1");
         return $tempObj;
     }
 
@@ -570,6 +597,15 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
             ->select('patient_package.package_id as package_id','packages.package_name as package_name','patient_package.sold_date as date')
             ->where('schedules.patient_id','=',$id)
             ->where('schedules.patient_package_id','<>',0)
+            ->get();
+        return $result;
+    }
+
+    public function getPackageHistoryV2($id){
+        $result = Packagesale::
+            leftjoin('packages', 'packages.id', '=', 'patient_package.package_id')
+            ->select('patient_package.package_id as package_id','packages.package_name as package_name','patient_package.sold_date as date')
+            ->where('patient_package.patient_id','=',$id)
             ->get();
         return $result;
     }
@@ -754,18 +790,29 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     }
 
     public function getGeneralPupilHead($latest_schedule_id){
+//        $gph  = DB::table('schedule_physical_exams_general_pupils_head')->whereNull('deleted_at')->where('schedule_id','=',
+//            $latest_schedule_id)->first();
         $gph  = DB::table('schedule_physical_exams_general_pupils_head')->whereNull('deleted_at')->where('schedule_id','=',
-            $latest_schedule_id)->first();
+            $latest_schedule_id)->orderBy('id', 'desc')->first();
         return $gph;
     }
 
     public function getHeartLung($latest_schedule_id){
-        $hl = DB::table('schedule_physical_exams_heart_lungs')->whereNull('deleted_at')->where('schedule_id','=',$latest_schedule_id)->first();
+//        $hl = DB::table('schedule_physical_exams_heart_lungs')->whereNull('deleted_at')->where('schedule_id','=',$latest_schedule_id)->first();
+        $hl = DB::table('schedule_physical_exams_heart_lungs')
+            ->whereNull('deleted_at')
+            ->where('schedule_id','=',$latest_schedule_id)
+            ->orderBy('id', 'desc')
+            ->first();
         return $hl;
     }
 
     public function getAbdomenExtreNeuro($latest_schedule_id){
-        $aen    = DB::table('schedule_physical_exams_abdomen_extre_neuro')->whereNull('deleted_at')->where('schedule_id','=',$latest_schedule_id)->first();
+        $aen    = DB::table('schedule_physical_exams_abdomen_extre_neuro')
+            ->whereNull('deleted_at')
+            ->where('schedule_id','=',$latest_schedule_id)
+            ->orderBy('id', 'desc')
+            ->first();
         return $aen;
     }
 
@@ -785,6 +832,12 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         return $investigation_labs;
     }
 
+    public function getInvestigationLabs($investigation_id){
+//        $investigation_labs     = Investigation::select('id','name','group_name')->whereIn('id',$investigation_id)->orderBy('name')->get();
+        $investigation_labs     = DB::table('investigation_labs')->select('id','service_name')->whereIn('id',$investigation_id)->orderBy('service_name')->get();
+        return $investigation_labs;
+    }
+
     public function getScheduleProvisionalDiagnosis($latest_schedule_id){
         $provisional_id  = DB::table('schedule_provisional_diagnosis')->select('provisional_id')->whereNull('deleted_at')->where('schedule_id','=',$latest_schedule_id)->get();
         $provisional_id = collect($provisional_id)->map(function($x){ return (array) $x; })->toArray();
@@ -797,16 +850,36 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
     }
 
     public function getScheduleTreatment($latest_schedule_id){
+        //not to include 'new_medication' and 'treatment' from products table
+        // $excluded_array = [10001,10002];
+
         $treatments     = DB::table('schedule_treatment_histories')
                           ->leftjoin('products','products.id','=','schedule_treatment_histories.product_id')
                           ->select('products.product_name','products.price','schedule_treatment_histories.*')
                           ->whereNull('schedule_treatment_histories.deleted_at')
-                          ->where('schedule_treatment_histories.schedule_id','=',$latest_schedule_id)->get();
+                          ->where('schedule_treatment_histories.schedule_id','=',$latest_schedule_id)
+                          ->where('schedule_treatment_histories.flag','=', 2)
+                          ->whereNotNull('schedule_treatment_histories.product_id')
+                          ->where('schedule_treatment_histories.product_id','!=','')
+                          //where product.id is normal products (for medication)
+                          // ->whereNotIn('products.product_category_id',$excluded_array)
+                          ->get();
+
         return $treatments;
     }
 
     public function getNeurologicalRecords($latest_schedule_id){
         $neurologicals  = DB::table('schedule_physiotherapy_neuro')->whereNull('deleted_at')->where('schedules_id','=',$latest_schedule_id)->get();
+        return $neurologicals;
+    }
+
+    public function getLastFourteenNeurologicalRecords($patient_id){
+        $neurologicals  = DB::table('schedule_physiotherapy_neuro')
+                            ->whereNull('deleted_at')
+                            ->where('patient_id','=',$patient_id)
+                            ->orderBy('created_at','desc')
+                            ->limit(14) //get up to 14 records
+                            ->get();
         return $neurologicals;
     }
 
@@ -850,6 +923,7 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         }
 
         $query = $query->whereNull('invoices.deleted_at');
+        $query = $query->orderBy('date', 'desc');
         $result = $query->get();
         return $result;
     }
@@ -859,5 +933,401 @@ class ScheduleRepository implements  ScheduleRepositoryInterface
         $result = DB::table('invoice_detail')->where('car_type','!=',0)->get();
         return $result;
     }
-}
 
+    //for blood drawing
+    public function getBloodDrawing($latest_schedule_id, $patient_id)
+    {
+        $bloodDrawings = DB::table('schedule_investigations')
+            ->leftjoin('investigation_labs', 'schedule_investigations.investigation_id', '=', 'investigation_labs.id')
+            ->select('schedule_investigations.investigation_lab_remark',
+                'schedule_investigations.investigation_labs_price',
+                'schedule_investigations.investigation_labs_type',
+                'investigation_labs.service_name',
+                'investigation_labs.description')
+            ->where('schedule_investigations.schedule_id',$latest_schedule_id)
+            ->where('schedule_investigations.patient_id',$patient_id)
+            ->where('schedule_investigations.investigation_id','!=',0)->get();
+        return $bloodDrawings;
+    }
+
+    public function getBloodDrawingRemark($latest_schedule_id, $patient_id)
+    {
+        $bloodDrawingRemark = DB::table('schedule_investigations')
+            ->select('investigation_lab_remark')
+            ->where('schedule_id',$latest_schedule_id)
+            ->where('patient_id',$patient_id)
+            ->where('investigation_lab_remark','!=',"")->first();
+        if(isset($bloodDrawingRemark) && count($bloodDrawingRemark)>0){
+            return $bloodDrawingRemark->investigation_lab_remark;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public function getScheduleProvisionalDiagnosisRemark($latest_schedule_id, $provisional_id)
+    {
+        $provisional_remark  = DB::table('schedule_provisional_diagnosis')->select('remark')
+            ->whereNull('deleted_at')
+            ->where('schedule_id','=',$latest_schedule_id)
+            ->where('provisional_id','=',$provisional_id)
+            ->first();
+        $provisional_remark = collect($provisional_remark)->map(function($x){ return (array) $x; })->toArray();
+        return $provisional_remark;
+    }
+
+    public function getSchedulesWithService($schedulesArray = [], $type = null, $from_date = null, $to_date = null) {
+//        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+//                    ->where('schedule_detail.type','=','service')
+//                    ->whereIn('schedules.id', $schedulesArray)
+//                    ->whereNull('schedules.deleted_at')
+//                    ->get();
+
+        $query = Schedule::query();
+        $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+        $query = $query->whereIn('schedules.id', $schedulesArray);
+        $query = $query->where('schedule_detail.type','=','service');
+        $query = $query->whereNull('schedules.deleted_at');
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime('01-01-'.$from_date));
+                $query = $query->where('schedules.date', '>=' , $tempFromDate);
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime('31-12-'.$to_date));
+                $query = $query->where('schedules.date', '<=', $tempToDate);
+            }
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime('01-'.$from_date));
+                $query = $query->where('schedules.date', '>=' , $tempFromDate);
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime('31-'.$to_date));
+                $query = $query->where('schedules.date', '<=', $tempToDate);
+            }
+        }
+        else{
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime($from_date));
+                $query = $query->where('schedules.date', '>=' , $tempFromDate);
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime($to_date));
+                $query = $query->where('schedules.date', '<=', $tempToDate);
+            }
+        }
+
+        $query = $query->orderBy('schedules.date','desc');
+        $result = $query->get();
+
+        return $result;
+    }
+
+    public function getSchedulesByDate($type = null,$date = null) {
+
+        // $result = Schedule::where('date','=',$date)->where('status','=','complete')->get();
+        // $result = Schedule::whereDate('updated_at','=',$date)->where('status','=','complete')->get();
+
+        $query = Schedule::query();
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            if(isset($date) && $date != null){
+                $temp_date = "01-01-".$date;
+                $year = date("Y", strtotime($temp_date));
+                $query = $query->whereYear('schedules.updated_at','=',$year);
+            }
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            if(isset($date) && $date != null){
+                $temp_date = "01-".$date;
+                $month = date("m", strtotime($temp_date));
+                $query = $query->whereMonth('schedules.updated_at','=',$month);
+            }
+        }
+        else{
+            if(isset($date) && $date != null){
+                $temp_date = date("Y-m-d", strtotime($date));
+                $query = $query->whereDate('schedules.updated_at','=',$temp_date);
+            }
+        }
+
+        $query = $query->whereNull('schedules.deleted_at');
+        $query = $query->where('status','=','complete');
+        $result = $query->get();
+        return $result;
+    }
+
+    public function getEachVisitByDate($type,$date,$service_id) {
+
+        // $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+        //     // ->where('schedules.date','=',$date)
+        //     ->whereDate('schedules.updated_at','=',$date)
+        //     ->where('schedules.status','=','complete')
+        //     ->where('schedule_detail.service_id','=',$service_id)
+        //     ->get();
+
+        $query = Schedule::query();
+        $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            if(isset($date) && $date != null){
+                $temp_date = "01-01-".$date;
+                $year = date("Y", strtotime($temp_date));
+                $query = $query->whereYear('schedules.updated_at','=',$year);
+            }
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            if(isset($date) && $date != null){
+                $temp_date = "01-".$date;
+                $month = date("m", strtotime($temp_date));
+                $query = $query->whereMonth('schedules.updated_at','=',$month);
+            }
+        }
+        else{
+            if(isset($date) && $date != null){
+                $temp_date = date("Y-m-d", strtotime($date));
+                $query = $query->whereDate('schedules.updated_at','=',$temp_date);
+            }
+        }
+
+        $query = $query->whereNull('schedules.deleted_at');
+        $query = $query->where('schedules.status','=','complete');
+        $query = $query->where('schedule_detail.type','=','service');
+        $query = $query->where('schedule_detail.service_id','=',$service_id);
+        $result = $query->get();
+        return $result;
+    }
+
+    public function getScheduleOtherServices($latest_schedule_id, $patient_id,$servicesArray){
+        $otherServices     = DB::table('other_services')
+            ->leftjoin('other_services_detail','other_services.id','=','other_services_detail.other_services_id')
+            ->select('other_services.id','other_services_detail.name','other_services_detail.remark')
+            ->whereNull('other_services.deleted_at')
+            ->where('other_services.schedule_id','=',$latest_schedule_id)
+            ->where('other_services.patient_id','=',$patient_id)
+            // ->whereIn('other_services.service_id',$servicesArray)
+            ->get();
+        return $otherServices;
+    }
+
+    public function getEachVisitByMonth($month,$service_id) {
+        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+            ->where('schedule_detail.service_id','=',$service_id)
+            ->where('schedules.status','=','complete')
+            ->whereYear('schedules.date','=',date('Y'))
+            ->whereMonth('schedules.date','=',$month)
+            ->get();
+
+        return $result;
+    }
+
+    public function getEachVisitByYearAndMonth($year,$month,$service_id) {
+        $result = Schedule::leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id')
+            ->where('schedule_detail.service_id','=',$service_id)
+            ->where('schedules.status','=','complete')
+            ->whereYear('schedules.date','=',$year)
+            ->whereMonth('schedules.date','=',$month)
+            ->get();
+
+        return $result;
+    }
+
+    public function getServiceIdByScheduleId($schedule_id){
+        $result = DB::table('schedule_detail')->where('schedule_id','=',$schedule_id)->first();
+        $service_id = $result->service_id;
+        return $service_id;
+    }
+
+    public function getSchedulesWithServiceByType($schedulesArray = [], $type = null, $from_date = null, $to_date = null) {
+                $query = Schedule::query();
+                $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+                $query = $query->whereIn('schedules.id', $schedulesArray);
+                $query = $query->where('schedule_detail.type','=','service');
+                $query = $query->whereNull('schedules.deleted_at');
+
+                if(isset($type) && $type != null && $type == 'yearly'){
+                    if(isset($from_date) && $from_date != null){
+                        $tempFromDate = date("Y-m-d", strtotime('01-01-'.$from_date));
+                        $query = $query->where('schedules.date', '>=' , $tempFromDate);
+                    }
+                    if(isset($to_date) && $to_date != null){
+                        $tempToDate = date("Y-m-d", strtotime('31-12-'.$to_date));
+                        $query = $query->where('schedules.date', '<=', $tempToDate);
+                    }
+                }
+                else if(isset($type) && $type != null && $type == 'monthly'){
+                    if(isset($from_date) && $from_date != null){
+                        $tempFromDate = date("Y-m-d", strtotime('01-'.$from_date));
+                        $query = $query->where('schedules.date', '>=' , $tempFromDate);
+                    }
+                    if(isset($to_date) && $to_date != null){
+                        $tempToDate = date("Y-m-d", strtotime('31-'.$to_date));
+                        $query = $query->where('schedules.date', '<=', $tempToDate);
+                    }
+                }
+                else{
+                    if(isset($from_date) && $from_date != null){
+                        $tempFromDate = date("Y-m-d", strtotime($from_date));
+                        $query = $query->where('schedules.date', '>=' , $tempFromDate);
+                    }
+                    if(isset($to_date) && $to_date != null){
+                        $tempToDate = date("Y-m-d", strtotime($to_date));
+                        $query = $query->where('schedules.date', '<=', $tempToDate);
+                    }
+                }
+
+                $query = $query->orderBy('schedules.date','desc');
+                $result = $query->get();
+
+                return $result;
+    }
+
+    public function getSchedulesGroupedByDate($type = null,$date = null){
+        $query = Schedule::query();
+        $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+        $query = $query->where('schedule_detail.type','=','service');
+        // $query = $query->where('schedules.updated_at','=',$date);
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            // $query = $query->where(DB::raw("DATE(schedules.updated_at)"),'=',$date);
+            $temp_date = "01-01-".$date;
+            $year = date("Y", strtotime($temp_date));
+            $query = $query->whereYear('schedules.updated_at','=',$year);
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            // $query = $query->where(DB::raw("DATE(schedules.updated_at)"),'=',$date);
+            $temp_date = "01-".$date;
+            $month = date("m", strtotime($temp_date));
+            $query = $query->whereMonth(DB::raw("DATE(schedules.updated_at)"),'=',$month);
+        }
+        else{
+            // $query = $query->where(DB::raw("DATE(schedules.updated_at)"),'=',$date);
+            $temp_date = date("Y-m-d", strtotime($date));
+            $query = $query->whereDate('schedules.updated_at', '=', $temp_date);
+        }
+        $query = $query->where('schedules.status','=','complete');
+
+        $result = $query->get();
+
+        return $result;
+    }
+
+    public function getSchedulesWithServiceByFilter($schedulesArray = [], $type = null, $from_date = null, $to_date = null) {
+        $query = Schedule::query();
+        $query = $query->leftjoin('schedule_detail', 'schedule_detail.schedule_id', '=', 'schedules.id');
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            $query = $query->select(DB::raw('DATE_FORMAT(schedules.updated_at,"%Y") as formatted_date'),'schedules.*','schedule_detail.*');
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            $query = $query->select(DB::raw('DATE_FORMAT(schedules.updated_at,"%m-%Y") as formatted_date'),'schedules.*','schedule_detail.*');
+        }
+        else{
+            $query = $query->select(DB::raw('DATE_FORMAT(schedules.updated_at,"%d-%m-%Y") as formatted_date'),'schedules.*','schedule_detail.*');
+        }
+
+        $query = $query->whereIn('schedules.id', $schedulesArray);
+        $query = $query->where('schedules.status','=','complete');
+        $query = $query->where('schedule_detail.type','=','service');
+        $query = $query->whereNull('schedules.deleted_at');
+
+        if(isset($type) && $type != null && $type == 'yearly'){
+            if(isset($from_date) && $from_date != null){
+                $temp_from_date = "01-01-".$from_date;
+                $from_year = date("Y", strtotime($temp_from_date));
+                $query = $query->whereYear('schedules.updated_at','>=',$from_year);
+            }
+            if(isset($to_date) && $to_date != null){
+                $temp_to_date = "01-01-".$to_date;
+                $to_year = date("Y", strtotime($temp_to_date));
+                $query = $query->whereYear('schedules.updated_at','<=',$to_year);
+            }
+        }
+        else if(isset($type) && $type != null && $type == 'monthly'){
+            if(isset($from_date) && $from_date != null){
+                $temp_from_date = "01-".$from_date;
+                $from_month = date("m", strtotime($temp_from_date));
+                $query = $query->whereMonth('schedules.updated_at','>=',$from_month);
+            }
+            if(isset($to_date) && $to_date != null){
+                $temp_to_date = "01-".$to_date;
+                $to_month = date("m", strtotime($temp_to_date));
+                $query = $query->whereMonth('schedules.updated_at','<=',$to_month);
+            }
+        }
+        else{
+            if(isset($from_date) && $from_date != null){
+                $tempFromDate = date("Y-m-d", strtotime($from_date));
+                // $query = $query->where('schedules.updated_at', '>=' , $tempFromDate.' 00:00:00');
+                $query = $query->whereDate('schedules.updated_at','>=',$tempFromDate);
+            }
+            if(isset($to_date) && $to_date != null){
+                $tempToDate = date("Y-m-d", strtotime($to_date));
+                // $query = $query->where('schedules.updated_at', '<=', $tempToDate.' 23:59:59');
+                $query = $query->whereDate('schedules.updated_at','<=',$tempToDate);
+            }
+        }
+
+        $query = $query->orderBy('schedules.updated_at','desc');
+        $result = $query->get();
+
+        return $result;
+    }
+
+    public function getScheduleDetailServices($id,$type){
+        $tempObj = DB::select("SELECT * FROM schedule_detail WHERE schedule_id = '$id' AND type = '$type'");
+        return $tempObj;
+    }
+
+    public function getArraysByUser($user_id){
+        // $tempObj = DB::select("SELECT * FROM schedules WHERE deleted_at is null ORDER BY date DESC");
+        $tempObj = Schedule::where('leader_id','=',$user_id)
+                            ->leftjoin('patients', 'schedules.patient_id', '=', 'patients.user_id')
+                            ->whereNull('schedules.deleted_at')
+                            ->whereNull('patients.deleted_at')
+                            ->orderby('schedules.updated_at','desc')
+                            ->get();
+        return $tempObj;
+    }
+
+    public function getObjsByUser($user_id, $schedule_status = null, $from_date = null, $to_date = null)
+    {
+        $query = Schedule::query();
+        $query = $query->leftjoin('patients', 'patients.user_id', '=', 'schedules.patient_id');
+        if(isset($schedule_status) && $schedule_status != null && $schedule_status <> 'all'){
+            $query = $query->where('schedules.status', $schedule_status);
+        }
+        if(isset($from_date) && $from_date != null){
+            $tempFromDate = date("Y-m-d", strtotime($from_date));
+            $query = $query->where('schedules.date', '>=' , $tempFromDate);
+        }
+        if(isset($to_date) && $to_date != null){
+            $tempToDate = date("Y-m-d", strtotime($to_date));
+            $query = $query->where('schedules.date', '<=', $tempToDate);
+        }
+        $query = $query->whereNull('schedules.deleted_at');
+        $query = $query->whereNull('patients.deleted_at');
+        $query = $query->where('schedules.leader_id', '=', $user_id);
+        $objs = $query->get();
+
+        return $objs;
+    }
+
+    public function getTreatmentProcedure($latest_schedule_id){
+        $treatments     = DB::table('schedule_treatment_histories')
+                          ->leftjoin('products','products.id','=','schedule_treatment_histories.product_id')
+                          ->select('products.product_name','products.price','schedule_treatment_histories.*')
+                          ->whereNull('schedule_treatment_histories.deleted_at')
+                          ->where('schedule_treatment_histories.schedule_id','=',$latest_schedule_id)
+                          ->where('schedule_treatment_histories.flag','=', 3) //for treatment procedures
+                          ->whereNotNull('schedule_treatment_histories.product_id')
+                          ->where('schedule_treatment_histories.product_id','!=','')
+                          ->get();
+
+        return $treatments;
+    }
+
+}

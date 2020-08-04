@@ -189,4 +189,69 @@ class UserRepository implements UserRepositoryInterface
             ->get();
         return $result;
     }
+
+    public function disable_user($id){
+        $currentUser = Utility::getCurrentUserID(); //get currently logged in user
+        try{
+            if($id != 'U0001'){
+                //DB::table('core_users')->where('id',$id)->update(['deleted_at'=> date('Y-m-d H:m:i')]);
+                $userObj = User::find($id);
+                $userObj = Utility::addUpdatedBy($userObj);
+                $userObj->active = 0; //change status to 0; i.e. inactive
+                $userObj->updated_at = date('Y-m-d H:m:i');
+                $userObj->save();
+
+                //disable info log
+                $date = $userObj->updated_at;
+                $message = '['. $date .'] '. 'info: ' . 'User '.$currentUser.' disabled user_id = '.$userObj->id . PHP_EOL;
+                LogCustom::create($date,$message);
+            }
+            else{
+                //disable error log
+                $date    = date("Y-m-d H:i:s");
+                $message = '['. $date .'] '. 'error: ' . 'User '.$currentUser.' disabled  user_id = U0001 and got error'. PHP_EOL;
+                LogCustom::create($date,$message);
+            }
+
+        }
+        catch(\Exception $e){
+            //disable error log
+            $date    = date("Y-m-d H:i:s");
+            $message = '['. $date .'] '. 'error: ' . 'User '.$currentUser.' disabled  user_id = ' .$userObj->id. ' and got error -------'.$e->getMessage(). ' ----- line ' .$e->getLine(). ' ----- ' .$e->getFile(). PHP_EOL;
+            LogCustom::create($date,$message);
+        }
+    }
+
+    public function enable_user($id){
+        $currentUser = Utility::getCurrentUserID(); //get currently logged in user
+        try{
+            if($id != 'U0001'){
+                //DB::table('core_users')->where('id',$id)->update(['deleted_at'=> date('Y-m-d H:m:i')]);
+                $userObj = User::find($id);
+                $userObj = Utility::addUpdatedBy($userObj);
+                $userObj->active = 1; //change status to 1; i.e. active
+                $userObj->updated_at = date('Y-m-d H:m:i');
+                $userObj->save();
+
+                //enable info log
+                $date = $userObj->updated_at;
+                $message = '['. $date .'] '. 'info: ' . 'User '.$currentUser.' enabled user_id = '.$userObj->id . PHP_EOL;
+                LogCustom::create($date,$message);
+            }
+            else{
+                //enable error log
+                $date    = date("Y-m-d H:i:s");
+                $message = '['. $date .'] '. 'error: ' . 'User '.$currentUser.' enabled  user_id = U0001 and got error'. PHP_EOL;
+                LogCustom::create($date,$message);
+            }
+
+
+        }
+        catch(\Exception $e){
+            //enable error log
+            $date    = date("Y-m-d H:i:s");
+            $message = '['. $date .'] '. 'error: ' . 'User '.$currentUser.' enabled  user_id = ' .$userObj->id. ' and got error -------'.$e->getMessage(). ' ----- line ' .$e->getLine(). ' ----- ' .$e->getFile(). PHP_EOL;
+            LogCustom::create($date,$message);
+        }
+    }
 }

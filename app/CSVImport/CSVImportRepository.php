@@ -156,5 +156,94 @@ class CSVImportRepository implements CSVImportRepositoryInterface
         }
     }
 
+    public function createInvestigationLabs($data,$user_id,$today){
+        $returnedObj = array();
+        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+        try{
+            $values = $data."','".$user_id."','".$user_id."','".$today."','".$today;
+
+            DB::insert("INSERT INTO investigation_labs(id,service_name,description,routine_price,urgent_price,created_by,updated_by,created_at,updated_at) VALUES ('$values')");
+
+            $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
+            return $returnedObj;
+
+        }catch (\Exception $e){
+            $returnedObj['aceplusStatusMessage'] = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
+            return $returnedObj;
+        }
+    }
+
+    public function createTownships($data,$user_id,$today){
+        $returnedObj = array();
+        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+        try{
+
+            $values = $data."','".$user_id."','".$user_id."','".$today."','".$today;
+
+            DB::insert("INSERT INTO townships (id,name,city_id,remark,created_by,updated_by,created_at,updated_at) VALUES ('$values')");
+
+            $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
+            return $returnedObj;
+
+        }catch (\Exception $e){
+            $returnedObj['aceplusStatusMessage'] = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
+            return $returnedObj;
+        }
+    }
+
+    public function createZones($data,$user_id,$today){
+        $returnedObj = array();
+        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+        try{
+
+            $values = $data."','".$user_id."','".$user_id."','".$today."','".$today;
+
+            DB::insert("INSERT INTO zones (id,name,description,created_by,updated_by,created_at,updated_at) VALUES ('$values')");
+
+            $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
+            return $returnedObj;
+
+        }catch (\Exception $e){
+            $returnedObj['aceplusStatusMessage'] = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
+            return $returnedObj;
+        }
+    }
+
+    public function createZoneDetail($data,$user_id,$today){
+        $returnedObj = array();
+        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+        try{
+
+            $values = $data;
+
+            DB::insert("INSERT INTO zone_detail (zone_id,township_id) VALUES ('$values')");
+
+            $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
+            return $returnedObj;
+
+        }catch (\Exception $e){
+            $returnedObj['aceplusStatusMessage'] = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
+            return $returnedObj;
+        }
+    }
+
+    public function createCarTypeSetup($data,$user_id,$today){
+        $returnedObj = array();
+        $returnedObj['aceplusStatusCode'] = ReturnMessage::INTERNAL_SERVER_ERROR;
+        try{
+
+            $values = $data."','".$user_id."','".$user_id."','".$today."','".$today;
+
+            DB::insert("INSERT INTO car_type_setup (id,car_type_id,price,patient_type_id,zone_id,remark,created_by,updated_by,created_at,updated_at) VALUES ('$values')");
+
+            $returnedObj['aceplusStatusCode'] = ReturnMessage::OK;
+            return $returnedObj;
+
+        }catch (\Exception $e){
+            $returnedObj['aceplusStatusMessage'] = $e->getMessage(). " ----- line " .$e->getLine(). " ----- " .$e->getFile();
+            return $returnedObj;
+        }
+    }
+
 
 }

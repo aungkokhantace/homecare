@@ -61,6 +61,7 @@
                     <tr>
                         <th>Invoice ID</th>
                         <th>Patient Name</th>
+                        <th>Patient Age</th>
                         <th>Township</th>
                         <th>Car Type</th>
                         <th>Date</th>
@@ -71,6 +72,7 @@
                     <tr>
                         <th class="search-col" con-id="invoiceID">Invoice ID</th>
                         <th class="search-col" con-id="patient_name">Patient Name</th>
+                        <th class="search-col" con-id="patient_name">Patient Age</th>
                         <th class="search-col" con-id="township">Township</th>
                         <th class="search-col" con-id="cartype">Car Type</th>
                         <th class="search-col" con-id="date">Date</th>
@@ -82,6 +84,7 @@
                         <tr>
                             <td><a href="/salesummaryreport/invoicedetail/{{$sale->id}}">{{$sale->id}}</a></td>
                             <td>{{$sale->patient}}</td>
+                            <td>{{$sale->age}}</td>
                             <td>{{$sale->township}}</td>
                             <td>
                                 @if($sale->invoice_type == 'invoice')
@@ -91,11 +94,12 @@
                                 @endif
                             </td>
                             <td>{{$sale->date}}</td>
-                            <td align="right">{{$sale->amount}}</td>
+                            <td align="right">{{number_format($sale->amount,2)}}</td>
                         </tr>
                     @endforeach
                         <tr bgcolor="#1976d3">
                             <td style = "color:white">Grand Total</td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -122,16 +126,15 @@
 
             var table = $('#list-table').DataTable({
                 aLengthMenu: [
-                    [5,25, 50, 100, 200, -1],
-                    [5,25, 50, 100, 200, "All"]
+                    [10,15,25, 50, 100, 200, -1],
+                    [10,15,25, 50, 100, 200, "All"]
                 ],
                 iDisplayLength: 5,
-                "order": [[ 2, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 stateSave: false,
                 "pagingType": "full",
-                "paging":   false,
                 "dom": '<"pull-right m-t-20"i>rt<"bottom"lp><"clear">',
-
+                "pageLength": 15
             });
 
             // Apply the search

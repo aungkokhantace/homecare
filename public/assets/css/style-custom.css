@@ -74,7 +74,8 @@ background: #66ccff !important;
 .text-theme,
 .sidebar .sub-menu > li.active > a:before {
     /*color: #f59c1a !important;*/
-    color: #66ccff !important;
+    /*color: #66ccff !important;*/
+    color: #d0f507 !important;
 }
 @media (max-width: 767px) {
     .navbar-inverse .navbar-header {
@@ -172,3 +173,91 @@ background: #66ccff !important;
   fill: #f2d380;
 }
 /*End amcharts css*/
+
+
+/*for large size radio buttons*/
+.large_radio{
+  width:20px;
+  height:20px;
+}
+
+/*For Uppercase inputs*/
+.uppercase_text_box{
+  text-transform:uppercase;
+}
+
+/*For resp_rate > 20, show in red color*/
+.red_text{
+  color:red;
+}
+
+/*For center aligned elements in patient detail page*/
+.center_aligned{
+  text-align: center;
+}
+
+/*For centered image*/
+.center_image{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 150px;
+  max-height: 200px;
+}
+
+/*For panel headings in patient detail page*/
+.patient_detail_heading{
+  /* background: darkorange !important; */
+  background: #418DD8 !important;
+}
+
+/* start chart divs */
+#visit_chart_div{
+    width : 100%;
+    height  : 500px;
+}
+
+#profit_chart_div{
+    width : 100%;
+    height  : 500px;
+}
+/* end chart divs */
+
+/* start color spans shown in charts */
+.colored-span{
+  display:block;
+  width: 20px; 
+  height: 20px;
+  margin-left: 45px;
+}
+
+.mo-color{
+  background-color:#F0D122;
+}
+
+.musculo-color{
+  background-color:#52F23B;
+}
+
+.neuro-color{
+  background-color:#F72B0B;
+}
+
+.nutrition-color{
+  background-color:#0B53F7;
+}
+
+.blooddrawing-color{
+  background-color:#EC0BF7;
+}
+
+.packagesale-color{
+  background-color:#2E2E2E;
+}
+/* end color spans shown in charts */
+
+/* for min_width td in reports */
+.min_width_date{
+  min-width: 65px;
+}
+/* for min_width td in reports */

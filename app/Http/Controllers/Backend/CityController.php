@@ -107,12 +107,26 @@ class CityController extends Controller
 
         $id         = Input::get('selected_checkboxes');
         $new_string = explode(',', $id);
+        $delete_flag = true;
         foreach($new_string as $id){
-            $this->cityRepository->delete($id);
+            $check = $this->cityRepository->checkToDelete($id);
+            if(isset($check) && count($check)>0){
+                alert()->warning('There are townships with this city_id = '.$id)->persistent('OK');
+                $delete_flag = false;
+            }
+            else{
+                $this->cityRepository->delete($id);
+            }
         }
-        return redirect()->action('Backend\CityController@index')
-            ->withMessage(FormatGenerator::message('Success', 'City deleted ...'));
 
+        if($delete_flag){
+            return redirect()->action('Backend\CityController@index')
+                ->withMessage(FormatGenerator::message('Success', 'City deleted ...'));
+        }
+        else{
+            return redirect()->action('Backend\CityController@index')
+                ->withMessage(FormatGenerator::message('Fail', 'City did not delete ...'));
+        }
     }
 
 }

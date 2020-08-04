@@ -25,6 +25,7 @@ class Default_RoleSeeder extends Seeder
             ['id'=>6, 'name'=>'MO', 'description'=>'This is MO role'],
             ['id'=>7, 'name'=>'CONSULTANT', 'description'=>'This is consultant role'],
             ['id'=>8, 'name'=>'NURSE', 'description'=>'This is nurse role']
+            ['id'=>9, 'name'=>'PHYSIOTHERAPY', 'description'=>'This is physiotherapy role']
         );
 
         DB::table('core_roles')->insert($roles);

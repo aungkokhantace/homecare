@@ -104,17 +104,19 @@
             @if(isset($patient)&& ($patient->having_allergy == 1))
                 @foreach($patient['allergies']['food'] as $allergy)
                     @if($allergy->selected == 1)
-                        <label for="allergy">{{$allergy->name}}<br /></label>
-                    @else
-                        <?php continue; ?>
+                        <label for="allergy">[Food] - {{$allergy->name}}<br /></label>
                     @endif
                 @endforeach
-                <br/>
+                {{--<br/>--}}
                 @foreach($patient['allergies']['drug'] as $allergy)
                     @if($allergy->selected == 1)
-                        <label for="allergy">{{$allergy->name}}<br /></label>
-                    @else
-                        <?php continue; ?>
+                        <label for="allergy">[Drug] - {{$allergy->name}}<br /></label>
+                    @endif
+                @endforeach
+                {{--<br/>--}}
+                @foreach($patient['allergies']['environment'] as $allergy)
+                    @if($allergy->selected == 1)
+                        <label for="allergy">[Environment] - {{$allergy->name}}<br /></label>
                     @endif
                 @endforeach
             @endif
@@ -294,7 +296,7 @@
         </div>
 
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-            <input type="button" value="CANCEL" class="form-control cancel_btn" onclick="cancel_setup('enquiry')">
+            <input type="button" value="CANCEL" class="form-control cancel_btn" onclick="cancel_to_dashboard();">
         </div>
     </div>
     {!! Form::close() !!}

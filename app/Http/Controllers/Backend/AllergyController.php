@@ -111,12 +111,24 @@ class AllergyController extends Controller
 
         $id         = Input::get('selected_checkboxes');
         $new_string = explode(',', $id);
+        $delete_flag = true;
         foreach($new_string as $id){
-            $this->allergyRepository->delete($id);
+            $check = $this->allergyRepository->checkToDelete($id);
+            if(isset($check) && count($check)>0){
+                alert()->warning('There are patients who have this allergy_id = '.$id)->persistent('OK');
+                $delete_flag = false;
+            }
+            else{
+                $this->allergyRepository->delete($id);
+            }
         }
-        return redirect()->action('Backend\AllergyController@index')
-            ->withMessage(FormatGenerator::message('Success', 'Allergy deleted ...'));
-
+        if($delete_flag){
+            return redirect()->action('Backend\AllergyController@index')
+                ->withMessage(FormatGenerator::message('Success', 'Allergy deleted ...'));
+        }
+        else{
+            return redirect()->action('Backend\AllergyController@index')
+                ->withMessage(FormatGenerator::message('Fail', 'Allergy did not delete ...'));
+        }
     }
-
 }

@@ -28,6 +28,8 @@ class ConfigController extends Controller
         if (Auth::guard('User')->check()) {
 
             $configs      = $this->ConfigRepository->getSiteConfigs();
+            $taxPercent   = Utility::getTaxRate();
+            $maxDiscountTime   = Utility::getMaxDiscountTime();
 
             if (is_null($configs) || count($configs) == 0)
             {
@@ -35,6 +37,11 @@ class ConfigController extends Controller
                 $configs['SETTING_COMPANY_NAME'] = "";
                 $configs['SETTING_LOGO'] = "";
                 $configs['SETTING_SITE_ACTIVATION_KEY'] = "";
+                $configs['MAX_DISCOUNT_TIME'] = "";
+
+                $configs['SETTING_ADDRESS'] = "";
+                $configs['SETTING_CONTACT_PHONE'] = "";
+                $configs['SETTING_CONTACT_EMAIL'] = "";
 
                 return view('core.config.config')->with('configs', $configs);
             }
@@ -61,6 +68,21 @@ class ConfigController extends Controller
             if(!array_key_exists("SETTING_SITE_ACTIVATION_KEY",$tempConfigs)){
                 $tempConfigs["SETTING_SITE_ACTIVATION_KEY"] = "";
             }
+            $tempConfigs["TAX_RATE"] = $taxPercent;
+
+            $tempConfigs["MAX_DISCOUNT_TIME"] = $maxDiscountTime;
+
+            if(!array_key_exists("SETTING_ADDRESS",$tempConfigs)){
+                $tempConfigs["SETTING_ADDRESS"] = "";
+            }
+
+            if(!array_key_exists("SETTING_CONTACT_PHONE",$tempConfigs)){
+                $tempConfigs["SETTING_CONTACT_PHONE"] = "";
+            }
+
+            if(!array_key_exists("SETTING_CONTACT_EMAIL",$tempConfigs)){
+                $tempConfigs["SETTING_CONTACT_EMAIL"] = "";
+            }
 
             return view('core.config.config')->with('configs', $tempConfigs);
 
@@ -72,8 +94,14 @@ class ConfigController extends Controller
         if (Auth::guard('User')->check()) {
 
             $SETTING_COMPANY_NAME = Input::get('SETTING_COMPANY_NAME');
-            $SETTING_SITE_ACTIVATION_KEY = Input::get('SETTING_SITE_ACTIVATION_KEY');
+            // $SETTING_SITE_ACTIVATION_KEY = Input::get('SETTING_SITE_ACTIVATION_KEY');
             $removeImageFlag = Input::get('removeImageFlag');
+            $TAX_RATE = Input::get('TAX_RATE');
+            $MAX_DISCOUNT_TIME = Input::get('MAX_DISCOUNT_TIME');
+
+            $SETTING_ADDRESS        = Input::get('SETTING_ADDRESS');
+            $SETTING_CONTACT_PHONE  = Input::get('SETTING_CONTACT_PHONE');
+            $SETTING_CONTACT_EMAIL  = Input::get('SETTING_CONTACT_EMAIL');
 
             $currentUser = Utility::getCurrentUserID(); //get currently logged in user
 
@@ -92,8 +120,25 @@ class ConfigController extends Controller
                 DB::statement("DELETE FROM `$this->tbConfig` WHERE `code` = 'SETTING_COMPANY_NAME'");
                 $result = DB::statement("INSERT INTO `$this->tbConfig` (code,type,value,description,updated_by,updated_at) VALUES ('SETTING_COMPANY_NAME','SETTING','$SETTING_COMPANY_NAME','Company Name','$loginUserId','$updated_at')");
 
+                /*
                 DB::statement("DELETE FROM `$this->tbConfig` WHERE `code` = 'SETTING_SITE_ACTIVATION_KEY'");
                 $result = DB::statement("INSERT INTO `$this->tbConfig` (code,type,value,description,updated_by,updated_at) VALUES ('SETTING_SITE_ACTIVATION_KEY','SETTING','$SETTING_SITE_ACTIVATION_KEY','Site Activation Key','$loginUserId','$updated_at')");
+                */
+
+                DB::statement("DELETE FROM `core_settings` WHERE `code` = 'TAX_RATE' AND `type` = 'TAX_RATE'");
+                $result = DB::statement("INSERT INTO `core_settings` (code,type,value,description,updated_by,updated_at) VALUES ('TAX_RATE','TAX_RATE','$TAX_RATE','Tax Rate','$loginUserId','$updated_at')");
+
+                DB::statement("DELETE FROM `core_settings` WHERE `code` = 'MAX_DISCOUNT_TIME' AND `type` = 'MAX_DISCOUNT_TIME'");
+                $result = DB::statement("INSERT INTO `core_settings` (code,type,value,description,updated_by,updated_at) VALUES ('MAX_DISCOUNT_TIME','MAX_DISCOUNT_TIME','$MAX_DISCOUNT_TIME','Maximum time that discount coupon can be used','$loginUserId','$updated_at')");
+
+                DB::statement("DELETE FROM `$this->tbConfig` WHERE `code` = 'SETTING_ADDRESS'");
+                $result = DB::statement("INSERT INTO `$this->tbConfig` (code,type,value,description,updated_by,updated_at) VALUES ('SETTING_ADDRESS','SETTING','$SETTING_ADDRESS','Company Address','$loginUserId','$updated_at')");
+
+                DB::statement("DELETE FROM `$this->tbConfig` WHERE `code` = 'SETTING_CONTACT_PHONE'");
+                $result = DB::statement("INSERT INTO `$this->tbConfig` (code,type,value,description,updated_by,updated_at) VALUES ('SETTING_CONTACT_PHONE','SETTING','$SETTING_CONTACT_PHONE','Company Contact Phone','$loginUserId','$updated_at')");
+
+                DB::statement("DELETE FROM `$this->tbConfig` WHERE `code` = 'SETTING_CONTACT_EMAIL'");
+                $result = DB::statement("INSERT INTO `$this->tbConfig` (code,type,value,description,updated_by,updated_at) VALUES ('SETTING_CONTACT_EMAIL','SETTING','$SETTING_CONTACT_EMAIL','Company Contact Email','$loginUserId','$updated_at')");
 
                 $path = base_path().'/public/images';
                 $path2 = base_path().'/public';

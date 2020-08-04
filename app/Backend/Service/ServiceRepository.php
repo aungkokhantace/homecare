@@ -131,4 +131,9 @@ class ServiceRepository implements ServiceRepositoryInterface
         $result = Service::find($id);
         return $result->name;
     }
+
+    public function getServicePriceById($id){
+        $result = Service::find($id);
+        return $result->price;
+    }
 }

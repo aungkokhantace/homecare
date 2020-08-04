@@ -77,6 +77,7 @@ class UserApiRepository implements UserApiRepositoryInterface
 
                 //Check update or create for log date
                 $findObj    = User::find($id);
+
                 if(isset($findObj) && count($findObj) > 0){
                     $tempArr['date'] = $row->updated_at;
                     $create = "updated";
@@ -85,25 +86,51 @@ class UserApiRepository implements UserApiRepositoryInterface
                     $tempArr['date'] = $row->created_at;
                     $create = "created";
                 }
-//                //clear patients data relating to input
-                DB::table('patients')
-                    ->where('user_id', '=', $id)
-//                    ->where('email', '=', $email)
-                    ->delete();
 
-//                //clear core_users data relating to input
-                DB::table('core_users')
-                    ->where('id', '=', $id)
-//                    ->where('email', '=', $email)
-                    ->delete();
+                if(isset($findObj) && count($findObj) > 0){
+                    $current_updated_at = "";
+                    $input_updated_at = "";
+
+                    $temp_current_updated_at = $findObj->updated_at;
+                    $current_updated_at = $temp_current_updated_at;
+
+                    $temp_input_updated_at = $row->updated_at;
+                    $input_updated_at = $temp_input_updated_at;
+
+                    //Incoming record's updated_at is later than existing record's updated_at;
+                    //So, the record incoming is updated later; So, database must be updated..
+                    if($input_updated_at > $current_updated_at){
+                        //clear patients data relating to input
+                        DB::table('patients')
+                            ->where('user_id', '=', $id)
+                            ->delete();
+
+                        //clear core_users data relating to input
+                        DB::table('core_users')
+                            ->where('id', '=', $id)
+                            ->delete();
+                    }
+                    //Incoming record's updated_at is not later than existing record's updated_at;
+                    //So, the record incoming is updated earlier; So, database doesn't need to be updated..
+                    else{
+                        // $returnedObj['aceplusStatusCode']       = ReturnMessage::OK;
+                        // $returnedObj['aceplusStatusMessage']    = "User data doesn't need to be updated!";
+                        // $returnedObj['log']                     = $tempLogArr;
+                        // return $returnedObj;
+                        continue;
+                    }
+                }
+
 
                 $paramObj               = new User();
                 $paramObj->id           = $row->id;
                 $paramObj->name         = $row->name;
-                $paramObj->password     = base64_encode($row->password);
+//                $paramObj->password     = base64_encode($row->password);
+                $paramObj->password     = $row->password;
                 $paramObj->phone        = $row->phone;
                 $paramObj->email        = $row->email;
                 $paramObj->fees         = $row->fees;
+                $paramObj->doctor_license_number         = $row->doctor_license_number;
 //                $paramObj->display_image= $row->display_image;
                 $paramObj->mobile_image = $row->mobile_image;
                 $paramObj->role_id      = $row->role_id;
@@ -136,6 +163,13 @@ class UserApiRepository implements UserApiRepositoryInterface
                     $paramObj->display_image= $display_image;
 
                     $file = base_path() . "/public/images/users/" . $display_image;
+
+                    $path = base_path().'/public/images/users/';
+                    if ( ! file_exists($path))
+                    {
+                        mkdir($path, 0777, true);
+                    }
+
                     $success = file_put_contents($file, $data);
                 }
 

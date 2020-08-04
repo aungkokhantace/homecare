@@ -40,6 +40,8 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>15],
             ['role_id'=>1, 'permission_id'=>16],
             ['role_id'=>1, 'permission_id'=>17],
+            ['role_id'=>1, 'permission_id'=>18],
+            ['role_id'=>1, 'permission_id'=>19],
 
             // Permissions
             ['role_id'=>1, 'permission_id'=>20],
@@ -113,6 +115,9 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>103],
             ['role_id'=>1, 'permission_id'=>104],
             ['role_id'=>1, 'permission_id'=>105],
+            ['role_id'=>1, 'permission_id'=>106],
+            ['role_id'=>1, 'permission_id'=>107],
+            ['role_id'=>1, 'permission_id'=>108],
 
 
             // Investigation
@@ -167,6 +172,7 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>165],
             ['role_id'=>1, 'permission_id'=>166],
             ['role_id'=>1, 'permission_id'=>167],
+            ['role_id'=>1, 'permission_id'=>168],
 
             // Schedule
             ['role_id'=>1, 'permission_id'=>200],
@@ -300,6 +306,24 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>1012],
             ['role_id'=>1, 'permission_id'=>1013],
 
+            //Patient Visit Report
+            ['role_id'=>1, 'permission_id'=>1030],
+            ['role_id'=>1, 'permission_id'=>1031],
+            ['role_id'=>1, 'permission_id'=>1032],
+
+            //Patient Daily Visit Report
+            ['role_id'=>1, 'permission_id'=>1040],
+            ['role_id'=>1, 'permission_id'=>1041],
+            ['role_id'=>1, 'permission_id'=>1042],
+            ['role_id'=>1, 'permission_id'=>1043],
+
+            //Sale Income Report
+            ['role_id'=>1, 'permission_id'=>1050],
+            ['role_id'=>1, 'permission_id'=>1051],
+            ['role_id'=>1, 'permission_id'=>1052],
+            // ['role_id'=>1, 'permission_id'=>1053],
+            // ['role_id'=>1, 'permission_id'=>1054],
+
             //Log Patient Case Summary
 
             ['role_id'=>1, 'permission_id'=>1014],
@@ -317,6 +341,10 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>1022],
             ['role_id'=>1, 'permission_id'=>1023],
 
+            //Patient Detail New
+            ['role_id'=>1, 'permission_id'=>1024],
+            ['role_id'=>2, 'permission_id'=>1024],
+
 
             // For Admin Role ( id = 2 )
 
@@ -331,6 +359,8 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>2, 'permission_id'=>15],
             ['role_id'=>2, 'permission_id'=>16],
             ['role_id'=>2, 'permission_id'=>17],
+            ['role_id'=>2, 'permission_id'=>18],
+            ['role_id'=>2, 'permission_id'=>19],
 
             // City
             ['role_id'=>2, 'permission_id'=>30],
@@ -395,6 +425,9 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>2, 'permission_id'=>103],
             ['role_id'=>2, 'permission_id'=>104],
             ['role_id'=>2, 'permission_id'=>105],
+            ['role_id'=>2, 'permission_id'=>106],
+            ['role_id'=>2, 'permission_id'=>107],
+            ['role_id'=>2, 'permission_id'=>108],
 
 
             // Investigation
@@ -449,6 +482,7 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>2, 'permission_id'=>165],
             ['role_id'=>2, 'permission_id'=>166],
             ['role_id'=>2, 'permission_id'=>167],
+            ['role_id'=>2, 'permission_id'=>168],
 
             // Schedule
             ['role_id'=>2, 'permission_id'=>200],
@@ -573,6 +607,7 @@ class Default_RolePermissionSeeder extends Seeder
 
             //Price History
             ['role_id'=>1, 'permission_id'=>311],
+            ['role_id'=>1, 'permission_id'=>312],
 
             //Api List
             ['role_id'=>1, 'permission_id'=>321],
@@ -581,6 +616,108 @@ class Default_RolePermissionSeeder extends Seeder
             ['role_id'=>1, 'permission_id'=>324],
             ['role_id'=>1, 'permission_id'=>325],
             ['role_id'=>1, 'permission_id'=>326],
+            ['role_id'=>1, 'permission_id'=>327],
+            ['role_id'=>1, 'permission_id'=>328],
+
+            //Tablet Issues
+            ['role_id'=>1, 'permission_id'=>330],
+
+            //Investigation Imaging
+            ['role_id'=>1, 'permission_id'=>340],
+            ['role_id'=>1, 'permission_id'=>341],
+            ['role_id'=>1, 'permission_id'=>342],
+            ['role_id'=>1, 'permission_id'=>343],
+            ['role_id'=>1, 'permission_id'=>344],
+            ['role_id'=>1, 'permission_id'=>345],
+
+            //Addendum
+            ['role_id'=>1, 'permission_id'=>346],
+
+            //For MO role to view dashboard
+            ['role_id'=>6, 'permission_id'=>16],
+
+            //Patient Visit Report
+            ['role_id'=>2, 'permission_id'=>1030],
+            ['role_id'=>2, 'permission_id'=>1031],
+            ['role_id'=>2, 'permission_id'=>1032],
+
+            //Patient Daily Visit Report
+            ['role_id'=>2, 'permission_id'=>1040],
+            ['role_id'=>2, 'permission_id'=>1041],
+            ['role_id'=>2, 'permission_id'=>1042],
+            ['role_id'=>2, 'permission_id'=>1043],
+
+            //Sale Income Report
+            ['role_id'=>2, 'permission_id'=>1050],
+            ['role_id'=>2, 'permission_id'=>1051],
+            ['role_id'=>2, 'permission_id'=>1052],
+            // ['role_id'=>2, 'permission_id'=>1053],
+            // ['role_id'=>2, 'permission_id'=>1054],
+
+            //MO permissions(role_id = 6)
+            //Enquiry
+            ['role_id'=>6, 'permission_id'=>140],
+            ['role_id'=>6, 'permission_id'=>141],
+            ['role_id'=>6, 'permission_id'=>142],
+            ['role_id'=>6, 'permission_id'=>143],
+            ['role_id'=>6, 'permission_id'=>144],
+            ['role_id'=>6, 'permission_id'=>145],
+            ['role_id'=>6, 'permission_id'=>146],
+            ['role_id'=>6, 'permission_id'=>147],
+            ['role_id'=>6, 'permission_id'=>148],
+
+            //Schedule
+            ['role_id'=>6, 'permission_id'=>200],
+            ['role_id'=>6, 'permission_id'=>201],
+            ['role_id'=>6, 'permission_id'=>202],
+            ['role_id'=>6, 'permission_id'=>203],
+            ['role_id'=>6, 'permission_id'=>204],
+            ['role_id'=>6, 'permission_id'=>205],
+            ['role_id'=>6, 'permission_id'=>206],
+            ['role_id'=>6, 'permission_id'=>207],
+
+            //Patient
+            ['role_id'=>6, 'permission_id'=>160],
+            ['role_id'=>6, 'permission_id'=>161],
+            ['role_id'=>6, 'permission_id'=>162],
+            ['role_id'=>6, 'permission_id'=>163],
+            ['role_id'=>6, 'permission_id'=>164],
+            ['role_id'=>6, 'permission_id'=>165],
+            ['role_id'=>6, 'permission_id'=>166],
+            ['role_id'=>6, 'permission_id'=>167],
+            ['role_id'=>6, 'permission_id'=>168],
+            ['role_id'=>6, 'permission_id'=>1024],
+            //for patient_detail->invoice & invoice export
+            ['role_id'=>6, 'permission_id'=>1012],
+            ['role_id'=>6, 'permission_id'=>1013],
+            //for patient_detail->addendum_store
+            ['role_id'=>6, 'permission_id'=>346],
+
+            //Package Sale
+            ['role_id'=>6, 'permission_id'=>210],
+            ['role_id'=>6, 'permission_id'=>211],
+            ['role_id'=>6, 'permission_id'=>212],
+            ['role_id'=>6, 'permission_id'=>213],
+            ['role_id'=>6, 'permission_id'=>214],
+            ['role_id'=>6, 'permission_id'=>215],
+
+            ['role_id'=>6, 'permission_id'=>110],
+            ['role_id'=>6, 'permission_id'=>113],
+            ['role_id'=>6, 'permission_id'=>114],
+
+            //Price History
+            ['role_id'=>2, 'permission_id'=>311],
+            ['role_id'=>2, 'permission_id'=>312],
+
+            //Schedule Tracking Report
+            ['role_id'=>1, 'permission_id'=>1060],
+            ['role_id'=>1, 'permission_id'=>1061],
+            ['role_id'=>1, 'permission_id'=>1062],
+            ['role_id'=>1, 'permission_id'=>1063],
+            ['role_id'=>2, 'permission_id'=>1060],
+            ['role_id'=>2, 'permission_id'=>1061],
+            ['role_id'=>2, 'permission_id'=>1062],
+            ['role_id'=>2, 'permission_id'=>1063],
 
         );
 

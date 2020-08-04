@@ -30,7 +30,7 @@ use App\Backend\Township\TownshipRepository;
 use App\Backend\Service\ServiceRepository;
 use App\Backend\Allergy\AllergyRepository;
 use App\Core\User\UserRepository;
-use App\Backend\CarType\CartypeRepository;
+use App\Backend\Cartype\CartypeRepository;
 use App\Backend\Schedule\ScheduleRepository;
 use App\Backend\Enquiry\EnquiryRepository;
 use App\User;
@@ -70,17 +70,96 @@ class ScheduleController extends Controller
                     $patients[$patient->user_id] = $patient;
                 }
 
-                $schedules      = $this->scheduleRepository->getArrays($schedule_status , $from_date , $to_date );
+                $servicesArray = array();
+                $serviceRepo = new ServiceRepository();
+                $servicesRaw = $serviceRepo->getArrays();
+                foreach($servicesRaw as $key=>$service) {
+                    $servicesArray[$service->id] = $service;
+                }
 
-                if(isset($schedules) && count($schedules)>0) {
-                    foreach ($schedules as $key => $schedule) {
-                        $tempPatientId = $schedule->patient_id;
-                        $patientTypeId = $patients[$tempPatientId]->patient_type_id;
-                        $patientName = $patients[$tempPatientId]->name;
-                        $schedules[$key]->patient_type = $patientTypes[$patientTypeId];
-                        $schedules[$key]->patient_name = $patientName;
+                $currentUserRole = Utility::getCurrentUserRole();
+                $currentUserID = Utility::getCurrentUserID();
+
+                //if currently logged in user is MO role, get only schedules that belong to him or her
+                if($currentUserRole == 6){
+                   $schedules      = $this->scheduleRepository->getArraysByUser($currentUserID);
+
+                   if(isset($schedules) && count($schedules)>0) {
+                       foreach ($schedules as $key => $schedule) {
+                           $tempPatientId = $schedule->patient_id;
+                           $patientTypeId = $patients[$tempPatientId]->patient_type_id;
+
+                           $patientName = $patients[$tempPatientId]->name;
+                           $schedules[$key]->patient_type = $patientTypes[$patientTypeId];
+                           $schedules[$key]->patient_name = $patientName;
+
+                           //get leader id
+                           $leader_id = $schedule->leader_id;
+                           $schedules[$key]->leader = $users[$leader_id]->name;
+
+                            //get service from schedule_detail
+                            $schedule_id = $schedule->id;
+                            $type = "service";
+
+                           //  $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
+                            $schedule_details = $this->scheduleRepository->getScheduleDetailServices($schedule_id,$type);
+                           if(isset($schedule_details) && count($schedule_details)>0){
+                               foreach($schedule_details as $detail){
+                                   $service_id = $detail->service_id;
+                                   if(array_key_exists('services',$schedules[$key])){
+                                       $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;
+                                   }
+                                   else{
+                                       $schedules[$key]->services  = $servicesArray[$service_id]->name;
+                                   }
+                               }
+                           }
+                           else{
+                               $schedules[$key]->services  = "";
+                           }
+                       }
+                   }
+                }
+                //login user is admin and show all schedules
+                else{
+                    $schedules      = $this->scheduleRepository->getArrays($schedule_status , $from_date , $to_date );
+                    if(isset($schedules) && count($schedules)>0) {
+                        foreach ($schedules as $key => $schedule) {
+                            $tempPatientId = $schedule->patient_id;
+                            $patientTypeId = $patients[$tempPatientId]->patient_type_id;
+
+                            $patientName = $patients[$tempPatientId]->name;
+                            $schedules[$key]->patient_type = $patientTypes[$patientTypeId];
+                            $schedules[$key]->patient_name = $patientName;
+
+                            //get leader id
+                            $leader_id = $schedule->leader_id;
+                            $schedules[$key]->leader = $users[$leader_id]->name;
+
+                             //get service from schedule_detail
+                             $schedule_id = $schedule->id;
+                             $type = "service";
+
+                            //  $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
+                             $schedule_details = $this->scheduleRepository->getScheduleDetailServices($schedule_id,$type);
+                            if(isset($schedule_details) && count($schedule_details)>0){
+                                foreach($schedule_details as $detail){
+                                    $service_id = $detail->service_id;
+                                    if(array_key_exists('services',$schedules[$key])){
+                                        $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;
+                                    }
+                                    else{
+                                        $schedules[$key]->services  = $servicesArray[$service_id]->name;
+                                    }
+                                }
+                            }
+                            else{
+                                $schedules[$key]->services  = "";
+                            }
+                        }
                     }
                 }
+
                 return view('backend.schedule.index')
                     ->with('schedules', $schedules)
                     ->with('schedule_status', $schedule_status)
@@ -202,9 +281,11 @@ class ScheduleController extends Controller
             $allergyRepo            = new AllergyRepository();
             $allergyFood            = $allergyRepo->getArraysByType('food');
             $allergyDrug            = $allergyRepo->getArraysByType('drug');
+            $allergyEnvironment     = $allergyRepo->getArraysByType('environment');
             $allergies              = array();
             $allergies['food']      = $allergyFood;
             $allergies['drug']      = $allergyDrug;
+            $allergies['environment']      = $allergyEnvironment;
 
             $carTypes               = array();
             $car_type_setup_arr     = Cartypesetup::select('car_type_id')->distinct()->whereNull('deleted_at')->get();
@@ -219,7 +300,7 @@ class ScheduleController extends Controller
             $patients = $patientRepo->getArrays();
 
             $currentUserID = Utility::getCurrentUserID();
-            
+
             return view('backend.schedule.schedule')
                 ->with('enquiry_confirm_id', $enquiry_confirm_id)
                 ->with('new_schedule', $new_schedule)
@@ -386,16 +467,26 @@ class ScheduleController extends Controller
                 }
             }
             else{
+
                 // Schedule Saving without creating new patient case
                 $result = $this->scheduleRepository->create($paramObj,$services,$hhcsPersonnels);
                 if($result['aceplusStatusCode'] ==  ReturnMessage::OK){
 
+                    // // Updating the enquiry status to confirm
+                    // if($enquiry_id !== ""){
+                    //     $enquiry = Enquiry::find($enquiry_id);
+                    //     $enquiry->status = "confirm";
+                    //     $enquiry->save();
+
+                    // }
                     // Updating the enquiry status to confirm
-                    if($enquiry_id !== ""){
-                        $enquiry = Enquiry::find($enquiry_id);
+                    if(isset($enquiry) && count($enquiry)>0){
                         $enquiry->status = "confirm";
+                        // $enquiry->patient_id = $createdPatient->user_id;
                         $enquiry->save();
                     }
+
+
                     if($patient_package_id != "") {
                         // Updating the Package Schedule Used Count
                         $packageSaleRepo = new PackageSaleRepository();
@@ -661,16 +752,68 @@ class ScheduleController extends Controller
                 $patients[$patient->user_id] = $patient;
             }
 
-            $schedules      = $this->scheduleRepository->getObjs($schedule_status, $from_date, $to_date);
+            $servicesArray = array();
+            $serviceRepo = new ServiceRepository();
+            $servicesRaw = $serviceRepo->getArrays();
+            foreach($servicesRaw as $key=>$service) {
+                $servicesArray[$service->id] = $service;
+            }
+
+            $currentUserRole = Utility::getCurrentUserRole();
+            $currentUserID = Utility::getCurrentUserID();
+
+            //if currently logged in user is MO role, get only schedules that belong to him or her
+            if($currentUserRole == 6){
+                $schedules      = $this->scheduleRepository->getObjsByUser($currentUserID, $schedule_status, $from_date, $to_date);
+            }
+            else{
+                $schedules      = $this->scheduleRepository->getObjs($schedule_status, $from_date, $to_date);
+            }
+            // if(isset($schedules) && count($schedules)>0) {
+            //     foreach($schedules as $key=>$schedule){
+
+            //         $patientId = $schedule->patient_id;
+            //         $tempPatient = $patients[$patientId];
+
+            //         $schedules[$key]->patient_type = $patientTypes[$tempPatient->patient_type_id];
+            //         $schedules[$key]->received_by  = $users[$schedule->created_by]->name;
+            //         $schedules[$key]->patient_name = $tempPatient->name;
+            //     }
+            // }
+
             if(isset($schedules) && count($schedules)>0) {
-                foreach($schedules as $key=>$schedule){
+                foreach ($schedules as $key => $schedule) {
+                    $tempPatientId = $schedule->patient_id;
+                    $patientTypeId = $patients[$tempPatientId]->patient_type_id;
 
-                    $patientId = $schedule->patient_id;
-                    $tempPatient = $patients[$patientId];
+                    $patientName = $patients[$tempPatientId]->name;
+                    $schedules[$key]->patient_type = $patientTypes[$patientTypeId];
+                    $schedules[$key]->patient_name = $patientName;
 
-                    $schedules[$key]->patient_type = $patientTypes[$tempPatient->patient_type_id];
-                    $schedules[$key]->received_by  = $users[$schedule->created_by]->name;
-                    $schedules[$key]->patient_name = $tempPatient->name;
+                    //get leader id
+                    $leader_id = $schedule->leader_id;
+                    $schedules[$key]->leader = $users[$leader_id]->name;
+
+                     //get service from schedule_detail
+                     $schedule_id = $schedule->id;
+                     $type = "service";
+
+                    //  $schedule_details = $this->scheduleRepository->getScheduleDetailService($schedule_id,$type);
+                     $schedule_details = $this->scheduleRepository->getScheduleDetailServices($schedule_id,$type);
+                    if(isset($schedule_details) && count($schedule_details)>0){
+                        foreach($schedule_details as $detail){
+                            $service_id = $detail->service_id;
+                            if(array_key_exists('services',$schedules[$key])){
+                                $schedules[$key]->services  .= ','.$servicesArray[$service_id]->name;
+                            }
+                            else{
+                                $schedules[$key]->services  = $servicesArray[$service_id]->name;
+                            }
+                        }
+                    }
+                    else{
+                        $schedules[$key]->services  = "";
+                    }
                 }
             }
 

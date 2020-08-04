@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Terminal extends Model
 {
+    public $incrementing = false;
     protected $table = 'terminals';
 
     protected $fillable = [
